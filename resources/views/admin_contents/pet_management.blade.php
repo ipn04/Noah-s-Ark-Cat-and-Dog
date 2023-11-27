@@ -427,7 +427,7 @@
                                                     </svg>
                                                     Edit
                                                 </button>
-                                                <button type="button" data-drawer-target="drawer-read-product-advanced" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+                                                <button type="button" data-drawer-target="drawer-read-product-advanced" onclick="previewPetDetails('{{ $pet->id }}')" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
                                                         <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
                                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
@@ -731,8 +731,7 @@
         <!-- Preview Drawer -->
         <div id="drawer-read-product-advanced" class="overflow-y-auto fixed top-0 left-0 z-40 p-4 w-full max-w-lg h-screen bg-white transition-transform -translate-x-full dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
             <div>
-                <h4 id="read-drawer-label" class="mb-1.5 leading-none text-xl font-semibold text-gray-900 dark:text-white">Apple iMac 25"</h4>
-                <h5 class="mb-5 text-xl font-bold text-gray-900 dark:text-white">$2999</h5>
+                <h5 id="read-drawer-label" class="mb-4 leading-none text-2xl font-bold text-gray-900 dark:text-white">Pet Details</h5>
             </div>
             <button type="button" data-drawer-dismiss="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -740,51 +739,64 @@
                 </svg>
                 <span class="sr-only">Close menu</span>
             </button>
-            <div class="w-100">
-                <div class="container mx-auto">
-                    
-                </div>
-            </div>
-            <dl class="sm:mb-5"><dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Details</dt><dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">Standard glass ,3.8GHz 8-core 10th-generation Intel Core i7 processor, Turbo Boost up to 5.0GHz, 16GB 2666MHz DDR4 memory, Radeon Pro 5500 XT with 8GB of GDDR6 memory, 256GB SSD storage, Gigabit Ethernet, Magic Mouse 2, Magic Keyboard - US.</dd></dl>
             <dl class="grid grid-cols-2 gap-4 mb-4">
                 <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Shipping</dt>
-                    <dd class="flex items-center text-gray-500 dark:text-gray-400">
-                        <svg class="w-4 h-4 mr-1.5" aria-hidden="true" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd" />
-                        </svg>
-                        United States, Europe
-                    </dd>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Name</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_name"></h4>
                 </div>
                 <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Colors</dt>
-                    <dd class="flex items-center space-x-2 font-light text-gray-500 dark:text-gray-400">
-                        <div class="flex-shrink-0 w-6 h-6 bg-purple-600 rounded-full"></div>
-                        <div class="flex-shrink-0 w-6 h-6 bg-indigo-400 rounded-full"></div>
-                        <div class="flex-shrink-0 w-6 h-6 rounded-full bg-primary-600"></div>
-                        <div class="flex-shrink-0 w-6 h-6 bg-pink-400 rounded-full"></div>
-                        <div class="flex-shrink-0 w-6 h-6 bg-teal-300 rounded-full"></div>
-                        <div class="flex-shrink-0 w-6 h-6 bg-green-300 rounded-full"></div>
-                    </dd>
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Type</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_type"></h4>
                 </div>
-                <div class="p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600">
-                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Product State</dt>
-                    <dd class="text-gray-500 dark:text-gray-400">
-                        <span class="bg-primary-100 text-primary-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-primary-200 dark:text-primary-800">
-                            <svg aria-hidden="true" class="mr-1 w-3 h-3" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                            </svg>
-                            New
-                        </span>
-                    </dd>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Breed</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_breed"></h4>
                 </div>
-                <div class="p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600"><dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Sold by</dt><dd class="text-gray-500 dark:text-gray-400">Flowbite</dd></div>
-                <div class="p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600"><dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Ships from</dt><dd class="text-gray-500 dark:text-gray-400">Flowbite</dd></div>
-                <div class="p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600"><dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Brand</dt><dd class="text-gray-500 dark:text-gray-400">Apple</dd></div>
-                <div class="p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600"><dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Dimensions (cm)</dt><dd class="text-gray-500 dark:text-gray-400">105 x 15 x 23</dd></div>
-                <div class="p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 dark:border-gray-600"><dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Item weight</dt><dd class="text-gray-500 dark:text-gray-400">12kg</dd></div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Age</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_age"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Color</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_color"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Gender</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_gender"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Weight</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_weight"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Size</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_size"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Behaviour</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_behaviour"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Adoption Status</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 adoptionS_status"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Vaccination Status</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 vaccination_status"></h4>
+                </div>
+                <div class="col-span-2 p-3 bg-gray-100 rounded-lg border border-gray-200 dark:bg-gray-700 sm:col-span-1 dark:border-gray-600">
+                    <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Description</dt>
+                    <h4 class="flex items-center text-gray-500 dark:text-gray-400 pet_description"></h4>
+                </div>
             </dl>
-            <div class="flex bottom-0 left-0 justify-center pb-4 space-x-4 w-full">
+            <div class="w-full h-full mb-7">
+                @if(isset($pet) && $pet->dropzone_file)
+                    <img src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
+                @else
+                    <p>No image available</p>
+                @endif
+            </div>
+            <div class="flex left-0 justify-center pb-4 space-x-4 w-full">
                 <button type="button" class="text-white w-full inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                     <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                         <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />

@@ -25,6 +25,8 @@ Route::get('/', function () {
 
 Route::post('/addPet', [PetDataController::class, 'addPet'])->middleware(['auth', 'verified'])->name('addPet');
 
+Route::get('/pets/{id}', [PetDataController::class, 'showPet'])->middleware(['auth', 'verified'])->name('showPet');
+
 Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'verified'])->name('pets.delete');
 
 Route::get('/pet/management', [PetDataController::class, 'showPetManagement'])

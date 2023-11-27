@@ -14,6 +14,17 @@ class PetDataController extends Controller
 
         return view('admin_contents.pet_management', ['pets' => $pets]);
     }
+
+    public function showPet($id)
+    {
+        $pet = Pet::find($id);
+        if (!$pet) {
+            return response()->json(['message' => 'Pet not found'], 404);
+        }
+
+        return response()->json(['pet' => $pet]);
+    }
+
     public function addPet(Request $request) {
         // Check the MIME type
         // dd($request->all());

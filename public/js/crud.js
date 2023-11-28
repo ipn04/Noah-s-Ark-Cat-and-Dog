@@ -55,12 +55,20 @@ function previewPetDetails(petId) {
                 '.pet_behaviour': petData.behaviour,
                 '.adoption_status': petData.adoption_status,
                 '.vaccination_status': petData.vaccination_status,
-                '.pet_description': petData.description
+                '.pet_description': petData.description,
             };
 
             for (const selector in elementsMap) {
                 updateElementContent(selector, elementsMap[selector]);
             }
+
+            const petImage = document.querySelector('.pet_image'); // Assuming '.pet_image' represents an <img> tag
+            if (petImage && petData.dropzone_file) {
+                petImage.src = `/storage/images/${petData.dropzone_file}`;
+            } else {
+                petImage.style.display = 'none'; // Hide the image if there's no valid image file
+            }
+
         })
         .catch(error => {
             console.error('Error fetching pet details:', error);

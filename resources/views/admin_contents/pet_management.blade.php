@@ -747,11 +747,7 @@
                 </div>
             </dl>
             <div class="w-full mb-4">
-                @if(isset($pet) && $pet->dropzone_file)
-                    <img src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
-                @else
-                    <p>No image available</p>
-                @endif
+                <img class="h-full w-full pet_image" alt="Pet Image">
             </div>
             <div class="flex left-0 justify-center space-x-4 w-full">
                 <button type="button" data-drawer-target="drawer-update-product" data-drawer-show="drawer-update-product" data-drawer-dismiss="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="text-white w-full inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">

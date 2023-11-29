@@ -19,14 +19,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/pet/page', function () {
-    return view('welcome.pet_page');
-})->name('display.pet');
-
-
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/about', function () {
+    return view('landing.aboutus');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('landing.contact');
+})->name('contact');
+
+Route::get('/pets', function () {
+    return view('landing.pets');
+})->name('pets');
+
+Route::get('/howicanhelp', function () {
+    return view('landing.how');
+})->name('how');
 
 Route::post('/addPet', [PetDataController::class, 'addPet'])->middleware(['auth', 'verified'])->name('addPet');
 

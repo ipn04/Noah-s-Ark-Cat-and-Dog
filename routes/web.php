@@ -19,6 +19,23 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/about', function () {
+    return view('landing.aboutus');
+})->name('about');
+
+Route::get('/contact', function () {
+    return view('landing.contact');
+})->name('contact');
+
+Route::get('/pets', function () {
+    return view('landing.pets');
+})->name('pets');
+
+Route::get('/howicanhelp', function () {
+    return view('landing.how');
+})->name('how');
+
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

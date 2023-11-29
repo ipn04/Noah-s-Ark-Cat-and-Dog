@@ -23,19 +23,19 @@ Route::get('/', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 Route::get('/about', function () {
-    return view('landing.aboutus');
+    return view('initial_page.aboutus');
 })->name('about');
 
 Route::get('/contact', function () {
-    return view('landing.contact');
+    return view('initial_page.contact');
 })->name('contact');
 
 Route::get('/pets', function () {
-    return view('landing.pets');
+    return view('initial_page.pets');
 })->name('pets');
 
 Route::get('/howicanhelp', function () {
-    return view('landing.how');
+    return view('initial_page.how');
 })->name('how');
 
 Route::post('/addPet', [PetDataController::class, 'addPet'])->middleware(['auth', 'verified'])->name('addPet');

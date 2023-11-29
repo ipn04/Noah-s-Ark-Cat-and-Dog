@@ -1,5 +1,5 @@
 <x-guest-layout>
     <div>
-        This is the Home page
+        This is the about us page
     </div>
 </x-guest-layout>

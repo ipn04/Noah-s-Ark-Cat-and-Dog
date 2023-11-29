@@ -87,5 +87,6 @@ class PetDataController extends Controller
         
         return response()->json(['message' => 'Pet deleted successfully']);
     }
+    
 }
 

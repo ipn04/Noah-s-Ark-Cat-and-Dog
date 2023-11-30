@@ -15,6 +15,13 @@ class PetDataController extends Controller
         return view('admin_contents.pet_management', ['pets' => $pets]);
     }
 
+    public function showPublicPets()
+    {
+        $pets = Pet::all();
+
+        return view('initial_page.pets', ['pets' => $pets]);
+    }
+
     public function showPet($id)
     {
         $pet = Pet::find($id);

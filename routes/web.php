@@ -30,9 +30,12 @@ Route::get('/contact', function () {
     return view('initial_page.contact');
 })->name('contact');
 
-Route::get('/pets', function () {
-    return view('initial_page.pets');
-})->name('pets');
+// Route::get('/pets', function () {
+//     return view('initial_page.pets');
+// })->name('pets');
+
+Route::get('/pets', [PetDataController::class, 'showPublicPets'])->name('pets');
+
 
 Route::get('/howicanhelp', function () {
     return view('initial_page.how');

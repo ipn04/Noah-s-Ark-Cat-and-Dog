@@ -26,7 +26,7 @@
         </div>
         @elseif(Route::is('pets'))
             @include('navbar.main_navbar')
-            <div class="bg-green-300 mt-20">
+            <div class="mt-20">
                 {{ $slot }}
             </div>
         @else 

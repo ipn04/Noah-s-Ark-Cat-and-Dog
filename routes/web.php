@@ -17,7 +17,55 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('ivan');
+
+/* user`s routes */
+
+Route::get('/user/dashboard', function () {
+    return view('dashboards.user_dashboard');
+})->middleware(['auth', 'verified'])->name('user.dashboard');   
+
+Route::get('/user/messages', function () {
+    return view('user_contents.messages');
+})->middleware(['auth', 'verified'])->name('user.messages');   
+
+
+Route::get('/user/applications', function () {
+    return view('user_contents.applications');
+})->middleware(['auth', 'verified'])->name('user.applications');   
+
+
+/* admin`s routes */
+
+Route::get('/admin/dashboard', function () {
+    return view('dashboards.admin_dashboard');
+})->middleware(['auth', 'verified'])->name('admin.dashboard');
+
+Route::get('/admin/messages', function () {
+    return view('admin_contents.messages');
+})->middleware(['auth', 'verified'])->name('admin.messages');
+
+Route::get('/pet/management', [PetDataController::class, 'showPetManagement'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.pet.management');
+
+Route::get('/admin/reports', function () {
+    return view('admin_contents.reports');
+})->middleware(['auth', 'verified'])->name('admin.reports');
+
+Route::get('/admin/adoptions', function () {
+    return view('admin_contents.adoptions');
+})->middleware(['auth', 'verified'])->name('admin.adoptions');
+
+Route::get('/admin/volunteers', function () {
+    return view('admin_contents.volunteers');
+})->middleware(['auth', 'verified'])->name('admin.volunteers');
+
+Route::get('/admin/schedule', function () {
+    return view('admin_contents.schedule');
+})->middleware(['auth', 'verified'])->name('admin.schedule');
+
+
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
@@ -47,17 +95,8 @@ Route::get('/pets/{id}', [PetDataController::class, 'showPet'])->middleware(['au
 
 Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'verified'])->name('pets.delete');
 
-Route::get('/pet/management', [PetDataController::class, 'showPetManagement'])
-    ->middleware(['auth', 'verified'])
-    ->name('admin.pet.management');
 
-Route::get('/user/dashboard', function () {
-    return view('dashboards.user_dashboard');
-})->middleware(['auth', 'verified'])->name('user.dashboard');   
 
-Route::get('/admin/dashboard', function () {
-    return view('dashboards.admin_dashboard');
-})->middleware(['auth', 'verified'])->name('admin.dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

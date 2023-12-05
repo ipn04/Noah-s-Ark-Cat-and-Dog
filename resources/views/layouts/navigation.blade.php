@@ -1,9 +1,9 @@
 <nav x-data="{ open: false }" class=" md:bg-transparent bg-white dark:bg-gray-800  dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> --}}
-        <div class="sm:ml-64">
+        <div class=" lg:flex lg:justify-end">
 
-        <div class="flex justify-between mx-auto max-w-screen-2xl px-4 lg:px-12 h-16">
+        <div class="flex justify-between mx-auto lg:mx-1 max-w-screen-2xl px-4 lg:px-12 h-16">
             <!-- Layout with sidebar on left, space in the middle, and hamburger on right -->
             <div class="flex items-center  sm:hidden">
                 <!-- Sidebar button on the left -->
@@ -37,28 +37,28 @@
 
                 <!-- Hamburger button on the right -->
                 <button
-                    @click="open = !open"
-                    class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out"
-                >
-                    <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path
-                            :class="{'hidden': open, 'inline-flex': !open}"
-                            class="inline-flex"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M4 6h16M4 12h16M4 18h16"
-                        />
-                        <path
-                            :class="{'hidden': !open, 'inline-flex': open}"
-                            class="hidden"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M6 18L18 6M6 6l12 12"
-                        />
-                    </svg>
-                </button>
+                @click="open = !open"
+                class="flex items-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out lg:justify-end"
+            >
+                <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
+                    <path
+                        :class="{'hidden': open, 'inline-flex': !open}"
+                        class="inline-flex"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M4 6h16M4 12h16M4 18h16"
+                    />
+                    <path
+                        :class="{'hidden': !open, 'inline-flex': open}"
+                        class="hidden"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M6 18L18 6M6 6l12 12"
+                    />
+                </svg>
+            </button>
             </div>
 
             <!-- Settings Dropdown -->

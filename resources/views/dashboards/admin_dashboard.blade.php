@@ -9,7 +9,7 @@
         </h2>
     </x-slot>
 
-    <div class="py-4">
+    <div class="py-4 bg-red-800">
       <div class="container mx-auto">
          <!-- 2 columns on small screens, 3 columns on medium screens, 4 columns on large screens -->
          <div class="grid grid-cols-1  p-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 px-8">
@@ -33,16 +33,12 @@
             <p class = "text-center text-4xl font-bold ">5</p>
 
            </div>
-
-           
-     
-   
      
            <!-- Add more columns as needed -->
      
          </div>
        </div>
-    </div>
+   </div>
 </x-app-layout>
 
    <div class="p-4 border-2 border-gray-200 border-dashed rounded-lg dark:border-gray-700">

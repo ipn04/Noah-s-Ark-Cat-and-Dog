@@ -7,22 +7,22 @@
             <div class="grid grid-cols-1  p-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 px-8">
                 <!-- Column 1 -->
                 <div class="p-4 bg-white shadow rounded-lg shadow-sm hover">
-                <p class = "text-center text-lg">Total Applications</p>
-                <p class = "text-center text-4xl font-bold ">5</p>
+                <p class = "text-center text-lg">Total Pets</p>
+                <p class = "text-center text-4xl font-bold ">{{$petCount}}</p>
     
                 </div>
         
                 <!-- Column 2 -->
                 <div class="p-4 bg-white shadow rounded-lg">
-                <p class = "text-center text-lg">Animals Available</p>
-                <p class = "text-center text-4xl font-bold ">5</p>
+                <p class = "text-center text-lg">Dog</p>
+                <p class = "text-center text-4xl font-bold ">{{$dogCount}}</p>
     
                 </div>
         
                 <!-- Column 3 -->
                 <div class="p-5 bg-white shadow rounded-lg">
-                <p class = "text-center text-lg">Registered Users</p>
-                <p class = "text-center text-4xl font-bold ">5</p>
+                <p class = "text-center text-lg">Cat</p>
+                <p class = "text-center text-4xl font-bold ">{{$catCount}}</p>
     
                 </div>
         

@@ -56,7 +56,7 @@
             </div>
 
             <!-- Layout with sidebar on left, space in the middle, and hamburger on right -->
-            <div class="flex items-center -ms-2 sm:hidden">
+            <div class="flex items-center justify-between -ms-2 sm:hidden">
                 <!-- Sidebar button on the left -->
                 <button
                     data-drawer-target="default-sidebar"

@@ -11,8 +11,12 @@ class PetDataController extends Controller
     public function showPetManagement()
     {
         $pets = Pet::all(); // Fetch all pets
+        $petCount = Pet::count();
+        $catCount = Pet::where('pet_type', 'cat')->count(); // Get the count of cats
+        $dogCount = Pet::where('pet_type', 'dog')->count();
 
-        return view('admin_contents.pet_management', ['pets' => $pets]);
+        return view('admin_contents.pet_management', ['pets' => $pets,'petCount' => $petCount, 'catCount' => $catCount,
+        'dogCount' => $dogCount,]);
     }
 
     public function showPublicPets()

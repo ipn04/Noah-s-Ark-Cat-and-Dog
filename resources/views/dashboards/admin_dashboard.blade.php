@@ -1,7 +1,7 @@
 
-@include('sidebars.admin_sidebar')
-<div class="p-4 sm:ml-64">
+<div class="sm:ml-64">
    <x-app-layout>
+      @include('sidebars.admin_sidebar')
 
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
@@ -9,15 +9,39 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-gray-50 dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("You're logged in!") }}
-                    <h1>Hello Admin</h1>
-                </div>
-            </div>
-        </div>
+    <div class="py-4">
+      <div class="container mx-auto">
+         <!-- 2 columns on small screens, 3 columns on medium screens, 4 columns on large screens -->
+         <div class="grid grid-cols-1  p-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 px-8">
+           <!-- Column 1 -->
+           <div class="p-4 bg-white shadow rounded-lg shadow-sm hover">
+            <p class = "text-center text-lg">Total Applications</p>
+            <p class = "text-center text-4xl font-bold ">5</p>
+
+          </div>
+     
+           <!-- Column 2 -->
+           <div class="p-4 bg-white shadow rounded-lg">
+             <p class = "text-center text-lg">Animals Available</p>
+             <p class = "text-center text-4xl font-bold ">5</p>
+
+           </div>
+     
+           <!-- Column 3 -->
+           <div class="p-5 bg-white shadow rounded-lg">
+            <p class = "text-center text-lg">Registered Users</p>
+            <p class = "text-center text-4xl font-bold ">5</p>
+
+           </div>
+
+           
+     
+   
+     
+           <!-- Add more columns as needed -->
+     
+         </div>
+       </div>
     </div>
 </x-app-layout>
 

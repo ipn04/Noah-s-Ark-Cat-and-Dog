@@ -32,10 +32,11 @@
             @endif --}}
 
             <!-- Page Content -->
-            <main>
-                {{ $slot }}
-            </main>
+           
         </div>
+        <main>
+            {{ $slot }}
+        </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.js"></script>
         <script src="/js/crud.js">deletepet</script>       
     </body>

@@ -1,3 +1,20 @@
+$(document).ready(function() {
+    $('#simple-search').on('input', function() {
+        var searchQuery = $(this).val().toLowerCase(); // Get the search query
+        
+        $('.petRow').each(function() {
+            var petName = $(this).text().toLowerCase(); // Get pet name within the row
+            
+            if (petName.indexOf(searchQuery) === -1) {
+                $(this).hide(); // Hide rows that don't match the search
+            } else {
+                $(this).show(); // Show rows that match the search
+            }
+        });
+    });
+});
+
+
 function deletePet(petId) {
     fetch(`/pets/${petId}`, {
         method: 'DELETE',

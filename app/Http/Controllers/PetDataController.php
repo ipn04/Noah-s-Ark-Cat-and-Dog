@@ -98,6 +98,22 @@ class PetDataController extends Controller
         
         return response()->json(['message' => 'Pet deleted successfully']);
     }
-    
+
+    // search
+    // public function search(Request $request){
+    //     // Get the search value from the request
+    //     $search = $request->input('search');
+    //     $petCount = Pet::count();
+    //     $catCount = Pet::where('pet_type', 'cat')->count();
+    //     $dogCount = Pet::where('pet_type', 'dog')->count();
+        
+    //     // Search in the title and body columns from the posts table
+        
+    //     $pets = Pet::query()
+    //         ->where('pet_name', 'LIKE', "%{$search}%")
+    //         ->get();
+    //         return response()->json(['pets' => $pets]);
+    //     // Return the search view with the resluts compacted
+    // }
 }
 

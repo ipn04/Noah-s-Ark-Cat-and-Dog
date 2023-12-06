@@ -95,7 +95,8 @@ Route::get('/pets/{id}', [PetDataController::class, 'showPet'])->middleware(['au
 
 Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'verified'])->name('pets.delete');
 
-
+// for search
+// Route::post('/pet/search', [PetDataController::class, 'search'])->middleware(['auth', 'verified'])->name('search');
 
 
 Route::middleware('auth')->group(function () {

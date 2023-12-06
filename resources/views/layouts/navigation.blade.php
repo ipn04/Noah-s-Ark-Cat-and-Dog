@@ -1,4 +1,4 @@
-<nav x-data="{ open: false }" class=" md:bg-transparent bg-white dark:bg-gray-800  dark:border-gray-700">
+<nav x-data="{ open: false }" class=" md:bg-transparent bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> --}}
         <div class=" lg:flex lg:justify-end">

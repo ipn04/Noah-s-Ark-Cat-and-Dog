@@ -11,30 +11,60 @@
 
     <div class="py-4 bg-red-800">
       <div class="container mx-auto">
-         <!-- 2 columns on small screens, 3 columns on medium screens, 4 columns on large screens -->
+
          <div class="grid grid-cols-1  p-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 px-8">
+
            <!-- Column 1 -->
-           <div class="p-4 bg-white shadow rounded-lg shadow-sm hover">
-            <p class = "text-center text-lg">Total Applications</p>
-            <p class = "text-center text-4xl font-bold ">5</p>
-
-          </div>
-     
+         <div class="flex p-6 bg-white shadow rounded-lg hover:shadow-md items-center">
+            <div class="mr-4 flex items-center text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                    <path d="M19.5 22.5a3 3 0 003-3v-8.174l-6.879 4.022 3.485 1.876a.75.75 0 01-.712 1.321l-5.683-3.06a1.5 1.5 0 00-1.422 0l-5.683 3.06a.75.75 0 01-.712-1.32l3.485-1.877L1.5 11.326V19.5a3 3 0 003 3h15z" />
+                    <path d="M1.5 9.589v-.745a3 3 0 011.578-2.641l7.5-4.039a3 3 0 012.844 0l7.5 4.039A3 3 0 0122.5 8.844v.745l-8.426 4.926-.652-.35a3 3 0 00-2.844 0l-.652.35L1.5 9.59z" />
+                </svg>
+            </div>
+            <div>
+                <p class="text-gray-700 text-xl font-semibold">Total Applications</p>
+                <p class="text-gray-500 text-sm">Since today</p>
+            </div>
+            <div class="ml-auto flex items-center">
+                <p class="text-4xl font-bold text-red-500">5</p>
+            </div>
+        </div>
+        
            <!-- Column 2 -->
-           <div class="p-4 bg-white shadow rounded-lg">
-             <p class = "text-center text-lg">Animals Available</p>
-             <p class = "text-center text-4xl font-bold ">5</p>
-
-           </div>
+           <div class="flex p-6 bg-white shadow rounded-lg hover:shadow-md items-center">
+            <div class="mr-4 flex items-center text-red-500">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                </svg>
+                
+            </div>
+            <div>
+                <p class="text-gray-700 text-xl font-semibold">All Pets Available</p>
+                <p class="text-gray-500 text-sm">Since today</p>
+            </div>
+            <div class="ml-auto flex items-center">
+                <p class="text-4xl font-bold text-red-500">5</p>
+            </div>
+        </div>
      
            <!-- Column 3 -->
-           <div class="p-5 bg-white shadow rounded-lg">
-            <p class = "text-center text-lg">Registered Users</p>
-            <p class = "text-center text-4xl font-bold ">5</p>
-
-           </div>
+           <div class="flex p-6 bg-white shadow rounded-lg hover:shadow-md items-center">
+            <div class="mr-4 flex items-center text-red-500">
+               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                  <path fill-rule="evenodd" d="M7.5 6a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM3.751 20.105a8.25 8.25 0 0116.498 0 .75.75 0 01-.437.695A18.683 18.683 0 0112 22.5c-2.786 0-5.433-.608-7.812-1.7a.75.75 0 01-.437-.695z" clip-rule="evenodd" />
+                </svg>
+                
+            </div>
+            <div>
+                <p class="text-gray-700 text-xl font-semibold">Total Registered Applicants </p>
+                <p class="text-gray-500 text-sm">Since today</p>
+            </div>
+            <div class="ml-auto flex items-center">
+                <p class="text-4xl font-bold text-red-500">5</p>
+            </div>
+        </div>
      
-           <!-- Add more columns as needed -->
      
          </div>
        </div>
@@ -53,8 +83,8 @@
                     <tr>
                         <th class="px-4 py-3 text-gray-500">Category</th>
                         <th class="px-4 py-3 text-gray-500">Name</th>
-                        <th class="px-4 py-3 text-gray-500"">Time</th>
-                        <th class="px-4 py-3 text-gray-500"">Details</th>
+                        <th class="px-4 py-3 text-gray-500">Time</th>
+                        <th class="px-4 py-3 text-gray-500">Details</th>
                     </tr>
                 </thead>
                 <tbody class="bg-white">

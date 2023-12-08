@@ -25,6 +25,12 @@
                 {{ $slot }}
             </div>
         </div>
+        @elseif(Route::is('register')) 
+        <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
+            <div class="w-full sm:max-w-md px-6 py-6 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg">
+                {{ $slot }}
+            </div>
+        </div>
         @elseif(Route::is('pets'))
             @include('navbar.main_navbar')
             <div class="mt-20">
@@ -36,7 +42,7 @@
             <div class="mt-20">
                 {{ $slot }}
             </div>
-
+        
         @else 
             @include('navbar.main_navbar')
             <div class="mt-20 flex justfify-center align-center w-full">

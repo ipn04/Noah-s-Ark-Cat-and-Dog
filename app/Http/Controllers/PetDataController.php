@@ -12,10 +12,10 @@ class PetDataController extends Controller
     {
         $pets = Pet::all(); // Fetch all pets
         $petCount = Pet::count();
-        $catCount = Pet::where('pet_type', 'cat')->count(); // Get the count of cats
+        $availpet = Pet::where('adoption_status', 'available')->count(); // Get the count of cats
         $dogCount = Pet::where('pet_type', 'dog')->count();
 
-        return view('admin_contents.pet_management', ['pets' => $pets,'petCount' => $petCount, 'catCount' => $catCount,
+        return view('admin_contents.pet_management', ['pets' => $pets,'petCount' => $petCount, 'availpet' => $availpet,
         'dogCount' => $dogCount,]);
     }
 

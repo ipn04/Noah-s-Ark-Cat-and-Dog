@@ -1,19 +1,16 @@
 $(document).ready(function() {
     $('#simple-search').on('input', function() {
-        var searchQuery = $(this).val().toLowerCase(); // Get the search query
+        let value = $(this).val().toLowerCase();  
         
-        $('.petRow').each(function() {
-            var petName = $(this).text().toLowerCase(); // Get pet name within the row
-            
-            if (petName.indexOf(searchQuery) === -1) {
-                $(this).hide(); // Hide rows that don't match the search
+        $('#Container div[data-name]').each(function () {
+            if ($(this).text().toLowerCase().indexOf(value) === -1) {
+                $(this).hide();
             } else {
-                $(this).show(); // Show rows that match the search
+                $(this).show();
             }
-        });
+          });
     });
 });
-
 
 function deletePet(petId) {
     fetch(`/pets/${petId}`, {
@@ -176,13 +173,3 @@ function updateDrawer(petId) {
 
 
 
-$("#box").on('keyup', function(){
-    let value = $(this).val().toLowerCase();  
-    $('#Container div[data-name]').each(function () {
-      if ($(this).text().toLowerCase().indexOf(value) === -1) {
-          $(this).hide();
-      } else {
-          $(this).show();
-      }
-    });
-  });

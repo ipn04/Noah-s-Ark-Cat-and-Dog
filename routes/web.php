@@ -98,6 +98,8 @@ Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['
 // for search
 // Route::post('/pet/search', [PetDataController::class, 'search'])->middleware(['auth', 'verified'])->name('search');
 
+Route::get('/filter-pets', [PetDataController::class, 'filterPets'])->name('filter.pets');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

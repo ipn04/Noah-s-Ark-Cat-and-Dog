@@ -19,6 +19,19 @@ class PetDataController extends Controller
         'dogCount' => $dogCount,]);
     }
 
+    public function filterPets(Request $request)
+    {
+        // Fetch pets based on filter criteria (selectedCat, selectedAvailability, searchText)
+        // Perform your filtering logic here using the $request parameters
+        // Example: Fetch filtered pets from the database
+        
+        $filteredPets = Pet::where('pet_type', $request->category)->get();
+
+        // Render the filtered pets view (e.g., pet-listing.blade.php) and return it as a response
+        return view('initial_page.pet_lists', ['pets' => $filteredPets])->render();
+    }
+
+
     public function showPublicPets()
     {
         $pets = Pet::all();

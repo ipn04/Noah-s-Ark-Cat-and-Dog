@@ -2,13 +2,15 @@ $(document).ready(function() {
     $('#simple-search').on('input', function() {
         let value = $(this).val().toLowerCase();  
         
-        $('#Container div[data-name]').each(function () {
-            if ($(this).text().toLowerCase().indexOf(value) === -1) {
+        $('.pet-container').each(function () {
+            let petName = $(this).attr('data-name').toLowerCase();
+            if (petName.indexOf(value) === -1) {
                 $(this).hide();
             } else {
                 $(this).show();
             }
-          });
+          }
+        );
     });
 });
 

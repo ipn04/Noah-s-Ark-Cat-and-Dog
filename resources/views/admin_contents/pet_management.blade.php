@@ -145,10 +145,11 @@
             </div>
             
             <div class="container mx-auto">
-                <div  class="grid grid-cols-1  p-5 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-4 px-4">
+                <div  class="grid grid-cols-1  p-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4 px-4">
                     <!-- Column 1 -->
                     @if($pets->isNotEmpty())
                         @foreach($pets as $pet)
+                            {{-- etong div na 'to 'yung for search kaya 'wag mo palitan 'yung name na pet-container sa class --}}
                             <div id="Container" data-name="{{ $pet->pet_name }}" class="pet-container flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
                                 <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
                                 <div class="flex flex-col justify-between p-4 leading-normal">

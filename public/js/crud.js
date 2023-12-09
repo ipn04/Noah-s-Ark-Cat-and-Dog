@@ -75,6 +75,17 @@ $(document).ready(function() {
     });
 });
 
+// mobile pet management search
+$("#box").on('keyup', function(){
+    let value = $(this).val().toLowerCase();  
+    $('#Container div[data-name]').each(function () {
+      if ($(this).text().toLowerCase().indexOf(value) === -1) {
+          $(this).hide();
+      } else {
+          $(this).show();
+      }
+    });
+  });
 
 function deletePet(petId) {
     fetch(`/pets/${petId}`, {

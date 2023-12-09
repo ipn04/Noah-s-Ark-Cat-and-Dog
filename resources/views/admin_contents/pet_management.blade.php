@@ -64,7 +64,7 @@
         </div>
     </div>
     
-    <section class="sm:ml-64 dark:bg-gray-900 p-2 antialiased">
+    <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             @if ($errors->any())
                 <div class="flex items-center p-4 mb-4 text-sm text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
@@ -113,12 +113,18 @@
             <div class="flex flex-col  items-stretch justify-between py-4 dark:border-gray-700">
                 <div class="flex items-center justify-between">
                     <h1 class = "text-2xl text-red-500 font-bold">List of Pets</h1>
+                    <button type="button" id="createProductButton" data-modal-target="createProductModal"  data-modal-toggle="createProductModal" class="flex lg:hidden items-center justify-center text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                            <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
+                        </svg>
+                        Add Pet
+                    </button>
                 </div>   
             </div>
             
             <!-- WEB RESPONSIVENESS TABLE -->
-            <div class="relative overflow-x-auto flex-col  items-stretch rounded-2xl mb-5 shadow-lg justify-between">
-                <div class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
+            <div class="relative overflow-x-auto flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between">
+                <div class=" lg:bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">
                         <form role="search" class="flex items-center">
                             <label for="simple-search" class="sr-only">Search</label>
@@ -134,14 +140,14 @@
                     </div>
                   
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button type="button" id="createProductButton" data-modal-target="createProductModal"  data-modal-toggle="createProductModal" class="flex items-center justify-center text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
+                        <button type="button" id="createProductButton" data-modal-target="createProductModal"  data-modal-toggle="createProductModal" class=" hidden lg:flex items-center justify-center text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                             <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                                 <path clip-rule="evenodd" fill-rule="evenodd" d="M10 3a1 1 0 011 1v5h5a1 1 0 110 2h-5v5a1 1 0 11-2 0v-5H4a1 1 0 110-2h5V4a1 1 0 011-1z" />
                             </svg>
                             Add Pet
                         </button>
-                        <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 text-gray-400" viewbox="0 0 20 20" fill="currentColor">
+                        <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 " viewbox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                             </svg>
                             Filter options
@@ -179,47 +185,55 @@
                         @if($pets->isNotEmpty())
                             @foreach($pets as $pet)
                                 <tr data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}" data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}" data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}"  class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td scope="row" class="flex items-center px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                    <td scope="row" class="flex items-center px-6 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
                                         <img class="w-10 h-10 rounded-full" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
                                         <div class="ps-3">
-                                            <div class="text-base font-semibold">{{ $pet->pet_name }}</div>
+                                            <div class="text-base">{{ $pet->pet_name }}</div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-base font-semibold">{{ $pet->pet_type }}</div>
+                                        <div class="text-base text-gray-500 ">{{ $pet->pet_type }}</div>
 
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-base font-semibold">{{ $pet->gender }}</div>
+                                        <div class="text-base text-gray-500  ">{{ $pet->gender }}</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-base font-semibold">{{ $pet->vaccination_status }}</div>
+                                        <div class="text-base text-gray-500  ">{{ $pet->vaccination_status }}</div>
                                     </td>
                                     <td class="px-6 py-4">
-                                        <div class="text-base font-semibold">{{ $pet->adoption_status }}</div>
+                                        @if($pet->adoption_status === 'Available')
+                                        <div class="text-base text-green-600 w-20 rounded-lg py-1 font-semibold bg-green-200">
+                                            <p class = "text-center">{{ $pet->adoption_status }}
+                                            </p>
+                                            </div>
+                                        @else
+                                        <div class="text-base text-red-600 w-28 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class = "text-center">Not Available
+                                            </p>
+                                        </div>
+                                        @endif
                                     </td>
-                                    <td class="flex items-center gap-1">
-                                        <button type="button" data-drawer-target="drawer-read-product-advanced" onclick="previewPetDetails('{{ $pet->id }}')" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="py-2 px-3 flex items-center text-sm font-medium text-center text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 mr-2 -ml-0.5">
+                                    <td class="items-center gap-1">
+                                        <button type="button" data-drawer-target="drawer-read-product-advanced" onclick="previewPetDetails('{{ $pet->id }}')" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ">
                                                 <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
                                             </svg>
-                                            Preview
                                         </button>
-                                        <button type="button" data-drawer-target="drawer-update-product" data-drawer-show="drawer-update-product" onclick="updateDrawer('{{ $pet->id }}')" aria-controls="drawer-update-product" class="py-2 px-3 flex items-center text-sm font-medium text-center text-white bg-primary-700 rounded-lg hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <button type="button" data-drawer-target="drawer-update-product" data-drawer-show="drawer-update-product" onclick="updateDrawer('{{ $pet->id }}')" aria-controls="drawer-update-product" class="py-2 px-3 text-sm font-medium text-center text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 " viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                                 <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
                                             </svg>
-                                            Edit
                                         </button>
-                                        <button type="button" data-modal-target="delete-modal-{{ $pet->id }}" data-modal-toggle="delete-modal-{{ $pet->id }}" class="flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-3 py-2 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2 -ml-0.5" viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <button type="button" data-modal-target="delete-modal-{{ $pet->id }}" data-modal-toggle="delete-modal-{{ $pet->id }}" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 " viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
                                             </svg>
-                                            Delete
                                         </button>
                                     </td>
+                                    
                                     <div id="delete-modal-{{ $pet->id }}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative w-full h-auto max-w-md max-h-full">
                                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">

@@ -110,14 +110,14 @@
             @endif
         </div>
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
-            <div class="flex flex-col  items-stretch justify-between mx-4 py-4 dark:border-gray-700">
+            <div class="flex flex-col  items-stretch justify-between py-4 dark:border-gray-700">
                 <div class="flex items-center justify-between">
                     <h1 class = "text-2xl text-red-500 font-bold">List of Pets</h1>
                 </div>   
             </div>
             
             <!-- WEB RESPONSIVENESS TABLE -->
-            <div class="relative overflow-x-auto flex-col  items-stretch rounded-2xl mb-5 shadow-lg justify-between mx-4">
+            <div class="relative overflow-x-auto flex-col  items-stretch rounded-2xl mb-5 shadow-lg justify-between">
                 <div class="flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between mx-4 py-4 border-t dark:border-gray-700">
                     <div class="w-full md:w-1/2">
                         <form role="search" class="flex items-center">
@@ -149,7 +149,6 @@
                                 <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                             </svg>
                         </button> 
-                        
                     </div>                  
                 </div>
                 

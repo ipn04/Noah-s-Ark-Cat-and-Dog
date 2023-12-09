@@ -1,4 +1,4 @@
-<div class="pet-lists flex justify-center items-center max-w-screen-xl">
+{{-- <div class="pet-lists flex justify-center items-center max-w-screen-xl">
     <div class="grid lg:grid-cols-5 gap-6 md:grid-cols-3 sm:grid grid-cols-1 px-6 ">
         @foreach($pets as $pet)
             <div class="pet-lists max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-name="{{ $pet->pet_name }}">
@@ -20,4 +20,4 @@
             </div>
         @endforeach
     </div>
-</div>
+</div> --}}

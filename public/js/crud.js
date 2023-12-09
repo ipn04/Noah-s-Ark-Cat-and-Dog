@@ -1,45 +1,78 @@
 // home page filter and search
+// $(document).ready(function() {
+//     $('#underline_select').on('change', function() {
+//         let selectedPet = $(this).val();
+//         let selectedAvailability = $('#availability').val();
+
+//         $.ajax({
+//             type: 'GET',
+//             url: '/filter-pets',    
+//             data: {
+//                 category: selectedPet,
+//                 availability: selectedAvailability 
+//             },
+//             success: function(response) {
+//                 $('.pet-lists').html(response);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error(xhr.responseText);
+//             }
+//         });
+//     });
+
+//     $('#availability').on('change', function() {
+//         let selectedPet = $('#underline_select').val();
+//         let selectedAvailability = $(this).val();
+
+//         $.ajax({
+//             type: 'GET',
+//             url: '/filter-pets',
+//             data: {
+//                 category: selectedPet,
+//                 availability: selectedAvailability 
+//             },
+//             success: function(response) {
+//                 $('.pet-lists').html(response);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error(xhr.responseText);
+//             }
+//         });
+//     });
+// });
+
 $(document).ready(function() {
-    $('#underline_select').on('change', function() {
-        let selectedPet = $(this).val();
-        let selectedAvailability = $('#availability').val();
+    $('#underline_select, #availability').change(function() {
+        var selectedPetType = $('#underline_select').val().toLowerCase();
+        var selectedAvailability = $('#availability').val().toLowerCase();
 
-        $.ajax({
-            type: 'GET',
-            url: '/filter-pets',    
-            data: {
-                category: selectedPet,
-                availability: selectedAvailability 
-            },
-            success: function(response) {
-                $('.pet-lists').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
+        $('.pet-lists').each(function() {
+            var petType = $(this).data('type');
+            var adoptionStatus = $(this).data('adoption');
+
+            // Check if data attributes exist before using them
+            if (petType !== undefined && adoptionStatus !== undefined) {
+                petType = petType.toLowerCase();
+                adoptionStatus = adoptionStatus.toLowerCase();
+
+                var petTypeMatch = (selectedPetType === 'all' || petType === selectedPetType);
+                var availabilityMatch = (selectedAvailability === 'all' || adoptionStatus === selectedAvailability);
+
+                if (petTypeMatch && availabilityMatch) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            } else {
+                // Handle cases where data attributes are missing
+                console.error("Data attributes 'data-type' or 'data-adoption' are missing.");
             }
         });
-    });
-
-    $('#availability').on('change', function() {
-        let selectedPet = $('#underline_select').val();
-        let selectedAvailability = $(this).val();
-
-        $.ajax({
-            type: 'GET',
-            url: '/filter-pets',
-            data: {
-                category: selectedPet,
-                availability: selectedAvailability 
-            },
-            success: function(response) {
-                $('.pet-lists').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    });
+    }).trigger('change'); // Trigger the change event initially to show all pets
 });
+
+
+// home pet page search
 $(document).ready(function() {
     $('#pet-search').on('input', function() {
         let value = $(this).val().toLowerCase();  
@@ -64,28 +97,68 @@ $(document).ready(function() {
         let value = $(this).val().toLowerCase();  
         
         $('.pet-container').each(function () {
-            let petName = $(this).attr('data-name').toLowerCase();
-            if (petName.indexOf(value) === -1) {
-                $(this).hide();
-            } else {
-                $(this).show();
+            let petName = $(this).attr('data-name'); // Get the attribute value
+            if (petName !== undefined) { // Check if the attribute exists
+                petName = petName.toLowerCase(); // Convert to lowercase if it exists
+                if (petName.indexOf(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
             }
-          }
-        );
+        });
     });
 });
 
-// mobile pet management search
-$("#box").on('keyup', function(){
-    let value = $(this).val().toLowerCase();  
-    $('#Container div[data-name]').each(function () {
-      if ($(this).text().toLowerCase().indexOf(value) === -1) {
-          $(this).hide();
-      } else {
-          $(this).show();
-      }
+$(document).ready(function() {
+    $('input[type=checkbox]').change(function() {
+        // Hide all rows
+        $('.pet-container').hide();
+
+        // Get all selected values for each filter
+        var petTypes = $('#category-body input[type=checkbox]:checked').map(function() {
+            return this.value;
+        }).get();
+
+        var adoptionStatus = $('#adoption-body input[type=checkbox]:checked').map(function() {
+            return this.value;
+        }).get();
+
+        var petGender = $('#gender-body input[type=checkbox]:checked').map(function() {
+            return this.value;
+        }).get();
+
+        var petVacStatus = $('#vacStatus-body input[type=checkbox]:checked').map(function() {
+            return this.value;
+        }).get();
+
+        var petSize = $('#size-body input[type=checkbox]:checked').map(function() {
+            return this.value;
+        }).get();
+
+        // Filter elements based on all selected criteria
+        $('.pet-container').filter(function() {
+            var typeMatch = petTypes.length === 0 || petTypes.includes($(this).data('type'));
+            var adoptionMatch = adoptionStatus.length === 0 || adoptionStatus.includes($(this).data('adoption'));
+            var genderMatch = petGender.length === 0 || petGender.includes($(this).data('gender'));
+            var petVacStatusMatch = petVacStatus.length === 0 || petVacStatus.includes($(this).data('vaccination'));
+            var petSizeMatch = petSize.length === 0 || petSize.includes($(this).data('size'));
+
+            return typeMatch && adoptionMatch && genderMatch && petVacStatusMatch && petSizeMatch;
+        }).show();
+
+        // If no checkboxes are selected, show all rows
+        if ($('input[type=checkbox]:checked').length === 0) {
+            $('.pet-container').show();
+        }
     });
-  });
+});
+
+
+
+
+
+
 
 function deletePet(petId) {
     fetch(`/pets/${petId}`, {

@@ -1,46 +1,4 @@
-// home page filter and search
-// $(document).ready(function() {
-//     $('#underline_select').on('change', function() {
-//         let selectedPet = $(this).val();
-//         let selectedAvailability = $('#availability').val();
-
-//         $.ajax({
-//             type: 'GET',
-//             url: '/filter-pets',    
-//             data: {
-//                 category: selectedPet,
-//                 availability: selectedAvailability 
-//             },
-//             success: function(response) {
-//                 $('.pet-lists').html(response);
-//             },
-//             error: function(xhr, status, error) {
-//                 console.error(xhr.responseText);
-//             }
-//         });
-//     });
-
-//     $('#availability').on('change', function() {
-//         let selectedPet = $('#underline_select').val();
-//         let selectedAvailability = $(this).val();
-
-//         $.ajax({
-//             type: 'GET',
-//             url: '/filter-pets',
-//             data: {
-//                 category: selectedPet,
-//                 availability: selectedAvailability 
-//             },
-//             success: function(response) {
-//                 $('.pet-lists').html(response);
-//             },
-//             error: function(xhr, status, error) {
-//                 console.error(xhr.responseText);
-//             }
-//         });
-//     });
-// });
-
+// home pet page filter
 $(document).ready(function() {
     $('#underline_select, #availability').change(function() {
         var selectedPetType = $('#underline_select').val().toLowerCase();

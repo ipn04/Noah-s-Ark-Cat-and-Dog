@@ -81,8 +81,9 @@
                 </caption>
                 <thead class="bg-gray-100">
                     <tr>
-                        <th class="px-4 py-3 text-gray-500">Category</th>
                         <th class="px-4 py-3 text-gray-500">Name</th>
+                        <th class="px-4 py-3 text-gray-500">Category</th>
+
                         <th class="px-4 py-3 text-gray-500">Time</th>
                         <th class="px-4 py-3 text-gray-500">Details</th>
                     </tr>
@@ -90,10 +91,12 @@
                 <tbody class="bg-white">
                     <tr>
                         <td class="p-4">
-                           <div class=" text-sm text-center">Adoption</div>
+                            <div class=" text-sm  text-center">Czarina Cuarez</div>
+
                         </td>
                         <td class="p-4">
-                           <div class=" text-sm  text-center">Czarina Cuarez</div>
+                            <div class=" text-sm text-center">Adoption</div>
+
                         </td>
                         <td class="p-4">
                            <div class="  text-sm text-center">5:00 pm</div>

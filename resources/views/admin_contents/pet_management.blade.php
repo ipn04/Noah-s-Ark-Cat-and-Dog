@@ -167,13 +167,16 @@
                                 Pets name
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Color
+                                Type
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Category
+                                Gender
                             </th>
                             <th scope="col" class="px-6 py-3">
-                                Price
+                                Vaccination Status
+                            </th>
+                            <th scope="col" class="px-6 py-3">
+                                Adoption Status
                             </th>
                             <th scope="col" class="">
                                 Actions
@@ -192,16 +195,17 @@
                                 </div>
                             </td>
                             <td class="px-6 py-4">
-                                <div class="text-base font-semibold">{{ $pet->pet_name }}</div>
+                                <div class="text-base font-semibold">{{ $pet->pet_type }}</div>
 
                             </td>
                             <td class="px-6 py-4">
-                                <div class="text-base font-semibold">{{ $pet->pet_name }}</div>
-
-
+                                <div class="text-base font-semibold">{{ $pet->gender }}</div>
                             </td>
                             <td class="px-6 py-4">
-                                <div class="text-base font-semibold">{{ $pet->pet_name }}</div>
+                                <div class="text-base font-semibold">{{ $pet->vaccination_status }}</div>
+                            </td>
+                            <td class="px-6 py-4">
+                                <div class="text-base font-semibold">{{ $pet->adoption_status }}</div>
 
 
                             </td>

@@ -41,27 +41,4 @@
         @include('initial_page.pet_lists')
     </div>
 </x-guest-layout>
-<script>
-$(document).ready(function() {
-    $('#underline_select').on('change', function() {
-        let selectedPet = $(this).val();
-
-        $.ajax({
-            type: 'GET',
-            url: '/filter-pets', // Define your API endpoint here
-            data: {
-                category: selectedPet
-            },
-            success: function(response) {
-                $('.pet-lists').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error(xhr.responseText);
-            }
-        });
-    });
-});
-
-
-</script>
 {{-- dito pet page. Ako na bahala dito --}}

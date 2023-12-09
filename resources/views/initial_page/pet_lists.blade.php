@@ -1,7 +1,7 @@
 <div class="pet-lists flex justify-center items-center max-w-screen-xl">
     <div class="grid lg:grid-cols-5 gap-6 md:grid-cols-3 sm:grid grid-cols-1 px-6 ">
         @foreach($pets as $pet)
-            <div class="max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+            <div class="pet-lists max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700" data-name="{{ $pet->pet_name }}">
                 <a href="#">
                     <img class="rounded-t-lg" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="{{ $pet->pet_name }}" alt="" />
                 </a>

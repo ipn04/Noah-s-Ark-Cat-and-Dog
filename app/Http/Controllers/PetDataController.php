@@ -21,14 +21,15 @@ class PetDataController extends Controller
 
     public function filterPets(Request $request)
     {
-        // Fetch pets based on filter criteria (selectedCat, selectedAvailability, searchText)
-        // Perform your filtering logic here using the $request parameters
-        // Example: Fetch filtered pets from the database
         
         $filteredPets = Pet::query();
 
         if ($request->category && $request->category !== 'All') {
             $filteredPets->where('pet_type', $request->category);
+        }
+
+        if ($request->availability && $request->availability !== 'All') {
+            $filteredPets->where('adoption_status', $request->availability);
         }
 
         $filteredPets = $filteredPets->get();

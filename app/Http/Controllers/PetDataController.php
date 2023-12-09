@@ -25,7 +25,13 @@ class PetDataController extends Controller
         // Perform your filtering logic here using the $request parameters
         // Example: Fetch filtered pets from the database
         
-        $filteredPets = Pet::where('pet_type', $request->category)->get();
+        $filteredPets = Pet::query();
+
+        if ($request->category && $request->category !== 'All') {
+            $filteredPets->where('pet_type', $request->category);
+        }
+
+        $filteredPets = $filteredPets->get();
 
         // Render the filtered pets view (e.g., pet-listing.blade.php) and return it as a response
         return view('initial_page.pet_lists', ['pets' => $filteredPets])->render();

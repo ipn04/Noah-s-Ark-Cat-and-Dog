@@ -1,6 +1,6 @@
 <x-guest-layout>
-    <div class="bg-red-700">
-        <div class="mx-auto flex justify-between py-4  max-w-7xl">
+    <div class="bg-red-700 ">
+        <div class="mx-auto flex justify-between py-4 max-w-screen-xl px-6">
             
             <div class="flex gap-4 w-full">
                 
@@ -32,7 +32,7 @@
             </form>
         </div> 
     </div>
-    <div class="max-w-fit ml-auto mr-auto">
+    <div class="max-w-screen-xl ml-auto mr-auto">
         <div class="px-6 py-4">
             <h1 class="font-bold text-2xl">List of Pets</h1>
             <hr class="h-0.5 mt-2 bg-gray-400 border-1">

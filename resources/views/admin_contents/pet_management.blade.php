@@ -64,6 +64,8 @@
         </div>
     </div>
     
+
+    
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
             @if ($errors->any())
@@ -108,6 +110,7 @@
                 </script>
             @endif
         </div>
+        
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div class="flex flex-col items-stretch justify-between py-4 dark:border-gray-700">
                 <div class="flex items-center justify-between mx-3.5 lg:mx-0">
@@ -120,10 +123,12 @@
                     </button>
                 </div>   
             </div>
+              
+             
             
             <!-- WEB RESPONSIVENESS TABLE -->
-            <div class="relative overflow-x-auto flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between">
-                <div class=" lg:bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
+            <div class="relative overflow-y-hidden  overflow-x-auto flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between">
+                <div class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">
                         <form role="search" class="flex items-center">
                             <label for="simple-search" class="sr-only">Search</label>
@@ -157,8 +162,8 @@
                     </div>                  
                 </div>
                 
-                <table class="hidden lg:table w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                    <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                <table class=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs lg:contents hidden text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
                             <th scope="col" class="px-6 py-3">
                                 Pets name
@@ -186,21 +191,36 @@
                                 <tr data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}" data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}" data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}"  class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td scope="row" class="flex items-center px-6 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
                                         <img class="w-10 h-10 rounded-full" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
-                                        <div class="ps-3">
-                                            <div class="text-base">{{ $pet->pet_name }}</div>
+                                        <div class="ps-3 flex flex-col">
+                                            <div class="text-lg lg:text-base">{{ $pet->pet_name }}</div>
+                                            
+                                            <div class="text-sm  lg:hidden">
+                                                @if($pet->adoption_status === 'Available')
+                                        <div class=" text-green-600 w-20 rounded-lg py-1 font-semibold bg-green-200">
+                                            <p class = "text-center">{{ $pet->adoption_status }}
+                                            </p>
+                                            </div>
+                                        @else
+                                        <div class=" text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class = "text-center">Not Available
+                                            </p>
+                                        </div>
+                                        @endif
+                                            </div>
+
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-base text-gray-500 ">{{ $pet->pet_type }}</div>
 
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-base text-gray-500  ">{{ $pet->gender }}</div>
                                     </td>
-                                    <td class="px-6 py-4">
-                                        <div class="text-base text-gray-500  ">{{ $pet->vaccination_status }}</div>
+                                    <td class="px-6 py-4  hidden lg:table-cell ">
+                                        <div class="text-base text-gray-500 ">{{ $pet->vaccination_status }}</div>
                                     </td>
-                                    <td class="px-6 py-4">
+                                    <td class="px-6 py-4  hidden lg:table-cell">
                                         @if($pet->adoption_status === 'Available')
                                         <div class="text-base text-green-600 w-20 rounded-lg py-1 font-semibold bg-green-200">
                                             <p class = "text-center">{{ $pet->adoption_status }}
@@ -213,7 +233,7 @@
                                         </div>
                                         @endif
                                     </td>
-                                    <td class="items-center gap-1">
+                                    <td class="items-center gap-1  hidden lg:table-cell">
                                         <button type="button" data-drawer-target="drawer-read-product-advanced" onclick="previewPetDetails('{{ $pet->id }}')" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ">
                                                 <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -232,6 +252,24 @@
                                             </svg>
                                         </button>
                                     </td>
+                                    <td x-data="{ dropdownOpen: false }">
+                                        <div class="flex items-center">
+                                            <button @click="dropdownOpen = !dropdownOpen" class="flex items-center gap-1 focus:outline-none">
+                                                Actions
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+                                                    <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                        <!-- Dropdown content -->
+                                        <div x-show="dropdownOpen" @click.away="dropdownOpen = false" class="fixed bg-white border rounded shadow-md">
+                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 1</a>
+                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 2</a>
+                                            <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Option 3</a>
+                                        </div>
+                                    </td>
+                                    
+                                    
                                     
                                     <div id="delete-modal-{{ $pet->id }}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative w-full h-auto max-w-md max-h-full">
@@ -263,59 +301,13 @@
                             </tr>
                         @endif
                     </tbody>
+                    
                 </table> 
                 {{-- mobile responsiveness --}}
-                <div class=" block lg:hidden container mx-auto">
-                    <div  id="Container" class="grid grid-cols-1  gap-2 p-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 lg:gap-6">
-                        <!-- Column 1 -->
-                        @if($pets->isNotEmpty())
-                            @foreach($pets as $pet)
-    
-                            <div data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}" data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}" data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}" class="pet-container flex items-center bg-white  rounded-2xl shadow-lg md:flex-row md:max-w-sm">
-                                <div class=" mr-3">
-                                    <img class=" rounded-l-2xl w-28 h-28 object-cover" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
-                                </div>
-                                <div class>
-                                    <h1 class="text-xl font-bold">{{ $pet->pet_name }}</h1>
-                                    <div class="flex items-center">
-                                        <p class="mr-2">Cat</p>
-                                        <div class = "rounded-full bg-black w-1 h-1 mr-2">
-    
-                                        </div>
-                                        <div class="bg-green-100 rounded-lg py-1 px-2">
-                                            <p class="text-base text-center">Available</p>
-                                        </div>
-                                    </div>
-                                </div>
-                                
-                                {{-- <div class="absolute lg:hidden top-2 right-0 p-2 cursor-pointer">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                        <path fill-rule="evenodd" d="M10.5 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm0 6a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
-                                    </svg>
-                                </div> --}}
-                            </div>
-                            
-                            {{-- OPTION PARA SA ANOTHER CARD --}}
-                            {{-- <div class="flex items-center bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
-                                <img class="rounded-l-2xl w-28 h-28 object-cover" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
-                                <div class="flex flex-col justify-between p-4 leading-normal">
-                                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{{ $pet->pet_name }}</h5>
-                                    <p class="mb-3 font-normal text-gray-700 dark:text-gray-400">{{ $pet->description }}</p>
-                                    <div class="bg-green-100 rounded-lg py-1 px-2">
-                                        <p class="text-base text-center">{{$pet->adoption_status}}</p>
-                                    </div>
-                                </div>
-                            </div> --}}
-
-                            
-                            @endforeach  
-                        @else
-                        
-                        @endif    
-                    </div>
-                </div>
+            
             </div>
         </div>
+        
     </section>
     <div id="filterDropdown" class="z-50 hidden py-1 px-3 bg-white rounded-lg shadow w-60 dark:bg-gray-700 right-0">
         <div class="flex items-center justify-between pt-2">
@@ -450,7 +442,7 @@
     </div>
     <!-- End block -->
     <div id="createProductModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 pt-10 w-full max-w-3xl h-full md:h-auto">
+        <div class="relative lg:mt-80 p-4 pt-10 w-full max-w-3xl h-full md:h-auto">
             <!-- Modal content -->
             <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
                 <!-- Modal header -->

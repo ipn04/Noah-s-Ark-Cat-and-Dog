@@ -9,6 +9,7 @@
 
         <!-- Logo -->
         <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css"  rel="stylesheet" />
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">

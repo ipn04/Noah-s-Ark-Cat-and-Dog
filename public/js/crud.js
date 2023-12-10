@@ -68,6 +68,9 @@ $(document).ready(function() {
     });
 });
 
+
+
+
 $(document).ready(function() {
     $('input[type=checkbox]').change(function() {
         // Hide all rows

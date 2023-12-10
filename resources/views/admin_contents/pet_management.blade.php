@@ -87,31 +87,31 @@
             @endif
 
             @if(session('pet_added'))
-                <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <div>
-                        <span class="font-medium">Success!</span> New pet has been added.
-                    </div>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        swal(
+                            "You successfully added a pet!", 
+                            "Press 'OK' to exit!", 
+                            "success"
+                        )
+                    });
+                </script>
             @endif
             @if(session('pet_deleted'))
-                <div class="flex items-center p-4 mb-4 text-sm text-green-800 rounded-lg bg-green-50 dark:bg-gray-800 dark:text-green-400" role="alert">
-                    <svg class="flex-shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
-                        <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <div>
-                        <span class="font-medium">Success!</span> You deleted a data.
-                    </div>
-                </div>
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        swal(
+                            "You successfully deleted a pet!", 
+                            "Press 'OK' to exit!", 
+                            "success"
+                        )
+                    });
+                </script>
             @endif
         </div>
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
-            <div class="flex flex-col  items-stretch justify-between py-4 dark:border-gray-700">
-                <div class="flex items-center justify-between">
+            <div class="flex flex-col items-stretch justify-between py-4 dark:border-gray-700">
+                <div class="flex items-center justify-between mx-3.5 lg:mx-0">
                     <h1 class = "text-2xl text-red-500 font-bold">List of Pets</h1>
                     <button type="button" id="createProductButton" data-modal-target="createProductModal"  data-modal-toggle="createProductModal" class="flex lg:hidden items-center justify-center text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                         <svg class="h-3.5 w-3.5 mr-1.5 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -272,7 +272,7 @@
                         @if($pets->isNotEmpty())
                             @foreach($pets as $pet)
     
-                            <div data-name="{{ $pet->pet_name }}" class="pet-container flex items-center bg-white  rounded-2xl shadow-lg md:flex-row md:max-w-sm">
+                            <div data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}" data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}" data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}" class="pet-container flex items-center bg-white  rounded-2xl shadow-lg md:flex-row md:max-w-sm">
                                 <div class=" mr-3">
                                     <img class=" rounded-l-2xl w-28 h-28 object-cover" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
                                 </div>

@@ -13,9 +13,11 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->int('phone_number')->nullable(); 
-            $table->string('address')->nullable(); 
-            
+            $table->string('phone_number'); 
+            $table->string('profile_image');
+            $table->string('province'); 
+            $table->string('city'); 
+            $table->string('street'); 
         });
     }
 
@@ -25,7 +27,11 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            //
+            $table->dropColumn('phone_number');
+            $table->dropColumn('profile_image');
+            $table->dropColumn('province');
+            $table->dropColumn('city');
+            $table->dropColumn('street');
         });
     }
 };

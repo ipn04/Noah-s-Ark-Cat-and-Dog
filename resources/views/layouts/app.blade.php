@@ -22,7 +22,12 @@
         
     </head>
     <body class="font-sans bg-gray-100 antialiased	">
-        <div class=" bg-red-800 dark:bg-gray-900">
+        <div class=" 
+        @if(Route::is('admin.adoptions') || Route::is('admin.volunteers'))
+        bg-transparent
+        @else
+        bg-red-800
+        @endif dark:bg-gray-900">
             
             @include('layouts.navigation')
             

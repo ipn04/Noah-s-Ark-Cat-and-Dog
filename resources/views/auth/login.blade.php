@@ -1,4 +1,35 @@
 <x-guest-layout>
+    @if ($errors->any())
+        <script>
+            var errorMessages = [];
+            
+            @foreach ($errors->all() as $error)
+                errorMessages.push("{{ $error }}");
+            @endforeach
+    
+            // Check if there are error messages before showing the alert
+            if (errorMessages.length > 0) {
+                swal({
+                    title: "Error!",
+                    text: errorMessages.join('\n'), // Join error messages with line breaks
+                    type: "error",
+                    confirmButtonText: "Cool"
+                });
+            }
+        </script>
+    @endif
+
+    @if(session('account_added'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal(
+                    "You successfully created an account!", 
+                    "Press 'OK' to exit!", 
+                    "success"
+                )
+            });
+        </script>
+    @endif
     <!-- Session Status -->
     <div class="w-full bg-white mb-4">
         <h1 class="text-center text-4xl font-bold">Login</h1>
@@ -12,7 +43,7 @@
         <div>
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
         </div>
 
         <!-- Password -->
@@ -24,7 +55,7 @@
                             name="password"
                             required autocomplete="current-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
         </div>
 
         <div class="flex justify-center items-center block mt-4">

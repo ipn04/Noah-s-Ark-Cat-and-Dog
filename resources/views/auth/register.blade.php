@@ -55,13 +55,13 @@
             <div>
                 <x-input-label for="name" :value="__('Name')" />
                 <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autocomplete="name" />
-                <x-input-error :messages="$errors->get('name')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
             </div>
     
             <div>
                 <x-input-label for="phone_number" :value="__('Phone Number')" />
                 <x-text-input id="phone_number" class="block mt-1 w-full" type="number" name="phone_number" :value="old('phone_number')" required autocomplete="number" />
-                <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('phone_number')" class="mt-2" /> --}}
             </div>
         </div>
         
@@ -69,13 +69,13 @@
             <div>
                 <x-input-label for="province" :value="__('Province')" />
                 <x-text-input id="province" class="block mt-1 w-full" type="text" name="province" :value="old('province')" required autocomplete="province" />
-                <x-input-error :messages="$errors->get('province')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
             </div>
 
             <div>
                 <x-input-label for="city" :value="__('City')" />
                 <x-text-input id="city" class="block mt-1 w-full" type="text" name="city" :value="old('city')" required autocomplete="city" />
-                <x-input-error :messages="$errors->get('city')" class="mt-2" />
+                {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
             </div>
         </div>
 
@@ -83,14 +83,14 @@
         <div class="mt-4">
             <x-input-label for="street" :value="__('Street')" />
             <x-text-input id="street" class="block mt-1 w-full" type="text" name="street" :value="old('street')" required autocomplete="street" />
-            <x-input-error :messages="$errors->get('street')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('street')" class="mt-2" /> --}}
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
             <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
         </div>
 
         <!-- Password -->
@@ -102,7 +102,7 @@
                             name="password"
                             required autocomplete="new-password" />
 
-            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
         </div>
 
         <!-- Confirm Password -->
@@ -113,7 +113,7 @@
                             type="password"
                             name="password_confirmation" required autocomplete="new-password" />
 
-            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+            {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
         </div>
 
         <div class="flex items-center justify-center mt-4">

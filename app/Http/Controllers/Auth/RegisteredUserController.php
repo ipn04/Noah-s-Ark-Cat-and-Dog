@@ -68,10 +68,10 @@ class RegisteredUserController extends Controller
             // Store the uploaded file in the storage directory
             $directory = 'profiles'; // Update this directory as needed
 
-            Storage::putFileAs('public/'. $directory, $file, $filename);
+            $file->storeAs('public/'. $directory, $filename);
 
-            // You might want to save the file path or URL to the user's profile photo column in the database
-            // Example: auth()->user()->update(['profile_photo' => $filename]);
+            $user->profile_image = $directory . '/' . $filename; // Correct path
+            $user->save();
         }
 
         event(new Registered($user));

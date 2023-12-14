@@ -66,7 +66,20 @@
                         </a>                      
                         </li>
                         <li>
-                            <a href="#" class="flex items-center w-full p-2 text-gray-900 transition duration-75 rounded-lg pl-11 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700">Inbox</a>
+                            <a href="{{ route('view.messages') }}" class="
+                                @if(Route::is('view.messages')) 
+                                flex items-center p-2 hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
+                                @else
+                                flex items-center p-2 text-gray-500 rounded-lg hover:text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
+                                @endif">
+                            
+                                <svg class="@if(Route::is('view.messages')) 
+                                flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                                @else
+                                flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                                @endif"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <line x1="10" y1="14" x2="21" y2="3" />  <path d="M21 3L14.5 21a.55 .55 0 0 1 -1 0L10 14L3 10.5a.55 .55 0 0 1 0 -1L21 3" /></svg>
+                                <span class="flex-1 ms-3 whitespace-nowrap">Inbox</span>
+                            </a>                             
                         </li>
                 </ul>
             </li>

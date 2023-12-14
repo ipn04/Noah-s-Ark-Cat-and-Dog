@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PetDataController;
+use App\Http\Controllers\MessageController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,15 +27,24 @@ Route::get('/user/dashboard', function () {
     return view('dashboards.user_dashboard');
 })->middleware(['auth', 'verified'])->name('user.dashboard');   
 
-Route::get('/user/messages', function () {
-    return view('user_contents.messages');
-})->middleware(['auth', 'verified'])->name('user.messages');   
+// Route::get('/user/messages', function () {
+//     return view('user_contents.messages');
+// })->middleware(['auth', 'verified'])->name('user.messages');   
 
+Route::get('/user/messages', [MessageController::class, 'displayMessage'])
+    ->middleware(['auth', 'verified'])
+->name('user.messages');
+
+Route::get('/inbox/messages', function () {
+    return view('user_contents.inbox_message.inbox');
+})->name('view.messages');
 
 Route::get('/user/applications', function () {
     return view('user_contents.applications');
 })->middleware(['auth', 'verified'])->name('user.applications');   
 
+// User send message
+Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middleware(['auth', 'verified'])->name('messages.send');
 
 /* admin`s routes */
 

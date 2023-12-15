@@ -57,14 +57,17 @@
              
             
             <!-- WEB RESPONSIVENESS TABLE -->
-            <div class="relative overflow-y-hidden  bg-white overflow-x-auto flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between lg:px-4 lg:py-6">
+            <div class="relative overflow-y-hidden  bg-white overflow-x-hidden flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between lg:px-4 lg:py-6">
                 
 
                 <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px">
                         
-                        <li class="me-2">
-                            <a href="#" class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500" aria-current="page">All</a>
+                        <li class="me-2 relative">
+                            <a href="#" class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500 flex items-center justify-between">
+                                <span class = "mr-2">All</span>
+                                <p class="bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-6 h-6 p-4 text-center text-xs">200</p>
+                            </a>
                         </li>
                         <li class="me-2">
                             <a href="#" class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Pending</a>

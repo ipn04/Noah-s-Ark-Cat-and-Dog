@@ -23,7 +23,7 @@
     </head>
     <body class="font-sans bg-gray-100 antialiased	">
         <div class=" 
-        @if(Route::is('admin.adoptions') || Route::is('admin.volunteers'))
+        @if(Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule'))
         bg-transparent
         @else
         bg-red-800

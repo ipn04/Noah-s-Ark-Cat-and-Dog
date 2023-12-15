@@ -81,7 +81,7 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class = " px-2
-                @if(Route::is('admin.adoptions') || Route::is('admin.volunteers'))
+                @if(Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule'))
                 text-red-700
                 @else
                 text-white

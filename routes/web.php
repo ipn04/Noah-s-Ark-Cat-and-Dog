@@ -35,15 +35,21 @@ Route::get('/user/messages', [MessageController::class, 'displayMessage'])
     ->middleware(['auth', 'verified'])
 ->name('user.messages');
 
-Route::get('/inbox/messages', function () {
-    return view('user_contents.inbox_message.inbox');
-})->name('view.messages');
+// Route::get('/inbox/messages', function () {
+//     return view('user_contents.inbox_message.inbox');
+// })->name('view.messages');
+
+// show message in the inbox
+Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->middleware(['auth', 'verified'])->name('view.messages');
+
+// reply message in the inbox
+Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->name('messages.reply');
 
 Route::get('/user/applications', function () {
     return view('user_contents.applications');
 })->middleware(['auth', 'verified'])->name('user.applications');   
 
-// User send message
+// User send message 
 Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middleware(['auth', 'verified'])->name('messages.send');
 
 /* admin`s routes */

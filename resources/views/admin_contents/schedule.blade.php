@@ -47,7 +47,7 @@
             @endif
         </div>
         
-        <div class="mx-auto max-w-screen-2xl px-4 lg:py-4 lg:px-12">
+        <div class="mx-auto max-w-screen-2xl px-4  lg:px-12">
             <div class="flex flex-col items-stretch justify-between py-4 dark:border-gray-700">
                 <div class="flex items-center justify-between lg:mx-0">
                     <h1 class = "text-2xl text-red-500 font-bold">Shelter's Schedule</h1>

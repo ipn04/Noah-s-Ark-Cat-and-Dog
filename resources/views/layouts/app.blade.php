@@ -12,6 +12,7 @@
 
         <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
@@ -23,7 +24,7 @@
     </head>
     <body class="font-sans bg-gray-100 antialiased	">
         <div class=" 
-        @if(Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule'))
+        @if(Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit'))
         bg-transparent
         @else
         bg-red-800
@@ -48,7 +49,6 @@
         </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>  
-        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
         <script src="/js/chart.js"></script>
         <script src="/js/crud.js">deletepet</script>       
     </body>

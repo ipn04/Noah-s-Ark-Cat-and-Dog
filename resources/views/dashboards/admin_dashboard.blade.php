@@ -70,14 +70,20 @@
        </div>
    </div>
 
-   <div class="lg:py-8 py-5 px-5 container mx-auto">
+   <div class="lg:py-8 py-5 px-10 container mx-auto">
       <div class ="grid lg:grid-cols-2 grid-cols-1 gap-3 lg:gap-10">
 
-         <div class="rounded-lg shadow-lg overflow-x-auto">
-            <table class="w-full p-4 rounded-lg overflow-hidden">
-                <caption class="caption-top bg-white text-red-500 p-4 text-xl font-bold">
-                    Today's Shelter's Schedule
-                    <p class="text-base  text-gray-500 font-normal">December 03, 2023</p>
+         <div class="rounded-lg bg-transparent shadow-lg overflow-x-auto">
+            <table class="w-full  p-4 rounded-lg overflow-hidden">
+                <caption class="caption-top text-left bg-white text-red-500 p-4 text-xl font-bold">
+                    <div class = "flex justify-between">
+                        <div>
+                            Today's Shelter's Schedule
+                            <p class="text-base text-gray-500 font-normal">December 03, 2023</p>
+                        </div>
+                        <button type="button" class="text-white shadow-md text-sm lg:text-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">View All</button>
+                    </div>
+                    
                 </caption>
                 <thead class="bg-gray-100">
                     <tr>
@@ -111,81 +117,111 @@
                               </button>
                         </td>
                     </tr>
+                    <tr>
+                        <td class="p-4">
+                            <div class=" text-sm  text-center">Czarina Cuarez</div>
+
+                        </td>
+                        <td class="p-4">
+                            <div class=" text-sm text-center">Adoption</div>
+
+                        </td>
+                        <td class="p-4">
+                           <div class="  text-sm text-center">5:00 pm</div>
+                        </td>
+                        <td class="p-4  text-center">
+                           <button type="button" class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
+                              <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                 <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                 <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
+                               </svg>
+                               
+                              </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="p-4">
+                            <div class=" text-sm  text-center">Czarina Cuarez</div>
+
+                        </td>
+                        <td class="p-4">
+                            <div class=" text-sm text-center">Adoption</div>
+
+                        </td>
+                        <td class="p-4">
+                           <div class="  text-sm text-center">5:00 pm</div>
+                        </td>
+                        <td class="p-4  text-center">
+                           <button type="button" class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
+                              <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                 <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                 <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" clip-rule="evenodd" />
+                               </svg>
+                               
+                              </button>
+                        </td>
+                    </tr>
+                    
                 </tbody>
             </table>
         </div>
-            
+         
+        <div class="rounded-lg bg-white shadow-lg overflow-x-auto p-6">
+            <p class="caption-top text-red-500 text-xl text-center font-bold mb-4">
+                Total Adopted Pets This Month
+            </p>
         
-            <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
-                <div class="flex justify-between mb-2"> <!-- Adjusted spacing here -->
-                    <div>
-                        <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-2">$12,423</h5> <!-- Adjusted text size -->
-                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Sales this week</p> <!-- Adjusted text size -->
-                    </div>
-                    <div class="flex items-center px-2.5 py-0.5 text-sm font-semibold text-green-500 dark:text-green-500 text-center">
-                        23%
-                        <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M5 13V1m0 0L1 5m4-4 4 4" />
-                        </svg>
-                    </div>
-                </div>
+            <!-- Chart Container -->
+            <canvas id="myLineChart" width="400" height="200"></canvas>
+        </div>
         
-                <div id="grid-chart"></div>
+        <script>
+            // Sample data for the chart
+            var data = {
+                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
+                datasets: [{
+                    label: 'Adopted Pets',
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    borderWidth: 2,
+                    data: [10, 20, 15, 25],
+                }]
+            };
         
-                <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2"> <!-- Adjusted spacing here -->
-                    <div class="flex justify-between items-center pt-2"> <!-- Adjusted spacing here -->
-                        <!-- Button -->
-                        <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown"
-                            data-dropdown-placement="bottom"
-                            class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
-                            type="button">
-                            Last 7 days
-                            <svg class="w-2 m-2 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 10 6">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 1 4 4 4-4" />
-                            </svg>
-                        </button>
-        
-                        <!-- Dropdown menu -->
-                        <div id="lastDaysdropdown"
-                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700"> <!-- Adjusted width -->
-                            <ul class="py-2 text-xs text-gray-700 dark:text-gray-200"
-                                aria-labelledby="dropdownDefaultButton">
-                                <!-- Dropdown options -->
-                            </ul>
-                        </div>
-        
-                        <a href="#"
-                            class="uppercase text-xs font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-2 py-1"> <!-- Adjusted spacing here -->
-                            Sales Report
-                            <svg class="w-2 h-2 ms-1 rtl:rotate-180" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="m1 9 4-4-4-4" />
-                            </svg>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        
-            <script>
-                // ApexCharts options and config
-                window.addEventListener("load", function () {
-                    let options = {
-                        // ... (your ApexCharts options)
-                    };
-        
-                    if (document.getElementById("grid-chart") && typeof ApexCharts !== 'undefined') {
-                        const chart = new ApexCharts(document.getElementById("grid-chart"), options);
-                        chart.render();
+            // Chart Configuration
+            var config = {
+                type: 'line',
+                data: data,
+                options: {
+                    scales: {
+                        x: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Weeks'
+                            }
+                        },
+                        y: {
+                            display: true,
+                            title: {
+                                display: true,
+                                text: 'Number of Pets'
+                            }
+                        }
                     }
-                });
-            </script>
+                }
+            };
         
+            // Create the chart
+            var myChart = new Chart(document.getElementById('myLineChart'), config);
+        </script>
+        
+
+             
       </div>
-      <div class = "container px-5 pt-2 pb-10 mx-auto">
+
+      
+      </div>
+      <div class = "container px-10 pt-2 pb-10 mx-auto">
          <div class="rounded-lg shadow-lg overflow-x-auto">
             <table class="w-full p-4 rounded-lg overflow-hidden">
                 <caption class="caption-top bg-white text-red-500 p-4 text-xl text-left font-bold">

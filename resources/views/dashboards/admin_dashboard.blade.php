@@ -71,7 +71,7 @@
    </div>
 
    <div class="lg:py-8 py-5 px-5 container mx-auto">
-      <div class ="grid lg:grid-cols-2 grid-cols-1 gap-3 lg:gap-20">
+      <div class ="grid lg:grid-cols-2 grid-cols-1 gap-3 lg:gap-10">
 
          <div class="rounded-lg shadow-lg overflow-x-auto">
             <table class="w-full p-4 rounded-lg overflow-hidden">
@@ -114,17 +114,76 @@
                 </tbody>
             </table>
         </div>
-         
-        <div class="rounded-lg bg-white shadow-lg overflow-x-auto">
-             <p class="caption-top  text-red-500 p-4 text-xl text-center font-bold">
-                 Total Adopted Pets This Month
-             </p>      
-         </div>
-
-             
-      </div>
-
-      
+            
+        
+            <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
+                <div class="flex justify-between mb-2"> <!-- Adjusted spacing here -->
+                    <div>
+                        <h5 class="leading-none text-2xl font-bold text-gray-900 dark:text-white pb-2">$12,423</h5> <!-- Adjusted text size -->
+                        <p class="text-sm font-normal text-gray-500 dark:text-gray-400">Sales this week</p> <!-- Adjusted text size -->
+                    </div>
+                    <div class="flex items-center px-2.5 py-0.5 text-sm font-semibold text-green-500 dark:text-green-500 text-center">
+                        23%
+                        <svg class="w-3 h-3 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 10 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M5 13V1m0 0L1 5m4-4 4 4" />
+                        </svg>
+                    </div>
+                </div>
+        
+                <div id="grid-chart"></div>
+        
+                <div class="grid grid-cols-1 items-center border-gray-200 border-t dark:border-gray-700 justify-between mt-2"> <!-- Adjusted spacing here -->
+                    <div class="flex justify-between items-center pt-2"> <!-- Adjusted spacing here -->
+                        <!-- Button -->
+                        <button id="dropdownDefaultButton" data-dropdown-toggle="lastDaysdropdown"
+                            data-dropdown-placement="bottom"
+                            class="text-xs font-medium text-gray-500 dark:text-gray-400 hover:text-gray-900 text-center inline-flex items-center dark:hover:text-white"
+                            type="button">
+                            Last 7 days
+                            <svg class="w-2 m-2 ms-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                viewBox="0 0 10 6">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 1 4 4 4-4" />
+                            </svg>
+                        </button>
+        
+                        <!-- Dropdown menu -->
+                        <div id="lastDaysdropdown"
+                            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-32 dark:bg-gray-700"> <!-- Adjusted width -->
+                            <ul class="py-2 text-xs text-gray-700 dark:text-gray-200"
+                                aria-labelledby="dropdownDefaultButton">
+                                <!-- Dropdown options -->
+                            </ul>
+                        </div>
+        
+                        <a href="#"
+                            class="uppercase text-xs font-semibold inline-flex items-center rounded-lg text-blue-600 hover:text-blue-700 dark:hover:text-blue-500  hover:bg-gray-100 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700 px-2 py-1"> <!-- Adjusted spacing here -->
+                            Sales Report
+                            <svg class="w-2 h-2 ms-1 rtl:rotate-180" aria-hidden="true"
+                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="m1 9 4-4-4-4" />
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        
+            <script>
+                // ApexCharts options and config
+                window.addEventListener("load", function () {
+                    let options = {
+                        // ... (your ApexCharts options)
+                    };
+        
+                    if (document.getElementById("grid-chart") && typeof ApexCharts !== 'undefined') {
+                        const chart = new ApexCharts(document.getElementById("grid-chart"), options);
+                        chart.render();
+                    }
+                });
+            </script>
+        
       </div>
       <div class = "container px-5 pt-2 pb-10 mx-auto">
          <div class="rounded-lg shadow-lg overflow-x-auto">

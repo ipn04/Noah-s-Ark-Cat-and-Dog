@@ -572,6 +572,7 @@
                 </form>
             </div>
         </div>
+
     </div>
     <!-- drawer component -->
     {{-- dito update --}}
@@ -579,16 +580,20 @@
         <form action="{{ route('pets.update', ['id' => $pet->id]) }}" method="POST" id="drawer-update-product-{{ $pet->id }}"  class="fixed top-0 left-0 z-40 w-full h-screen max-w-3xl p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-update-product-label" aria-hidden="true" enctype="multipart/form-data" class="update-form">
         @csrf
         @method('PUT')
-            <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New Pet</h5>
+         <!-- Modal header -->
+         <div class="flex justify-between items-centers border-b rounded-t sm:mb-5 dark:border-gray-600">
+            <h5 id="drawer-label" class="inline-flex items-center pb-3 text-lg  font-bold text-red-500  dark:text-gray-400">Update Pet Information</h5>
             <button type="button" data-drawer-dismiss="drawer-update-product-{{ $pet->id }}" aria-controls="drawer-update-product-{{ $pet->id }}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
                 <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
                 </svg>
                 <span class="sr-only">Close menu</span>
             </button>
-            <div class="grid gap-4 sm:grid-cols-3 sm:gap-6 ">
-                <div class="space-y-4 sm:col-span-2 sm:space-y-6">
-                    <div>
+        </div>
+            
+            <div class="grid gap-1 sm:grid-cols-3 sm:gap-6 ">
+                <div class="space-y-4 sm:col-span-2 sm:space-y-6 max-w-sm">
+                    <div class = "">
                         <label for="update-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Name</label>
                         <input type="text" name="update-name" id="update-name" value="{{$pet->pet_name}}" class="update-name bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                     </div>
@@ -601,10 +606,25 @@
                     <div class="mb-4">
                         <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Image</span>
                         <div class="gap-4 mb-4">
-                            <div class="w-full mb-4">
-                                <img class="h-full w-full update_pet_image" alt="Pet Image" src="{{ asset('storage/images/' . $pet->dropzone_file) }}">
+                            <div class="w-full max-w-xs  mb-4">
+                                <img class="h-full w-full max-h-64 update_pet_image" alt="Pet Image" src="{{ asset('storage/images/' . $pet->dropzone_file) }}">
                             </div>
                         </div>
+                        <div class="">
+                            <div id="image-preview" class="max-w-xs max-h-64 p-4 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg text-center cursor-pointer">
+                              <input id="upload" type="file" class="hidden" accept="image/*" />
+                              <label for="upload" class="cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                </svg>
+                                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+                                <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
+                                <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                              </label>
+                            </div>
+                          </div>
+                        <!-- ETO REN IVAN ILY 
                         <div class="flex items-center justify-center w-full">
                             <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <div class="flex flex-col items-center justify-center pt-5 pb-6">
@@ -620,6 +640,7 @@
                                 <input id="dropzone-file" type="file" class="hidden">
                             </label>
                         </div>
+                    -->
                     </div>
                     <div class="grid grid-cols-2 gap-4 mt-6">
                         <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update pet</button>

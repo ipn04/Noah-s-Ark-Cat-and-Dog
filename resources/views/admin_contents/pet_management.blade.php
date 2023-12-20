@@ -98,6 +98,17 @@
                     });
                 </script>
             @endif
+            @if(session('pet_updated'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    swal(
+                        "You successfully updated a pet!", 
+                        "Press 'OK' to exit!", 
+                        "success"
+                    )
+                });
+            </script>
+        @endif
             @if(session('pet_deleted'))
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
@@ -190,25 +201,24 @@
                             @foreach($pets as $pet)
                                 <tr data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}" data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}" data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}"  class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td scope="row" class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
-                                                                            <img class="w-10 h-10 rounded-full" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
-                                                                            <div class="ps-2 flex flex-col">
-                                                                                <div class="text-lg lg:text-base">{{ $pet->pet_name }}</div>
-                                                                                <div class="text-sm  lg:hidden">
-                                                                                    @if($pet->adoption_status === 'Available')
-                                                                                        <div class="text-green-600 w-20 rounded-lg py-1 font-semibold bg-green-200">
-                                                                                            <p class="text-center">{{ $pet->adoption_status }}</p>
-                                                                                        </div>
-                                                                                    @else
-                                                                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                                                                            <p class="text-center">Not Available</p>
-                                                                                        </div>
-                                                                                    @endif
-                                                                                </div>
-                                                                            </div>
-                                                                        </td>
+                                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
+                                        <div class="ps-2 flex flex-col">
+                                            <div class="text-lg lg:text-base">{{ $pet->pet_name }}</div>
+                                            <div class="text-sm  lg:hidden">
+                                                @if($pet->adoption_status === 'Available')
+                                                    <div class="text-green-600 w-20 rounded-lg py-1 font-semibold bg-green-200">
+                                                        <p class="text-center">{{ $pet->adoption_status }}</p>
+                                                    </div>
+                                                @else
+                                                    <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                                        <p class="text-center">Not Available</p>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                        </div>
+                                    </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-base text-gray-500 ">{{ $pet->pet_type }}</div>
-
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-base text-gray-500  ">{{ $pet->gender }}</div>
@@ -236,7 +246,8 @@
                                                 <path fill-rule="evenodd" clip-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
                                             </svg>
                                         </button>
-                                        <button type="button" data-drawer-target="drawer-update-product" data-drawer-show="drawer-update-product" onclick="updateDrawer('{{ $pet->id }}')" aria-controls="drawer-update-product" class="py-2 px-3 text-sm font-medium text-center text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg shadow-md">
+                                        {{-- update --}}
+                                        <button type="button" data-drawer-target="drawer-update-product-{{ $pet->id }}" data-drawer-show="drawer-update-product-{{ $pet->id }}" aria-controls="drawer-update-product-{{ $pet->id }}" class="py-2 px-3 text-sm font-medium text-center text-white bg-yellow-400 hover:bg-yellow-600 rounded-lg shadow-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 " viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                 <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                                                 <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
@@ -288,8 +299,6 @@
                                             </div>
                                         </div>
                                     </td>
-                                    
-                                    
                                     <div id="delete-modal-{{ $pet->id }}" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                         <div class="relative w-full h-auto max-w-md max-h-full">
                                             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -550,119 +559,132 @@
         </div>
     </div>
     <!-- drawer component -->
-    <form action="#" id="drawer-update-product" class="fixed top-0 left-0 z-40 w-full h-screen max-w-3xl p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-update-product-label" aria-hidden="true">
-        <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New Pet</h5>
-        <button type="button" data-drawer-dismiss="drawer-update-product" aria-controls="drawer-update-product" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
-            </svg>
-            <span class="sr-only">Close menu</span>
-        </button>
-        <div class="grid gap-4 sm:grid-cols-3 sm:gap-6 ">
-            <div class="space-y-4 sm:col-span-2 sm:space-y-6">
-                <div>
-                    <label for="update-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Name</label>
-                    <input type="text" name="update-name" id="update-name" class="update-name bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
-                </div>
-                <div>
-                    <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
-                    <div class="w-full border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
-                        <div class="px-4 py-3 bg-white rounded-b-lg dark:bg-gray-800"><textarea id="description" rows="8" class="update-description block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write pet description here" required=""></textarea></div>
+    {{-- dito update --}}
+    @foreach($pets as $pet)
+        <form action="{{ route('pets.update', ['id' => $pet->id]) }}" method="POST" id="drawer-update-product-{{ $pet->id }}"  class="fixed top-0 left-0 z-40 w-full h-screen max-w-3xl p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-update-product-label" aria-hidden="true" enctype="multipart/form-data" class="update-form">
+        @csrf
+        @method('PUT')
+            <h5 id="drawer-label" class="inline-flex items-center mb-6 text-sm font-semibold text-gray-500 uppercase dark:text-gray-400">New Pet</h5>
+            <button type="button" data-drawer-dismiss="drawer-update-product-{{ $pet->id }}" aria-controls="drawer-update-product-{{ $pet->id }}" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 absolute top-2.5 right-2.5 inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
+                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd" />
+                </svg>
+                <span class="sr-only">Close menu</span>
+            </button>
+            <div class="grid gap-4 sm:grid-cols-3 sm:gap-6 ">
+                <div class="space-y-4 sm:col-span-2 sm:space-y-6">
+                    <div>
+                        <label for="update-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Name</label>
+                        <input type="text" name="update-name" id="update-name" value="{{$pet->pet_name}}" class="update-name bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                     </div>
-                </div>
-                <div class="mb-4">
-                    <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Image</span>
-                    <div class="gap-4 mb-4">
-                        <div class="relative p-2 bg-gray-100 rounded-lg sm:w-36 sm:h-36 dark:bg-gray-700">
-                            <img src="https://flowbite.s3.amazonaws.com/blocks/application-ui/products/imac-side-image.png" alt="imac image">
-                            
+                    <div>
+                        <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Description</label>
+                        <div class="w-full border border-gray-200 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600">
+                            <div class="px-4 py-3 bg-white rounded-b-lg dark:bg-gray-800"><textarea id="description" name="description" rows="8" class="update-description block w-full px-0 text-sm text-gray-800 bg-white border-0 dark:bg-gray-800 focus:ring-0 dark:text-white dark:placeholder-gray-400" placeholder="Write pet description here" required="">{{ $pet->description }} </textarea></div>
                         </div>
                     </div>
-                    <div class="flex items-center justify-center w-full">
-                        <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                            <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
-                                </svg>
-                                <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                    <span class="font-semibold">Click to upload</span>
-                                    or drag and drop
-                                </p>
-                                <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                    <div class="mb-4">
+                        <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Image</span>
+                        <div class="gap-4 mb-4">
+                            <div class="w-full mb-4">
+                                <img class="h-full w-full update_pet_image" alt="Pet Image" src="{{ asset('storage/images/' . $pet->dropzone_file) }}">
                             </div>
-                            <input id="dropzone-file" type="file" class="hidden">
-                        </label>
+                        </div>
+                        <div class="flex items-center justify-center w-full">
+                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                    </svg>
+                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
+                                        <span class="font-semibold">Click to upload</span>
+                                        or drag and drop
+                                    </p>
+                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                </div>
+                                <input id="dropzone-file" type="file" class="hidden">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update pet</button>
+                        <button type="button" class="text-red-600 inline-flex justify-center items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                            <svg aria-hidden="true" class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            Delete
+                        </button>
                     </div>
                 </div>
-                <div class="grid grid-cols-2 gap-4 mt-6">
-                    <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update product</button>
-                    <button type="button" class="text-red-600 inline-flex justify-center items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-                        <svg aria-hidden="true" class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                            <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
-                        </svg>
-                        Delete
-                    </button>
+                <div class="space-y-4 sm:space-y-6">
+                    <div>
+                        <label for="update-breed" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Breed</label>
+                        <input type="text" id="update-breed" value="{{ $pet->breed }}" name="update-breed" class="update-breed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Pet Breed" required="">
+                    </div>
+                    <div>
+                        <label for="update-age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
+                        <input type="number" id="update-age" value="{{ $pet->age }}" name="update-age" class="update-age bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Age" required="">
+                    </div>
+                    <div>
+                        <label for="update-color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                        <input type="text" id="update-color" value="{{ $pet->color }}" name="update-color" class="update-color bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Color" required="">
+                    </div>
+                    <div>
+                        <label for="update-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Weight (kg)</label>
+                        <input type="number" name="update-weight" id="update-weight" value="{{ $pet->weight }}" class="update-weight bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  placeholder="Ex. 12" required="">
+                    </div>
+                    <div>
+                        <label for="update-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                        <select id="update-type" name="update-type" class="update-type bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="Dog" {{ $pet->pet_type === 'Dog' ? 'selected' : '' }}>Dog</option>
+                            <option value="Cat" {{ $pet->pet_type === 'Cat' ? 'selected' : '' }}>Cat</option>                        
+                        </select>
+                    </div>
+                    <div>
+                        <label for="update-adoption-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adoption Status</label>
+                        <select id="update-adoption-status" name="update-adoption-status" class="update-adoption-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="Available" {{ $pet->adoption_status === 'Available' ? 'selected' : '' }}>Available</option>
+                            <option value="Unavailable" {{ $pet->adoption_status === 'Unavailable' ? 'selected' : '' }}>Unavailable</option>  
+                        </select>
+                    </div>
+                    <div>
+                        <label for="update-gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                        <select id="update-gender" name="update-gender" class="update-gender bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="Male" {{ $pet->gender === 'Male' ? 'selected' : '' }}>Male</option>
+                            <option value="Female" {{ $pet->gender === 'Female' ? 'selected' : '' }}>Female</option>  
+                        </select>
+                    </div>
+                    <div>
+                        <label for="update-vaccination-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vaccination Status</label>
+                        <select id="update-vaccination-status" name="update-vaccination-status" class="update-vaccination-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="Fully Vaccinated" {{ $pet->vaccination_status === 'Fully Vaccinated' ? 'selected' : '' }}>Fully Vaccinated</option>
+                            <option value="Not Vaccinated" {{ $pet->vaccination_status === 'Not Vaccinated' ? 'selected' : '' }}>Not Vaccinated</option>                          
+                        </select>
+                    </div>
+                    <div>
+                        <label for="update-size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
+                        <select id="update-size" name="update-size" class="update-size bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="Small" {{ $pet->size === 'Small' ? 'selected' : '' }}>Small</option>
+                            <option value="Medium" {{ $pet->size === 'Medium' ? 'selected' : '' }}>Medium</option>    
+                            <option value="Large" {{ $pet->size === 'Large' ? 'selected' : '' }}>Large</option>     
+                        </select>
+                    </div>
+                    <div>
+                        <label for="update-behaviour" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Behaviour</label>
+                        <select id="update-behaviour" name="update-behaviour" class="update-behaviour bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                            <option value="Friendly" {{ $pet->behaviour === 'Friendly' ? 'selected' : '' }}>Friendly</option>
+                            <option value="Aggressive" {{ $pet->behaviour === 'Aggressive' ? 'selected' : '' }}>Aggressive</option> 
+                            <option value="Playful" {{ $pet->behaviour === 'Playful' ? 'selected' : '' }}>Playful</option> 
+                        </select>
+                    </div>
                 </div>
             </div>
-            <div class="space-y-4 sm:space-y-6">
-                <div>
-                    <label for="update-breed" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Breed</label>
-                    <input type="text" id="update-breed" class="update-breed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Pet Breed" required="">
-                </div>
-                <div>
-                    <label for="update-age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-                    <input type="number" id="update-age" class="update-age bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Age" required="">
-                </div>
-                <div>
-                    <label for="update-color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
-                    <input type="text" id="update-color" class="update-color bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Color" required="">
-                </div>
-                <div>
-                    <label for="update-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Weight (kg)</label>
-                    <input type="number" name="update-weight" id="update-weight" class="update-weight bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  placeholder="Ex. 12" required="">
-                </div>
-                <div>
-                    <label for="update-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
-                    <select id="update-type" class="update-type bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="Dog">Dog</option><option value="Cat">Cat</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="update-adoption-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adoption Status</label>
-                    <select id="update-adoption-status" class="update-adoption-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="Available">Available</option><option value="Unavailable">Unavailable</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="update-gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                    <select id="update-gender" class="update-gender bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="Male">Male</option><option value="Female">Female</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="update-vaccination-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vaccination Status</label>
-                    <select id="update-vaccination-status" class="update-vaccination-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="Not Vaccinated">Not Vaccinated</option><option value="Fully Vaccinated">Fully Vaccinated</option><option value="Pending">Pending</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="update-size" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Size</label>
-                    <select id="update-size" class="update-size bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="Small">Small</option><option value="Medium">Medium</option><option value="Large">Large</option>
-                    </select>
-                </div>
-                <div>
-                    <label for="update-behaviour" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Behaviour</label>
-                    <select id="update-behaviour" class="update-behaviour bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
-                        <option selected="Friendly">Friendly</option><option value="Aggressive">Aggressive</option><option value="Playful">Playful</option>
-                    </select>
-                </div>
-            </div>
-        </div>
 
-    </form>
+        </form>
+    @endforeach
     <!-- Preview Drawer -->
     <div id="drawer-read-product-advanced" class="overflow-y-auto fixed top-0 left-0 z-40 p-4 w-full max-w-lg h-screen bg-white transition-transform -translate-x-full dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-label" aria-hidden="true">
+        
         <div>
             <h5 id="read-drawer-label" class="mb-4 leading-none text-2xl font-bold text-gray-900 dark:text-white">Pet Details</h5>
         </div>
@@ -726,7 +748,7 @@
             <img class="h-full w-full pet_image" alt="Pet Image">
         </div>
         <div class="flex left-0 justify-center space-x-4 w-full">
-            <button type="button" data-drawer-target="drawer-update-product"  data-drawer-show="drawer-update-product" data-drawer-dismiss="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="text-white w-full inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+            <button type="button" data-drawer-target="drawer-update-product-{{ $pet->id }}"  data-drawer-show="drawer-update-product-{{ $pet->id }}" data-drawer-dismiss="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="text-white w-full inline-flex items-center justify-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
                 <svg aria-hidden="true" class="mr-1 -ml-1 w-5 h-5" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                     <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
                     <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />

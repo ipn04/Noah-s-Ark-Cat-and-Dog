@@ -106,11 +106,17 @@ Route::get('/howicanhelp', function () {
     return view('initial_page.how');
 })->name('how');
 
+
+// admin crud
 Route::post('/addPet', [PetDataController::class, 'addPet'])->middleware(['auth', 'verified'])->name('addPet');
 
 Route::get('/pets/{id}', [PetDataController::class, 'showPet'])->middleware(['auth', 'verified'])->name('showPet');
 
+Route::put('/pets/{id}', [PetDataController::class, 'update'])->middleware(['auth', 'verified'])->name('pets.update');
+
 Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'verified'])->name('pets.delete');
+
+
 
 // for search
 // Route::post('/pet/search', [PetDataController::class, 'search'])->middleware(['auth', 'verified'])->name('search');

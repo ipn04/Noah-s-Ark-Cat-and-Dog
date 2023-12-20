@@ -100,6 +100,86 @@ class PetDataController extends Controller
 
         return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_added' => true]);
     }
+
+    public function update(Request $request, $id)
+    {
+        $pet = Pet::find($id);
+        if (!$pet) {
+            return response()->json(['message' => 'Pet not found'], 404);
+        }
+
+        // Validate the updated data
+        $validatedData = $request->validate([
+            'update-name' => 'sometimes|required',
+            'update-type' => 'sometimes|required',
+            'update-breed' => 'sometimes|required',
+            'update-age' => 'sometimes|required',
+            'update-color' => 'sometimes|required',
+            'update-adoption-status' => 'sometimes|required',
+            'update-gender' => 'sometimes|required',
+            'update-vaccination-status' => 'sometimes|required',
+            'update-weight' => 'sometimes|required',
+            'update-size' => 'sometimes|required',
+            'update-behaviour' => 'sometimes|required',
+            'description' => 'sometimes|required',
+            'dropzone-file' => 'sometimes|required',
+        ], [
+            'dropzone-file.image' => 'The file must be an image.',
+            'dropzone-file.mimes' => 'Allowed image formats are: jpeg, png, jpg, gif.',
+            'dropzone-file.max' => 'Maximum file size allowed is 2MB.',
+        ]);
+
+        // Update pet details in the database
+        
+        $pet->fill($validatedData);
+
+        // Check for a new image upload
+        if ($request->hasFile('dropzone-file')) {
+            // Remove the old image from storage
+            $oldImagePath = 'public/images/' . $pet->dropzone_file;
+            if (Storage::disk('local')->exists($oldImagePath)) {
+                Storage::disk('local')->delete($oldImagePath);
+            }
+
+            // Store the new image in the storage
+            $image = $request->file('dropzone-file');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $directory = 'images';
+            $image->storeAs('public/' . $directory, $imageName);
+
+            // Update the image file name in the database
+            $pet->dropzone_file = $imageName;
+            $pet->save();
+        }
+        if ($pet->isDirty()) {
+            $pet->save();
+    
+            // Check for a new image upload
+            if ($request->hasFile('dropzone-file')) {
+                // Remove the old image from storage (if exists)
+                $oldImagePath = 'public/images/' . $pet->dropzone_file;
+                if (Storage::disk('local')->exists($oldImagePath)) {
+                    Storage::disk('local')->delete($oldImagePath);
+                }
+    
+                // Store the new image in the storage
+                $image = $request->file('dropzone-file');
+                $imageName = time() . '.' . $image->getClientOriginalExtension();
+                $directory = 'images';
+                $image->storeAs('public/' . $directory, $imageName);
+    
+                // Update the image file name in the database
+                $pet->dropzone_file = $imageName;
+                $pet->save();
+            }
+    
+            return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_updated' => true]);
+        }
+    
+        // No changes were made
+        return redirect()->route('admin.pet.management')->with(['pet' => $pet]);
+    }
+
     public function delete($id)
     {
         $pet = Pet::find($id);
@@ -118,22 +198,5 @@ class PetDataController extends Controller
         
         return response()->json(['message' => 'Pet deleted successfully']);
     }
-
-    // search
-    // public function search(Request $request){
-    //     // Get the search value from the request
-    //     $search = $request->input('search');
-    //     $petCount = Pet::count();
-    //     $catCount = Pet::where('pet_type', 'cat')->count();
-    //     $dogCount = Pet::where('pet_type', 'dog')->count();
-        
-    //     // Search in the title and body columns from the posts table
-        
-    //     $pets = Pet::query()
-    //         ->where('pet_name', 'LIKE', "%{$search}%")
-    //         ->get();
-    //         return response()->json(['pets' => $pets]);
-    //     // Return the search view with the resluts compacted
-    // }
 }
 

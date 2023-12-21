@@ -306,6 +306,11 @@ function previewPetDetails(petId) {
   imagePreview.classList.add('border-dashed', 'border-2', 'border-gray-400');
 
  });
+
+
+
+
+
 // function updateDrawer(petId) {
 
     // const form = document.getElementById(`drawer-update-product-${petId}`);

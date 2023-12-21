@@ -577,7 +577,7 @@
     <!-- drawer component -->
     {{-- dito update --}}
     @foreach($pets as $pet)
-        <form action="{{ route('pets.update', ['id' => $pet->id]) }}" method="POST" id="drawer-update-product-{{ $pet->id }}"  class="update-form fixed top-0 left-0 z-40 w-full h-screen max-w-3xl p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-update-product-label" aria-hidden="true" enctype="multipart/form-data" class="update-form">
+        <form action="{{ route('pets.update', ['id' => $pet->id]) }}" method="POST" id="drawer-update-product-{{ $pet->id }}"  class="update-form fixed top-0 left-0 z-40 w-full h-screen max-w-xl p-4 overflow-y-auto transition-transform -translate-x-full bg-white dark:bg-gray-800" tabindex="-1" aria-labelledby="drawer-update-product-label" aria-hidden="true" enctype="multipart/form-data" class="update-form">
         @csrf
         @method('PUT')
          <!-- Modal header -->
@@ -639,7 +639,7 @@
                             </label>
                         </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-4 mt-6">
+                    <div class="hidden lg:grid grid-cols-2 gap-4 mt-6">
                         <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update pet</button>
                         <button type="button" class="text-red-600 inline-flex justify-center items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
                             <svg aria-hidden="true" class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -703,6 +703,15 @@
                             <option value="Aggressive" {{ $pet->behaviour === 'Aggressive' ? 'selected' : '' }}>Aggressive</option> 
                             <option value="Playful" {{ $pet->behaviour === 'Playful' ? 'selected' : '' }}>Playful</option> 
                         </select>
+                    </div>
+                    <div class="grid lg:hidden grid-cols-2 gap-4 mt-6">
+                        <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update pet</button>
+                        <button type="button" class="text-red-600 inline-flex justify-center items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
+                            <svg aria-hidden="true" class="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd" />
+                            </svg>
+                            Delete
+                        </button>
                     </div>
                 </div>
             </div>

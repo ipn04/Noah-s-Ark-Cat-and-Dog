@@ -8,12 +8,14 @@
         <title>Noah's Ark Dog and Cat Shelter</title>
 
         <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css"  rel="stylesheet" />
+        
         <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 
         <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFjsYumj3DdiY6pQpp_dggIHH6ZB7s09Q&callback=console.debug&libraries=maps,marker&v=beta">
+        </script>
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -49,6 +51,7 @@
         </main>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/flowbite.min.js"></script>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>  
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/datepicker.min.js"></script>
         <script src="/js/chart.js"></script>
         <script src="/js/crud.js">deletepet</script>       
     </body>

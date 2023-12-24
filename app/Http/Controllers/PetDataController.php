@@ -46,6 +46,18 @@ class PetDataController extends Controller
         return view('initial_page.pets', ['pets' => $pets]);
     }
 
+    public function  showUserPets()
+    {
+        $pets = Pet::where('adoption_status', 'available')->get();
+        if ($pets->isNotEmpty()) {
+
+            return view('dashboards.user_dashboard', ['pets' => $pets]);
+        } else {
+            // Handle case when no pets are found
+        }
+        
+    }
+
     public function showPet($id)
     {
         $pet = Pet::find($id);

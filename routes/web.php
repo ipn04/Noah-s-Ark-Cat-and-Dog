@@ -23,9 +23,8 @@ Route::get('/', function () {
 
 /* user`s routes */
 
-Route::get('/user/dashboard', function () {
-    return view('dashboards.user_dashboard');
-})->middleware(['auth', 'verified'])->name('user.dashboard');   
+Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])->middleware(['auth', 'verified'])
+->name('user.dashboard');   
 
 // Route::get('/user/messages', function () {
 //     return view('user_contents.messages');

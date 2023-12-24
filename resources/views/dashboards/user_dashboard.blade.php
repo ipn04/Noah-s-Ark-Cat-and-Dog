@@ -82,8 +82,38 @@
                         <path clip-rule="evenodd" fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                     </svg>
                 </button> 
-            </div>                  
+            </div> 
         </div>
+
+        <div class="lg:px-10 lg:py-5 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6container">
+          <div class="h-fit group shadow-xl rounded-lg ">
+            <div class="relative overflow-hidden hover:cursor-pointer">
+              <img class="h-72 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1659576294143-1da218a2d82e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="">
+              <div class="absolute rounded-xl bottom-0 h-full w-full bg-black/30 items-center group-hover:opacity-100 opacity-0 transition-opacity duration-300">
+                <div class="absolute bottom-8 pl-3">
+                  <h2 class=" font-bold text-xl text-white">Yumi</h2>
+                  <p class="text-base font-normal inline-block text-white">Dog • Female</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="h-fit group shadow-xl rounded-lg ">
+            <div class="relative overflow-hidden hover:cursor-pointer">
+              <img class="h-72 w-full rounded-xl object-cover" src="https://images.unsplash.com/photo-1659576294143-1da218a2d82e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=735&q=80" alt="">
+              <div class="absolute rounded-xl bottom-0 h-full w-full bg-black/30 items-center group-hover:opacity-100 opacity-0 transition-opacity duration-300">
+                <div class="absolute bottom-8 pl-3">
+                  <h2 class=" font-bold text-xl text-white">Yumi</h2>
+                  <p class="text-base font-normal inline-block text-white">Dog • Female</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+          
+            
+          
         
 <!-- Main modal -->
 <div id="shelter-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -117,6 +147,8 @@
           </div>
       </div>
   </div>
+
+  
 </div>
 
 <!-- Main modal -->

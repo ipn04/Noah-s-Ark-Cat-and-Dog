@@ -48,6 +48,19 @@ Route::get('/user/applications', function () {
     return view('user_contents.applications');
 })->middleware(['auth', 'verified'])->name('user.applications');   
 
+Route::get('/user/pets', function () {
+    return view('user_contents.petcontents');
+})->middleware(['auth', 'verified'])->name('user.pet');
+
+
+Route::get('/user/adoption_form', function () {
+    return view('user_contents.adoptionform');
+})->middleware(['auth', 'verified'])->name('user.adoption');
+
+Route::get('/user/volunteer_form', function () {
+    return view('user_contents.volunteerform');
+})->middleware(['auth', 'verified'])->name('user.volunteer');
+
 // User send message 
 Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middleware(['auth', 'verified'])->name('messages.send');
 

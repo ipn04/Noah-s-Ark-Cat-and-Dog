@@ -31,8 +31,9 @@
         </script>
     @endif
     <!-- Session Status -->
-    <div class="w-full bg-white mb-4">
-        <h1 class="text-center text-4xl font-bold">Login</h1>
+    <div class="w-full bg-transparent mb-2 mx-auto">
+        <img src="{{ asset('images/logo.png') }}" alt="Noah's Ark Logo" class="mx-auto mb-3 w-1/4">
+        <h1 class="text-center text-2xl  font-bold">Login to your account</h1>
     </div>
     <x-auth-session-status class="mb-4" :status="session('status')" />
     
@@ -58,26 +59,30 @@
             {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
         </div>
 
-        <div class="flex justify-center items-center block mt-4">
-            <p class="text-sm">Don't have an account?@if (Route::has('register'))
-                <a href="{{ route('register') }}" class="underline font-semibold text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white">Register</a>
-            @endif</p>
-        </div>
-         
-        <div class="flex justify-center items-center block mt-2">
-             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
-        </div>
-       
+        <div class="flex items-center block mt-2">
+            @if (Route::has('password.request'))
+               <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800" href="{{ route('password.request') }}">
+                   {{ __('Forgot your password?') }}
+               </a>
+           @endif
+       </div>
 
-        <div class="flex items-center justify-center mt-4">
-            <x-primary-button class="ms-3">
+        <div class="flex items-center justify-center mt-6">
+            <x-primary-button>
                 {{ __('Log in') }}
             </x-primary-button>
             
         </div>
+
+        <div class="flex justify-center items-center  mt-4">
+            @if (Route::has('register'))
+                <a href="{{ route('register') }}" class=" w-full bg-yellow-300  hover:bg-yellow-200 text-center py-2 font-bold rounded-lg">Register</a>
+            @endif</p>
+        </div>
+         
+    
+       
+
+      
     </form>
 </x-guest-layout>

@@ -334,5 +334,3 @@ function showSection(currentSection, nextSection) {
 
 
 
-
-

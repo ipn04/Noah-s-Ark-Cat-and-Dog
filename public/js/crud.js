@@ -329,5 +329,3 @@ function previewPetDetails(petId) {
 
 
 
-
-

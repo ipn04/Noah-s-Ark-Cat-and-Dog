@@ -3,6 +3,7 @@
     @include('sidebars.user_sidebar')
 
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
+        
         @if($pets && is_object($pets))
         <div class = "flex justify-between items-center py-4 px-10">
         <div class = "flex gap-2">

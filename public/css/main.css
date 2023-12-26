@@ -1,0 +1,69 @@
+#otherInput {
+    display: none;
+}
+#other:checked ~ #otherInput {
+    display: block;
+}
+
+#firstInput {
+    display: none;
+}
+#fother:checked ~ #firstInput {
+    display: block;
+}
+
+#thirdInput {
+    display: none;
+}
+#th_other:checked ~ #thirdInput {
+    display: block;
+}
+
+#fourthInput {
+    display: none;
+}
+#yes_below:checked ~ #fourthInput {
+    display: block;
+}
+
+#fifthInput {
+    display: none;
+}
+#yes_pets:checked ~ #fifthInput {
+    display: block;
+}
+
+#sixthInput {
+    display: none;
+}
+#yes_past:checked ~ #sixthInput {
+    display: block;
+}
+
+#seventInput {
+    display: none;
+}
+#tenth_other:checked ~ #seventInput {
+    display: block;
+}
+
+#eightInput {
+    display: none;
+}
+#yes_allergic:checked ~ #eightInput {
+    display: block;
+}
+
+#ninthInput {
+    display: none;
+}
+#twelth_other:checked ~ #ninthInput {
+    display: block;
+}
+
+#tenthInput {
+    display: none;
+}
+#yes_rent:checked ~ #tenthInput {
+    display: block;
+}

@@ -55,6 +55,15 @@ class PetDataController extends Controller
         return view('user_contents.petcontents', ['pets' => $pets]);
     }
 
+    public function sendAdoption($petId)
+    {
+        $pets = Pet::find($petId);
+        if(!$pets) {
+            return redirect()->back()->with('error', 'Pet not found');
+        }
+        return view('user_contents.adoptionform', ['pets' => $pets]);
+    }
+
     public function  showUserPets()
     {
         $pets = Pet::where('adoption_status', 'available')->get();

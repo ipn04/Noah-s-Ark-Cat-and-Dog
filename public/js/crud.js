@@ -229,6 +229,11 @@ function previewPetDetails(petId) {
         });
 }
 
+function showSection(currentSection, nextSection) {
+    document.getElementById(`section${currentSection}`).classList.add('hidden');
+    document.getElementById(`section${nextSection}`).classList.remove('hidden');
+}
+
 // // FOR ADDING PICTURE UPDATE
 
 //  const uploadInput = document.getElementById('dropzone_file');

@@ -3,6 +3,8 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PetDataController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\adoptionController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -50,10 +52,13 @@ Route::get('/user/applications', function () {
 
 Route::get('/user/pets/{petId}', [PetDataController::class, 'adoptPet'])->middleware(['auth', 'verified'])->name('user.pet');
 
+Route::post('/send/form', [adoptionController::class, 'store'])->name('send.form');
 
-Route::get('/user/adoption_form', function () {
-    return view('user_contents.adoptionform');
-})->middleware(['auth', 'verified'])->name('user.adoption');
+Route::get('/user/sendAdoption/{petId}', [PetDataController::class, 'sendAdoption'])->middleware(['auth', 'verified'])->name('user.adoption');
+
+// Route::get('/user/adoption_form', function () {
+//     return view('user_contents.adoptionform');
+// })->middleware(['auth', 'verified'])->name('user.adoption');
 
 Route::get('/user/volunteer_form', function () {
     return view('user_contents.volunteerform');

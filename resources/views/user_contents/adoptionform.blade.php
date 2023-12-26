@@ -6,7 +6,6 @@
         @if($pets && is_object($pets))
 
         <div class = "flex gap-2  py-4 px-10">
-            @if($pets && is_object($pets))
 
             <a href = "{{ route('user.dashboard') }}" class = "text-lg hover:font-bold hover:cursor-pointer hover:text-red-500">Home</a>
             <p class = "text-lg">>></p>
@@ -241,12 +240,13 @@
                         </div>
                     </div>
                 </div>
-                @else
-                    <p>No pet found</p>
-                @endif
+              
             </div>
+       
         </div>
-
+        @else
+            <p>No pet found</p>
+        @endif
     </section>
 
 

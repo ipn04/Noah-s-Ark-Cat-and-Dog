@@ -48,9 +48,7 @@ Route::get('/user/applications', function () {
     return view('user_contents.applications');
 })->middleware(['auth', 'verified'])->name('user.applications');   
 
-Route::get('/user/pets', function () {
-    return view('user_contents.petcontents');
-})->middleware(['auth', 'verified'])->name('user.pet');
+Route::get('/user/pets/{petId}', [PetDataController::class, 'adoptPet'])->middleware(['auth', 'verified'])->name('user.pet');
 
 
 Route::get('/user/adoption_form', function () {

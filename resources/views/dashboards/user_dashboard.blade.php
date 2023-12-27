@@ -83,8 +83,8 @@
                     </svg>
                 </button> 
             </div> 
-        </div>
-        
+        </div>  
+        {{-- tama --}}
         <div class = "flex justify-center items-center">
         <div class="lg:px-10 lg:py-5 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6 ">
           @if($pets->isNotEmpty())

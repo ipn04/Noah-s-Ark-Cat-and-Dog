@@ -1,4 +1,5 @@
 <x-app-layout>
+    @include('admin_top_navbar.user_top_navbar')
     @include('sidebars.user_sidebar')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

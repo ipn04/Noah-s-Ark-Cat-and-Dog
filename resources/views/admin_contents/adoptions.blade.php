@@ -1,5 +1,6 @@
 <x-app-layout>
     <x-slot name="title">Adoptions Page</x-slot>
+    @include('admin_top_navbar.admin_top_navbar')
     @include('sidebars.admin_sidebar')
 
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">

@@ -1,6 +1,6 @@
 <x-app-layout>
     <x-slot name="title">Pet Page</x-slot>
-
+    @include('admin_top_navbar.admin_top_navbar')
     @include('sidebars.admin_sidebar')
     <div class="sm:ml-64">
         <div class="py-4 bg-red-800">

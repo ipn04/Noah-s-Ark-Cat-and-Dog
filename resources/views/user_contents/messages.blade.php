@@ -1,4 +1,6 @@
 <x-app-layout>
+    @include('admin_top_navbar.user_top_navbar')
+
     @include('sidebars.user_sidebar')
     @if ($errors->any())
         <script>

@@ -102,7 +102,7 @@
               </a>
             @endforeach
           @else
-              {{-- <div class="flex justify-center">No data</div> --}}
+             
           @endif
         </div>
         </div>

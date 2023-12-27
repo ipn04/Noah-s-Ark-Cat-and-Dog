@@ -72,6 +72,7 @@ class PetDataController extends Controller
             return view('dashboards.user_dashboard', ['pets' => $pets]);
         } else {
             // Handle case when no pets are found
+            return view('dashboards.user_dashboard', ['pets' => $pets]);
         }
         
     }

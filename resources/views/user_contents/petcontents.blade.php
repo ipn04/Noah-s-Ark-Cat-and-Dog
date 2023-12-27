@@ -39,7 +39,7 @@
                                 @endif
                             </div>
                         </div>
-                        <div class="flex">
+                        <div class="hello">
                             <h5 class="text-gray-500 font-extrabold">{{$pets->breed}}</h5> ⚬ <h5 class="text-gray-500 font-extrabold">{{$pets->age}}</h5>
                         </div>
                     </div>
@@ -71,7 +71,19 @@
                 </div>
             </div>
             
-            <div class = "bg-white shadow-md rounded-lg">
+            <div class = " max-h-96 max-w-md ">
+                <div class=" overflow-hidden bg-white shadow-xl rounded-3xl">
+                    <img src="{{ asset('storage/images/' . $pets->dropzone_file) }}" class=" max-h-96 w-full object-cover" />
+                  <div class="flex justify-center -mt-11 ">
+                      <div class="rounded-2xl  w-4/5 -mt-3 w-423.355 h-24 rotate-[-0.205deg] p-21.892 flex-col items-center gap-17.513 flex-shrink-0 border-26.27 bg-[rgba(255,255,255,0.40)] shadow-[0px 5.473px 43.784px 0px rgba(0,0,0,0.05)] backdrop-blur-[27.364822387695312px]">
+                        <p class = "hidden">Yumi</p>	
+                      </div>	
+                  </div>
+                  <div class=" px-5 pb-6 pt-2">
+                      <h3 class="text-sm bold font-sans">About Yumi</h3>
+                      <p class="mt-2 font-sans font-light">Hello, i'm from another the other side!</p>
+                  </div>
+                   
             </div>
 
         </div>

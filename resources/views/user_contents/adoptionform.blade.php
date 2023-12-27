@@ -9,183 +9,251 @@
 
             <a href = "{{ route('user.dashboard') }}" class = "text-lg hover:font-bold hover:cursor-pointer hover:text-red-500">Home</a>
             <p class = "text-lg">>></p>
-            <h2 class="font-bold text-lg">{{$pets->pet_name}}</h2>
+            <a href = "{{ route('user.pet', $pets->id) }}"class=" hover:text-red-500 font-bold text-lg">{{$pets->pet_name}}</a>
             <p class = "text-lg">>></p>
             <h2 class="font-bold text-lg text-red-500">Adoption Form</h2>
         </div>
-        <div class="grid grid-cols-2">
+
+        <div class="flex justify-center items-center">
+        <div class="grid grid-cols-2 gap-10 py-4">
+            <div class = "bg-white p-10 w-full shadow-lg rounded-2xl items-center justify-center flex">
             <form method="POST" action="{{ route('send.form') }}" class="max-w-lg px-10">
                 @csrf
                 <div id="section1" class="block">
-                    <div>
-                        <label for="social_media" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Social Media (FB/IG/Twitter)</label>
-                        <input type="text" id="social_media" name="social_media" placeholder="Social Media" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>
+                    <p class = "font-bold">Part 1 </p>  
+                    <div class = "mt-2">
+                        <x-input-label for="social_media" :value="__('Social Media (FB/IG/Twitter)')" />
+                        <x-text-input id="social_media" class="block mt-1 w-full" type="text" name="social_media" :value="old('social_media')" required autocomplete="social_media" />
+                        
                     </div>
-                    <div>
-                        <label for="prompted" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What promted you to adopt from us?</label>
-                        <select id="prompted" name="prompted" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="prompted" :value="__('What prompted you to adopt from us?')" />
+                        <x-select id="prompted" name="prompted" :value="old('prompted')" required autocomplete="prompted">
                             <option selected>Friends</option>
                             <option value="Website">Website</option>
                             <option value="Social Media">Social Media</option>
                             <option value="Other">Other</option>
-                        </select>
+                        </x-select>
                     </div>
-                    <div>
-                        <label for="prefer" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What are you looking to adopt?</label>
-                        <select id="prefer" name="prefer" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                            <option selected>Dog</option>
-                            <option value="Cat">Cat</option>
-                            <option value="Other">Other</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="adopted_before" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Have you adopted from us before?</label>
-                        <select id="adopted_before" name="adopted_before" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="adopted_before" :value="__('Have you adopted from us before?')" />
+                        <x-select id="adopted_before" name="adopted_before" :value="old('adopted_before')" required autocomplete="adopted_before">
                             <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </x-select>
                     </div>
-                    <div>
-                        <label for="lists" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Do you know the name of the animal you want to adopt? List up to 3:</label>
-                        <input type="text" id="lists" name="lists" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="ideal" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Describe your ideal pet, including it's sex, age, appearance, temperature, etc</label>
-                        <input type="text" id="ideal" name="ideal" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    </div>
-                    <div>
-                        <label for="for_whom" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">For whom are you adopting a pet?</label>
-                        <select id="for_whom" name="for_whom" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2 ">
+                        <x-input-label for="for_whom" :value="__('For whom are you adopting a pet?')" />
+                        <x-select id="for_whom" name="for_whom" :value="old('for_whom')" required autocomplete="for_whom">
                             <option selected>For Myself</option>
+                            <option value="For Myself">For Myself</option>
                             <option value="For Someone Else">For Someone Else</option>
-                        </select>
+                        </x-select>
                     </div>
-                    <div>
-                        <label for="children" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Are there children below 18 in your house?</label>
-                        <select id="children" name="children" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="children" :value="__('Are there children below 18 in your house?')" />
+                        <x-select id="children" name="children" :value="old('children')" required autocomplete="children">
                             <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </x-select>
                     </div>
-                    <div>
-                        <label for="other_pets" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Do you have other pets?</label>
-                        <select id="other_pets" name="other_pets" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                      
+                    <div class = "mt-2">
+                        <x-input-label for="other_pets" :value="__('Do you have other pets?')" />
+                        <x-select id="other_pets" name="other_pets" :value="old('other_pets')" required autocomplete="other_pets">
                             <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </x-select>
                     </div>
-                    <div>
-                        <label for="pets_past" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Have you had pets in the past?</label>
-                        <select id="pets_past" name="pets_past" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="pets_past" :value="__('Have you had pets in the past?')" />
+                        <x-select id="pets_past" name="pets_past" :value="old('pets_past')" required autocomplete="pets_past">
                             <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </x-select>
+                       
                     </div>
-                    <button type="button" onclick="showSection(1, 2)" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
-
-                </div>
-                <div id="section2" class="hidden">
-                    <div>
-                        <label for="live_with" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Who else do you live with?</label>
-                        <select id="live_with" name="live_with" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="live_with" :value="__('Who else do you live with?')" />
+                        <x-select id="live_with" name="live_with" :value="old('live_with')" required autocomplete="live_with">
                             <option selected>Spouse</option>
+                            <option value="Spouse">Spouse</option>
                             <option value="Parents">Parents</option>
                             <option value="Roommates">Roommates</option>
                             <option value="Others">Others</option>
-                        </select>
+                        </x-select>
                     </div>
-                    <div>
-                        <label for="allergic" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Are any members of your house hold allergic to animals?</label>
-                        <select id="allergic" name="allergic" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        
+                        <x-input-label for="allergic" :value="__('Are any members of your house hold allergic to animals?')" />
+                        <x-select id="allergic" name="allergic" :value="old('allergic')" required autocomplete="allergic">
                             <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </x-select>
+                    
                     </div>
-                    <div>
-                        <label for="responsible" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Who will be responsible for feeding, grooming, and generally caring for your pet?</label>
-                        <input type="text" id="responsible" name="responsible" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="responsible" :value="__('Who will be responsible for feeding, grooming, and generally caring of your pet?')" />
+                        <x-text-input id="responsible" class="block mt-1 w-full" type="text" name="responsible" :value="old('responsible')" required autocomplete="responsible" />
                     </div>
-                    <div>
-                        <label for="financially" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Who will be financially responsible for your pet's needs (i.e, food, vet bills, etc)?</label>
-                        <input type="text" id="financially" name="financially" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="financially" :value="__('Who will be financially responsible for your pets needs (i.e food,vet,bills,etc)?')" />
+                        <x-text-input id="financially" class="block mt-1 w-full" type="text" name="financially" :value="old('financially')" required autocomplete="financially" />
                     </div>
-                    <div>
-                        <label for="look_after" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Who will look after your pet if you go on vacation or in case of emergency?</label>
-                        <input type="text" id="look_after" name="look_after" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                
+                    <div class = "mt-3">
+                    <x-primary-button type="button" onclick="showSection(1, 2)">Next</x-primary-button>
                     </div>
-                    <div>
-                        <label for="many_hours" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">How many hours in an average work day will your pet be left alone?</label>
-                        <input type="text" id="many_hours" name="many_hours" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                </div>
+
+
+                <div id="section2" class="hidden">
+                    <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>
+                    <p class = "font-bold">Part 2</p>
+                   
+                    <div class = "mt-2">
+                        <x-input-label for="look_after" :value="__('Who will look after your pet if you go on vacation or in case of emergency?
+                        ')" />
+                        <x-text-input id="look_after" class="block mt-1 w-full" type="text" name="look_after" :value="old('look_after')" required autocomplete="look_after" />
                     </div>
-                    <div>
-                        <label for="support_decision" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Does everyone in the family support your decision to adopt a pet?</label>
-                        <input type="text" id="support_decision" name="support_decision" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+
+                    <div class = "mt-2">
+                        <x-input-label for="many_hours" :value="__('How many hours in an average work day will your pet be left alone?
+                        ')" />
+                        <x-text-input id="many_hours" class="block mt-1 w-full" type="text" name="many_hours" :value="old('many_hours')" required autocomplete="many_hours" />
+
                     </div>
-                    <div>
-                        <label for="steps" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What steps will you take to familiarize your new pet with his/her new surrounding?</label>
-                        <input type="text" id="steps" name="steps" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="support_decision" :value="__('Does everyone in the family support your decision to adopt a pet?
+                        ')" />
+                        <x-text-input id="support_decision" class="block mt-1 w-full" type="text" name="support_decision" :value="old('support_decision')" required autocomplete="support_decision" />
                     </div>
-                    <div>
-                        <label for="home" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What type of building do you live in?</label>
-                        <select id="home" name="home" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="steps" :value="__('What steps will you take to familiarize your new pet with his/her new surrounding?
+                        ')" />
+                        <x-text-input id="steps" class="block mt-1 w-full" type="text" name="steps" :value="old('steps')" required autocomplete="steps" />
+                    </div>
+                    <div class = "mt-2">
+                        <x-input-label for="home" :value="__('What type of building do you live in?
+                        ')" />
+                        <x-select id="home" name="home" :value="old('home')" required autocomplete="home">
                             <option selected>House</option>
                             <option value="Apartment">Apartment</option>
                             <option value="Condo">Condo</option>
+                            <option value="House">House</option>
                             <option value="Other">Other</option>
-                        </select>
+                        </x-select>
+                        
                     </div>
-                    <div>
-                        <label for="rent" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Do you rent?</label>
-                        <select id="rent" name="rent" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <div class = "mt-2">
+                        <x-input-label for="rent" :value="__('Do you rent?
+                        ')" />
+                        <x-select id="rent" name="rent" :value="old('rent')" required autocomplete="rent">
                             <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
-                        </select>
+                        </x-select>
+                     
                     </div>
-                    <button type="button" onclick="showSection(2, 1)" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Previous</button>
-                    <button type="button" onclick="showSection(2, 3)" class="bg-blue-500 text-white px-4 py-2 rounded">Next</button>
+                    <div class = "mt-2">
+                        <x-input-label for="happens" :value="__('What happens to your pet if or when you move?
+                        ')" />
+                        <x-text-input id="happens" class="block mt-1 w-full" type="text" name="happens" :value="old('happens')" required autocomplete="happens" />
+                       
+                    </div>
+                        <div class = "mt-2">
+                            
+                            <x-input-label for="fenced_yard" :value="__('Do you have fenced yard?                            ')" />
+                            <x-select id="fenced_yard" name="fenced_yard" :value="old('fenced_yard')" required autocomplete="fenced_yard">
+                                <option selected>Yes</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </x-select>
+                           
+                        </div>
+                        <div class = "mt-2">
+                            <x-input-label for="spend" :value="__('How much time will your dog spend in the yard?
+                            ')" />
+                            <x-text-input id="spend" class="block mt-1 w-full" type="text" name="spend" :value="old('spend')" required autocomplete="spend" />
+    
+                        </div>
+                        <div class = "mt-2">
+                            <x-input-label for="train" :value="__('Are you prepared to walk and potty train your dog?                            ')" />
+                            <x-select id="train" name="train" :value="old('train')" required autocomplete="train">
+                                <option selected>Yes</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </x-select>
+    
+                        </div>
+                        <div class = "mt-2">
+                            <x-input-label for="chewing" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?
+                            ')" />
+                            <x-select id="chewing" name="chewing" :value="old('chewing')" required autocomplete="chewing">
+                                <option selected>Yes</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </x-select>
+    
+    
+                        </div>
+
+                    <div class = "flex gap-2 mt-3">
+                        <x-primary-button type="button" onclick="showSection(2, 1)" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Previous</x-primary-button>
+                        <x-primary-button type="button" onclick="showSection(2, 3)" class="bg-blue-500 text-white px-4 py-2 rounded">Next</x-primary-button>
+                    </div>
+                   
             
                 </div>
                 <div id="section3" class="hidden">
-                    <div>
-                        <label for="happens" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">What happens to your pet if or when you move?</label>
-                        <input type="text" id="happens" name="happens" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>
+                    <p class = "font-bold">Part 3</p>
+                        <div class="px-4 py-6">
+                        <div id="image-preview" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                            <input id="upload" type="file" class="hidden" accept="image/*" />
+                            <label for="upload" class="cursor-pointer">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                            </svg>
+                            <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+                            <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
+                            <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                            <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
+                            </label>
+                        </div>
+
+                        <div class="px-4 py-6">
+                            <div id="image-preview2" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                <input id="upload2" type="file" class="hidden" accept="image/*" />
+                                <label for="upload2" class="cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                                </svg>
+                                <h5 class="mb-2 text-xl font-bold tracking-tight text-gray-700">Upload picture</h5>
+                                <p class="font-normal text-sm text-gray-400 md:px-6">Choose photo size should be less than <b class="text-gray-600">2mb</b></p>
+                                <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
+                                <span id="filename2" class="text-gray-500 bg-gray-200 z-50"></span>
+                                </label>
+                            </div>
+                        </div>
+                    
                     </div>
-                    @if($pets->pet_type === 'Cat')
-                        <p>wala pa sa cat</p>
-                    @elseif($pets->pet_type === 'Dog')
-                        <div>
-                            <label for="fenced_yard" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Do you have fenced yard?</label>
-                            <select id="fenced_yard" name="fenced_yard" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="spend" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">How much time will your dog spend in the yard?</label>
-                            <input type="text" id="spend" name="spend" class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 sm:text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        </div>
-                        <div>
-                            <label for="train" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Are you prepared to walk and potty train your dog?</label>
-                            <select id="train" name="train" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label for="chewing" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Are you prepared to manage chewing, marking, excessive barking, etc?</label>
-                            <select id="chewing" name="chewing" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                                <option selected>Yes</option>
-                                <option value="No">No</option>
-                            </select>
-                        </div>
-                    @endif
-                    <div>
-                        <button type="button" onclick="showSection(3, 2)" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Previous</button>
-                        <button type="submit" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+
+                    <div class = "flex gap-2 mt-3">
+                        <x-primary-button type="button" onclick="showSection(3, 2)" >Previous</x-primary-button>
+                        <x-primary-button type="submit" >Submit</x-primary-button>
                     </div>
                 </div>
                 {{-- <button type="submit" class="my-4 text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button> --}}
             </form>
+            </div>
+
             <div>
                 <div class = "lg:gap-10 container lg:py-5 lg:px-10">
                     <div class = "bg-white shadow-md rounded-lg">
@@ -242,7 +310,7 @@
                 </div>
               
             </div>
-       
+        </div>
         </div>
         @else
             <p>No pet found</p>

@@ -34,12 +34,18 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'firstname' => ['required', 'string', 'max:255'],
+            'gender' => ['required', 'string', 'max:255'],
+            'birthday' => ['required', 'date'],
+            'civil_status' => ['required', 'string', 'max:255'],
+            'region' => ['required', 'string', 'max:255'],
+            'province' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'barangay' => ['required', 'string', 'max:255'],
+            'street' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'regex:/^[0-9]+$/'],
             'profile_image' => ['required'],
-            'province' => ['required', 'string', 'max:255'],
-            'city'=> ['required', 'string', 'max:255'],
-            'street' => ['required', 'string', 'max:255'],
-            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ],
             [
             'profile_image.required' => 'The profile image is required. Please, try again',
@@ -48,17 +54,23 @@ class RegisteredUserController extends Controller
             'profile_image.max' => 'Maximum file size allowed is 2MB.',
             ]
         );
-
+        $formattedBirthday = date("Y-m-d", strtotime($request->birthday));
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'phone_number' => $request->phone_number,
-            'profile_image' => $request->profile_image,
-            'province' => $request->province,
-            'city' => $request->city,
-            'street' => $request->street,
             'role' => 'user',
             'password' => Hash::make($request->password),
+            'firstname' => $request->firstname,
+            'gender' => $request->gender,
+            'birthday' => $formattedBirthday,
+            'civil_status' => $request->civil_status,
+            'region' => $request->region,
+            'province' => $request->province,
+            'city' => $request->city,
+            'barangay' => $request->barangay,
+            'street' => $request->street,
+            'phone_number' => $request->phone_number,
+            'profile_image' => $request->profile_image,
         ]);
         
         if ($request->hasFile('profile_image')) {

@@ -13,11 +13,18 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
+            $table->string('firstname');
+            $table->string('gender');  
+            $table->date('birthday')->nullable();
+            $table->string('civil_status');
+            $table->string('region');
+            $table->string('province');
+            $table->string('city');
+            $table->string('barangay');
+            $table->string('street');
             $table->string('phone_number'); 
             $table->string('profile_image');
-            $table->string('province'); 
-            $table->string('city'); 
-            $table->string('street'); 
+      
         });
     }
 

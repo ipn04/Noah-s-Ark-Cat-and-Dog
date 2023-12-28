@@ -201,7 +201,7 @@
                             @foreach($pets as $pet)
                                 <tr data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}" data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}" data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}"  class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td scope="row" class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
-                                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
+                                        <img class="w-10 h-10  object-cover rounded-full" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
                                         <div class="ps-2 flex flex-col">
                                             <div class="text-lg lg:text-base">{{ $pet->pet_name }}</div>
                                             <div class="text-sm  lg:hidden">

@@ -46,6 +46,10 @@ Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->m
 // reply message in the inbox
 Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->name('messages.reply');
 
+Route::get('/user/progress', function () {
+    return view('user_contents.adoptionprogress');
+})->middleware(['auth', 'verified'])->name('user.adoptionprogress'); 
+
 Route::get('/user/applications', function () {
     return view('user_contents.applications');
 })->middleware(['auth', 'verified'])->name('user.applications');   

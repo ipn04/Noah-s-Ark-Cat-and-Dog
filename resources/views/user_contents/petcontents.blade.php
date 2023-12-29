@@ -18,8 +18,8 @@
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 p-5 lg:grid-cols-2  ">
-                <div class="flex justify-center">
+            <div class="grid grid-cols-1 p-5 lg:grid-cols-2 lg:gap-10 ">
+                <div class="flex justify-flex lg:justify-end">
                     <div class="overflow-hidden bg-white w-full lg:w-10/12 rounded-t-2xl lg:rounded-3xl ">
                         <img src="{{ asset('storage/images/' . $pets->dropzone_file) }}" class=" w-full object-cover"  style ="max-height: 30em"/>
                         <div class="flex justify-center -mt-11">
@@ -51,7 +51,7 @@
                             <div class = "max-w-40">
                                 <p class="text-lg font-light py-3" style="overflow-wrap: break-word;">{{ $pets->description }}</p>
                             </div>
-                            <div class = "grid grid-cols-1 lg:grid-cols-3 gap-4">
+                            <div class = "grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div class = "bg-green-100 p-4  rounded-2xl">
                                     <h1>Weight</h1>
                                     <h1 class = " text-xl font-extrabold">{{ $pets->weight }}kg</h1>
@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <div class="flex lg:max-h-96 justify-center">
+                <div class="flex  lg:max-h-96 justify-center lg:justify-start">
                     <div class = "bg-white overflow-hidden   w-full lg:w-8/12 rounded-b-2xl lg:rounded-3xl p-5">
                         <div class = "flex  lg:justify-start justify-center gap-2 p-3">
                             <svg xmlns="http://www.w3.org/2000/svg" height="25" width="25" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->

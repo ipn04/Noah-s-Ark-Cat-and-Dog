@@ -61,7 +61,7 @@ class PetDataController extends Controller
         if(!$pets) {
             return redirect()->back()->with('error', 'Pet not found');
         }
-        return view('user_contents.adoptionform', ['pets' => $pets]);
+        return view('user_contents.adoptionform', ['pets' => $pets, 'petId' => $petId]);
     }
 
     public function  showUserPets()

@@ -19,19 +19,19 @@
         <div class="flex justify-center items-center">
         <div class="grid grid-cols-1 lg:grid-cols-2 px-4 py-4">
             <div class = "bg-white p-10 max-w-2xl shadow-lg rounded-2xl items-center justify-center flex">
-            <form method="POST" action="{{ route('send.form') }}" class="max-w-lg">
+                <form method="POST" action="{{ route('send.form', ['petId' => $petId]) }}" class="max-w-lg">
                 @csrf
                 <div id="section1" class="block">
                     <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>
                     <p class = "font-bold">Part 1 </p>  
                     <div class = "mt-2">
-                        <x-input-label for="social_media" :value="__('Social Media (FB/IG/Twitter)')" />
-                        <x-text-input id="social_media" class="block mt-1 w-full" type="text" name="social_media" :value="old('social_media')" required autocomplete="social_media" />
+                        <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
+                        <x-text-input id="first_question" class="block mt-1 w-full" type="text" name="first_question" :value="old('first_question')" required autocomplete="first_question" />
                         
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="prompted" :value="__('What prompted you to adopt from us?')" />
-                        <x-select id="prompted" name="prompted" :value="old('prompted')" required autocomplete="prompted">
+                        <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
+                        <x-select id="second_question" name="second_question" :value="old('second_question')" required autocomplete="second_question">
                             <option selected>Friends</option>
                             <option value="Website">Website</option>
                             <option value="Social Media">Social Media</option>
@@ -39,52 +39,46 @@
                         </x-select>
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="adopted_before" :value="__('Have you adopted from us before?')" />
-                        <x-select id="adopted_before" name="adopted_before" :value="old('adopted_before')" required autocomplete="adopted_before">
+                        <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
+                        <x-select id="third_question" name="third_question" :value="old('third_question')" required autocomplete="third_question">
                             <option selected>Yes</option>
-                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     </div>
                     <div class = "mt-2 ">
-                        <x-input-label for="for_whom" :value="__('For whom are you adopting a pet?')" />
-                        <x-select id="for_whom" name="for_whom" :value="old('for_whom')" required autocomplete="for_whom">
+                        <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
+                        <x-select id="fourth_question" name="fourth_question" :value="old('fourth_question')" required autocomplete="fourth_question">
                             <option selected>For Myself</option>
-                            <option value="For Myself">For Myself</option>
                             <option value="For Someone Else">For Someone Else</option>
                         </x-select>
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="children" :value="__('Are there children below 18 in your house?')" />
-                        <x-select id="children" name="children" :value="old('children')" required autocomplete="children">
+                        <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
+                        <x-select id="fifth_question" name="fifth_question" :value="old('fifth_question')" required autocomplete="fifth_question">
                             <option selected>Yes</option>
-                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     </div>
                       
                     <div class = "mt-2">
-                        <x-input-label for="other_pets" :value="__('Do you have other pets?')" />
-                        <x-select id="other_pets" name="other_pets" :value="old('other_pets')" required autocomplete="other_pets">
+                        <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
+                        <x-select id="sixth_question" name="sixth_question" :value="old('sixth_question')" required autocomplete="sixth_question">
                             <option selected>Yes</option>
-                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="pets_past" :value="__('Have you had pets in the past?')" />
-                        <x-select id="pets_past" name="pets_past" :value="old('pets_past')" required autocomplete="pets_past">
+                        <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
+                        <x-select id="sevent_question" name="sevent_question" :value="old('sevent_question')" required autocomplete="sevent_question">
                             <option selected>Yes</option>
-                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                        
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="live_with" :value="__('Who else do you live with?')" />
-                        <x-select id="live_with" name="live_with" :value="old('live_with')" required autocomplete="live_with">
+                        <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
+                        <x-select id="eight_question" name="eight_question" :value="old('eight_question')" required autocomplete="eight_question">
                             <option selected>Spouse</option>
-                            <option value="Spouse">Spouse</option>
                             <option value="Parents">Parents</option>
                             <option value="Roommates">Roommates</option>
                             <option value="Others">Others</option>
@@ -92,21 +86,20 @@
                     </div>
                     <div class = "mt-2">
                         
-                        <x-input-label for="allergic" :value="__('Are any members of your house hold allergic to animals?')" />
-                        <x-select id="allergic" name="allergic" :value="old('allergic')" required autocomplete="allergic">
+                        <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
+                        <x-select id="ninth_question" name="ninth_question" :value="old('ninth_question')" required autocomplete="ninth_question">
                             <option selected>Yes</option>
-                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="responsible" :value="__('Who will be responsible for feeding, grooming, and generally caring of your pet?')" />
-                        <x-text-input id="responsible" class="block mt-1 w-full" type="text" name="responsible" :value="old('responsible')" required autocomplete="responsible" />
+                        <x-input-label for="tenth_question" :value="__('Who will be responsible for feeding, grooming, and generally caring of your pet?')" />
+                        <x-text-input id="tenth_question" class="block mt-1 w-full" type="text" name="tenth_question" :value="old('tenth_question')" required autocomplete="tenth_question" />
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="financially" :value="__('Who will be financially responsible for your pets needs (i.e food,vet,bills,etc)?')" />
-                        <x-text-input id="financially" class="block mt-1 w-full" type="text" name="financially" :value="old('financially')" required autocomplete="financially" />
+                        <x-input-label for="eleventh_question" :value="__('Who will be financially responsible for your pets needs (i.e food,vet,bills,etc)?')" />
+                        <x-text-input id="eleventh_question" class="block mt-1 w-full" type="text" name="eleventh_question" :value="old('eleventh_question')" required autocomplete="eleventh_question" />
                     </div>
                 
                     <div class = "mt-3">
@@ -120,31 +113,31 @@
                     <p class = "font-bold">Part 2</p>
                    
                     <div class = "mt-2">
-                        <x-input-label for="look_after" :value="__('Who will look after your pet if you go on vacation or in case of emergency?
+                        <x-input-label for="twelfth_question" :value="__('Who will look after your pet if you go on vacation or in case of emergency?
                         ')" />
-                        <x-text-input id="look_after" class="block mt-1 w-full" type="text" name="look_after" :value="old('look_after')" required autocomplete="look_after" />
+                        <x-text-input id="twelfth_question" class="block mt-1 w-full" type="text" name="twelfth_question" :value="old('twelfth_question')" required autocomplete="twelfth_question" />
                     </div>
 
                     <div class = "mt-2">
-                        <x-input-label for="many_hours" :value="__('How many hours in an average work day will your pet be left alone?
+                        <x-input-label for="thirteenth_question" :value="__('How many hours in an average work day will your pet be left alone?
                         ')" />
-                        <x-text-input id="many_hours" class="block mt-1 w-full" type="text" name="many_hours" :value="old('many_hours')" required autocomplete="many_hours" />
+                        <x-text-input id="thirteenth_question" class="block mt-1 w-full" type="text" name="thirteenth_question" :value="old('thirteenth_question')" required autocomplete="thirteenth_question" />
 
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="support_decision" :value="__('Does everyone in the family support your decision to adopt a pet?
+                        <x-input-label for="fourteenth_question" :value="__('Does everyone in the family support your decision to adopt a pet?
                         ')" />
-                        <x-text-input id="support_decision" class="block mt-1 w-full" type="text" name="support_decision" :value="old('support_decision')" required autocomplete="support_decision" />
+                        <x-text-input id="fourteenth_question" class="block mt-1 w-full" type="text" name="fourteenth_question" :value="old('fourteenth_question')" required autocomplete="fourteenth_question" />
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="steps" :value="__('What steps will you take to familiarize your new pet with his/her new surrounding?
+                        <x-input-label for="fifteenth_question" :value="__('What steps will you take to familiarize your new pet with his/her new surrounding?
                         ')" />
-                        <x-text-input id="steps" class="block mt-1 w-full" type="text" name="steps" :value="old('steps')" required autocomplete="steps" />
+                        <x-text-input id="fifteenth_question" class="block mt-1 w-full" type="text" name="fifteenth_question" :value="old('fifteenth_question')" required autocomplete="fifteenth_question" />
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="home" :value="__('What type of building do you live in?
+                        <x-input-label for="seventeenth_question" :value="__('What type of building do you live in?
                         ')" />
-                        <x-select id="home" name="home" :value="old('home')" required autocomplete="home">
+                        <x-select id="seventeenth_question" name="seventeenth_question" :value="old('seventeenth_question')" required autocomplete="seventeenth_question">
                             <option selected>House</option>
                             <option value="Apartment">Apartment</option>
                             <option value="Condo">Condo</option>
@@ -154,88 +147,81 @@
                         
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="rent" :value="__('Do you rent?
+                        <x-input-label for="eighteenth_question" :value="__('Do you rent?
                         ')" />
-                        <x-select id="rent" name="rent" :value="old('rent')" required autocomplete="rent">
+                        <x-select id="eighteenth_question" name="eighteenth_question" :value="old('eighteenth_question')" required autocomplete="eighteenth_question">
                             <option selected>Yes</option>
-                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                      
                     </div>
                     <div class = "mt-2">
-                        <x-input-label for="happens" :value="__('What happens to your pet if or when you move?
+                        <x-input-label for="nineteenth_question" :value="__('What happens to your pet if or when you move?
                         ')" />
-                        <x-text-input id="happens" class="block mt-1 w-full" type="text" name="happens" :value="old('happens')" required autocomplete="happens" />
+                        <x-text-input id="nineteenth_question" class="block mt-1 w-full" type="text" name="nineteenth_question" :value="old('nineteenth_question')" required autocomplete="nineteenth_question" />
                        
                     </div>
                         @if($pets->pet_type === 'Dog')
                             <div class = "mt-2">
                                 
-                                <x-input-label for="fenced_yard" :value="__('Do you have a fenced yard?                            ')" />
-                                <x-select id="fenced_yard" name="fenced_yard" :value="old('fenced_yard')" required autocomplete="fenced_yard">
+                                <x-input-label for="twentieth_question" :value="__('Do you have a fenced yard?                            ')" />
+                                <x-select id="twentieth_question" name="twentieth_question" :value="old('twentieth_question')" required autocomplete="twentieth_question">
                                     <option selected>Yes</option>
-                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             
                             </div>
                             <div class = "mt-2">
-                                <x-input-label for="spend" :value="__('How much time will your dog spend in the yard?
+                                <x-input-label for="twentyfirst_question" :value="__('How much time will your dog spend in the yard?
                                 ')" />
-                                <x-text-input id="spend" class="block mt-1 w-full" type="text" name="spend" :value="old('spend')" required autocomplete="spend" />
+                                <x-text-input id="twentyfirst_question" class="block mt-1 w-full" type="text" name="twentyfirst_question" :value="old('twentyfirst_question')" required autocomplete="twentyfirst_question" />
         
                             </div>
                             <div class = "mt-2">
-                                <x-input-label for="train" :value="__('Are you prepared to walk and potty train your dog?                            ')" />
-                                <x-select id="train" name="train" :value="old('train')" required autocomplete="train">
+                                <x-input-label for="twentysecond_question" :value="__('Are you prepared to walk and potty train your dog?                            ')" />
+                                <x-select id="twentysecond_question" name="twentysecond_question" :value="old('twentysecond_question')" required autocomplete="twentysecond_question">
                                     <option selected>Yes</option>
-                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
         
                             </div>
                             <div class = "mt-2">
-                                <x-input-label for="chewing" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?
+                                <x-input-label for="twentythird_question" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?
                                 ')" />
-                                <x-select id="chewing" name="chewing" :value="old('chewing')" required autocomplete="chewing">
+                                <x-select id="twentythird_question" name="twentythird_question" :value="old('twentythird_question')" required autocomplete="twentythird_question">
                                     <option selected>Yes</option>
-                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             </div>
                         @elseif($pets->pet_type === 'Cat')
                             <div class = "mt-2">
                                     
-                                <x-input-label for="fenced_yard" :value="__('Can your cat get out of the house?                        ')" />
-                                <x-select id="fenced_yard" name="fenced_yard" :value="old('fenced_yard')" required autocomplete="fenced_yard">
+                                <x-input-label for="twentieth_question" :value="__('Can your cat get out of the house?                        ')" />
+                                <x-select id="twentieth_question" name="twentieth_question" :value="old('twentieth_question')" required autocomplete="twentieth_question ">
                                     <option selected>Yes</option>
-                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             
                             </div>
                             <div class = "mt-2">
-                                <x-input-label for="spend" :value="__('Where will the litter box be located?
+                                <x-input-label for="twentyfirst_question" :value="__('Where will the litter box be located?
                                 ')" />
-                                <x-text-input id="spend" class="block mt-1 w-full" type="text" name="spend" :value="old('spend')" required autocomplete="spend" />
+                                <x-text-input id="twentyfirst_question" class="block mt-1 w-full" type="text" name="twentyfirst_question" :value="old('twentyfirst_question')" required autocomplete="twentyfirst_question" />
         
                             </div>
                             <div class = "mt-2">
-                                <x-input-label for="train" :value="__('Are you prepared for the unpleasant odor of cat feces?                            ')" />
-                                <x-select id="train" name="train" :value="old('train')" required autocomplete="train">
+                                <x-input-label for="twentysecond_question" :value="__('Are you prepared for the unpleasant odor of cat feces?                            ')" />
+                                <x-select id="twentysecond_question" name="twentysecond_question" :value="old('twentysecond_question')" required autocomplete="twentysecond_question">
                                     <option selected>Yes</option>
-                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
         
                             </div>
                             <div class = "mt-2">
-                                <x-input-label for="chewing" :value="__('Are you prepared to manage furniture sratching, climbing, and shedding?
+                                <x-input-label for="twentythird_question" :value="__('Are you prepared to manage furniture sratching, climbing, and shedding?
                                 ')" />
-                                <x-select id="chewing" name="chewing" :value="old('chewing')" required autocomplete="chewing">
+                                <x-select id="twentythird_question" name="twentythird_question" :value="old('twentythird_question')" required autocomplete="twentythird_question">
                                     <option selected>Yes</option>
-                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             </div>
@@ -252,7 +238,7 @@
                     <p class = "font-bold">Part 3</p>
                         <div class="px-4 py-3">
                             <div id="image-preview" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-                                <input id="upload" type="file" class="hidden" accept="image/*" />
+                                <input id="upload" name="upload" type="file" class="hidden" accept="image/*" />
                                 <label for="upload" class="cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -267,7 +253,7 @@
 
                         <div class="px-4 py-3">
                             <div id="image-preview2" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-                                <input id="upload2" type="file" class="hidden" accept="image/*" />
+                                <input id="upload2" name="upload2" type="file" class="hidden" accept="image/*" />
                                 <label for="upload2" class="cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />

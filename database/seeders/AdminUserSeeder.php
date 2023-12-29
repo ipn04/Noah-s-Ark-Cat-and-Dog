@@ -19,6 +19,17 @@ class AdminUserSeeder extends Seeder
         $user->email = 'noahsark@gmail.com';
         $user->role = 'admin';
         $user->password = Hash::make('admin123'); // Replace 'your_password_here' with the desired password
+        $user->firstname = 'Noahs Ark';
+        $user->gender = 'Noahs Ark';
+        $user->birthday = '1990-01-01';
+        $user->civil_status = 'Noahs Ark';
+        $user->region = 'Noahs Ark';
+        $user->province = 'Noahs Ark';
+        $user->city = 'Noahs Ark';
+        $user->barangay = 'Noahs Ark';
+        $user->street = 'Noahs Ark';
+        $user->phone_number = '1234567890';
+        $user->profile_image = 'Noahs Ark';
         $user->save();
     }
 }

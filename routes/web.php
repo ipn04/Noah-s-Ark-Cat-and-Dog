@@ -56,7 +56,7 @@ Route::get('/user/applications', function () {
 
 Route::get('/user/pets/{petId}', [PetDataController::class, 'adoptPet'])->middleware(['auth', 'verified'])->name('user.pet');
 
-Route::post('/send/form', [adoptionController::class, 'store'])->name('send.form');
+Route::post('/send/form/{petId}', [adoptionController::class, 'store'])->name('send.form');
 
 Route::get('/user/sendAdoption/{petId}', [PetDataController::class, 'sendAdoption'])->middleware(['auth', 'verified'])->name('user.adoption');
 
@@ -101,7 +101,9 @@ Route::get('/admin/schedule', function () {
     return view('admin_contents.schedule');
 })->middleware(['auth', 'verified'])->name('admin.schedule');
 
+Route::get('/admin/profile/{id}', [ProfileController::class, 'adminProfile'])->name('admin.profile');
 
+Route::get('/user/profile/{id}', [ProfileController::class, 'userProfile'])->name('user.profile');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

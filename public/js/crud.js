@@ -423,7 +423,7 @@ const uploadInput = document.getElementById('upload');
     }
   });
 
-  uploadInpu2t.addEventListener('click', (event) => {
+  uploadInput.addEventListener('click', (event) => {
     event.stopPropagation();
   });
 

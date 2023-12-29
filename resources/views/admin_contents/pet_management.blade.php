@@ -598,17 +598,17 @@
             <div class="grid gap-1 sm:grid-cols-3 sm:gap-6 ">
                 <div class="space-y-4 sm:col-span-2 sm:space-y-6 max-w-sm">
                     <div class = "">
-                        <label for="update-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Name</label>
-                        <input type="text" name="update-name" id="update-name" value="{{$pet->pet_name}}" class="update-name bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
+                        <label for="pet_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Name</label>
+                        <input type="text" name="pet_name" id="pet_name" value="{{$pet->pet_name}}" class="update-name bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" required="">
                     </div>
                     <div class = "flex justify-between">
                         <div>
-                            <label for="update-age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
-                            <input type="number" id="update-age" value="{{ $pet->age }}" name="update-age" class="update-age bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Age" required="">
+                            <label for="age" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Age</label>
+                            <input type="number" id="age" value="{{ $pet->age }}" name="age" class="update-age bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Age" required="">
                         </div>
                         <div>
-                            <label for="update-weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Weight (kg)</label>
-                            <input type="number" name="update-weight" id="update-weight" value="{{ $pet->weight }}" class="update-weight bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  placeholder="Ex. 12" required="">
+                            <label for="weight" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Weight (kg)</label>
+                            <input type="number" name="weight" id="weight" value="{{ $pet->weight }}" class="update-weight bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"  placeholder="Ex. 12" required="">
                         </div>
                     </div>
                     <div>
@@ -627,21 +627,21 @@
                         </div>
                         
                           
-                        <div class="flex items-center justify-center w-full">
-                            <label for="dropzone-file" class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                    <svg aria-hidden="true" class="w-10 h-10 mb-3 text-gray-400" fill="none" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <div class="flex justify-center items-center w-full">
+                            <label for="dropzone_file_update" class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
+                                <div class="flex flex-col justify-center items-center pt-5 pb-6">
+                                    <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
                                     </svg>
-                                    <p class="mb-2 text-sm text-gray-500 dark:text-gray-400">
-                                        <span class="font-semibold">Click to upload</span>
-                                        or drag and drop
+                                    <p class="mb-2 text-sm text-gray-500">
+                                        <span class="font-semibold">Click to upload</span> or drag and drop
                                     </p>
-                                    <p class="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
+                                    <p class="text-xs text-gray-500" id="file-name-placeholder-update">SVG, PNG, JPG or GIFFF</p>
                                 </div>
-                                <input id="dropzone-file" type="file" class="hidden">
+                                <input name="dropzone_file" id="dropzone_file_update" type="file" class="hidden" accept="image/*" onchange="console.log('File uploaded:', this.value); document.getElementById('file-name-placeholder-update').innerText = this.files[0] ? this.files[0].name : 'SVG, PNG, JPG or GIF';">
                             </label>
                         </div>
+                                               
                     </div>
                     <div class="hidden lg:grid grid-cols-2 gap-4 mt-6">
                         <button type="submit" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update pet</button>
@@ -655,39 +655,39 @@
                 </div>
                 <div class="space-y-4 sm:space-y-6">
                     <div>
-                        <label for="update-breed" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Breed</label>
-                        <input type="text" id="update-breed" value="{{ $pet->breed }}" name="update-breed" class="update-breed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Pet Breed" required="">
+                        <label for="breed" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Breed</label>
+                        <input type="text" id="breed" value="{{ $pet->breed }}" name="breed" class="update-breed bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Pet Breed" required="">
                     </div>
                    
                     <div>
-                        <label for="update-color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
-                        <input type="text" id="update-color" value="{{ $pet->color }}" name="update-color" class="update-color bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Color" required="">
+                        <label for="color" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+                        <input type="text" id="color" value="{{ $pet->color }}" name="color" class="update-color bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500" placeholder="Color" required="">
                     </div>
                   
                     <div>
-                        <label for="update-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
-                        <select id="update-type" name="update-type" class="update-type bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <label for="pet_type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Type</label>
+                        <select id="pet_type" name="pet_type" class="update-type bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="Dog" {{ $pet->pet_type === 'Dog' ? 'selected' : '' }}>Dog</option>
                             <option value="Cat" {{ $pet->pet_type === 'Cat' ? 'selected' : '' }}>Cat</option>                        
                         </select>
                     </div>
                     <div>
-                        <label for="update-adoption-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adoption Status</label>
-                        <select id="update-adoption-status" name="update-adoption-status" class="update-adoption-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <label for="adoption_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adoption Status</label>
+                        <select id="adoption_status" name="adoption_status" class="update-adoption-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="Available" {{ $pet->adoption_status === 'Available' ? 'selected' : '' }}>Available</option>
                             <option value="Unavailable" {{ $pet->adoption_status === 'Unavailable' ? 'selected' : '' }}>Unavailable</option>  
                         </select>
                     </div>
                     <div>
-                        <label for="update-gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
-                        <select id="update-gender" name="update-gender" class="update-gender bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <label for="gender" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label>
+                        <select id="gender" name="gender" class="update-gender bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="Male" {{ $pet->gender === 'Male' ? 'selected' : '' }}>Male</option>
                             <option value="Female" {{ $pet->gender === 'Female' ? 'selected' : '' }}>Female</option>  
                         </select>
                     </div>
                     <div>
-                        <label for="update-vaccination-status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vaccination Status</label>
-                        <select id="update-vaccination-status" name="update-vaccination-status" class="update-vaccination-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <label for="vaccination_status" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Vaccination Status</label>
+                        <select id="vaccination_status" name="vaccination_status" class="update-vaccination-status bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="Fully Vaccinated" {{ $pet->vaccination_status === 'Fully Vaccinated' ? 'selected' : '' }}>Fully Vaccinated</option>
                             <option value="Not Vaccinated" {{ $pet->vaccination_status === 'Not Vaccinated' ? 'selected' : '' }}>Not Vaccinated</option>                          
                         </select>
@@ -701,8 +701,8 @@
                         </select>
                     </div>
                     <div>
-                        <label for="update-behaviour" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Behaviour</label>
-                        <select id="update-behaviour" name="update-behaviour" class="update-behaviour bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                        <label for="behaviour" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Behaviour</label>
+                        <select id="behaviour" name="behaviour" class="update-behaviour bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             <option value="Friendly" {{ $pet->behaviour === 'Friendly' ? 'selected' : '' }}>Friendly</option>
                             <option value="Aggressive" {{ $pet->behaviour === 'Aggressive' ? 'selected' : '' }}>Aggressive</option> 
                             <option value="Playful" {{ $pet->behaviour === 'Playful' ? 'selected' : '' }}>Playful</option> 

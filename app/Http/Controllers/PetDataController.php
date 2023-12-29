@@ -141,74 +141,54 @@ class PetDataController extends Controller
 
         // Validate the updated data
         $validatedData = $request->validate([
-            'update-name' => 'sometimes|required',
-            'update-type' => 'sometimes|required',
-            'update-breed' => 'sometimes|required',
-            'update-age' => 'sometimes|required',
-            'update-color' => 'sometimes|required',
-            'update-adoption-status' => 'sometimes|required',
-            'update-gender' => 'sometimes|required',
-            'update-vaccination-status' => 'sometimes|required',
-            'update-weight' => 'sometimes|required',
-            'update-size' => 'sometimes|required',
-            'update-behaviour' => 'sometimes|required',
+            'pet_name' => 'sometimes|required',
+            'pet_type' => 'sometimes|required',
+            'breed' => 'sometimes|required',
+            'age' => 'sometimes|required',
+            'color' => 'sometimes|required',
+            'adoption_status' => 'sometimes|required',
+            'gender' => 'sometimes|required',
+            'vaccination_status' => 'sometimes|required',
+            'weight' => 'sometimes|required',
+            'size' => 'sometimes|required',
+            'behaviour' => 'sometimes|required',
             'description' => 'sometimes|required',
-            'dropzone-file' => 'sometimes|required',
+            'dropzone_file' => 'sometimes|required',
         ], [
-            'dropzone-file.image' => 'The file must be an image.',
-            'dropzone-file.mimes' => 'Allowed image formats are: jpeg, png, jpg, gif.',
-            'dropzone-file.max' => 'Maximum file size allowed is 2MB.',
+            'dropzone_file.image' => 'The file must be an image.',
+            'dropzone_file.mimes' => 'Allowed image formats are: jpeg, png, jpg, gif.',
+            'dropzone_file.max' => 'Maximum file size allowed is 2MB.',
         ]);
 
         // Update pet details in the database
         
         $pet->fill($validatedData);
 
-        // Check for a new image upload
-        if ($request->hasFile('dropzone-file')) {
-            // Remove the old image from storage
+        if ($request->hasFile('dropzone_file')) {
+            // Remove the old image from storage (if exists)
             $oldImagePath = 'public/images/' . $pet->dropzone_file;
             if (Storage::disk('local')->exists($oldImagePath)) {
                 Storage::disk('local')->delete($oldImagePath);
             }
-
+        
             // Store the new image in the storage
-            $image = $request->file('dropzone-file');
+            $image = $request->file('dropzone_file');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
             $directory = 'images';
             $image->storeAs('public/' . $directory, $imageName);
-
+        
             // Update the image file name in the database
             $pet->dropzone_file = $imageName;
-            $pet->save();
         }
+        
         if ($pet->isDirty()) {
             $pet->save();
-    
-            // Check for a new image upload
-            if ($request->hasFile('dropzone-file')) {
-                // Remove the old image from storage (if exists)
-                $oldImagePath = 'public/images/' . $pet->dropzone_file;
-                if (Storage::disk('local')->exists($oldImagePath)) {
-                    Storage::disk('local')->delete($oldImagePath);
-                }
-    
-                // Store the new image in the storage
-                $image = $request->file('dropzone-file');
-                $imageName = time() . '.' . $image->getClientOriginalExtension();
-                $directory = 'images';
-                $image->storeAs('public/' . $directory, $imageName);
-    
-                // Update the image file name in the database
-                $pet->dropzone_file = $imageName;
-                $pet->save();
-            }
-    
             return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_updated' => true]);
         }
+        
     
         // No changes were made
-        return redirect()->route('admin.pet.management')->with(['pet' => $pet]);
+        return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_updated' => true]);
     }
 
     public function delete($id)

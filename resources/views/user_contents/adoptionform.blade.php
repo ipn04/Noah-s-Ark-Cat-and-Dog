@@ -169,43 +169,77 @@
                         <x-text-input id="happens" class="block mt-1 w-full" type="text" name="happens" :value="old('happens')" required autocomplete="happens" />
                        
                     </div>
-                        <div class = "mt-2">
+                        @if($pets->pet_type === 'Dog')
+                            <div class = "mt-2">
+                                
+                                <x-input-label for="fenced_yard" :value="__('Do you have a fenced yard?                            ')" />
+                                <x-select id="fenced_yard" name="fenced_yard" :value="old('fenced_yard')" required autocomplete="fenced_yard">
+                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </x-select>
                             
-                            <x-input-label for="fenced_yard" :value="__('Do you have fenced yard?                            ')" />
-                            <x-select id="fenced_yard" name="fenced_yard" :value="old('fenced_yard')" required autocomplete="fenced_yard">
-                                <option selected>Yes</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </x-select>
-                           
-                        </div>
-                        <div class = "mt-2">
-                            <x-input-label for="spend" :value="__('How much time will your dog spend in the yard?
-                            ')" />
-                            <x-text-input id="spend" class="block mt-1 w-full" type="text" name="spend" :value="old('spend')" required autocomplete="spend" />
-    
-                        </div>
-                        <div class = "mt-2">
-                            <x-input-label for="train" :value="__('Are you prepared to walk and potty train your dog?                            ')" />
-                            <x-select id="train" name="train" :value="old('train')" required autocomplete="train">
-                                <option selected>Yes</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </x-select>
-    
-                        </div>
-                        <div class = "mt-2">
-                            <x-input-label for="chewing" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?
-                            ')" />
-                            <x-select id="chewing" name="chewing" :value="old('chewing')" required autocomplete="chewing">
-                                <option selected>Yes</option>
-                                <option value="Yes">Yes</option>
-                                <option value="No">No</option>
-                            </x-select>
-    
-    
-                        </div>
-
+                            </div>
+                            <div class = "mt-2">
+                                <x-input-label for="spend" :value="__('How much time will your dog spend in the yard?
+                                ')" />
+                                <x-text-input id="spend" class="block mt-1 w-full" type="text" name="spend" :value="old('spend')" required autocomplete="spend" />
+        
+                            </div>
+                            <div class = "mt-2">
+                                <x-input-label for="train" :value="__('Are you prepared to walk and potty train your dog?                            ')" />
+                                <x-select id="train" name="train" :value="old('train')" required autocomplete="train">
+                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </x-select>
+        
+                            </div>
+                            <div class = "mt-2">
+                                <x-input-label for="chewing" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?
+                                ')" />
+                                <x-select id="chewing" name="chewing" :value="old('chewing')" required autocomplete="chewing">
+                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </x-select>
+                            </div>
+                        @elseif($pets->pet_type === 'Cat')
+                            <div class = "mt-2">
+                                    
+                                <x-input-label for="fenced_yard" :value="__('Can your cat get out of the house?                        ')" />
+                                <x-select id="fenced_yard" name="fenced_yard" :value="old('fenced_yard')" required autocomplete="fenced_yard">
+                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </x-select>
+                            
+                            </div>
+                            <div class = "mt-2">
+                                <x-input-label for="spend" :value="__('Where will the litter box be located?
+                                ')" />
+                                <x-text-input id="spend" class="block mt-1 w-full" type="text" name="spend" :value="old('spend')" required autocomplete="spend" />
+        
+                            </div>
+                            <div class = "mt-2">
+                                <x-input-label for="train" :value="__('Are you prepared for the unpleasant odor of cat feces?                            ')" />
+                                <x-select id="train" name="train" :value="old('train')" required autocomplete="train">
+                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </x-select>
+        
+                            </div>
+                            <div class = "mt-2">
+                                <x-input-label for="chewing" :value="__('Are you prepared to manage furniture sratching, climbing, and shedding?
+                                ')" />
+                                <x-select id="chewing" name="chewing" :value="old('chewing')" required autocomplete="chewing">
+                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
+                                    <option value="No">No</option>
+                                </x-select>
+                            </div>
+                        @endif
                     <div class = "flex gap-2 mt-3">
                         <x-primary-button type="button" onclick="showSection(2, 1)" class="bg-blue-500 text-white px-4 py-2 rounded mr-2">Previous</x-primary-button>
                         <x-primary-button type="button" onclick="showSection(2, 3)" class="bg-blue-500 text-white px-4 py-2 rounded">Next</x-primary-button>
@@ -300,6 +334,7 @@
                                     </div>
                                 </div>
                             </div>
+                            
                         </div>
                     </div>
     

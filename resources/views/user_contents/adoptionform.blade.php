@@ -3,7 +3,36 @@
     @include('admin_top_navbar.user_top_navbar')
 
     @include('sidebars.user_sidebar')
+    @if ($errors->any())
+                <script>
+                    var errorMessages = [];
+                    @foreach ($errors->all() as $error)
+                        errorMessages.push("{{ $error }}");
+                    @endforeach
+            
+                    // Check if there are error messages before showing the alert
+                    if (errorMessages.length > 0) {
+                        swal({
+                            title: "Error!",
+                            text: errorMessages.join('\n'), // Join error messages with line breaks
+                            type: "error",
+                            confirmButtonText: "Cool"
+                        });
+                    }
+                </script>
+            @endif
 
+            @if(session('adoption_answer'))
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    swal(
+                        "Success!", 
+                        "Press 'OK' to exit!", 
+                        "success"
+                    )
+                });
+            </script>
+        @endif
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         @if($pets && is_object($pets))
 
@@ -32,7 +61,7 @@
                     <div class = "mt-2">
                         <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
                         <x-select id="second_question" name="second_question" :value="old('second_question')" required autocomplete="second_question">
-                            <option selected>Friends</option>
+                            <option value="Friends">Friends</option>
                             <option value="Website">Website</option>
                             <option value="Social Media">Social Media</option>
                             <option value="Other">Other</option>
@@ -41,21 +70,21 @@
                     <div class = "mt-2">
                         <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
                         <x-select id="third_question" name="third_question" :value="old('third_question')" required autocomplete="third_question">
-                            <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     </div>
                     <div class = "mt-2 ">
                         <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
                         <x-select id="fourth_question" name="fourth_question" :value="old('fourth_question')" required autocomplete="fourth_question">
-                            <option selected>For Myself</option>
+                            <option value="For Myself">For Myself</option>
                             <option value="For Someone Else">For Someone Else</option>
                         </x-select>
                     </div>
                     <div class = "mt-2">
                         <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
                         <x-select id="fifth_question" name="fifth_question" :value="old('fifth_question')" required autocomplete="fifth_question">
-                            <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     </div>
@@ -63,14 +92,14 @@
                     <div class = "mt-2">
                         <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
                         <x-select id="sixth_question" name="sixth_question" :value="old('sixth_question')" required autocomplete="sixth_question">
-                            <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     </div>
                     <div class = "mt-2">
                         <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
                         <x-select id="sevent_question" name="sevent_question" :value="old('sevent_question')" required autocomplete="sevent_question">
-                            <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                        
@@ -78,7 +107,7 @@
                     <div class = "mt-2">
                         <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
                         <x-select id="eight_question" name="eight_question" :value="old('eight_question')" required autocomplete="eight_question">
-                            <option selected>Spouse</option>
+                            <option value="Spouse">Spouse</option>
                             <option value="Parents">Parents</option>
                             <option value="Roommates">Roommates</option>
                             <option value="Others">Others</option>
@@ -88,7 +117,7 @@
                         
                         <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
                         <x-select id="ninth_question" name="ninth_question" :value="old('ninth_question')" required autocomplete="ninth_question">
-                            <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                     
@@ -138,7 +167,7 @@
                         <x-input-label for="seventeenth_question" :value="__('What type of building do you live in?
                         ')" />
                         <x-select id="seventeenth_question" name="seventeenth_question" :value="old('seventeenth_question')" required autocomplete="seventeenth_question">
-                            <option selected>House</option>
+                            <option value="House">House</option>
                             <option value="Apartment">Apartment</option>
                             <option value="Condo">Condo</option>
                             <option value="House">House</option>
@@ -150,7 +179,7 @@
                         <x-input-label for="eighteenth_question" :value="__('Do you rent?
                         ')" />
                         <x-select id="eighteenth_question" name="eighteenth_question" :value="old('eighteenth_question')" required autocomplete="eighteenth_question">
-                            <option selected>Yes</option>
+                            <option value="Yes">Yes</option>
                             <option value="No">No</option>
                         </x-select>
                      
@@ -166,7 +195,7 @@
                                 
                                 <x-input-label for="twentieth_question" :value="__('Do you have a fenced yard?                            ')" />
                                 <x-select id="twentieth_question" name="twentieth_question" :value="old('twentieth_question')" required autocomplete="twentieth_question">
-                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             
@@ -180,7 +209,7 @@
                             <div class = "mt-2">
                                 <x-input-label for="twentysecond_question" :value="__('Are you prepared to walk and potty train your dog?                            ')" />
                                 <x-select id="twentysecond_question" name="twentysecond_question" :value="old('twentysecond_question')" required autocomplete="twentysecond_question">
-                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
         
@@ -189,7 +218,7 @@
                                 <x-input-label for="twentythird_question" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?
                                 ')" />
                                 <x-select id="twentythird_question" name="twentythird_question" :value="old('twentythird_question')" required autocomplete="twentythird_question">
-                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             </div>
@@ -198,7 +227,7 @@
                                     
                                 <x-input-label for="twentieth_question" :value="__('Can your cat get out of the house?                        ')" />
                                 <x-select id="twentieth_question" name="twentieth_question" :value="old('twentieth_question')" required autocomplete="twentieth_question ">
-                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             
@@ -212,7 +241,7 @@
                             <div class = "mt-2">
                                 <x-input-label for="twentysecond_question" :value="__('Are you prepared for the unpleasant odor of cat feces?                            ')" />
                                 <x-select id="twentysecond_question" name="twentysecond_question" :value="old('twentysecond_question')" required autocomplete="twentysecond_question">
-                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
         
@@ -221,7 +250,7 @@
                                 <x-input-label for="twentythird_question" :value="__('Are you prepared to manage furniture sratching, climbing, and shedding?
                                 ')" />
                                 <x-select id="twentythird_question" name="twentythird_question" :value="old('twentythird_question')" required autocomplete="twentythird_question">
-                                    <option selected>Yes</option>
+                                    <option value="Yes">Yes</option>
                                     <option value="No">No</option>
                                 </x-select>
                             </div>

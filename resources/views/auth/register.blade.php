@@ -122,6 +122,7 @@
         <div class="grid grid-cols-1 gap-4 mt-4">
 
             <div>
+                <input type="hidden" id="selected_region" name="selected_region"/>
                 <x-input-label for="region" :value="__('Region')" />
                 <select id="region" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"  name="region" :value="old('region')" required autocomplete="region" >
                 </select>
@@ -132,6 +133,7 @@
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4 mt-4">
 
             <div>
+                <input type="hidden" id="selected_province" name="selected_province"/>
                 <x-input-label for="province" :value="__('Province')" />
                 <select id="province" class=" mt-1 w-full  lg:w-72 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm" name="province" :value="old('province')" required autocomplete="province" >
                 </select>
@@ -139,12 +141,14 @@
             </div>
 
             <div>
+                <input type="hidden" id="selected_city" name="selected_city"/>
                 <x-input-label for="city" :value="__('City')" />
                 <select id="city" class="block mt-1 w-full  lg:w-72 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm" name="city" :value="old('city')" required autocomplete="city"></select>
                 {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
             </div>
 
             <div>
+                <input type="hidden" id="selected_barangay" name="selected_barangay"/>
                 <x-input-label for="barangay" :value="__('Barangay')" />
                 <select id="barangay" class="block mt-1 w-full  lg:w-72 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm" name="barangay" :value="old('barangay')" required autocomplete="barangay"></select>
                 {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
@@ -225,3 +229,4 @@
         
     </form>
 </x-guest-layout>
+

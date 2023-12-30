@@ -26,12 +26,12 @@
     <body class="font-sans text-gray-900  antialiased">
         @if(Route::is('login')) 
         @include('navbar.main_navbar')
-        <div class="min-h-screen flex flex-col justify-center items-center p-8 bg-gray-100 dark:bg-gray-900">
+        <div class="min-h-screen flex flex-col justify-center items-center p-8 lg:pt-20 bg-gray-100 dark:bg-gray-900">
             <div class="w-full sm:max-w-md px-8 py-8 bg-white  dark:bg-gray-800 shadow-lg overflow-hidden rounded-2xl">
                 {{ $slot }}
             </div>
         </div>
-        @elseif(Route::is('register')) \
+        @elseif(Route::is('register')) 
         @include('navbar.main_navbar')
         <div class="flex items-center justify-center pt-20 pb-10 px-5 bg-gray-100">
             <div class=" max-w-md lg:max-w-screen-lg px-4 py-8 bg-white dark:bg-gray-800 shadow-md rounded-2xl">

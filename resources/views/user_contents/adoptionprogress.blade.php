@@ -163,13 +163,11 @@
         <div class = "flex items-center  py-5  justify-center">
 
             <div class = "grid grid-cols-1  lg:grid-cols-3 lg:pt-14 gap-5 px-4 max-w-screen-lg">
-                <div
-                    class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
 
                     <div class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center h-32"
-                            src='{{ asset('storage/' . Auth::user()->profile_image) }}'
-                            alt='Woman looking front'>
+                            src='{{ asset('storage/' . Auth::user()->profile_image) }}' alt='Woman looking front'>
                     </div>
                     <h1 class = "text-center font-bold text-2xl">Czarina Cuarez</h1>
                     <div class = "pb-4">
@@ -194,64 +192,63 @@
                                 <td class = "font-bold">Civil Status</td>
                                 <td>{{ Auth::user()->civil_status }}</td>
                             </tr>
-                            
+
                             <tr>
                                 <td class = "font-bold">Address</td>
                                 <td>Blk 54 lot 3 Sarmiento Homes, Muzon, San Jose del Monte , Bulacan</td>
                             </tr>
                         </table>
                         <x-primary-button>
-                            <a href = "">View Answers</a>  
+                            <a href = "">View Answers</a>
                         </x-primary-button>
                     </div>
                 </div>
-                <div
-                class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
+                <div class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
 
-                <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                    <img class="object-cover object-center h-32"
-                        src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ'
-                        alt='Woman looking front'>
+                    <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                        <img class="object-cover object-center h-32"
+                            src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ'
+                            alt='Woman looking front'>
+                    </div>
+                    <h1 class = "text-center font-bold text-2xl">Yumi</h1>
+                    <div class = "pb-4">
+                        <table class = "border-separate border-spacing-3">
+                            <tr>
+                                <td class = "font-bold">Age</td>
+                                <td>1</td>
+                            </tr>
+                            <tr>
+                                <td class = "font-bold">Gender</td>
+                                <td>Female</td>
+                            </tr>
+                            <tr>
+                                <td class = "font-bold">Breed</td>
+                                <td>Shih tzu</td>
+                            </tr>
+                            <tr>
+                                <td class = "font-bold">Weight</td>
+                                <td>5kg</td>
+                            </tr>
+                            <tr>
+                                <td class = "font-bold">Size</td>
+                                <td>Medium</td>
+                            </tr>
+                            <tr>
+                                <td class = "font-bold">Color</td>
+                                <td>White</td>
+                            </tr>
+                            <tr>
+                                <td class = "font-bold">Vaccination</td>
+                                <td>Fully Vaccinated</td>
+                            </tr>
+                        </table>
+                        <x-primary-button>
+                            <a href = "">More Details</a>
+                        </x-primary-button>
+                    </div>
                 </div>
-                <h1 class = "text-center font-bold text-2xl">Yumi</h1>
-                <div class = "pb-4">
-                    <table class = "border-separate border-spacing-3">
-                        <tr>
-                            <td class = "font-bold">Age</td>
-                            <td>1</td>
-                        </tr>
-                        <tr>
-                            <td class = "font-bold">Gender</td>
-                            <td>Female</td>
-                        </tr>
-                        <tr>
-                            <td class = "font-bold">Breed</td>
-                            <td>Shih tzu</td>
-                        </tr>
-                        <tr>
-                            <td class = "font-bold">Weight</td>
-                            <td>5kg</td>
-                        </tr>
-                        <tr>
-                            <td class = "font-bold">Size</td>
-                            <td>Medium</td>
-                        </tr>
-                        <tr>
-                            <td class = "font-bold">Color</td>
-                            <td>White</td>
-                        </tr>
-                        <tr>
-                            <td class = "font-bold">Vaccination</td>
-                            <td>Fully Vaccinated</td>
-                        </tr>
-                    </table>
-                    <x-primary-button>
-                        <a href = "">More Details</a>  
-                    </x-primary-button>
-                </div>
-            </div>
                 <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
-                   <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
                 </div>
             </div>
     </section>

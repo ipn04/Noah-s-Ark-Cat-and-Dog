@@ -52,7 +52,7 @@
                 <!-- Image and profile indication -->
                 <div class="flex items-center">
                     <!-- Check the image path and make sure it's correct -->
-                    <img class="h-8 w-8 rounded-full mr-2" src="{{ asset('images/logo.png') }}" alt="{{ Auth::user()->name }}">
+                    <img class="h-8 w-8 rounded-full mr-2" src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="{{ Auth::user()->name }}">
                     
                     <!-- Profile indication icon -->
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
@@ -81,7 +81,7 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class = " px-2
-                @if(Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+                @if(Route::is('user.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
                 text-red-700
                 @else
                 text-white
@@ -99,7 +99,7 @@
                                 <!-- Dropdown button with image and icon -->
                                 <button class="flex items-center bg-white p-1 rounded-full shadow-lg">
                                     <!-- Check the image path and make sure it's correct -->
-                                    <img class="h-8 w-8 rounded-full" src="{{ asset('images/logo.png') }}" alt="{{ Auth::user()->name }}">
+                                    <img class="h-8 w-8 rounded-full" src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="{{ Auth::user()->name }}">
                                     
                                     <!-- Dropdown icon -->
                                     <svg class="fill-current h-4 w-4 ml-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
@@ -155,8 +155,8 @@
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-600">
             <div class="px-4">
-                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->name }}</div>
-                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }}</div>
+                <div class="font-medium text-base text-gray-800 dark:text-gray-200">{{ Auth::user()->firstname }} {{ Auth::user()->name }}</div>
+                <div class="font-medium text-sm text-gray-500">{{ Auth::user()->email }} </div>
             </div>
 
             <div class="mt-3 space-y-1">

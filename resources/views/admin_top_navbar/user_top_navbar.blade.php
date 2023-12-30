@@ -1,4 +1,9 @@
-<nav x-data="{ open: false }" class=" md:bg-transparent bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700">
+<nav x-data="{ open: false }" class="  bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700
+@if( Route::is('user.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+lg:bg-transparent
+@else
+lg:bg-red-800
+@endif">
     <!-- Primary Navigation Menu -->
     {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> --}}
         <div class=" lg:flex lg:justify-end">
@@ -50,7 +55,7 @@
                 class="flex items-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out lg:justify-end"
             >
                 <!-- Image and profile indication -->
-                <div class="flex items-center">
+                <div class="flex items-center ">
                     <!-- Check the image path and make sure it's correct -->
                     <img class="h-8 w-8 rounded-full mr-2" src="{{ asset('storage/' . Auth::user()->profile_image) }}" alt="{{ Auth::user()->name }}">
                     
@@ -81,7 +86,7 @@
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
                 <div class = " px-2
-                @if(Route::is('user.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+                @if( Route::is('user.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
                 text-red-700
                 @else
                 text-white

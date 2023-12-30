@@ -1,4 +1,9 @@
-<nav x-data="{ open: false }" class=" md:bg-transparent bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700">
+<nav x-data="{ open: false }" class="  bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700
+@if( Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+lg:bg-transparent
+@else
+lg:bg-red-800
+@endif">
     <!-- Primary Navigation Menu -->
     {{-- <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"> --}}
         <div class=" lg:flex lg:justify-end">
@@ -117,7 +122,7 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('admin.profile',  ['id' => auth()->id()])">
+                        <x-dropdown-link :href="route('profile.edit',  ['id' => auth()->id()])">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 

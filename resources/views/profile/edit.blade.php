@@ -5,6 +5,8 @@
         </h2>
     </x-slot>
     @include('sidebars.admin_sidebar')
+    @include('admin_top_navbar.admin_top_navbar')
+
 
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
     <div class="py-3">

@@ -50,14 +50,14 @@
                         <div>
                             <x-input-label for="name" :value="__('Last Name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                                :value="old('name')" required autocomplete="name" />
+                            :value="old('name', $user->name)" required autocomplete="name" />
                             {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                         </div>
 
                         <div>
                             <x-input-label for="firstname" :value="__('First Name')" />
                             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname"
-                                :value="old('firstname')" required autocomplete="firstname" />
+                            :value="old('firstname', $user->firstname)"  required autocomplete="firstname" />
                             {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                         </div>
 
@@ -72,10 +72,10 @@
                             <select id="gender" name="gender"
                                 class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
                                 required autocomplete="gender">
-                                <option value="male" {{ old('gender') === 'male' ? 'selected' : '' }}>Male</option>
-                                <option value="female" {{ old('gender') === 'female' ? 'selected' : '' }}>Female
+                                <option value="male" {{ old('gender', $user->gender) === 'male' ? 'selected' : '' }}>Male</option>
+                                <option value="female" {{ old('gender', $user->gender) === 'female' ? 'selected' : '' }}>Female
                                 </option>
-                                <option value="other" {{ old('gender') === 'other' ? 'selected' : '' }}>Other</option>
+                                <option value="other" {{ old('gender', $user->gender) === 'other' ? 'selected' : '' }}>Other</option>
                             </select>
 
                             {{-- <x-input-error :messages="$errors->get('gender')" class="mt-2" /> --}}
@@ -176,9 +176,9 @@
 
                     <div class="mt-4">
                         <x-input-label for="street" :value="__('Street')" />
-                        <textarea id="street"
+                        <x-text-area id="street"
                             class="block mt-1 w-full  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                            type="text" name="street" :value="old('street')" required autocomplete="street"></textarea>
+                            type="text" name="street" :value="old('firstname', $user->street)" required autocomplete="street"></x-text-area>
 
                         {{-- <x-input-error :messages="$errors->get('street')" class="mt-2" /> --}}
                     </div>
@@ -196,7 +196,7 @@
                             <x-input-label for="phone_number" :value="__('Phone Number')" />
                             <x-text-input id="phone_number" class="block mt-1 w-full ps-10"
                                 aria-describedby="helper-text-explanation" type="number" name="phone_number"
-                                :value="old('phone_number')" required autocomplete="number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                :value="old('firstname', $user->phone_number)" required autocomplete="number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                 placeholder="965-621-6696" />
                             {{-- <x-input-error :messages="$errors->get('phone_number')" class="mt-2" /> --}}
                             <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -213,7 +213,7 @@
                     <div class="mt-4">
                         <x-input-label for="email" :value="__('Email')" />
                         <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                            :value="old('email')" required autocomplete="username" />
+                            :value="old('email', $user->email)" required autocomplete="username" />
                         {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
                     </div>
 

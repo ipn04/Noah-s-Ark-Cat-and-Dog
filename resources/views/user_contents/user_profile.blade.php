@@ -286,7 +286,7 @@
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td>Blk 54 lot 3 Sarmiento Homes, Muzon, San Jose del Monte , Bulacan</td>
+                                <td>{{Auth::user()->region}}, {{Auth::user()->city}}, {{Auth::user()->barangay}}, {{Auth::user()->street}}</td>
                             </tr>
                         </table>
 

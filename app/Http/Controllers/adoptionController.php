@@ -97,6 +97,7 @@ class adoptionController extends Controller
         }
 
         try {
+            $validatedData['stage'] = '0';
             // Save the adoption instance
             $adoptionAnswer = new AdoptionAnswer();
             $adoptionAnswer->adoption_id = $adoptionId;
@@ -106,8 +107,34 @@ class adoptionController extends Controller
             // Log the error or use dd($e) to dump the error and investigate
             dd($e);
         }
-  
-        return redirect()->back()->with(['adoption_answer' => true]);
-    }
+
+        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true]);
+
+        // return redirect()->back()->with(['adoption_answer' => true]);
+    } 
+    public function adoptionProgress($adoptionAnswer = false)
+    {
+        $userId = auth()->user()->id; // Get the authenticated user's ID
+
+        // Fetch the adoption answer data for the current user
+        $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId) {
+            $query->whereHas('application', function ($query) use ($userId) {
+                $query->where('user_id', $userId);
+            });
+        })->with('adoption.pet')->first(); // Load the 'adoption' and 'pet' relationships
     
+        $petData = null;
+    
+        if ($adoptionAnswerData && $adoptionAnswerData->adoption) {
+            // Access the pet through the adoption relationship
+            $petData = $adoptionAnswerData->adoption->pet;
+        }
+
+        // Pass the pet data and other necessary variables to the view
+        return view('user_contents.adoptionprogress', [
+            'adoption_answer' => $adoptionAnswer,
+            'petData' => $petData,
+        ]);
+    }
+
 }

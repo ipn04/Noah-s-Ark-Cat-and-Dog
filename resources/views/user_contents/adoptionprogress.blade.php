@@ -195,8 +195,8 @@
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td>Blk 54 lot 3 Sarmiento Homes, Muzon, San Jose del Monte , Bulacan</td>
-                            </tr>
+                                <td>{{ Auth::user()->street . ' ' . Auth::user()->province . ' ' . Auth::user()->region }}</td>
+                            </tr>   
                         </table>
                         <x-primary-button>
                             <a href = "">View Answers</a>
@@ -210,36 +210,36 @@
                             src='https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=400&fit=max&ixid=eyJhcHBfaWQiOjE0NTg5fQ'
                             alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">Yumi</h1>
+                    <h1 class = "text-center font-bold text-2xl"></h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td>1</td>
+                                <td>{{ $petData->age }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td>Female</td>
+                                <td>{{ $petData->gender }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Breed</td>
-                                <td>Shih tzu</td>
+                                <td>{{ $petData->breed }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Weight</td>
-                                <td>5kg</td>
+                                <td>{{ $petData->weight }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Size</td>
-                                <td>Medium</td>
+                                <td>{{ $petData->size }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Color</td>
-                                <td>White</td>
+                                <td>{{ $petData->color }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Vaccination</td>
-                                <td>Fully Vaccinated</td>
+                                <td>{{ $petData->vaccination_status }}</td>
                             </tr>
                         </table>
                         <x-primary-button>

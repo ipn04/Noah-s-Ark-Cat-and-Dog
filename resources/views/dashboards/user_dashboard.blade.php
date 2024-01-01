@@ -88,23 +88,29 @@
         {{-- tama --}}
         <div class = "flex justify-center items-center">
         <div class="lg:px-10 lg:py-5 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6 ">
-          @if($pets->isNotEmpty())
-            @foreach($pets as $pet)
-              <a href="{{ route('user.pet', $pet->id) }}"  class="h-fit w-full group shadow-xl rounded-lg user-pet-lists" data-name="{{ $pet->pet_name }}">
-                <div class="relative overflow-hidden hover:cursor-pointer" >
-                  <img class="h-72 w-full rounded-xl object-cover" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
-                  <div class="absolute rounded-xl bottom-0 h-full w-full bg-black/30 items-center group-hover:opacity-100 opacity-0 transition-opacity duration-300">
-                    <div class="absolute bottom-8 pl-3">
-                      <h2 class=" font-bold text-xl text-white">{{ $pet->pet_name }}</h2>
-                      <p class="text-base font-normal inline-block text-white">{{ $pet->pet_type }} • {{ $pet->gender }}</p>
+          @if($stage && $stage->stage === '0')
+            <p class="text-center">You have pending application</p>
+            <a href="{{ route('user.adoptionprogress') }}">Check Details</a>
+          @else
+            @if($pets->isNotEmpty())
+              @foreach($pets as $pet)
+                <a href="{{ route('user.pet', $pet->id) }}"  class="h-fit w-full group shadow-xl rounded-lg user-pet-lists" data-name="{{ $pet->pet_name }}">
+                  <div class="relative overflow-hidden hover:cursor-pointer" >
+                    <img class="h-72 w-full rounded-xl object-cover" src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
+                    <div class="absolute rounded-xl bottom-0 h-full w-full bg-black/30 items-center group-hover:opacity-100 opacity-0 transition-opacity duration-300">
+                      <div class="absolute bottom-8 pl-3">
+                        <h2 class=" font-bold text-xl text-white">{{ $pet->pet_name }}</h2>
+                        <p class="text-base font-normal inline-block text-white">{{ $pet->pet_type }} • {{ $pet->gender }}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </a>
-            @endforeach
-          @else
-             
+                </a>
+              @endforeach
+            @else
+              
+            @endif
           @endif
+          
         </div>
         </div>
             

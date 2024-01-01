@@ -16,7 +16,6 @@ class Adoption extends Model
     {
         return $this->belongsTo(Pet::class); // Assuming an adoption belongs to a Pet
     }
-
     public function application()
     {
         return $this->belongsTo(Application::class); // Assuming an adoption belongs to an Application

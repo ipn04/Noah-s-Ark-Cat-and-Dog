@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Pet;
+use App\Models\AdoptionAnswer;
+use App\Models\Application;
+use App\Models\Adoption;
+
 use Illuminate\Support\Facades\Storage;
 
 class PetDataController extends Controller
@@ -66,13 +70,29 @@ class PetDataController extends Controller
 
     public function  showUserPets()
     {
+        $userId = auth()->user()->id;
+
+        // Find the user's application ID
+        $userApplication = Application::where('user_id', $userId)->first();
+    
+        // Fetch the adoption answer for the user's application, assuming it exists
+        $stage = null;
+        if ($userApplication) {
+            $adoption = Adoption::where('application_id', $userApplication->id)->first();
+            if ($adoption) {
+                $stage = AdoptionAnswer::where('adoption_id', $adoption->id)
+                    ->where('stage', '0')
+                    ->first();
+            }
+        }
+    
         $pets = Pet::where('adoption_status', 'available')->get();
         if ($pets->isNotEmpty()) {
 
-            return view('dashboards.user_dashboard', ['pets' => $pets]);
+            return view('dashboards.user_dashboard', ['pets' => $pets, 'stage' => $stage]);
         } else {
             // Handle case when no pets are found
-            return view('dashboards.user_dashboard', ['pets' => $pets]);
+            return view('dashboards.user_dashboard', ['pets' => $pets, 'stage' => $stage]);
         }
         
     }

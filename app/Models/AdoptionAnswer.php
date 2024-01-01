@@ -34,7 +34,13 @@ class AdoptionAnswer extends Model
         'twentyfirst_question',
         'twentysecond_question',
         'twentythird_question',
+        'stage',    
         'upload',
         'upload2',
     ];
+
+    public function adoption()
+    {
+        return $this->belongsTo(Adoption::class);
+    }
 }

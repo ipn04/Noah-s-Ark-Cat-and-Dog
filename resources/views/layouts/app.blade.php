@@ -28,7 +28,7 @@
     </head>
     <body class="font-sans bg-gray-100 antialiased	">
         <div class=" 
-        @if( Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+        @if(  Route::is('admin.adoptionprogress') || Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
         bg-transparent
         @else
         bg-red-800

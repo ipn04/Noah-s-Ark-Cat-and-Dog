@@ -73,6 +73,10 @@ Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middle
 
 /* admin`s routes */
 
+Route::get('/admin/progress', function () {
+    return view('admin_contents.adoptionprogress');
+})->middleware(['auth', 'verified'])->name('admin.adoptionprogress');
+
 Route::get('/admin/dashboard', function () {
     return view('dashboards.admin_dashboard');
 })->middleware(['auth', 'verified'])->name('admin.dashboard');

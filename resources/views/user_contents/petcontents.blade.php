@@ -14,6 +14,7 @@
                     <h2 class="font-bold text-lg text-yellow-500">{{ $pets->pet_name }}</h2>
                 </div>
                 <div>
+                    <!-- DITO MO ILAGAY UNG CODE, SA LOOB NG CLASS tas HIDDEN siya -->
                     <a href="{{ route('user.adoption', $pets->id) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
                 </div>
             </div>

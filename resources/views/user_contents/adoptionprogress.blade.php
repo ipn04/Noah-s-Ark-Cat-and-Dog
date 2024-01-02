@@ -166,7 +166,7 @@
                 <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
 
                     <div class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                        <img class="object-cover object-center h-32"
+                        <img class="h-32 w-32 object-cover rounded-full "
                             src='{{ asset('storage/' . Auth::user()->profile_image) }}' alt='Woman looking front'>
                     </div>
                     <h1 class = "text-center font-bold text-2xl">Czarina Cuarez</h1>

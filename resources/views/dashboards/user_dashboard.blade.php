@@ -88,10 +88,6 @@
         {{-- tama --}}
         <div class = "flex justify-center items-center">
         <div class="lg:px-10 lg:py-5 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6 ">
-          @if($stage && $stage->stage === '0')
-            <p class="text-center">You have pending application</p>
-            <a href="{{ route('user.adoptionprogress') }}">Check Details</a>
-          @else
             @if($pets->isNotEmpty())
               @foreach($pets as $pet)
                 <a href="{{ route('user.pet', $pet->id) }}"  class="h-fit w-full group shadow-xl rounded-lg user-pet-lists" data-name="{{ $pet->pet_name }}">
@@ -109,7 +105,6 @@
             @else
               
             @endif
-          @endif
           
         </div>
         </div>

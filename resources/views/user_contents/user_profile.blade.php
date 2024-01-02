@@ -6,6 +6,36 @@
     </x-slot>
     @include('sidebars.user_sidebar')
     @include('admin_top_navbar.user_top_navbar')
+    @if ($errors->any())
+                <script>
+                    var errorMessages = [];
+                    @foreach ($errors->all() as $error)
+                        errorMessages.push("{{ $error }}");
+                    @endforeach
+
+                    // Check if there are error messages before showing the alert
+                    if (errorMessages.length > 0) {
+                        swal({
+                            title: "Error!",
+                            text: errorMessages.join('\n'), // Join error messages with line breaks
+                            type: "error",
+                            confirmButtonText: "Cool"
+                        });
+                    }
+                </script>
+            @endif
+
+            @if (session('profile_updated'))
+                <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                        swal(
+                            "Successfully updated!",
+                            "Press 'OK' to exit!",
+                            "success"
+                        )
+                    });
+                </script>
+            @endif
     <div class="sm:ml-64">
         <div class="py-4 bg-red-800">
             <div class="container h-28">
@@ -18,8 +48,9 @@
         <div class = "grid lg:grid-cols-2 grid-cols-1 lg:px-16 gap-5">
             <div class = "bg-white lg:-mt-10 rounded-2xl p-5">
                 <h1 class = "text-xl font-bold text-red-500">Edit Your Profile</h1>
-                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('update.user', ['id' => $user->id]) }}" enctype="multipart/form-data">
                     @csrf
+                    @method('PUT')
                     <div class="">
                         <div class="items-center justify-center flex relative ">
                             <img id='preview_img' class="h-40 w-40 object-cover border-4 rounded-full "
@@ -50,14 +81,14 @@
                         <div>
                             <x-input-label for="name" :value="__('Last Name')" />
                             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name"
-                            :value="old('name', $user->name)" required autocomplete="name" />
+                            :value="old('name', $user->name)"  autocomplete="name" />
                             {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                         </div>
 
                         <div>
                             <x-input-label for="firstname" :value="__('First Name')" />
                             <x-text-input id="firstname" class="block mt-1 w-full" type="text" name="firstname"
-                            :value="old('firstname', $user->firstname)"  required autocomplete="firstname" />
+                            :value="old('firstname', $user->firstname)"  autocomplete="firstname" />
                             {{-- <x-input-error :messages="$errors->get('name')" class="mt-2" /> --}}
                         </div>
 
@@ -71,7 +102,7 @@
 
                             <select id="gender" name="gender"
                                 class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                required autocomplete="gender">
+                                 autocomplete="gender">
                                 <option value="male" {{ old('gender', $user->gender) === 'male' ? 'selected' : '' }}>Male</option>
                                 <option value="female" {{ old('gender', $user->gender) === 'female' ? 'selected' : '' }}>Female
                                 </option>
@@ -95,7 +126,7 @@
                                 </div>
                                 <input datepicker name="birthday" id="birthday" datepicker-autohide type="text"
                                     class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="Select Birthday">
+                                    placeholder="YYYY-MM-DD">
                             </div>
 
                             {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}
@@ -109,7 +140,7 @@
 
                             <select id="civil_status" name="civil_status"
                                 class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                required autocomplete="civil_status">
+                             autocomplete="civil_status">
                                 <option value="single" {{ old('civil_status') === 'single' ? 'selected' : '' }}>Single
                                 </option>
                                 <option value="married" {{ old('civil_status') === 'married' ? 'selected' : '' }}>
@@ -133,7 +164,7 @@
                             <x-input-label for="region" :value="__('Region')" />
                             <select id="region"
                                 class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                name="region" :value="old('region')" required autocomplete="region">
+                                name="region" :value="old('region')" autocomplete="region">
                             </select>
                             {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
                         </div>
@@ -145,7 +176,7 @@
                             <x-input-label for="province" :value="__('Province')" />
                             <select id="province"
                             class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                            name="province" :value="old('province')" required autocomplete="province">
+                            name="province" :value="old('province')" autocomplete="province">
                             </select>
                             {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
                         </div>
@@ -157,7 +188,7 @@
                             <x-input-label for="city" :value="__('City')" />
                             <select id="city"
                             class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                            name="city" :value="old('city')" required autocomplete="city"></select>
+                            name="city" :value="old('city')" autocomplete="city"></select>
                             {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
                         </div>
                     </div>
@@ -168,7 +199,7 @@
                             <x-input-label for="barangay" :value="__('Barangay')" />
                             <select id="barangay"
                             class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                            name="barangay" :value="old('barangay')" required autocomplete="barangay"></select>
+                            name="barangay" :value="old('barangay')" autocomplete="barangay"></select>
                             {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
                         </div>
                     </div>
@@ -178,7 +209,7 @@
                         <x-input-label for="street" :value="__('Street')" />
                         <x-text-area id="street"
                             class="block mt-1 w-full  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                            type="text" name="street" :value="old('firstname', $user->street)" required autocomplete="street"></x-text-area>
+                            type="text" name="street" :value="old('firstname', $user->street)"  autocomplete="street"></x-text-area>
 
                         {{-- <x-input-error :messages="$errors->get('street')" class="mt-2" /> --}}
                     </div>
@@ -196,7 +227,7 @@
                             <x-input-label for="phone_number" :value="__('Phone Number')" />
                             <x-text-input id="phone_number" class="block mt-1 w-full ps-10"
                                 aria-describedby="helper-text-explanation" type="number" name="phone_number"
-                                :value="old('firstname', $user->phone_number)" required autocomplete="number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+                                :value="old('firstname', $user->phone_number)" autocomplete="number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
                                 placeholder="965-621-6696" />
                             {{-- <x-input-error :messages="$errors->get('phone_number')" class="mt-2" /> --}}
                             <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">
@@ -205,15 +236,11 @@
 
                         </div>
                     </div>
-
-
-
-
                     <!-- Email Address -->
                     <div class="mt-4">
                         <x-input-label for="email" :value="__('Email')" />
                         <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                            :value="old('email', $user->email)" required autocomplete="username" />
+                            :value="old('email', $user->email)" autocomplete="username" />
                         {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
                     </div>
 
@@ -222,7 +249,7 @@
                         <x-input-label for="password" :value="__('Password')" />
 
                         <x-text-input id="password" class="block mt-1 w-full" type="password" name="password"
-                            required autocomplete="new-password" />
+                            autocomplete="new-password" />
 
                         {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
                     </div>
@@ -232,7 +259,7 @@
                         <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
                         <x-text-input id="password_confirmation" class="block mt-1 w-full" type="password"
-                            name="password_confirmation" required autocomplete="new-password" />
+                            name="password_confirmation" autocomplete="new-password" />
 
                         {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
                     </div>

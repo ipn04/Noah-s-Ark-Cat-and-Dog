@@ -109,6 +109,10 @@ Route::get('/admin/profile/{id}', [ProfileController::class, 'adminProfile'])->n
 
 Route::get('/user/profile/{id}', [ProfileController::class, 'userProfile'])->name('user.profile');
 
+Route::put('/user/update/{id}', [ProfileController::class, 'updateUserProfile'])->name('update.user');
+
+
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

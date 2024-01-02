@@ -317,9 +317,13 @@
                                             <p class="text-base">{{ $pets->breed }} · {{ $pets->age }}yr</p>
                                         </div>
                                         <div class = "bg-green-700 p-3 rounded-lg text-white">
-                                            <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 384 512">
-                                                <path fill ="currentColor" d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/>
-                                            </svg>
+                                            @if($pets->gender === 'Male')
+                                                <svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-gender-male" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path> </svg>
+                                            @elseif($pets->gender === 'Female')
+                                                <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 384 512">
+                                                    <path fill ="currentColor" d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/>
+                                                </svg>
+                                            @endif
                                         </div>	
                                     </div>
                                 </div>
@@ -363,7 +367,7 @@
                             </div>
                             <div class ="flex lg:pl-12   lg:justify-start justify-center">
                             <div class = "bg-green-100 py-2 px-10 rounded-2xl text-center" >
-                                <h1 class = "text-xl font-bold text-green-700">Available</h1>
+                                <h1 class = "text-xl font-bold text-green-700">{{$pets->adoption_status}}</h1>
                             </div>
                             </div>
                             <div class = "flex lg:pl-12 lg:justify-start justify-center gap-2 p-5">
@@ -374,7 +378,7 @@
                             </div>
                             <div class ="flex lg:pl-12  lg:justify-start justify-center">
                             <div class = "bg-green-100 py-2 px-10 rounded-2xl text-center">
-                                <h1 class = "text-xl font-bold text-green-700">Fully Vaccinated</h1>
+                                <h1 class = "text-xl font-bold text-green-700">{{$pets->vaccination_status}}</h1>
                             </div>
                             </div>
                             <div class = "flex lg:pl-12  lg:justify-start justify-center gap-2 p-5">
@@ -385,7 +389,7 @@
                             </div>
                             <div class ="flex lg:pl-12 pb-5  lg:justify-start justify-center">
                             <div class = "py-2 px-10  rounded-2xl border-2 border-green-400 text-center">
-                                <h1 class = "text-xl font-bold ">Fully Vaccinated</h1>
+                                <h1 class = "text-xl font-bold ">{{$pets->behaviour}}</h1>
                             </div>
                             </div>
                             

@@ -115,26 +115,70 @@ class adoptionController extends Controller
     public function adoptionProgress($adoptionAnswer = false)
     {
         $userId = auth()->user()->id; // Get the authenticated user's ID
-
         // Fetch the adoption answer data for the current user
         $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId) {
             $query->whereHas('application', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             });
         })->with('adoption.pet')->first(); // Load the 'adoption' and 'pet' relationships
-    
+        $stage = null;
+
         $petData = null;
     
         if ($adoptionAnswerData && $adoptionAnswerData->adoption) {
-            // Access the pet through the adoption relationship
+            $stage = $adoptionAnswerData->stage;
+            
             $petData = $adoptionAnswerData->adoption->pet;
         }
 
         // Pass the pet data and other necessary variables to the view
         return view('user_contents.adoptionprogress', [
             'adoption_answer' => $adoptionAnswer,
-            'petData' => $petData,
+            'petData' => $petData, 'stage' => $stage
         ]);
     }
+    public function adminAdoptionProgress($adoptionAnswer = false) {
+        $adoptionAnswerData = AdoptionAnswer::all();
 
+        return view('admin_contents.adoptions', compact('adoptionAnswerData'));
+    }   
+
+    public function adminLoadProgress($id) {
+        $adoptionAnswer = AdoptionAnswer::find($id);
+        $stage = $adoptionAnswer->stage;
+        
+        return view('admin_contents.adoptionprogress', ['adoptionAnswer' => $adoptionAnswer, 'stage' => $stage]);
+    } 
+    public function updateStage($id)
+    {
+        $adoptionAnswer = AdoptionAnswer::find($id);
+
+        if ($adoptionAnswer) {
+            $currentStage = $adoptionAnswer->stage;
+
+            // Increment the stage value by 1
+            $newStage = $currentStage + 1;
+
+            // Update the stage in the database
+            $adoptionAnswer->update(['stage' => $newStage]);
+
+            return redirect()->back()->with(['updateStage' => true]); 
+        }
+
+        // Handle if the adoption answer is not found
+    }
+
+    public function adoptPet($petId)
+    {
+        $pets = Pet::find($petId);
+
+        if(!$pets) {
+            return redirect()->back()->with('error', 'Pet not found');
+        }
+        $hasSubmittedForm = AdoptionAnswer::whereHas('adoption.application', function ($query) {
+            $query->where('user_id', auth()->user()->id);
+        })->exists();
+
+        return view('user_contents.petcontents', ['pets' => $pets, 'hasSubmittedForm' => $hasSubmittedForm]);
+    }
 }

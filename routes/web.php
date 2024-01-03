@@ -54,7 +54,7 @@ Route::get('/user/applications', function () {
     return view('user_contents.applications');
 })->middleware(['auth', 'verified'])->name('user.applications');   
 
-Route::get('/user/pets/{petId}', [PetDataController::class, 'adoptPet'])->middleware(['auth', 'verified'])->name('user.pet');
+Route::get('/user/pets/{petId}', [adoptionController::class, 'adoptPet'])->middleware(['auth', 'verified'])->name('user.pet');
 
 Route::post('/send/form/{petId}', [adoptionController::class, 'store'])->name('send.form');
 
@@ -73,9 +73,11 @@ Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middle
 
 /* admin`s routes */
 
-Route::get('/admin/progress', function () {
-    return view('admin_contents.adoptionprogress');
-})->middleware(['auth', 'verified'])->name('admin.adoptionprogress');
+Route::patch('/admin/update-stage/{id}', [AdoptionController::class, 'updateStage'])->name('admin.updateStage');
+
+Route::get('/admin/progress/{id}', [AdoptionController::class, 'adminLoadProgress'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.adoptionprogress');
 
 Route::get('/admin/dashboard', function () {
     return view('dashboards.admin_dashboard');
@@ -89,13 +91,17 @@ Route::get('/pet/management', [PetDataController::class, 'showPetManagement'])
     ->middleware(['auth', 'verified'])
     ->name('admin.pet.management');
 
+Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgress'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.adoptions');
+
 Route::get('/admin/reports', function () {
     return view('admin_contents.reports');
 })->middleware(['auth', 'verified'])->name('admin.reports');
 
-Route::get('/admin/adoptions', function () {
-    return view('admin_contents.adoptions');
-})->middleware(['auth', 'verified'])->name('admin.adoptions');
+// Route::get('/admin/adoptions', function () {
+//     return view('admin_contents.adoptions');
+// })->middleware(['auth', 'verified'])->name('admin.adoptions');
 
 Route::get('/admin/volunteers', function () {
     return view('admin_contents.volunteers');

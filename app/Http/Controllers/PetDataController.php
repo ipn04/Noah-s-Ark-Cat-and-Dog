@@ -50,14 +50,27 @@ class PetDataController extends Controller
         return view('initial_page.pets', ['pets' => $pets]);
     }
 
-    public function adoptPet($petId)
-    {
-        $pets = Pet::find($petId);
-        if(!$pets) {
-            return redirect()->back()->with('error', 'Pet not found');
-        }
-        return view('user_contents.petcontents', ['pets' => $pets]);
-    }
+    // public function adoptPet($petId)
+    // {
+    //     $userId = auth()->user()->id;
+    //     $pets = Pet::find($petId);
+
+    //     $userApplication = Application::where('user_id', $userId)->first();
+
+    //     if(!$pets) {
+    //         return redirect()->back()->with('error', 'Pet not found');
+    //     }
+    //     $stage = null;
+    //     if ($userApplication) {
+    //         $adoption = Adoption::where('application_id', $userApplication->id)->first();
+    //         if ($adoption) {
+    //             $stage = AdoptionAnswer::where('adoption_id', $adoption->id)
+    //                 ->where('stage', '0')
+    //                 ->first();
+    //         }
+    //     }
+    //     return view('user_contents.petcontents', ['pets' => $pets, 'stage' => $stage]);
+    // }
 
     public function sendAdoption($petId)
     {
@@ -68,7 +81,7 @@ class PetDataController extends Controller
         return view('user_contents.adoptionform', ['pets' => $pets, 'petId' => $petId]);
     }
 
-    public function  showUserPets()
+    public function showUserPets()
     {
         $userId = auth()->user()->id;
 
@@ -94,7 +107,7 @@ class PetDataController extends Controller
             // Handle case when no pets are found
             return view('dashboards.user_dashboard', ['pets' => $pets, 'stage' => $stage]);
         }
-        
+ 
     }
 
     public function showPet($id)

@@ -72,6 +72,26 @@ $(document).ready(function() {
         }).ph_locations('fetch_list');
     
     });
+    
+    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
+        document.getElementById(`${tab}Link`).addEventListener('click', function(event) {
+            event.preventDefault();
+            const tabs = ['all', 'pending', 'approved', 'rejected'];
+
+            tabs.forEach(item => {
+                const link = document.getElementById(`${item}Link`);
+                const content = document.getElementById(item);
+                
+                if (item === tab) {
+                    link.classList.add('border-b-2', 'border-red-600');
+                    content.classList.remove('hidden');
+                } else {
+                    link.classList.remove('border-b-2', 'border-red-600');
+                    content.classList.add('hidden');
+                }
+            });
+        });
+    });
 });
 
 // user pet page search

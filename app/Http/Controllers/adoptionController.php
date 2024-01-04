@@ -140,16 +140,19 @@ class adoptionController extends Controller
         $adoptionCount = AdoptionAnswer::count();
         $pendingStages = ['0', '1', '2', '3', '4', '5'];
 
-        $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
-
-        // Filter adoption answers where the associated adoptions' stages are in the pending stages array
         $pendingAdoptionAnswerData = $adoptionAnswerData->filter(function ($adoptionAnswer) use ($pendingStages) {
             return in_array($adoptionAnswer->adoption->stage, $pendingStages);
         });
 
-        $adoptionCountStage = $pendingAdoptionAnswerData->count();
+        $adoptionCountPending = $pendingAdoptionAnswerData->count();
 
-        return view('admin_contents.adoptions', compact('adoptionAnswerData', 'adoptionCount', 'adoptionCountStage'));
+        $approvedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '6');
+
+        $rejectedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '10');
+
+        $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
+
+        return view('admin_contents.adoptions', compact('adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers'));
     }   
 
     public function adminLoadProgress($id) {

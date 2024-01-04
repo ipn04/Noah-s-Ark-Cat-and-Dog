@@ -125,6 +125,9 @@
                                 Pet
                             </th>
                             <th scope="col" class="px-6 py-3">
+                                Stage
+                            </th>
+                            <th scope="col" class="px-6 py-3">
                                 Progress
                             </th>
                             <th scope="col" class="">
@@ -136,14 +139,15 @@
                         @if ($adoptionAnswerData)
                             @foreach ($adoptionAnswerData as $adoptionAnswer)
                                 <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
-                                    <td scope="row" class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
-                                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/' . $adoptionAnswer->adoption->application->user->profile_image) }}" alt="user profile">
+                                    
+                                    <td scope="row" class=" hidden lg:flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
+                                        <img class="w-10 h-10 ob rounded-full" src="{{ asset('storage/' . $adoptionAnswer->adoption->application->user->profile_image) }}" alt="user profile">
                                         <div class="ps-2 flex flex-col">
                                             <div class="text-lg lg:text-base">{{$adoptionAnswer->adoption->application->user->firstname . ' ' .$adoptionAnswer->adoption->application->user->name}}</div>
                                             <div class="text-sm  lg:hidden">
-                                                <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                                    <p class="text-center">{{$adoptionAnswer->adoption->pet->adoption_status}}</p>
-                                                </div>
+                                                    <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                                        <p class="text-center">{{$adoptionAnswer->adoption->pet->adoption_status}}</p>
+                                                    </div>
                                             </div>
                                         </div>
                                     </td>
@@ -163,9 +167,40 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                        <div class=" w-24 rounded-lg py-1 font-semibold
+                                        @if ($adoptionAnswer->adoption->stage == 0)
+                                        text-slate-600 bg-slate-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 1)
+                                        text-yellow-600 bg-yellow-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 2)
+                                        text-orange-600 bg-orange-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 3)
+                                        text-sky-600 bg-sky-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 4)
+                                        text-purple-600 bg-purple-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 5)
+                                        text-blue-600 bg-blue-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 6)
+                                        text-green-600 bg-green-200
+                                        @endif">
                                             <p class="text-center">Stage {{$adoptionAnswer->adoption->stage}}</p>
                                         </div>
+                                        
+                                    </td>
+                                    <td class="px-6 py-4  hidden lg:table-cell">
+                                        @if ($adoptionAnswer->adoption->stage == 10)
+                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class="text-center">Rejected</p>
+                                        </div>
+                                        @elseif ($adoptionAnswer->adoption->stage == 6)
+                                        <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
+                                            <p class="text-center">Accepted</p>
+                                        </div>
+                                        @else
+                                        <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                            <p class="text-center">Pending</p>
+                                        </div>
+                                        @endif
                                         
                                     </td>
                                     <td class="items-center gap-1  hidden lg:table-cell">

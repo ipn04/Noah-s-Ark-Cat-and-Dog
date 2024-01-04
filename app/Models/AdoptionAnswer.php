@@ -34,7 +34,6 @@ class AdoptionAnswer extends Model
         'twentyfirst_question',
         'twentysecond_question',
         'twentythird_question',
-        'stage',    
         'upload',
         'upload2',
     ];

@@ -164,7 +164,7 @@
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                            <p class="text-center">Stage {{$adoptionAnswer->stage}}</p>
+                                            <p class="text-center">Stage {{$adoptionAnswer->adoption->stage}}</p>
                                         </div>
                                         
                                     </td>

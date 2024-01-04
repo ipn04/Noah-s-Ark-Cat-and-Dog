@@ -24,6 +24,7 @@ class adoptionController extends Controller
 
         // // Create adoption entry
         $adoption = new Adoption();
+        $adoption['stage'] = '0';
         $adoption->pet_id = $petId; // Use the existing pet ID
         $adoption->application_id = $applicationId; // Set this to the application ID if applicable
         $adoption->save();
@@ -97,8 +98,6 @@ class adoptionController extends Controller
         }
 
         try {
-            $validatedData['stage'] = '0';
-            // Save the adoption instance
             $adoptionAnswer = new AdoptionAnswer();
             $adoptionAnswer->adoption_id = $adoptionId;
             $adoptionAnswer->fill($validatedData);
@@ -126,7 +125,7 @@ class adoptionController extends Controller
         $petData = null;
     
         if ($adoptionAnswerData && $adoptionAnswerData->adoption) {
-            $stage = $adoptionAnswerData->stage;
+            $stage = $adoptionAnswerData->adoption->stage;
             
             $petData = $adoptionAnswerData->adoption->pet;
         }
@@ -138,20 +137,20 @@ class adoptionController extends Controller
         ]);
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {
-        $adoptionAnswerData = AdoptionAnswer::all();
+        $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
 
         return view('admin_contents.adoptions', compact('adoptionAnswerData'));
     }   
 
     public function adminLoadProgress($id) {
-        $adoptionAnswer = AdoptionAnswer::find($id);
+        $adoptionAnswer = Adoption::find($id);
         $stage = $adoptionAnswer->stage;
         
         return view('admin_contents.adoptionprogress', ['adoptionAnswer' => $adoptionAnswer, 'stage' => $stage]);
     } 
     public function updateStage($id)
     {
-        $adoptionAnswer = AdoptionAnswer::find($id);
+        $adoptionAnswer = Adoption::find($id);
 
         if ($adoptionAnswer) {
             $currentStage = $adoptionAnswer->stage;

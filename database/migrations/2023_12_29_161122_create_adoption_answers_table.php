@@ -36,7 +36,6 @@ return new class extends Migration
             $table->string('twentyfirst_question');
             $table->string('twentysecond_question');
             $table->string('twentythird_question');
-            $table->string('stage');
             $table->string('upload');
             $table->string('upload2');
             $table->timestamps();

@@ -172,7 +172,7 @@
                 </div>
                 <div>
                     <div>
-                        @if($stage === '0' || $stage === '1' || $stage === '2' || $stage === '3')
+                        {{-- @if($stage === '0' || $stage === '1' || $stage === '2' || $stage === '3') --}}
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600  bg-gray-200">
@@ -254,35 +254,35 @@
                 <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     <div class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center h-32"
-                        src="{{ asset('storage/' . $adoptionAnswer->adoption->application->user->profile_image) }}" alt='user profile'>
+                        src="{{ asset('storage/' . $adoptionAnswer->application->user->profile_image) }}" alt='user profile'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">{{ $adoptionAnswer->adoption->application->user->firstname . ' ' . $adoptionAnswer->adoption->application->user->name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl">{{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td>{{ $adoptionAnswer->adoption->application->user->birthday }}</td>
+                                <td>{{ $adoptionAnswer->application->user->birthday }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td>{{ $adoptionAnswer->adoption->application->user->gender }}</td>
+                                <td>{{ $adoptionAnswer->application->user->gender }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Phone</td>
-                                <td>{{ $adoptionAnswer->adoption->application->user->phone_number }}</td>
+                                <td>{{ $adoptionAnswer->application->user->phone_number }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Email</td>
-                                <td>{{ $adoptionAnswer->adoption->application->user->email }}</td>
+                                <td>{{ $adoptionAnswer->application->user->email }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Civil Status</td>
-                                <td>{{ $adoptionAnswer->adoption->application->user->email }}</td>
+                                <td>{{ $adoptionAnswer->application->user->email }}</td>
                             </tr>
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td>{{ $adoptionAnswer->adoption->application->user->province . ' ' . $adoptionAnswer->adoption->application->user->city . ' ' .  $adoptionAnswer->adoption->application->user->barangay . ' ' . $adoptionAnswer->adoption->application->user->street  }}</td>
+                                <td>{{ $adoptionAnswer->application->user->province . ' ' . $adoptionAnswer->application->user->city . ' ' .  $adoptionAnswer->application->user->barangay . ' ' . $adoptionAnswer->application->user->street  }}</td>
                             </tr>   
                         </table>
                         <x-primary-button>
@@ -294,39 +294,39 @@
 
                     <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center h-32"
-                        src="{{ asset('storage/images/' . $adoptionAnswer->adoption->pet->dropzone_file) }}"                           
+                        src="{{ asset('storage/images/' . $adoptionAnswer->pet->dropzone_file) }}"                           
                         alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">{{$adoptionAnswer->adoption->pet->pet_name}}</h1>
+                    <h1 class = "text-center font-bold text-2xl">{{$adoptionAnswer->pet->pet_name}}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td>{{$adoptionAnswer->adoption->pet->age}}</td>
+                                <td>{{$adoptionAnswer->pet->age}}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td>{{$adoptionAnswer->adoption->pet->pet_name}}</td>
+                                <td>{{$adoptionAnswer->pet->pet_name}}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Breed</td>
-                                <td>{{$adoptionAnswer->adoption->pet->breed}}</td>
+                                <td>{{$adoptionAnswer->pet->breed}}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Weight</td>
-                                <td>{{$adoptionAnswer->adoption->pet->weight}}</td>
+                                <td>{{$adoptionAnswer->pet->weight}}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Size</td>
-                                <td>{{$adoptionAnswer->adoption->pet->size}}</td>
+                                <td>{{$adoptionAnswer->pet->size}}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Color</td>
-                                <td>{{$adoptionAnswer->adoption->pet->color}}</td>
+                                <td>{{$adoptionAnswer->pet->color}}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Vaccination</td>
-                                <td>{{$adoptionAnswer->adoption->pet->vaccination_status}}</td>
+                                <td>{{$adoptionAnswer->pet->vaccination_status}}</td>
                             </tr>
                         </table>
                         <x-primary-button>
@@ -339,7 +339,4 @@
                 </div>
             </div>
     </section>
-
-
-
 </x-app-layout>

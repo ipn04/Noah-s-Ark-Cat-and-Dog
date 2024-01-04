@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('pet_id')->constrained('pets');
             $table->foreignId('application_id')->constrained('application');
+            $table->string('stage');
             $table->timestamps();
 
         });

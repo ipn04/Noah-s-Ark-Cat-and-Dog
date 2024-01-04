@@ -10,7 +10,7 @@ class Adoption extends Model
     use HasFactory;
     protected $table = 'adoption'; // Set the correct table name
 
-    protected $fillable = ['pet_id', 'application_id']; // Fillable fields in the 'adoption' table
+    protected $fillable = ['pet_id', 'application_id', 'stage']; // Fillable fields in the 'adoption' table
 
     public function pet()
     {

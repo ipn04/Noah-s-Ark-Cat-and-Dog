@@ -85,19 +85,18 @@ class PetDataController extends Controller
     {
         $userId = auth()->user()->id;
 
-        // Find the user's application ID
         $userApplication = Application::where('user_id', $userId)->first();
     
-        // Fetch the adoption answer for the user's application, assuming it exists
         $stage = null;
+
         if ($userApplication) {
             $adoption = Adoption::where('application_id', $userApplication->id)->first();
+        
             if ($adoption) {
-                $stage = AdoptionAnswer::where('adoption_id', $adoption->id)
-                    ->where('stage', '0')
-                    ->first();
+                $stage = $adoption->stage;
             }
         }
+        
     
         $pets = Pet::where('adoption_status', 'available')->get();
         if ($pets->isNotEmpty()) {

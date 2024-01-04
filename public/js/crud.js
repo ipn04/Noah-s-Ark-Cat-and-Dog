@@ -131,7 +131,26 @@ $(document).ready(function() {
     });
 });
 
-
+// admin adoption search
+$(document).ready(function() {
+    $('#adoption-search').on('input', function() {
+        let value = $(this).val().toLowerCase();  
+        
+        $('.user-container').each(function () {
+            let userName = $(this).attr('data-name'); 
+            let userLastName = $(this).attr('data-lastname');
+            if (userName !== undefined && userLastName !== undefined) {
+                userName = userName.toLowerCase();
+                userLastName = userLastName.toLowerCase();
+                if (userName.indexOf(value) === -1 && userLastName.indexOf(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+});
 
 
 $(document).ready(function() {

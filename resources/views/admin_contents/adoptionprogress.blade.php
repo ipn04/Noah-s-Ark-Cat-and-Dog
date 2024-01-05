@@ -313,11 +313,11 @@
                         <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                                <img class="object-cover object-center h-32"
+                                <img class="object-cover object-center w-32 h-32"
                                     src="{{ asset('storage/' . $adoptionAnswer->application->user->profile_image) }}"
                                     alt='user profile'>
                             </div>
-                            <h1 class = "text-center font-bold text-2xl">
+                            <h1 class = "text-center font-bold text-2xl py-2">
                                 {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }}
                             </h1>
                             <div class = "pb-4">
@@ -358,11 +358,11 @@
 
                             <div
                                 class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                                <img class="object-cover object-center h-32"
+                                <img class="object-cover object-center w-32 h-32"
                                     src="{{ asset('storage/images/' . $adoptionAnswer->pet->dropzone_file) }}"
                                     alt='Woman looking front'>
                             </div>
-                            <h1 class = "text-center font-bold text-2xl">{{ $adoptionAnswer->pet->pet_name }}</h1>
+                            <h1 class = "text-center font-bold text-2xl py-2">{{ $adoptionAnswer->pet->pet_name }}</h1>
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
@@ -416,12 +416,12 @@
                 <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     <div
                         class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                        <img class="object-cover object-center h-32"
+                        <img class="object-cover object-center w-32 h-32"
                             src="{{ asset('storage/' . $adoptionAnswer->application->user->profile_image) }}"
                             alt='user profile'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">
-                        {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }}
+                    <h1 class = "text-center font-bold text-2xl py-2">
+                        {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }} 
                     </h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
@@ -460,11 +460,11 @@
                 <div class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
 
                     <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                        <img class="object-cover object-center h-32"
+                        <img class="object-cover object-center  w-32 h-32"
                             src="{{ asset('storage/images/' . $adoptionAnswer->pet->dropzone_file) }}"
                             alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">{{ $adoptionAnswer->pet->pet_name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl py-2">{{ $adoptionAnswer->pet->pet_name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>

@@ -78,7 +78,7 @@
                                         <path fill-rule="evenodd" clip-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
                                     </svg>
                                 </div>
-                                <input type="text" id="adoption-search" placeholder="Search user" name="search" required="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
+                                <input type="text" id="adoption-search" placeholder="Search user" name="search" required="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                         </form>
                     </div>
@@ -164,6 +164,10 @@
                                         @elseif ($adoptionAnswer->adoption->stage == 5)
                                         text-blue-600 bg-blue-200
                                         @elseif ($adoptionAnswer->adoption->stage == 6)
+                                        text-cyan-600 bg-cyan-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 7)
+                                        text-lime-600 bg-lime-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 8)
                                         text-green-600 bg-green-200
                                         @endif">
                                             <p class="text-center">Stage {{$adoptionAnswer->adoption->stage}}</p>
@@ -175,7 +179,7 @@
                                         <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
                                             <p class="text-center">Rejected</p>
                                         </div>
-                                        @elseif ($adoptionAnswer->adoption->stage == 6)
+                                        @elseif ($adoptionAnswer->adoption->stage == 8)
                                         <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
                                             <p class="text-center">Accepted</p>
                                         </div>

@@ -104,7 +104,7 @@ $(document).ready(function() {
                 if (
                     selectedTab === 'all' ||
                     (selectedTab === 'pending' && stage <= 5) ||
-                    (selectedTab === 'approved' && stage === '6') ||
+                    (selectedTab === 'approved' && stage === '8') ||
                     (selectedTab === 'rejected' && stage === '10')
                 ) {
                     row.style.display = ''; 

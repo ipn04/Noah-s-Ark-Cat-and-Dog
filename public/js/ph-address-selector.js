@@ -41,12 +41,12 @@ var my_handlers = {
 
         // set selected text to input
         var region_text = $(this).find("option:selected").text();
-        let region_input = $('#region-text');
+        let region_input = $('#selected_region');
         region_input.val(region_text);
         //clear province & city & barangay input
-        $('#province-text').val('');
-        $('#city-text').val('');
-        $('#barangay-text').val('');
+        $('#selected_province').val('');
+        $('selected_city').val('');
+        $('#selected_barangay').val('');
 
         //province
         let dropdown = $('#province');
@@ -90,11 +90,11 @@ var my_handlers = {
 
         // set selected text to input
         var province_text = $(this).find("option:selected").text();
-        let province_input = $('#province-text');
+        let province_input = $('#selected_province');
         province_input.val(province_text);
         //clear city & barangay input
-        $('#city-text').val('');
-        $('#barangay-text').val('');
+        $('#selected_city').val('');
+        $('#selected_barangay').val('');
 
         //city
         let dropdown = $('#city');
@@ -132,10 +132,10 @@ var my_handlers = {
 
         // set selected text to input
         var city_text = $(this).find("option:selected").text();
-        let city_input = $('#city-text');
+        let city_input = $('#selected_city');
         city_input.val(city_text);
         //clear barangay input
-        $('#barangay-text').val('');
+        $('#selected_barangay').val('');
 
         // barangay
         let dropdown = $('#barangay');
@@ -164,7 +164,7 @@ var my_handlers = {
     onchange_barangay: function() {
         // set selected text to input
         var barangay_text = $(this).find("option:selected").text();
-        let barangay_input = $('#barangay-text');
+        let barangay_input = $('#selected_barangay');
         barangay_input.val(barangay_text);
     },
 

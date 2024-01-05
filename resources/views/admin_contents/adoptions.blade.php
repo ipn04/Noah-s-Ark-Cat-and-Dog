@@ -36,23 +36,33 @@
                 <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px">
                         <li class="me-2 relative">
-                            <a href="{{ route('admin.adoptions') }}" id="allLink" class="inline-block p-4 text-gray-600 border-b-2 border-red-600 rounded-t-lg active dark:text-gray-300 dark:border-gray-300 flex items-center justify-between">All
-                                <span id="all" class="bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-xs">{{ $adoptionCount }}</span>
+                            <a href="{{ route('admin.adoptions') }}" id="allLink" class="inline-block p-4 text-base border-b-2 text-red-500 border-red-600 rounded-t-lg active  flex items-center justify-between">All
+                                <span id="all" class="bg-red-100 ms-1 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">{{ $adoptionCount }}</span>
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.adoptions') }}" id="pendingLink" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 flex items-center justify-between">Pending
-                                <span id="pending" class="hidden bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-xs">{{ $adoptionCountPending }}</span>
+                            <a href="{{ route('admin.adoptions') }}" id="pendingLink" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Pending
+                                <span id="pending" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">{{ $adoptionCountPending }}</span>
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.adoptions') }}" id="approvedLink" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 flex items-center justify-between">Approved
-                                <span  id="approved" class="hidden bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-xs">{{ $approvedAdoptionAnswers }}</span>
+                            <a href="{{ route('admin.adoptions') }}" id="approvedLink" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Approved
+                                <span  id="approved" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm
+                                ">@if (count($approvedAdoptionAnswers) === 0)
+                                 0   
+                                @else
+                                {{ $approvedAdoptionAnswers }}
+                                @endif</span>
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.adoptions') }}" id="rejectedLink" class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300 flex items-center justify-between">Rejected
-                                <span  id="rejected" class="hidden bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-xs">{{ $rejectedAdoptionAnswers }}</span>
+                            <a href="{{ route('admin.adoptions') }}" id="rejectedLink" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Rejected
+                                <span  id="rejected" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                    @if (count($rejectedAdoptionAnswers) === 0)
+                                    0
+                                @else
+                                {{ $rejectedAdoptionAnswers }}
+                                @endif</span>
                             </a>
                         </li>                   
                     </ul>

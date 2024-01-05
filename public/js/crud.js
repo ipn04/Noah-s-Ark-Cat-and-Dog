@@ -87,10 +87,11 @@ $(document).ready(function() {
                 const tabContent = document.getElementById(item);
     
                 if (item === selectedTab) {
-                    tabLink.classList.add('border-b-2', 'border-red-600');
+                    tabLink.classList.remove('text-gray-600')
+                    tabLink.classList.add('border-b-2', 'border-red-600','text-red-500');
                     tabContent.classList.remove('hidden');
                 } else {
-                    tabLink.classList.remove('border-b-2', 'border-red-600');
+                    tabLink.classList.remove('border-b-2', 'border-red-600','text-red-500');
                     tabContent.classList.add('hidden');
                 }
             });

@@ -72,6 +72,78 @@ $(document).ready(function() {
         }).ph_locations('fetch_list');
     
     });
+    
+    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
+        const link = document.getElementById(`${tab}Link`);
+    
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+    
+            const selectedTab = tab;
+            const tabs = ['all', 'pending', 'approved', 'rejected'];
+    
+            tabs.forEach(item => {
+                const tabLink = document.getElementById(`${item}Link`);
+                const tabContent = document.getElementById(item);
+    
+                if (item === selectedTab) {
+                    tabLink.classList.add('border-b-2', 'border-red-600');
+                    tabContent.classList.remove('hidden');
+                } else {
+                    tabLink.classList.remove('border-b-2', 'border-red-600');
+                    tabContent.classList.add('hidden');
+                }
+            });
+    
+            const allRows = document.querySelectorAll('#adoptionDataContainer[data-stage]');
+
+            allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+    
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'pending' && stage <= 5) ||
+                    (selectedTab === 'approved' && stage === '6') ||
+                    (selectedTab === 'rejected' && stage === '10')
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+
+            console.log(`Selected Tab: ${selectedTab}`);
+            console.log(`Filtered Rows: ${allRows}`);
+        });
+    });    
+    // JavaScript code to filter based on selected stages and pet types
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const checkedStages = Array.from(document.querySelectorAll('#category-body input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            const checkedPetTypes = Array.from(document.querySelectorAll('#gender-body input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            const allRows = document.querySelectorAll('#adoptionDataContainer[data-stage][data-pet]');
+            
+            allRows.forEach(row => {
+                const stageValue = row.getAttribute('data-stage');
+                const petType = row.getAttribute('data-pet');
+                
+                const stageMatch = checkedStages.length === 0 || checkedStages.includes(stageValue);
+                const petTypeMatch = checkedPetTypes.length === 0 || checkedPetTypes.includes(petType);
+                
+                if (stageMatch && petTypeMatch) {
+                    row.style.display = 'table-row'; // Show rows that match the selected stages and pet types
+                } else {
+                    row.style.display = 'none'; // Hide rows that don't match the selected stages and pet types
+                }
+            });
+        });
+    });
+
 });
 
 // user pet page search
@@ -131,7 +203,26 @@ $(document).ready(function() {
     });
 });
 
-
+// admin adoption search
+$(document).ready(function() {
+    $('#adoption-search').on('input', function() {
+        let value = $(this).val().toLowerCase();  
+        
+        $('.user-container').each(function () {
+            let userName = $(this).attr('data-name'); 
+            let userLastName = $(this).attr('data-lastname');
+            if (userName !== undefined && userLastName !== undefined) {
+                userName = userName.toLowerCase();
+                userLastName = userLastName.toLowerCase();
+                if (userName.indexOf(value) === -1 && userLastName.indexOf(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+});
 
 
 $(document).ready(function() {

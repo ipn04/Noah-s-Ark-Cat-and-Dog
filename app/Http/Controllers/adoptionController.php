@@ -114,7 +114,6 @@ class adoptionController extends Controller
     public function adoptionProgress($adoptionAnswer = false)
     {
         $userId = auth()->user()->id; // Get the authenticated user's ID
-        // Fetch the adoption answer data for the current user
         $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId) {
             $query->whereHas('application', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
@@ -132,14 +131,28 @@ class adoptionController extends Controller
 
         // Pass the pet data and other necessary variables to the view
         return view('user_contents.adoptionprogress', [
-            'adoption_answer' => $adoptionAnswer,
+            'adoption_answer' => $adoptionAnswer, 
             'petData' => $petData, 'stage' => $stage
         ]);
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {
         $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
+        $adoptionCount = AdoptionAnswer::count();
+        $pendingStages = ['0', '1', '2', '3', '4', '5'];
 
-        return view('admin_contents.adoptions', compact('adoptionAnswerData'));
+        $pendingAdoptionAnswerData = $adoptionAnswerData->filter(function ($adoptionAnswer) use ($pendingStages) {
+            return in_array($adoptionAnswer->adoption->stage, $pendingStages);
+        });
+
+        $adoptionCountPending = $pendingAdoptionAnswerData->count();
+
+        $approvedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '6');
+
+        $rejectedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '10');
+
+        $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
+
+        return view('admin_contents.adoptions', compact('adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers'));
     }   
 
     public function adminLoadProgress($id) {

@@ -48,7 +48,7 @@
                         <li class="me-2">
                             <a href="{{ route('admin.adoptions') }}" id="approvedLink" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Approved
                                 <span  id="approved" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm
-                                ">@if (count($approvedAdoptionAnswers) === 0)
+                                ">@if ($approvedAdoptionAnswers === 0)
                                  0   
                                 @else
                                 {{ $approvedAdoptionAnswers }}
@@ -58,7 +58,7 @@
                         <li class="me-2">
                             <a href="{{ route('admin.adoptions') }}" id="rejectedLink" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Rejected
                                 <span  id="rejected" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
-                                    @if (count($rejectedAdoptionAnswers) === 0)
+                                    @if ($rejectedAdoptionAnswers === 0)
                                     0
                                 @else
                                 {{ $rejectedAdoptionAnswers }}

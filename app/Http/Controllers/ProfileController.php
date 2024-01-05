@@ -35,13 +35,11 @@ class ProfileController extends Controller
 
     public function updateUserProfile(Request $request, $id)
     {
-
         // Validate incoming request data
         $validatedData = $request->validate([
             'name' => 'sometimes|string|max:255',
             'firstname' => 'sometimes|string|max:255',
             'gender' => 'sometimes|in:male,female,other',
-            'birthday' => 'sometimes|date_format:d/m/Y',
             'civil_status' => 'sometimes|in:single,married,divorced,widowed',
             'region' => 'sometimes|string',
             'province' => 'sometimes|string',
@@ -54,14 +52,15 @@ class ProfileController extends Controller
             'profile_image' => 'nullable|image|max:2048', // Assuming profile images are uploaded
         ]);
 
-        // Find the user by ID
         $user = User::findOrFail($id);
-        if ($request->filled('birthday')) {
-            $formattedBirthday = Carbon::createFromFormat('d/m/Y', $request->birthday)->format('Y-m-d');            
-        }
-        // dd($formattedBirthday);
 
-        // dd($validatedData);
+        if ($request->has('birthday')) {
+            $birthday = \DateTime::createFromFormat('d/m/Y', $request->input('birthday'));
+            if ($birthday !== false) {
+                $validatedData['birthday'] = $birthday->format('Y-m-d');
+            }
+        }
+
 
         if ($request->hasFile('profiles')) {
             // Delete previous profile image if exists
@@ -81,7 +80,6 @@ class ProfileController extends Controller
         unset($validatedData['password']);
 
         $user->fill($validatedData);
-        $user->birthday = $formattedBirthday;
         $user->save();
 
         // Redirect to the profile page or wherever you need

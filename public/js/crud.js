@@ -28,50 +28,50 @@ $(document).ready(function() {
         });
     }).trigger('change'); // Trigger the change event initially to show all pets
     
-    $(function(){
+    // $(function(){
 
-        // whenever the region dropdown change, update the value of hidden field
-        $('#region').on('change', function(){
+    //     // whenever the region dropdown change, update the value of hidden field
+    //     $('#region').on('change', function(){
     
-            // we are getting the text() here, not val()
-            var selected_region = $("#region option:selected").text();
+    //         // we are getting the text() here, not val()
+    //         var selected_region = $("#region option:selected").text();
     
-            // the hidden field will contain the name of the region, not the code
-            $('input[name=selected_region]').val(selected_region);
+    //         // the hidden field will contain the name of the region, not the code
+    //         $('input[name=selected_region]').val(selected_region);
     
-        }).ph_locations('fetch_list');
+    //     }).ph_locations('fetch_list');
     
-        $('#province').on('change', function(){
+    //     $('#province').on('change', function(){
     
-            // we are getting the text() here, not val()
-            var selected_province = $("#province option:selected").text();
+    //         // we are getting the text() here, not val()
+    //         var selected_province = $("#province option:selected").text();
     
-            // the hidden field will contain the name of the region, not the code
-            $('input[name=selected_province]').val(selected_province);
+    //         // the hidden field will contain the name of the region, not the code
+    //         $('input[name=selected_province]').val(selected_province);
     
-        }).ph_locations('fetch_list');
+    //     }).ph_locations('fetch_list');
     
-        $('#city').on('change', function(){
+    //     $('#city').on('change', function(){
     
-            // we are getting the text() here, not val()
-            var selected_city = $("#city option:selected").text();
+    //         // we are getting the text() here, not val()
+    //         var selected_city = $("#city option:selected").text();
     
-            // the hidden field will contain the name of the region, not the code
-            $('input[name=selected_city]').val(selected_city);
+    //         // the hidden field will contain the name of the region, not the code
+    //         $('input[name=selected_city]').val(selected_city);
     
-        }).ph_locations('fetch_list');
+    //     }).ph_locations('fetch_list');
     
-        $('#barangay').on('change', function(){
+    //     $('#barangay').on('change', function(){
     
-            // we are getting the text() here, not val()
-            var selected_barangay = $("#barangay option:selected").text();
+    //         // we are getting the text() here, not val()
+    //         var selected_barangay = $("#barangay option:selected").text();
     
-            // the hidden field will contain the name of the region, not the code
-            $('input[name=selected_barangay]').val(selected_barangay);
+    //         // the hidden field will contain the name of the region, not the code
+    //         $('input[name=selected_barangay]').val(selected_barangay);
     
-        }).ph_locations('fetch_list');
+    //     }).ph_locations('fetch_list');
     
-    });
+    // });
     
     ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
         const link = document.getElementById(`${tab}Link`);

@@ -74,24 +74,49 @@ $(document).ready(function() {
     });
     
     ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
-        document.getElementById(`${tab}Link`).addEventListener('click', function(event) {
+        const link = document.getElementById(`${tab}Link`);
+    
+        link.addEventListener('click', function(event) {
             event.preventDefault();
+    
+            const selectedTab = tab;
             const tabs = ['all', 'pending', 'approved', 'rejected'];
-
+    
             tabs.forEach(item => {
-                const link = document.getElementById(`${item}Link`);
-                const content = document.getElementById(item);
-                
-                if (item === tab) {
-                    link.classList.add('border-b-2', 'border-red-600');
-                    content.classList.remove('hidden');
+                const tabLink = document.getElementById(`${item}Link`);
+                const tabContent = document.getElementById(item);
+    
+                if (item === selectedTab) {
+                    tabLink.classList.add('border-b-2', 'border-red-600');
+                    tabContent.classList.remove('hidden');
                 } else {
-                    link.classList.remove('border-b-2', 'border-red-600');
-                    content.classList.add('hidden');
+                    tabLink.classList.remove('border-b-2', 'border-red-600');
+                    tabContent.classList.add('hidden');
                 }
             });
+    
+            const allRows = document.querySelectorAll('#adoptionDataContainer[data-stage]');
+
+            allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+    
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'pending' && stage <= 5) ||
+                    (selectedTab === 'approved' && stage === '6') ||
+                    (selectedTab === 'rejected' && stage === '10')
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+
+            console.log(`Selected Tab: ${selectedTab}`);
+            console.log(`Filtered Rows: ${allRows}`);
         });
-    });
+    });    
+    
 });
 
 // user pet page search

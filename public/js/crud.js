@@ -116,7 +116,34 @@ $(document).ready(function() {
             console.log(`Filtered Rows: ${allRows}`);
         });
     });    
-    
+    // JavaScript code to filter based on selected stages and pet types
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    checkboxes.forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const checkedStages = Array.from(document.querySelectorAll('#category-body input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            const checkedPetTypes = Array.from(document.querySelectorAll('#gender-body input[type="checkbox"]:checked'))
+                .map(checkbox => checkbox.value);
+            
+            const allRows = document.querySelectorAll('#adoptionDataContainer[data-stage][data-pet]');
+            
+            allRows.forEach(row => {
+                const stageValue = row.getAttribute('data-stage');
+                const petType = row.getAttribute('data-pet');
+                
+                const stageMatch = checkedStages.length === 0 || checkedStages.includes(stageValue);
+                const petTypeMatch = checkedPetTypes.length === 0 || checkedPetTypes.includes(petType);
+                
+                if (stageMatch && petTypeMatch) {
+                    row.style.display = 'table-row'; // Show rows that match the selected stages and pet types
+                } else {
+                    row.style.display = 'none'; // Hide rows that don't match the selected stages and pet types
+                }
+            });
+        });
+    });
+
 });
 
 // user pet page search

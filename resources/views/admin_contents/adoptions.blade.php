@@ -23,29 +23,6 @@
                     }
                 </script>
             @endif
-
-            @if(session('pet_added'))
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        swal(
-                            "You successfully added a pet!", 
-                            "Press 'OK' to exit!", 
-                            "success"
-                        )
-                    });
-                </script>
-            @endif
-            @if(session('pet_deleted'))
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        swal(
-                            "You successfully deleted a pet!", 
-                            "Press 'OK' to exit!", 
-                            "success"
-                        )
-                    });
-                </script>
-            @endif
         </div>
         
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
@@ -97,7 +74,7 @@
                     </div>
                   
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                        <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
                             <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 " viewbox="0 0 20 20" fill="currentColor">
                                 <path fill-rule="evenodd" d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z" clip-rule="evenodd" />
                             </svg>
@@ -135,7 +112,7 @@
                     <tbody>
                         @if ($adoptionAnswerData)
                             @foreach ($adoptionAnswerData as $adoptionAnswer)
-                                <tr id="adoptionDataContainer" data-stage="{{ $adoptionAnswer->adoption->stage }}" data-name="{{ $adoptionAnswer->adoption->application->user->firstname }}" data-lastname="{{ $adoptionAnswer->adoption->application->user->name }}" class="user-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr id="adoptionDataContainer"  data-stage="{{ $adoptionAnswer->adoption->stage }}" data-pet="{{ $adoptionAnswer->adoption->pet->pet_type }}" data-name="{{ $adoptionAnswer->adoption->application->user->firstname }}" data-lastname="{{ $adoptionAnswer->adoption->application->user->name }}" class="user-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td scope="row" class=" hidden lg:flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
                                         <img class="w-10 h-10 ob rounded-full" src="{{ asset('storage/' . $adoptionAnswer->adoption->application->user->profile_image) }}" alt="user profile">
                                         <div class="ps-2 flex flex-col">
@@ -252,200 +229,95 @@
                     <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     </div>                  
                 </div>
-
-                <!-- Main modal -->
-                <form action="#" method="get" id="defaultModal" tabindex="-1" aria-hidden="true"
-                    class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-modal md:h-full">
-                    <div class="relative w-full h-full max-w-md md:h-auto">
-                        <!-- Modal content -->
-                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-800">
-                            <!-- Modal header -->
-                            <div class="flex items-start justify-between px-6 py-4 rounded-t">
-                                <h3 class="text-lg font-normal text-gray-500 dark:text-gray-400">
-                                    Filter by category
-                                </h3>
-                                <button type="button"
-                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                    data-modal-toggle="defaultModal">
-                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd"
-                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                            clip-rule="evenodd"></path>
-                                    </svg>
-                                    <span class="sr-only">Close modal</span>
-                                </button>
-                            </div>
-                            <!-- Modal body -->
-                            <div class="grid grid-cols-2 gap-2 px-4 md:px-6 md:grid-cols-3">
-                                <div class="flex items-center">
-                                    <input id="apple" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="apple" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Apple (56)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="fitbit" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="fitbit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Fitbit (56)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="dell" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="dell" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Dell (56)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="asus" type="checkbox" value="" checked
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="asus" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Asus (97)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="logitech" type="checkbox" value="" checked
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="logitech" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Logitech (97)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="msi" type="checkbox" value="" checked
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="msi" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        MSI (97)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="bosch" type="checkbox" value="" checked
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="bosch" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Bosch (176)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="sony" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="sony" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Sony (234)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="samsung" type="checkbox" value="" checked
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="samsung" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Samsung (76)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="canon" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="canon" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Canon (49)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="microsoft" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="microsoft"
-                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Microsoft (45)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="razor" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="razor" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Razor (49)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="emetec" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="emetec" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Emetec (16)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="nvidia" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="nvidia" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Nvidia (45)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="hp" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="hp" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        HP (234)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="benq" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="benq" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        BenQ (45)
-                                    </label>
-                                </div>
-
-                                <div class="flex items-center">
-                                    <input id="rockstar" type="checkbox" value=""
-                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600" />
-
-                                    <label for="rockstar" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
-                                        Rockstar (49)
-                                    </label>
-                                </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="flex items-center p-6 space-x-4 rounded-b dark:border-gray-600">
-                                <button type="submit"
-                                    class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-700 dark:hover:bg-primary-800 dark:focus:ring-primary-800">
-                                    Apply
-                                </button>
-                                <button type="button"
-                                    class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                                    Reset
-                                </button>
-                            </div>
-                        </div>
+            </div>
+        </div>
+        <div id="filterDropdown" class="z-50 hidden py-1 px-3 bg-white rounded-lg shadow w-60 dark:bg-gray-700 right-0">
+            <div class="flex items-center justify-between pt-2">
+                <h6 class="text-sm font-medium text-black dark:text-white">Filters</h6>
+            </div>
+            <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white"
+                data-inactive-classes="text-gray-500 dark:text-gray-400">
+                <h2 id="category-heading">
+                    <button type="button"
+                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
+                        <span>Stages</span>
+                        <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
+                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                        </svg>
+                    </button>
+                </h2>
+    
+                <div id="category-body" class="hidden" aria-labelledby="category-heading">
+                    <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <input id="first_stage" type="checkbox" value="1"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="first_stage"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Stage 1</label>
+                            </li>
+                            <li class="flex items-center">
+                                <input id="second_stage" type="checkbox" value="2"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="second_stage"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Stage 2</label>
+                            </li>
+                            <li class="flex items-center">
+                                <input id="third_stage" type="checkbox" value="3"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="third_stage"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Stage 3</label>
+                            </li>
+                            <li class="flex items-center">
+                                <input id="fourth_stage" type="checkbox" value="4"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="fourth_stage"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Stage 4</label>
+                            </li>
+                            <li class="flex items-center">
+                                <input id="fifth_stage" type="checkbox" value="5"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="fifth_stage"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Stage 5</label>
+                            </li>
+                        </ul>
                     </div>
-                </form>
+                </div>
+    
+                <h2 id="gender-heading">
+                    <button type="button"
+                        class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                        data-accordion-target="#gender-body" aria-expanded="true" aria-controls="gender-body">
+                        <span>Pet Type</span>
+                        <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
+                            fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                        </svg>
+                    </button>
+                </h2>
+    
+                <div id="gender-body" class="hidden" aria-labelledby="gender-heading">
+                    <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                        <ul class="space-y-2">
+                            <li class="flex items-center">
+                                <input id="dog" type="checkbox" value="Dog"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="dog"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Dog</label>
+                            </li>
+                            <li class="flex items-center">
+                                <input id="cat" type="checkbox" value="Cat"
+                                    class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                <label for="cat"
+                                    class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Cat</label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
         

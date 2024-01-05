@@ -25,33 +25,20 @@
                 class = "grid grid-cols-1 max-w-screen-lg px-14 lg:px-5 py-3 bg-white rounded-2xl shadow-md lg:grid-cols-7 gap-2">
                 <div>
                     <div class = "flex items-center justify-center gap-2">
-                        @if($stage === '0')
-                            <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="lg:w-8 lg:h-8 w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                                        clip-rule="evenodd" />
-                                    <path fill-rule="evenodd"
-                                        d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        @elseif($stage === '1' || $stage === '2')
-                            <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200 bg-green-300">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                    class="lg:w-8 lg:h-8 w-4 h-4">
-                                    <path fill-rule="evenodd"
-                                        d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                                        clip-rule="evenodd" />
-                                    <path fill-rule="evenodd"
-                                        d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
-                                        clip-rule="evenodd" />
-                                </svg>
-                            </div>
-                        @endif
+                        <div
+                            class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  @if ($stage >= 0 && $stage < 9) bg-green-200 text-green-500
+                            @else
+                            text-gray-600 bg-gray-200 @endif">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                class="lg:w-8 lg:h-8 w-4 h-4">
+                                <path fill-rule="evenodd"
+                                    d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                                    clip-rule="evenodd" />
+                                <path fill-rule="evenodd"
+                                    d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375ZM6 12a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V12Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 15a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V15Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75ZM6 18a.75.75 0 0 1 .75-.75h.008a.75.75 0 0 1 .75.75v.008a.75.75 0 0 1-.75.75H6.75a.75.75 0 0 1-.75-.75V18Zm2.25 0a.75.75 0 0 1 .75-.75h3.75a.75.75 0 0 1 0 1.5H9a.75.75 0 0 1-.75-.75Z"
+                                    clip-rule="evenodd" />
+                            </svg>
+                        </div>
                         <h1 class = "lg:hidden text-center py-2 ">Application Submitted</h1>
                     </div>
                     <h1 class = "hidden lg:block text-center py-2 ">Application Submitted</h1>
@@ -60,33 +47,21 @@
                 <div>
                     <div>
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
-                            @if($stage === '0')
-                                <div
-                                    class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="lg:w-8 lg:h-8 w-4 h-4">
-                                        <path fill-rule="evenodd"
-                                            d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                                            clip-rule="evenodd" />
-                                        <path fill-rule="evenodd"
-                                            d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            @elseif($stage === '2')
-                                <div
-                                    class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200 bg-green-300">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="lg:w-8 lg:h-8 w-4 h-4">
-                                        <path fill-rule="evenodd"
-                                            d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
-                                            clip-rule="evenodd" />
-                                        <path fill-rule="evenodd"
-                                            d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                            @endif
+                            <div
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
+                                @if ($stage > 0 && $stage < 9) bg-green-200 text-green-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="lg:w-8 lg:h-8 w-4 h-4">
+                                    <path fill-rule="evenodd"
+                                        d="M7.502 6h7.128A3.375 3.375 0 0 1 18 9.375v9.375a3 3 0 0 0 3-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 0 0-.673-.05A3 3 0 0 0 15 1.5h-1.5a3 3 0 0 0-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6ZM13.5 3A1.5 1.5 0 0 0 12 4.5h4.5A1.5 1.5 0 0 0 15 3h-1.5Z"
+                                        clip-rule="evenodd" />
+                                    <path fill-rule="evenodd"
+                                        d="M3 9.375C3 8.339 3.84 7.5 4.875 7.5h9.75c1.036 0 1.875.84 1.875 1.875v11.25c0 1.035-.84 1.875-1.875 1.875h-9.75A1.875 1.875 0 0 1 3 20.625V9.375Zm9.586 4.594a.75.75 0 0 0-1.172-.938l-2.476 3.096-.908-.907a.75.75 0 0 0-1.06 1.06l1.5 1.5a.75.75 0 0 0 1.116-.062l3-3.75Z"
+                                        clip-rule="evenodd" />
+                                </svg>
+                            </div>
                             <h1 class = "lg:hidden text-center py-2 ">Application Validated</h1>
 
                         </div>
@@ -97,7 +72,12 @@
                     <div>
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200">
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
+                                @if ($stage > 2 && $stage < 9) bg-green-200 text-green-500
+                                @elseif($stage == 2)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -117,7 +97,12 @@
                     <div>
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600  bg-gray-200">
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
+                                @if ($stage > 3 && $stage < 9) bg-green-200 text-green-500
+                                @elseif($stage == 3)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -132,9 +117,15 @@
                 </div>
                 <div>
                     <div>
-                        <div class = "flex items-center justify-start lg:justify-center gap-2">
+                        <div class = "flex items-center justify-start lg:justify-center gap-2
+                        ">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  text-gray-600 bg-gray-200">
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  
+                                @if ($stage > 4 && $stage < 9) bg-green-200 text-green-500
+                                @elseif($stage == 4)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path fill-rule="evenodd"
@@ -152,7 +143,12 @@
                     <div>
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  text-gray-600 bg-gray-200">
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
+                                @if ($stage > 5 && $stage < 9) bg-green-200 text-green-500
+                                @elseif($stage == 5)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -172,7 +168,10 @@
                     <div>
                         <div class = "flex items-center  justify-start lg:justify-center gap-2">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600  bg-gray-200">
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
+                                @if ($stage > 7 && $stage < 9) bg-green-200 text-green-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -182,10 +181,10 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
-                            <h1 class = "lg:hidden text-center py-2">Pet Pickup</h1>
+                            <h1 class = "lg:hidden text-center py-2">Pet Adopted</h1>
 
                         </div>
-                        <h1 class = "hidden lg:block text-center py-2">Pet Pickup</h1>
+                        <h1 class = "hidden lg:block text-center py-2">Pet Adopted</h1>
                     </div>
                 </div>
             </div>
@@ -199,7 +198,8 @@
                         <img class="h-32 w-32 object-cover rounded-full "
                             src='{{ asset('storage/' . Auth::user()->profile_image) }}' alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">{{ Auth::user()->firstname . ' ' .  Auth::user()->name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl">
+                        {{ Auth::user()->firstname . ' ' . Auth::user()->name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
@@ -225,8 +225,9 @@
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td>{{ Auth::user()->street . ' ' . Auth::user()->province . ' ' . Auth::user()->region }}</td>
-                            </tr>   
+                                <td>{{ Auth::user()->street . ' ' . Auth::user()->province . ' ' . Auth::user()->region }}
+                                </td>
+                            </tr>
                         </table>
                         <x-primary-button>
                             <a href = "">View Answers</a>
@@ -237,10 +238,9 @@
 
                     <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center h-32"
-                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
-                            alt='Woman looking front'>
+                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">{{$petData->pet_name}}</h1>
+                    <h1 class = "text-center font-bold text-2xl">{{ $petData->pet_name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>

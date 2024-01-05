@@ -22,9 +22,11 @@ class InterviewController extends Controller
         $schedule->schedule_type = 'Interview'; // Default value
         $schedule->schedule_status = 'Pending'; // Default value
         $schedule->save();
-
+ 
+        $schedID = $schedule->schedule_id;
+        
         $scheduleInterview = new ScheduleInterview();
-        $scheduleInterview->schedule_id = $schedule->id;
+        $scheduleInterview->schedule_id = $schedID;
         $scheduleInterview->application_id = $application->id;
         $scheduleInterview->date = $request->input('date');
         $scheduleInterview->time = $request->input('time');

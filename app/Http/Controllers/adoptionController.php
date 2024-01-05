@@ -146,9 +146,9 @@ class adoptionController extends Controller
 
         $adoptionCountPending = $pendingAdoptionAnswerData->count();
 
-        $approvedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '6');
+        $approvedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '8')->count();
 
-        $rejectedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '10');
+        $rejectedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '10')->count();
 
         $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
 

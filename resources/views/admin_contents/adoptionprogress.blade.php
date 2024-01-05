@@ -47,7 +47,7 @@
                     @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5  || $stage == 6 || $stage == 7) lg:grid-cols-1
                     @else
                     lg:grid-cols-2 @endif
-                     py-3 gap-3 ">
+                    py-3 gap-3 ">
                     @csrf
                     @method('PATCH')
                     <button type="submit"

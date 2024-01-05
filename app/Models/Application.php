@@ -22,5 +22,8 @@ class Application extends Model
     {
         return $this->belongsTo(User::class); // Assuming an application belongs to a User
     }
-    
+    public function scheduleInterviews()
+    {
+        return $this->hasMany(ScheduleInterview::class);
+    }
 }

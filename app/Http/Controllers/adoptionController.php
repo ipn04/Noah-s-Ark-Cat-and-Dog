@@ -7,6 +7,9 @@ use App\Models\Adoption;
 use App\Models\Application;
 use App\Models\AdoptionAnswer;
 use App\Models\Pet;
+use App\Models\ScheduleInterview;
+use App\Models\Schedule;
+
 
 class adoptionController extends Controller
 {
@@ -156,10 +159,29 @@ class adoptionController extends Controller
     }   
 
     public function adminLoadProgress($id) {
-        $adoptionAnswer = Adoption::find($id);
-        $stage = $adoptionAnswer->stage;
+        // $adoptionAnswer = Adoption::find($id);
+
+        // $stage = $adoptionAnswer->stage;
         
-        return view('admin_contents.adoptionprogress', ['adoptionAnswer' => $adoptionAnswer, 'stage' => $stage]);
+        // return view('admin_contents.adoptionprogress', [
+        //     'adoptionAnswer' => $adoptionAnswer,
+        //     'stage' => $stage,
+        // ]);
+        $adoptionAnswer = Adoption::with('application.user')->find($id);
+
+        $stage = $adoptionAnswer->stage;
+        $userId = $adoptionAnswer->application->user->id;
+    
+        $scheduleInterview = ScheduleInterview::with('schedule', 'application')
+        ->where('application_id', $adoptionAnswer->application_id)
+        ->first();
+       
+        return view('admin_contents.adoptionprogress', [
+            'adoptionAnswer' => $adoptionAnswer,
+            'stage' => $stage,
+            'userId' => $userId,
+            'scheduleInterview' => $scheduleInterview,
+        ]);
     } 
     public function updateStage($id)
     {

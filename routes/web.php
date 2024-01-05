@@ -4,7 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PetDataController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\adoptionController;
-
+use App\Http\Controllers\InterviewController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +31,8 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])->middl
 // Route::get('/user/messages', function () {
 //     return view('user_contents.messages');
 // })->middleware(['auth', 'verified'])->name('user.messages');   
+
+Route::post('/schedule/interview', [InterviewController::class, 'store'])->name('schedule.interview');
 
 Route::get('/user/messages', [MessageController::class, 'displayMessage'])
     ->middleware(['auth', 'verified'])

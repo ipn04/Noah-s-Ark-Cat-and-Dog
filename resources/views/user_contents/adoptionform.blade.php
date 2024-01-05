@@ -4,35 +4,35 @@
 
     @include('sidebars.user_sidebar')
     @if ($errors->any())
-                <script>
-                    var errorMessages = [];
-                    @foreach ($errors->all() as $error)
-                        errorMessages.push("{{ $error }}");
-                    @endforeach
-            
-                    // Check if there are error messages before showing the alert
-                    if (errorMessages.length > 0) {
-                        swal({
-                            title: "Error!",
-                            text: errorMessages.join('\n'), // Join error messages with line breaks
-                            type: "error",
-                            confirmButtonText: "Cool"
-                        });
-                    }
-                </script>
-            @endif
-
-            @if(session('adoption_answer'))
-            <script>
-                document.addEventListener('DOMContentLoaded', function() {
-                    swal(
-                        "Success!", 
-                        "Press 'OK' to exit!", 
-                        "success"
-                    )
+        <script>
+            var errorMessages = [];
+            @foreach ($errors->all() as $error)
+                errorMessages.push("{{ $error }}");
+            @endforeach
+    
+            // Check if there are error messages before showing the alert
+            if (errorMessages.length > 0) {
+                swal({
+                    title: "Error!",
+                    text: errorMessages.join('\n'), // Join error messages with line breaks
+                    type: "error",
+                    confirmButtonText: "Cool"
                 });
-            </script>
-        @endif
+            }
+        </script>
+    @endif
+
+    @if(session('adoption_answer'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal(
+                    "Success!", 
+                    "Press 'OK' to exit!", 
+                    "success"
+                )
+            });
+        </script>
+    @endif
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         @if($pets && is_object($pets))
 

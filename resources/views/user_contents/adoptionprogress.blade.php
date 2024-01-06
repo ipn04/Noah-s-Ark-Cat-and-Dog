@@ -44,11 +44,9 @@
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
                 <a href=""
                     class="
-                    @if ($stage >= 5)
-                    hidden 
+                    @if ($stage >= 5) hidden 
                     @else
-                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md
-                    @endif">Cancel
+                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif">Cancel
                     Application</a>
             </div>
         </div>
@@ -61,7 +59,7 @@
                     <div class = "flex items-center justify-center gap-2">
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
-                            @if ($stage >= 0 && $stage < 9) bg-green-200 text-green-500
+                            @if ($stage >= 0 && $stage < 10) bg-green-200 text-green-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -84,7 +82,7 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                @if ($stage > 0 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 0 && $stage < 10) bg-green-200 text-green-500
                                     @else
                                     text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -105,7 +103,7 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                @if ($stage > 2 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 2 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 2)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -130,7 +128,7 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
-                                @if ($stage > 3 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 3 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 3)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -153,7 +151,7 @@
                         ">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  
-                                @if ($stage > 4 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 4 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 4)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -176,8 +174,8 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
-                                @if ($stage > 5 && $stage < 9) bg-green-200 text-green-500
-                                @elseif($stage == 5)
+                                @if ($stage > 6 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 6)
                                 bg-yellow-200 text-yellow-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
@@ -201,7 +199,7 @@
                         <div class = "flex items-center  justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                @if ($stage > 7 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 8 && $stage < 10) bg-green-200 text-green-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -221,12 +219,196 @@
                 </div>
             </div>
         </div>
-        <div class = "flex items-center  py-5  justify-center">
 
-            <div class = "grid grid-cols-1  lg:grid-cols-3 lg:pt-14 gap-5 px-4 max-w-screen-lg">
-                <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
 
-                    <div class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+
+        <div
+            class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
+    @else
+    hidden @endif
+    ">
+            <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-lg">
+                <div class = "col-span-2 ">
+
+                    <div
+                        class = "   @if ($stage == 7) mb-7 flex justify-center items-center
+                                    @else
+                                    hidden @endif">
+                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                            <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
+                            <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
+                            <p class = "p-2 pe-2 ps-4">November 16,2023</p>
+                            <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
+                            <p class = "p-2 pe-2 ps-4">Blk 54 lot 3 Sarmiento Homes, San Jose del Monte Bulacan</p>
+
+                          
+
+                          
+                        </div>
+                    </div>
+                    <div
+                        class = "@if ($stage == 3) mb-7 flex justify-center items-center
+                @else
+                hidden @endif">
+                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                            <h2 class = "font-bold text-lg p-2">Interview at 2023-13-11</h2>
+                            <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
+                                later at 10:00 am.</p>
+                            <div class = "grid grid-cols-1 gap-2 py-2">
+                                <button
+                                    class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
+                                    Meet</button>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class = " 
+                    grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg ">
+                        <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                            <div
+                                class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                                <img class="object-cover object-center w-32 h-32"
+                                    src="{{ asset('storage/' . $userr->profile_image) }}" alt='user profile'>
+                            </div>
+                            <h1 class = "text-center font-bold text-2xl py-2 capitalize">
+                                {{ $userr->firstname . ' ' . $userr->name }}
+                            </h1>
+                            <div class = "pb-4">
+                                <table class = "border-separate border-spacing-3">
+                                    <tr>
+                                        <td class = "font-bold">Age</td>
+                                        <td>{{ $userr->birthday }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Gender</td>
+                                        <td class = "capitalize">{{ $userr->gender }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Phone</td>
+                                        <td class = "capitalize">{{ $userr->phone_number }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Email</td>
+                                        <td class = "capitalize">{{ $userr->email }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Civil Status</td>
+                                        <td class = "capitalize">{{ $userr->email }}</td>
+                                    </tr>
+
+                                    <tr>
+                                        <td class = "font-bold">Address</td>
+                                        <td class = "capitalize">
+                                            {{ $userr->province . ' ' . $userr->city . ' ' . $userr->barangay . ' ' . $userr->street }}
+                                        </td>
+                                    </tr>
+                                </table>
+                                <x-primary-button>
+                                    <a href = "">View Answers</a>
+                                </x-primary-button>
+                            </div>
+                        </div>
+                        <div class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
+
+                            <div
+                                class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                                <img class="object-cover object-center w-32 h-32"
+                                    src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
+                                    alt='Woman looking front'>
+                            </div>
+                            <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $petData->pet_name }}
+                            </h1>
+                            <div class = "pb-4">
+                                <table class = "border-separate border-spacing-3">
+                                    <tr>
+                                        <td class = "font-bold">Age</td>
+                                        <td>{{ $petData->age }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Gender</td>
+                                        <td class = "capitalize">{{ $petData->pet_name }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Breed</td>
+                                        <td class = "capitalize">{{ $petData->breed }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Weight</td>
+                                        <td class = "capitalize">{{ $petData->weight }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Size</td>
+                                        <td class = "capitalize">{{ $petData->size }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Color</td>
+                                        <td class = "capitalize">{{ $petData->color }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class = "font-bold">Vaccination</td>
+                                        <td class = "capitalize">{{ $petData->vaccination_status }}</td>
+                                    </tr>
+                                </table>
+                                <x-primary-button>
+                                    <a href = "">More Details</a>
+                                </x-primary-button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+
+        <div
+            class = "
+        @if ($stage == 3 || $stage == 7) hidden 
+        @else 
+        flex items-center  py-5  justify-center @endif">
+
+            <div
+                class = "grid grid-cols-1  
+            @if ($stage == 5) lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg 
+            @else
+            lg:grid-cols-3 lg:pt-14 gap-5 px-4 max-w-screen-lg @endif">
+                <div
+                    class = "   @if ($stage == 5) mb-7 flex justify-center items-center
+                                    @else
+                                    hidden @endif">
+                    <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                        <h2 class = "font-bold text-xl p-2">Congratulations!</h2>
+                        <p class = "p-2 ">Your adoption application has been approved. You are now able to adopt
+                            Yumi. Please select a schedule for pick-uping the dog.</p>
+
+                        <div class = "flex justify-center items-center p-2">
+                            <img class="object-cover rounded-full object-center w-40 h-40"
+                                src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
+                                alt='Woman looking front'>
+                        </div>
+
+                        <div class = "grid grid-cols-1 gap-2 py-2">
+                            <button
+                                class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Select
+                                Schedule</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div
+                    class=" @if ($stage == 5) hidden 
+                @else
+                block bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900 @endif">
+
+                    <div
+                        class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="h-32 w-32 object-cover rounded-full "
                             src='{{ asset('storage/' . $userr->profile_image) }}' alt='Woman looking front'>
                     </div>
@@ -267,7 +449,10 @@
                         </x-primary-button>
                     </div>
                 </div>
-                <div class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
+                <div
+                    class=" @if ($stage == 5) hidden 
+                @else
+                block bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900 @endif">
 
                     <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center h-32"
@@ -310,7 +495,10 @@
                         </x-primary-button>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
+                <div
+                    class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md
+                @if ($stage == 5) w-3/4 mx-auto
+                @else @endif">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <!-- Modal toggle -->
                     @if ($stage === '1')
@@ -319,6 +507,7 @@
                             type="button">
                             Schedule Interview
                         </button>
+
 
                         <!-- Main modal -->
                         <div id="crud-modal" tabindex="-1" aria-hidden="true"
@@ -346,35 +535,41 @@
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form
-                                        action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
+                                    <form action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
                                         class="p-4 md:p-5" method="POST">
                                         @csrf
-                                        <div class="-mx-3 flex flex-wrap">
+                                        <h1 class = " text-left  text-lg">Please state your interview availability and
+                                            start time.
+                                            Interviews are limited to <b>1 hour.</b>
+                                        </h1>
+                                        <p class = "text-xs  italic">Note that the administration will have the final
+                                            say on
+                                            whether or not to approve your proposed schedule.</p>
+                                        <div class="-mx-3  pt-3 flex flex-wrap">
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <div class="mb-5">
                                                     <label for="date"
-                                                        class="mb-3 block text-base font-medium text-[#07074D]">
+                                                        class="mb-3 block text-base  font-bold text-[#07074D]">
                                                         Date
                                                     </label>
                                                     <input type="date" name="date" id="date"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
                                                 </div>
                                             </div>
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <div class="mb-5">
                                                     <label for="time"
-                                                        class="mb-3 block text-base font-medium text-[#07074D]">
+                                                        class="mb-3 block text-base font-bold text-[#07074D]">
                                                         Time
                                                     </label>
                                                     <input type="time" name="time" id="time"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md" />
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="grid grid-cols-2 gap-4">
+                                        <div class="grid grid-cols-2 gap-4 mx-auto">
                                             <button type="submit"
-                                                class="text-white mt-6 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
                                                 <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
                                                     viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                                     <path fill-rule="evenodd"
@@ -384,7 +579,7 @@
                                                 Submit
                                             </button>
                                             <button type="submit"
-                                                class="text-white mt-6 inline-flex items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                                                 <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 20 20">

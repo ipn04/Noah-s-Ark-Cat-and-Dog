@@ -74,7 +74,7 @@
    <div class="lg:py-8 py-5 px-10 container mx-auto">
       <div class ="grid lg:grid-cols-2 grid-cols-1 gap-3 lg:gap-10">
 
-         <div class="rounded-lg bg-transparent shadow-lg overflow-x-auto">
+         <div class="rounded-lg bg-transparent shadow-lg overflow-x-hidden">
             <table class="w-full  p-4 rounded-lg overflow-hidden">
                 <caption class="caption-top text-left bg-white text-red-500 p-4 text-xl font-bold">
                     <div class = "flex justify-between">
@@ -101,12 +101,12 @@
                             <div class=" text-sm  text-center">Czarina Cuarez</div>
 
                         </td>
-                        <td class="p-4">
+                        <td class="p-2">
                             <div class=" text-sm text-center">Adoption</div>
 
                         </td>
                         <td class="p-4">
-                           <div class="  text-sm text-center">5:00 pm</div>
+                           <div class="  text-xs text-center">5:00 pm</div>
                         </td>
                         <td class="p-4  text-center">
                            <button type="button" class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
@@ -123,12 +123,12 @@
                             <div class=" text-sm  text-center">Czarina Cuarez</div>
 
                         </td>
-                        <td class="p-4">
+                        <td class="p-2">
                             <div class=" text-sm text-center">Adoption</div>
 
                         </td>
                         <td class="p-4">
-                           <div class="  text-sm text-center">5:00 pm</div>
+                           <div class="  text-xs text-center">5:00 pm</div>
                         </td>
                         <td class="p-4  text-center">
                            <button type="button" class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
@@ -145,12 +145,12 @@
                             <div class=" text-sm  text-center">Czarina Cuarez</div>
 
                         </td>
-                        <td class="p-4">
+                        <td class="p-2">
                             <div class=" text-sm text-center">Adoption</div>
 
                         </td>
                         <td class="p-4">
-                           <div class="  text-sm text-center">5:00 pm</div>
+                           <div class="  text-xs text-center">5:00 pm</div>
                         </td>
                         <td class="p-4  text-center">
                            <button type="button" class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
@@ -167,7 +167,7 @@
             </table>
         </div>
          
-        <div class="rounded-lg bg-white shadow-lg overflow-x-auto p-6">
+        <div class="rounded-lg bg-white shadow-lg overflow-x-auto MAX-H-80 p-6">
             <p class="caption-top text-red-500 text-xl text-center font-bold mb-4">
                 Total Adopted Pets This Month
             </p>

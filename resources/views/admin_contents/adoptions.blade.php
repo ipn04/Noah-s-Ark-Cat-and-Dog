@@ -168,7 +168,10 @@
                                         @elseif ($adoptionAnswer->adoption->stage == 7)
                                         text-lime-600 bg-lime-200
                                         @elseif ($adoptionAnswer->adoption->stage == 8)
+                                        text-amber-600 bg-amber-200
+                                        @elseif ($adoptionAnswer->adoption->stage == 9)
                                         text-green-600 bg-green-200
+
                                         @endif">
                                             <p class="text-center">Stage {{$adoptionAnswer->adoption->stage}}</p>
                                         </div>
@@ -179,7 +182,7 @@
                                         <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
                                             <p class="text-center">Rejected</p>
                                         </div>
-                                        @elseif ($adoptionAnswer->adoption->stage == 8)
+                                        @elseif ($adoptionAnswer->adoption->stage == 9)
                                         <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
                                             <p class="text-center">Accepted</p>
                                         </div>

@@ -52,7 +52,7 @@
                     @method('PATCH')
                     <button type="submit"
                         class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md
-                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 || $stage == 6 || $stage == 8) hidden
+                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 || $stage == 7 || $stage == 9) hidden
                     @else
                     block @endif
                     ">
@@ -82,7 +82,7 @@
                     <div class = "flex items-center justify-center gap-2 ">
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
-                                @if ($stage >= 0 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage >= 0 && $stage < 10) bg-green-200 text-green-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif
                                 ">
@@ -106,7 +106,7 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                    @if ($stage > 0 && $stage < 9) bg-green-200 text-green-500
+                                    @if ($stage > 0 && $stage < 10) bg-green-200 text-green-500
                                     @else
                                     text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -130,7 +130,7 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                    @if ($stage > 2 && $stage < 9) bg-green-200 text-green-500
+                                    @if ($stage > 2 && $stage < 10) bg-green-200 text-green-500
                                     @elseif($stage == 2)
                                     bg-yellow-200 text-yellow-500
                                     @else
@@ -155,7 +155,7 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                @if ($stage > 3 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 3 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 3)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -177,7 +177,7 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
-                                @if ($stage > 4 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 4 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 4)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -200,8 +200,8 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
-                                @if ($stage > 5 && $stage < 9) bg-green-200 text-green-500
-                                @elseif($stage == 5)
+                                @if ($stage > 6 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 6)
                                 bg-yellow-200 text-yellow-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
@@ -225,7 +225,7 @@
                         <div class = "flex items-center  justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                @if ($stage > 7 && $stage < 9) bg-green-200 text-green-500
+                                @if ($stage > 8 && $stage < 10) bg-green-200 text-green-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -247,14 +247,14 @@
         </div>
 
         <div
-            class="@if ($stage == 3 || $stage == 6) flex items-center py-5 justify-center
+            class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
         @else
         hidden @endif
         ">
             <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-lg">
                 <div class = "col-span-2 ">
                     <div
-                        class = "   @if ($stage == 6) mb-7 flex justify-center items-center
+                        class = "   @if ($stage == 7) mb-7 flex justify-center items-center
                                         @else
                                         hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
@@ -408,7 +408,7 @@
 
         </div>
         <div
-            class = "@if ($stage == 3 || $stage == 6) hidden
+            class = "@if ($stage == 3 || $stage == 7) hidden
                     @else
                     flex items-center  py-5  justify-center @endif
                      ">

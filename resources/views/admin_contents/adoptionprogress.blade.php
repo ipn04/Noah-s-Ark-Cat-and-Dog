@@ -44,7 +44,7 @@
             <div class="lg:py-0 mx-auto lg:mx-0">
                 <form action="{{ route('admin.updateStage', ['id' => $adoptionAnswer->id]) }}" method="POST"
                     class="grid grid-cols-1 
-                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5  || $stage == 6 || $stage == 7) lg:grid-cols-1
+                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage >= 5) lg:grid-cols-1
                     @else
                     lg:grid-cols-2 @endif
                     py-3 gap-3 ">
@@ -52,24 +52,23 @@
                     @method('PATCH')
                     <button type="submit"
                         class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md
-                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5  || $stage == 6 || $stage == 8 ) hidden
+                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 || $stage == 6 || $stage == 8) hidden
                     @else
                     block @endif
                     ">
-                    @if ($stage == 4)
-                        Accept Application
-                    @elseif ($stage == 7)
-                        Mark as Adopted
-                    @else
-                        Proceed to Next Steps
-                    @endif</button>
+                        @if ($stage == 4)
+                            Accept Application
+                        @elseif ($stage == 7)
+                            Mark as Adopted
+                        @else
+                            Proceed to Next Steps
+                        @endif
+                    </button>
                     <button type="submit"
                         class="
-                        @if ($stage > 4)
-                        hidden 
+                        @if ($stage > 4) hidden 
                         @else
-                        hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg text-center hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md
-                        @endif">Reject
+                        hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg text-center hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif">Reject
                         Application</button>
                 </form>
             </div>
@@ -257,8 +256,7 @@
                     <div
                         class = "   @if ($stage == 6) mb-7 flex justify-center items-center
                                         @else
-                                        hidden
-                                         @endif">
+                                        hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
                             <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
@@ -317,7 +315,7 @@
                                     src="{{ asset('storage/' . $adoptionAnswer->application->user->profile_image) }}"
                                     alt='user profile'>
                             </div>
-                            <h1 class = "text-center font-bold text-2xl py-2">
+                            <h1 class = "text-center font-bold text-2xl py-2 capitalize">
                                 {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }}
                             </h1>
                             <div class = "pb-4">
@@ -328,24 +326,24 @@
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
-                                        <td>{{ $adoptionAnswer->application->user->gender }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->gender }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Phone</td>
-                                        <td>{{ $adoptionAnswer->application->user->phone_number }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->phone_number }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Email</td>
-                                        <td>{{ $adoptionAnswer->application->user->email }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Civil Status</td>
-                                        <td>{{ $adoptionAnswer->application->user->email }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
                                     </tr>
 
                                     <tr>
                                         <td class = "font-bold">Address</td>
-                                        <td>{{ $adoptionAnswer->application->user->province . ' ' . $adoptionAnswer->application->user->city . ' ' . $adoptionAnswer->application->user->barangay . ' ' . $adoptionAnswer->application->user->street }}
+                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->province . ' ' . $adoptionAnswer->application->user->city . ' ' . $adoptionAnswer->application->user->barangay . ' ' . $adoptionAnswer->application->user->street }}
                                         </td>
                                     </tr>
                                 </table>
@@ -362,7 +360,8 @@
                                     src="{{ asset('storage/images/' . $adoptionAnswer->pet->dropzone_file) }}"
                                     alt='Woman looking front'>
                             </div>
-                            <h1 class = "text-center font-bold text-2xl py-2">{{ $adoptionAnswer->pet->pet_name }}</h1>
+                            <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $adoptionAnswer->pet->pet_name }}
+                            </h1>
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
@@ -371,27 +370,27 @@
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
-                                        <td>{{ $adoptionAnswer->pet->pet_name }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->pet->pet_name }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Breed</td>
-                                        <td>{{ $adoptionAnswer->pet->breed }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->pet->breed }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Weight</td>
-                                        <td>{{ $adoptionAnswer->pet->weight }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->pet->weight }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Size</td>
-                                        <td>{{ $adoptionAnswer->pet->size }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->pet->size }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Color</td>
-                                        <td>{{ $adoptionAnswer->pet->color }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->pet->color }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Vaccination</td>
-                                        <td>{{ $adoptionAnswer->pet->vaccination_status }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->pet->vaccination_status }}</td>
                                     </tr>
                                 </table>
                                 <x-primary-button>
@@ -403,7 +402,7 @@
                 </div>
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                    
+
                 </div>
             </div>
 
@@ -421,35 +420,35 @@
                             src="{{ asset('storage/' . $adoptionAnswer->application->user->profile_image) }}"
                             alt='user profile'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl py-2">
-                        {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }} 
+                    <h1 class = "text-center font-bold text-2xl py-2 capitalize">
+                        {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }}
                     </h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td>{{ $adoptionAnswer->application->user->birthday }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->application->user->birthday }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td>{{ $adoptionAnswer->application->user->gender }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->application->user->gender }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Phone</td>
-                                <td>{{ $adoptionAnswer->application->user->phone_number }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->application->user->phone_number }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Email</td>
-                                <td>{{ $adoptionAnswer->application->user->email }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Civil Status</td>
-                                <td>{{ $adoptionAnswer->application->user->email }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
                             </tr>
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td>{{ $adoptionAnswer->application->user->province . ' ' . $adoptionAnswer->application->user->city . ' ' . $adoptionAnswer->application->user->barangay . ' ' . $adoptionAnswer->application->user->street }}
+                                <td class = "capitalize">{{ $adoptionAnswer->application->user->province . ' ' . $adoptionAnswer->application->user->city . ' ' . $adoptionAnswer->application->user->barangay . ' ' . $adoptionAnswer->application->user->street }}
                                 </td>
                             </tr>
                         </table>
@@ -465,36 +464,36 @@
                             src="{{ asset('storage/images/' . $adoptionAnswer->pet->dropzone_file) }}"
                             alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl py-2">{{ $adoptionAnswer->pet->pet_name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $adoptionAnswer->pet->pet_name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td>{{ $adoptionAnswer->pet->age }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->pet->age }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td>{{ $adoptionAnswer->pet->pet_name }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->pet->pet_name }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Breed</td>
-                                <td>{{ $adoptionAnswer->pet->breed }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->pet->breed }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Weight</td>
-                                <td>{{ $adoptionAnswer->pet->weight }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->pet->weight }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Size</td>
-                                <td>{{ $adoptionAnswer->pet->size }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->pet->size }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Color</td>
-                                <td>{{ $adoptionAnswer->pet->color }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->pet->color }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Vaccination</td>
-                                <td>{{ $adoptionAnswer->pet->vaccination_status }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->pet->vaccination_status }}</td>
                             </tr>
                         </table>
                         <x-primary-button>
@@ -504,37 +503,52 @@
                 </div>
                 <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                    @if($stage === '2')
+                    @if ($stage === '2')
                         <!-- Modal toggle -->
-                        <button data-modal-target="progress-modal" data-modal-toggle="progress-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                        <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button">
                             Toggle modal
                         </button>
-                        
+
                         <!-- Main modal -->
-                        <div id="progress-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div id="progress-modal" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-md max-h-full">
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="progress-modal">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                    <button type="button"
+                                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-hide="progress-modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                         </svg>
                                         <span class="sr-only">Close modal</span>
                                     </button>
                                     <div class="p-4 md:p-5">
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview Schedule</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name {{ $scheduleInterview->application->user->firstname }} {{ $scheduleInterview->application->user->name }}</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date {{ $scheduleInterview->date }}</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time {{ $scheduleInterview->time }}</h3>
-                                        <!-- Modal footer -->                            
+                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
+                                            Schedule</h3>
+                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
+                                            {{ $scheduleInterview->application->user->firstname }}
+                                            {{ $scheduleInterview->application->user->name }}</h3>
+                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
+                                            {{ $scheduleInterview->date }}</h3>
+                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
+                                            {{ $scheduleInterview->time }}</h3>
+                                        <!-- Modal footer -->
                                         <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
-                                            <button data-modal-hide="progress-modal" type="button" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                                            <button data-modal-hide="progress-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                            <button data-modal-hide="progress-modal" type="button"
+                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                                            <button data-modal-hide="progress-modal" type="button"
+                                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>   
+                        </div>
                     @endif
                 </div>
             </div>

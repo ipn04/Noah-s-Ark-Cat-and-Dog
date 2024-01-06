@@ -130,12 +130,14 @@ class adoptionController extends Controller
             $stage = $adoptionAnswerData->adoption->stage;
             
             $petData = $adoptionAnswerData->adoption->pet;
+
+            $userr = $adoptionAnswerData->adoption->application->user;
         }
 
         // Pass the pet data and other necessary variables to the view
         return view('user_contents.adoptionprogress', [
             'adoption_answer' => $adoptionAnswer, 
-            'petData' => $petData, 'stage' => $stage
+            'petData' => $petData, 'stage' => $stage, 'userr' => $userr
         ]);
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {

@@ -9,7 +9,7 @@
             @foreach ($errors->all() as $error)
                 errorMessages.push("{{ $error }}");
             @endforeach
-    
+
             // Check if there are error messages before showing the alert
             if (errorMessages.length > 0) {
                 swal({
@@ -22,12 +22,12 @@
         </script>
     @endif
 
-    @if(session('send_schedule'))
+    @if (session('send_schedule'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 swal(
-                    "Success!", 
-                    "Press 'OK' to exit!", 
+                    "Success!",
+                    "Press 'OK' to exit!",
                     "success"
                 )
             });
@@ -43,7 +43,12 @@
             </div>
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
                 <a href=""
-                    class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md">Cancel
+                    class="
+                    @if ($stage >= 5)
+                    hidden 
+                    @else
+                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md
+                    @endif">Cancel
                     Application</a>
             </div>
         </div>
@@ -56,9 +61,9 @@
                     <div class = "flex items-center justify-center gap-2">
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
-                            @if($stage >= '0' && $stage <= '7' )
-                                bg-green-200
-                            @endif">
+                            @if ($stage >= 0 && $stage < 9) bg-green-200 text-green-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="lg:w-8 lg:h-8 w-4 h-4">
                                 <path fill-rule="evenodd"
@@ -78,18 +83,18 @@
                     <div>
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
-                                @if($stage >= '1' && $stage <= '7' )
-                                    bg-green-200
-                                @endif">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
-                                        class="lg:w-8 lg:h-8 w-4 h-4">
-                                        <path
-                                            d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
-                                        <path fill-rule="evenodd"
-                                            d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
-                                            clip-rule="evenodd" />
-                                    </svg>
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
+                                @if ($stage > 0 && $stage < 9) bg-green-200 text-green-500
+                                    @else
+                                    text-gray-600 bg-gray-200 @endif">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                    class="lg:w-8 lg:h-8 w-4 h-4">
+                                    <path
+                                        d="M12.75 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM7.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM8.25 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM9.75 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM10.5 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM12.75 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM14.25 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 17.25a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 15.75a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5ZM15 12.75a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM16.5 13.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z" />
+                                    <path fill-rule="evenodd"
+                                        d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
+                                        clip-rule="evenodd" />
+                                </svg>
                             </div>
                         </div>
                         <h1 class = "hidden lg:block text-center py-2 ">Application Validated</h1>
@@ -99,12 +104,12 @@
                     <div>
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
-                                @if($stage === '2')
-                                    bg-yellow-200
-                                @elseif($stage >= '3' && $stage <= '7')
-                                    bg-green-200
-                                @endif">
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
+                                @if ($stage > 2 && $stage < 9) bg-green-200 text-green-500
+                                @elseif($stage == 2)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -124,7 +129,12 @@
                     <div>
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
-                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600  bg-gray-200">
+                                class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
+                                @if ($stage > 3 && $stage < 9) bg-green-200 text-green-500
+                                @elseif($stage == 3)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -218,36 +228,37 @@
 
                     <div class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="h-32 w-32 object-cover rounded-full "
-                            src='{{ asset('storage/' . Auth::user()->profile_image) }}' alt='Woman looking front'>
+                            src='{{ asset('storage/' . $userr->profile_image) }}' alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">
-                        {{ Auth::user()->firstname . ' ' . Auth::user()->name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl capitalize">
+                        {{ $userr->firstname . ' ' . $userr->name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td>{{ Auth::user()->birthday }}</td>
+                                <td>{{ $userr->birthday }}</td>
                             </tr>
                             <tr>
-                                <td class = "font-bold">Gender</td>
-                                <td>{{ Auth::user()->gender }}</td>
+                                <td class = "font-bold ">Gender</td>
+                                <td class = "capitalize">{{ $userr->gender }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Phone</td>
-                                <td>{{ Auth::user()->phone_number }}</td>
+                                <td>{{ $userr->phone_number }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Email</td>
-                                <td>{{ Auth::user()->email }}</td>
+                                <td>{{ $userr->email }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Civil Status</td>
-                                <td>{{ Auth::user()->civil_status }}</td>
+                                <td class = "capitalize">{{ $userr->civil_status }}</td>
                             </tr>
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td>{{ Auth::user()->street . ' ' . Auth::user()->province . ' ' . Auth::user()->region }}
+                                <td class = "capitalize">
+                                    {{ $userr->street . ',' . $userr->barangay . ',' . $userr->city . ', ' . $userr->province }}
                                 </td>
                             </tr>
                         </table>
@@ -262,20 +273,20 @@
                         <img class="object-cover object-center h-32"
                             src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">{{ $petData->pet_name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl capitalize">{{ $petData->pet_name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td>{{ $petData->age }}</td>
+                                <td class = "capitalize">{{ $petData->age }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td>{{ $petData->gender }}</td>
+                                <td class = "capitalize">{{ $petData->gender }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Breed</td>
-                                <td>{{ $petData->breed }}</td>
+                                <td class = "capitalize">{{ $petData->breed }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Weight</td>
@@ -283,15 +294,15 @@
                             </tr>
                             <tr>
                                 <td class = "font-bold">Size</td>
-                                <td>{{ $petData->size }}</td>
+                                <td class = "capitalize">{{ $petData->size }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Color</td>
-                                <td>{{ $petData->color }}</td>
+                                <td class = "capitalize">{{ $petData->color }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Vaccination</td>
-                                <td>{{ $petData->vaccination_status }}</td>
+                                <td class = "capitalize">{{ $petData->vaccination_status }}</td>
                             </tr>
                         </table>
                         <x-primary-button>
@@ -300,37 +311,50 @@
                     </div>
                 </div>
                 <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
-                    <h1 class = "font-bold text-xl">Adoption Progress</h1>        
+                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <!-- Modal toggle -->
-                    @if($stage === '1')
-                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800" type="button">
+                    @if ($stage === '1')
+                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button">
                             Schedule Interview
                         </button>
-                        
+
                         <!-- Main modal -->
-                        <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-md max-h-full">
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                     <!-- Modal header -->
-                                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                    <div
+                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                         <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                            Schedule 
+                                            Schedule
                                         </h3>
-                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="crud-modal">
-                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                        <button type="button"
+                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-toggle="crud-modal">
+                                            <svg class="w-3 h-3" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                             </svg>
                                             <span class="sr-only">Close modal</span>
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form action="{{ route('schedule.interview' , ['userId' => auth()->user()->id]) }}" class="p-4 md:p-5" method="POST">
+                                    <form
+                                        action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
+                                        class="p-4 md:p-5" method="POST">
                                         @csrf
                                         <div class="-mx-3 flex flex-wrap">
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <div class="mb-5">
-                                                    <label for="date" class="mb-3 block text-base font-medium text-[#07074D]">
+                                                    <label for="date"
+                                                        class="mb-3 block text-base font-medium text-[#07074D]">
                                                         Date
                                                     </label>
                                                     <input type="date" name="date" id="date"
@@ -339,7 +363,8 @@
                                             </div>
                                             <div class="w-full px-3 sm:w-1/2">
                                                 <div class="mb-5">
-                                                    <label for="time" class="mb-3 block text-base font-medium text-[#07074D]">
+                                                    <label for="time"
+                                                        class="mb-3 block text-base font-medium text-[#07074D]">
                                                         Time
                                                     </label>
                                                     <input type="time" name="time" id="time"
@@ -348,21 +373,32 @@
                                             </div>
                                         </div>
                                         <div class="grid grid-cols-2 gap-4">
-                                            <button type="submit" class="text-white mt-6 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z" clip-rule="evenodd"></path></svg>
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
                                                 Submit
                                             </button>
-                                            <button type="submit" class="text-white mt-6 inline-flex items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-                                                </svg>                                            
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
                                                 Cancel
                                             </button>
                                         </div>
                                     </form>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     @else
                     @endif
                 </div>

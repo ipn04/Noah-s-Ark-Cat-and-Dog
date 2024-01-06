@@ -12,6 +12,9 @@ export default {
     darkMode: 'class',
     theme: {
         extend: {
+            backgroundImage: {
+                'redpaws': "url('images/redbackground.png')",
+            },
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
             },

@@ -395,9 +395,95 @@
                         </div>
 
                         <div class = "grid grid-cols-1 gap-2 py-2">
-                            <button
+                            <button data-modal-target="pickup-schedule" data-modal-toggle="pickup-schedule"
                                 class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Select
-                                Schedule</button>
+                                Schedule
+                            </button>
+                            {{-- Select Schedule --}}
+                            <div id="pickup-schedule" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <!-- Modal header -->
+                                        <div
+                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                Schedule
+                                            </h3>
+                                            <button type="button"
+                                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-toggle="crud-modal">
+                                                <svg class="w-3 h-3" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                        </div>
+                                        <!-- Modal body -->
+                                        <form action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
+                                            class="p-4 md:p-5" method="POST">
+                                            @csrf
+                                            <h1 class = " text-left  text-lg">Please state your interview availability and
+                                                start time.
+                                                Interviews are limited to <b>1 hour.</b>
+                                            </h1>
+                                            <p class = "text-xs  italic">Note that the administration will have the final
+                                                say on
+                                                whether or not to approve your proposed schedule.</p>
+                                            <div class="-mx-3  pt-3 flex flex-wrap">
+                                                <div class="w-full px-3 sm:w-1/2">
+                                                    <div class="mb-5">
+                                                        <label for="date"
+                                                            class="mb-3 block text-base  font-bold text-[#07074D]">
+                                                            Date
+                                                        </label>
+                                                        <input type="date" name="date" id="date"
+                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                    </div>
+                                                </div>
+                                                <div class="w-full px-3 sm:w-1/2">
+                                                    <div class="mb-5">
+                                                        <label for="time"
+                                                            class="mb-3 block text-base font-bold text-[#07074D]">
+                                                            Time
+                                                        </label>
+                                                        <input type="time" name="time" id="time"
+                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-4 mx-auto">
+                                                <button type="submit"
+                                                    class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    Submit
+                                                </button>
+                                                <button type="submit"
+                                                    class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 20 20">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

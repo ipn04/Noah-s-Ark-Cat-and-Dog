@@ -298,12 +298,16 @@
                             <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
                                 later at 10:00 am</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
-                                <button
-                                    class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
-                                    Meet</button>
-                                <button
-                                    class = "p-2  w-2/3 mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
-                                    Interview</button>
+                                <form action="{{ route('admin.wrap', ['id' => $adoptionAnswer->id]) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button
+                                        class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
+                                        Meet</button>
+                                    <button type="submit"
+                                        class = "p-2  w-2/3 mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
+                                        Interview</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -505,21 +509,21 @@
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     @if ($stage === '2')
                         <!-- Modal toggle -->
-                        <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
+                        <button data-modal-target="progress-modal-{{ $adoptionAnswer->id }}" data-modal-toggle="progress-modal-{{ $adoptionAnswer->id }}"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             type="button">
-                            Toggle modal
+                            Interview Schedule
                         </button>
 
                         <!-- Main modal -->
-                        <div id="progress-modal" tabindex="-1" aria-hidden="true"
+                        <div id="progress-modal-{{ $adoptionAnswer->id }}" tabindex="-1" aria-hidden="true"
                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-md max-h-full">
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                     <button type="button"
                                         class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-hide="progress-modal">
+                                        data-modal-hide="progress-modal-{{ $adoptionAnswer->id }}">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round"
@@ -540,10 +544,14 @@
                                             {{ $scheduleInterview->time }}</h3>
                                         <!-- Modal footer -->
                                         <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
-                                            <button data-modal-hide="progress-modal" type="button"
-                                                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
-                                            <button data-modal-hide="progress-modal" type="button"
-                                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                            <form action="{{ route('admin.interviewStage', ['id' => $adoptionAnswer->id]) }}" method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button data-modal-hide="progress-modal-{{ $adoptionAnswer->id }}" type="submit"
+                                                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Accept</button>
+                                                <button data-modal-hide="progress-modal-{{ $adoptionAnswer->id }}" type="button"
+                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

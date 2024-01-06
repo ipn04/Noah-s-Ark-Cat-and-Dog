@@ -18,14 +18,12 @@ class adoptionController extends Controller
         $userId = auth()->user()->id; // Get the authenticated user's ID
         $pet = Pet::find($petId);
 
-        // Create application entry (if applicable)
         $application = new Application();
         $application->user_id = $userId; // Use the authenticated user's ID
         $application->save();
 
         $applicationId = $application->id;
 
-        // // Create adoption entry
         $adoption = new Adoption();
         $adoption['stage'] = '0';
         $adoption->pet_id = $petId; // Use the existing pet ID
@@ -33,7 +31,6 @@ class adoptionController extends Controller
         $adoption->save();
 
         $adoptionId = $adoption->id;
-        // dd($request->all());
         
         $validatedData = $request->validate([
             'first_question' => 'required|string|max:255',
@@ -77,26 +74,20 @@ class adoptionController extends Controller
             $image = $request->file('upload');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
 
-            // Define the directory to store the image
             $directory = 'signatures'; // Update this directory as needed
 
-            // Store the image in the 'images' directory within 'storage/app/public'
             $image->storeAs('public/' . $directory, $imageName);
 
-            // Assign the image name to the 'dropzone_file' attribute in the validated data
             $validatedData['upload'] = $imageName;
         }
         if ($request->hasFile('upload2')) {
             $image2 = $request->file('upload2');
             $imageName2 = time() . '_2.' . $image2->getClientOriginalExtension();
         
-            // Define the directory to store the second image
             $directory2 = 'signatures'; // Update this directory as needed
         
-            // Store the image in the specified directory within 'storage/app/public'
             $image2->storeAs('public/' . $directory2, $imageName2);
         
-            // Assign the image name to the 'upload2' attribute in the validated data
             $validatedData['upload2'] = $imageName2;
         }
 
@@ -111,8 +102,6 @@ class adoptionController extends Controller
         }
 
         return redirect()->route('user.adoptionprogress', ['adoption_answer' => true]);
-
-        // return redirect()->back()->with(['adoption_answer' => true]);
     } 
     public function adoptionProgress($adoptionAnswer = false)
     {
@@ -151,7 +140,7 @@ class adoptionController extends Controller
 
         $adoptionCountPending = $pendingAdoptionAnswerData->count();
 
-        $approvedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '8')->count();
+        $approvedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '9')->count();
 
         $rejectedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '10')->count();
 
@@ -161,14 +150,6 @@ class adoptionController extends Controller
     }   
 
     public function adminLoadProgress($id) {
-        // $adoptionAnswer = Adoption::find($id);
-
-        // $stage = $adoptionAnswer->stage;
-        
-        // return view('admin_contents.adoptionprogress', [
-        //     'adoptionAnswer' => $adoptionAnswer,
-        //     'stage' => $stage,
-        // ]);
         $adoptionAnswer = Adoption::with('application.user')->find($id);
 
         $stage = $adoptionAnswer->stage;
@@ -192,16 +173,12 @@ class adoptionController extends Controller
         if ($adoptionAnswer) {
             $currentStage = $adoptionAnswer->stage;
 
-            // Increment the stage value by 1
             $newStage = $currentStage + 1;
 
-            // Update the stage in the database
             $adoptionAnswer->update(['stage' => $newStage]);
 
             return redirect()->back()->with(['updateStage' => true]); 
         }
-
-        // Handle if the adoption answer is not found
     }
 
     public function adoptPet($petId)
@@ -216,5 +193,57 @@ class adoptionController extends Controller
         })->exists();
 
         return view('user_contents.petcontents', ['pets' => $pets, 'hasSubmittedForm' => $hasSubmittedForm]);
+    }
+
+    public function userApplication() {
+        $userId = auth()->user()->id; // Assuming you're using authentication and want to fetch data for the currently logged-in user
+
+        $answers = AdoptionAnswer::with('adoption')
+            ->whereHas('adoption', function ($query) use ($userId) {
+                $query->whereHas('application', function ($query) use ($userId) {
+                    $query->where('user_id', $userId);
+                });
+            })
+            ->get();
+
+
+        return view('user_contents.applications', compact('answers'));
+    }
+
+    public function interviewStage($id)
+    {
+        $adoptionAnswer = AdoptionAnswer::find($id);
+
+        if ($adoptionAnswer) {
+            $adoption = $adoptionAnswer->adoption;
+    
+            if ($adoption) {
+                $currentStage = $adoption->stage;
+    
+                $newStage = $currentStage + 1;
+    
+                $adoption->update(['stage' => $newStage]);
+    
+                return redirect()->back()->with(['updateStage' => true]); 
+            }
+        }
+    }
+    public function wrapInterview($id)
+    {
+        $adoptionAnswer = AdoptionAnswer::find($id);
+
+        if ($adoptionAnswer) {
+            $adoption = $adoptionAnswer->adoption;
+    
+            if ($adoption) {
+                $currentStage = $adoption->stage;
+    
+                $newStage = $currentStage + 1;
+    
+                $adoption->update(['stage' => $newStage]);
+    
+                return redirect()->back()->with(['updateStage' => true]); 
+            }
+        }
     }
 }

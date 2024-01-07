@@ -236,10 +236,10 @@
                                     hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                            <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
-                            <p class = "p-2 pe-2 ps-4">November 16,2023</p>
+                            <h2 class = "font-bold text-lg p-2 ps-2"></h2>
+                            <p class = "p-2 pe-2 ps-4"></p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
-                            <p class = "p-2 pe-2 ps-4">Blk 54 lot 3 Sarmiento Homes, San Jose del Monte Bulacan</p>
+                            <p class = "p-2 pe-2 ps-4"></p>
 
                           
 
@@ -425,7 +425,7 @@
                                             </button>
                                         </div>
                                         <!-- Modal body -->
-                                        <form action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
+                                        <form action="{{ route('schedule.pickup', ['userId' => auth()->user()->id]) }}"
                                             class="p-4 md:p-5" method="POST">
                                             @csrf
                                             <h1 class = " text-left  text-lg">Please state your interview availability and

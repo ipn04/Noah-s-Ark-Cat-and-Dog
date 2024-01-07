@@ -5,6 +5,7 @@ use App\Http\Controllers\PetDataController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\adoptionController;
 use App\Http\Controllers\InterviewController;
+use App\Http\Controllers\PickupController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,8 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])->middl
 // })->middleware(['auth', 'verified'])->name('user.messages');   
 
 Route::post('/schedule/interview', [InterviewController::class, 'store'])->name('schedule.interview');
+
+Route::post('/schedule/pickup', [PickupController::class, 'store'])->name('schedule.pickup');
 
 Route::get('/user/messages', [MessageController::class, 'displayMessage'])
     ->middleware(['auth', 'verified'])

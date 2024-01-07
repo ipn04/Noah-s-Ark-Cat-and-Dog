@@ -17,7 +17,7 @@
     <script async
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCFjsYumj3DdiY6pQpp_dggIHH6ZB7s09Q&callback=console.debug&libraries=maps,marker&v=beta">
     </script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -25,7 +25,7 @@
         integrity="sha384-w4u1eJHUVShdxxD6m1PCjsjAq9XOy3Wh62Ie8J0xfoFZ5bRykplfEcf5orZmRfoA" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
     <!-- Scripts -->
-    @vite(['resources/css/app.css', 'resources/js/app.js','public/js/ph-address-selector.js'])
+    @vite(['resources/css/app.css', 'resources/js/app.js', 'public/js/ph-address-selector.js'])
 </head>
 
 <body class="font-sans text-gray-900  antialiased">
@@ -37,7 +37,6 @@
             </div>
         </div>
         @include('navbar.main_footer')
-
     @elseif(Route::is('register'))
         @include('navbar.main_navbar')
         <div class="flex items-center justify-center pt-20 lg:pt-32 pb-10 px-5 bg-gray-100">
@@ -46,21 +45,30 @@
             </div>
         </div>
         @include('navbar.main_footer')
-
     @elseif(Route::is('pets'))
         @include('navbar.main_navbar')
         <div class="mt-20">
             {{ $slot }}
         </div>
         @include('navbar.main_footer')
-
     @elseif(Route::is('ivan'))
         @include('navbar.main_navbar')
         <div class="mt-20">
             {{ $slot }}
         </div>
         @include('navbar.main_footer')
-
+    @elseif(Route::is('about'))
+        @include('navbar.main_navbar')
+        <div class="mt-20">
+            {{ $slot }}
+        </div>
+        @include('navbar.main_footer')
+    @elseif(Route::is('contact'))
+        @include('navbar.main_navbar')
+        <div class="mt-5">
+            {{ $slot }}
+        </div>
+        @include('navbar.main_footer')
     @else
         @include('navbar.main_navbar')
         <div class="mt-20 flex justfify-center align-center w-full">
@@ -69,7 +77,6 @@
             </div>
         </div>
         @include('navbar.main_footer')
-
     @endif
 
 
@@ -81,7 +88,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/datepicker.min.js"></script>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>
-    <script src="/js/crud.js">deletepet</script>       
+    <script src="/js/crud.js">
+        deletepet
+    </script>
     <script src=""></script>
 
 </body>

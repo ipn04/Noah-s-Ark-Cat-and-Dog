@@ -1,4 +1,4 @@
-<nav class=" shadow-md bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0   ">
+<nav class=" shadow-md bg-white dark:bg-gray-900 fixed w-full z-40 top-0 start-0   ">
   <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
     <a href="https://www.facebook.com/Noahsarkdogandcatshelter" class="flex items-center space-x-3 rtl:space-x-reverse">
       <img src="{{ asset('images/logo.png') }}" class="h-12 w-12" alt="Noah's Ark Logo">

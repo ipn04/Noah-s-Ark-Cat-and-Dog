@@ -45,7 +45,8 @@
             </div>
             <div class = "flex items-center justify-center">
                 <div class = "max-w-3xl py-5 px-10 lg:py-0">
-                    <h1 class = "lg:text-5xl text-3xl text-center py-2 lg:py-0 lg:text-left font-bold">Noah's Ark Dog
+                    <h1 class = "lg:text-5xl text-3xl text-center py-2 lg:py-0 lg:text-left text-red-600 font-bold">
+                        Noah's Ark Dog
                         and Cat Shelter
                     </h1>
                     <p class ="lg:text-lg text-base py-2 lg:py-0 text-center lg:text-left lg:py-2 lg:pr-20">Noah’s Ark
@@ -107,55 +108,57 @@
             </a>
         </div>
 
-        <div>
-        </div>
+        
+           
     </div>
 
 
-        <div class = "grid-cols-1 lg:grid-cols-2 grid lg:py-20 lg:px-40">
+    <div class = "grid-cols-1 lg:grid-cols-2 grid p-6 lg:py-20 lg:px-40">
+        <div>
+            <h1 class = "text-4xl lg:text-5xl py-2 text-center lg:text-left text-red-600 font-bold ">Join the Volunteer
+                Program
+            </h1>
+            <p class = " text-base lg:text-lg lg:text-left text-center lg:pe-10 py-2">Our Volunteer Program is open to
+                all who are interested in our mission
+                to create
+                positive
+                change together..</p>
+            <div class="lg:py-8 py-4 mx-auto text-center lg:text-left">
+                <a href="{{ route('pets') }}"
+                    class="bg-red-500 hover:bg-yellow-500 text-white hover:text-white text-lg text-2xl font-bold py-2 px-6 lg:py-4 lg:px-8 rounded-full">
+                    Read More
+                </a>
+            </div>
+        </div>
+
+        <div class = "flex lg:justify-end justify-center py-4 lg:py-0">
+            <img class = "lg:max-w-md lg:h-80 max-w-xs h-60 object-cover rounded-xl"
+                src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+        </div>
+    </div>
+
+    <div class = "grid-cols-1 lg:grid-cols-2 grid lg:py-20 lg:px-40">
+        <div class = "flex justify-start">
+            <img class = "lg:max-w-md lg:h-80 max-w-xs h-60 object-cover rounded-xl"
+                src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+        </div>
+        <div class = "flex justify-center items-center ">
             <div>
-                <h1 class = "text-5xl py-2 text-red-600 font-bold ">Join the Volunteer Program
+                <h1 class = "text-5xl py-2  text-red-600 font-bold text-right">Unleash Support for Our Mission Online
                 </h1>
-                <p class = " text-lg pe-10 py-2">Our Volunteer Program is open to all who are interested in our mission
-                    to create
-                    positive
-                    change together..</p>
-                <div class="lg:py-8 py-4 mx-auto text-center lg:text-left">
+                <p class = "text-right text-lg ps-28 py-2">Your donation to our pet shelter helps provide shelter,
+                    food,
+                    and medical care to homeless pets,
+                    giving
+                    them
+                    a chance for a better life.</p>
+                <div class="lg:py-8 py-4 mx-auto text-center lg:text-right">
                     <a href="{{ route('pets') }}"
                         class="bg-red-500 hover:bg-yellow-500 text-white hover:text-white text-lg text-2xl font-bold py-2 px-6 lg:py-4 lg:px-8 rounded-full">
                         Read More
                     </a>
                 </div>
             </div>
-
-            <div class = "flex justify-end">
-                <img class = "lg:max-w-md lg:h-80 max-w-xs h-60 object-cover rounded-xl"
-                    src="{{ asset('images/noahsark.jpg') }}" alt="ark">
-            </div>
         </div>
-
-        <div class = "grid-cols-1 lg:grid-cols-2 grid lg:py-20 lg:px-40">
-            <div class = "flex justify-start">
-                <img class = "lg:max-w-md lg:h-80 max-w-xs h-60 object-cover rounded-xl"
-                    src="{{ asset('images/noahsark.jpg') }}" alt="ark">
-            </div>
-            <div class = "flex justify-center items-center ">
-                <div>
-                    <h1 class = "text-5xl py-2 text-red-600 font-bold text-right">Unleash Support for Our Mission Online
-                    </h1>
-                    <p class = "text-right text-lg ps-28 py-2">Your donation to our pet shelter helps provide shelter,
-                        food,
-                        and medical care to homeless pets,
-                        giving
-                        them
-                        a chance for a better life.</p>
-                    <div class="lg:py-8 py-4 mx-auto text-center lg:text-right">
-                        <a href="{{ route('pets') }}"
-                            class="bg-red-500 hover:bg-yellow-500 text-white hover:text-white text-lg text-2xl font-bold py-2 px-6 lg:py-4 lg:px-8 rounded-full">
-                            Read More
-                        </a>
-                    </div>
-                </div>
-            </div>
 
 </x-guest-layout>

@@ -186,15 +186,34 @@ $(document).ready(function() {
     });
 });
 
+// initial page pets search
+$(document).ready(function() {
+    $('#initial-pet-search').on('input', function() {
+        let value = $(this).val().toLowerCase();  
+        
+        $('.pet-container').each(function () {
+            let petName = $(this).attr('data-name'); 
+            if (petName !== undefined) { 
+                petName = petName.toLowerCase();
+                if (petName.indexOf(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+});
+
 // admin page search
 $(document).ready(function() {
     $('#simple-search').on('input', function() {
         let value = $(this).val().toLowerCase();  
         
         $('.pet-container').each(function () {
-            let petName = $(this).attr('data-name'); // Get the attribute value
-            if (petName !== undefined) { // Check if the attribute exists
-                petName = petName.toLowerCase(); // Convert to lowercase if it exists
+            let petName = $(this).attr('data-name'); 
+            if (petName !== undefined) { 
+                petName = petName.toLowerCase(); 
                 if (petName.indexOf(value) === -1) {
                     $(this).hide();
                 } else {

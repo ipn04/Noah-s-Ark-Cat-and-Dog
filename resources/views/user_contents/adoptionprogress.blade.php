@@ -236,10 +236,10 @@
                                     hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                            <h2 class = "font-bold text-lg p-2 ps-2"></h2>
+                            <h2 class = "font-bold text-lg p-2 ps-2">{{ $scheduleInterview->date }} at {{ $scheduleInterview->time }}</h2>
                             <p class = "p-2 pe-2 ps-4"></p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
-                            <p class = "p-2 pe-2 ps-4"></p>
+                            <p class = "p-2 pe-2 ps-4">{{ $adoption->application->user->province . ' ' . $adoption->application->user->city . ' ' . $adoption->application->user->barangay . ' ' . $adoption->application->user->street }}</p>
 
                           
 
@@ -413,7 +413,7 @@
                                             </h3>
                                             <button type="button"
                                                 class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-toggle="crud-modal">
+                                                data-modal-toggle="pickup-schedule">
                                                 <svg class="w-3 h-3" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
                                                     viewBox="0 0 14 14">
@@ -583,8 +583,8 @@
                 </div>
                 <div
                     class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md
-                @if ($stage == 5) w-3/4 mx-auto
-                @else @endif">
+                    @if ($stage == 5) w-3/4 mx-auto
+                    @else @endif">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <!-- Modal toggle -->
                     @if ($stage === '1')
@@ -680,7 +680,15 @@
                                 </div>
                             </div>
                         </div>
+                    @elseif ($stage === '9')
+                        <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                                <span>Download</span>
+                            </button>
+                        </a>
                     @else
+                    
                     @endif
                 </div>
             </div>

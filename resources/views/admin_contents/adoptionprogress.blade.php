@@ -254,39 +254,50 @@
             <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-lg">
                 <div class = "col-span-2 ">
                     <div
-                        class = "   @if ($stage == 7) mb-7 flex justify-center items-center
-                                        @else
-                                        hidden @endif">
-                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                        class = "@if ($stage == 7) 
+                        mb-7 flex justify-center items-center
+                        @else
+                        hidden 
+                        @endif">
+                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md w-5/6">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
                             <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
-                            <p class = "p-2 pe-2 ps-4">November 16,2023</p>
+                            <p class="p-2 pe-2 ps-4">
+                                @isset($schedulePickup->date)
+                                    {{ $schedulePickup->date }}
+                                @endisset
+                            </p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
-                            <p class = "p-2 pe-2 ps-4">Blk 54 lot 3 Sarmiento Homes, San Jose del Monte Bulacan</p>
+                            <p class = "p-2 pe-2 ps-4">{{ $adoptionAnswer->adoption->application->user->province . ' ' . $adoptionAnswer->adoption->application->user->city . ' ' . $adoptionAnswer->adoption->application->user->barangay . ' ' . $adoptionAnswer->adoption->application->user->street }}</p>
+                            
+                            <form action="{{ route('update.contract', ['id' => $adoptionAnswer->id]) }}" method="POST" enctype="multipart/form-data">
+                                @csrf
+                                @method('PATCH')
+                                <div class="flex items-center justify-center w-full py-3">
+                                    <label for="dropzone-file"
+                                        class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
+                                        <div class="flex flex-col items-center justify-center pt-5 pb-6">
+                                            <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
+                                            </svg>
+                                            <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
+                                                    class="font-semibold">Upload Contract Here</span> click or drag and
+                                                drop</p>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">PDF FILE ONLY</p>
+                                        </div>
+                                        <input id="dropzone-file" type="file" name="contract_file" class="hidden" />
+                                    </label>
+                                </div>
 
-                            <div class="flex items-center justify-center w-full py-3">
-                                <label for="dropzone-file"
-                                    class="flex flex-col items-center justify-center w-full h-64 border-2 border-gray-300 border-dashed rounded-lg cursor-pointer bg-gray-50 dark:hover:bg-bray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
-                                    <div class="flex flex-col items-center justify-center pt-5 pb-6">
-                                        <svg class="w-8 h-8 mb-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 16">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                d="M13 13h3a3 3 0 0 0 0-6h-.025A5.56 5.56 0 0 0 16 6.5 5.5 5.5 0 0 0 5.207 5.021C5.137 5.017 5.071 5 5 5a4 4 0 0 0 0 8h2.167M10 15V6m0 0L8 8m2-2 2 2" />
-                                        </svg>
-                                        <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span
-                                                class="font-semibold">Upload Contract Here</span> click or drag and
-                                            drop</p>
-                                        <p class="text-xs text-gray-500 dark:text-gray-400">PDF FILE ONLY</p>
-                                    </div>
-                                    <input id="dropzone-file" type="file" class="hidden" />
-                                </label>
-                            </div>
+                                <div class = "grid grid-cols-1 gap-2 py-2">
+                                    <button type="submit"
+                                        class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Submit</button>
+                                </div>
+                            </form>
 
-                            <div class = "grid grid-cols-1 gap-2 py-2">
-                                <button
-                                    class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Submit</button>
-                            </div>
                         </div>
                     </div>
                     <div
@@ -316,38 +327,38 @@
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                                 <img class="object-cover object-center w-32 h-32"
-                                    src="{{ asset('storage/' . $adoptionAnswer->application->user->profile_image) }}"
+                                    src="{{ asset('storage/' . $adoptionAnswer->adoption->application->user->profile_image) }}"
                                     alt='user profile'>
                             </div>
                             <h1 class = "text-center font-bold text-2xl py-2 capitalize">
-                                {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }}
+                                {{ $adoptionAnswer->adoption->application->user->firstname . ' ' . $adoptionAnswer->adoption->application->user->name }}
                             </h1>
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
                                         <td class = "font-bold">Age</td>
-                                        <td>{{ $adoptionAnswer->application->user->birthday }}</td>
+                                        <td>{{ $adoptionAnswer->adoption->application->user->birthday }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->gender }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->gender }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Phone</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->phone_number }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->phone_number }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Email</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
+                                        <td>{{ $adoptionAnswer->adoption->application->user->email }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Civil Status</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->civil_status }}</td>
                                     </tr>
 
                                     <tr>
                                         <td class = "font-bold">Address</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->application->user->province . ' ' . $adoptionAnswer->application->user->city . ' ' . $adoptionAnswer->application->user->barangay . ' ' . $adoptionAnswer->application->user->street }}
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->province . ' ' . $adoptionAnswer->adoption->application->user->city . ' ' . $adoptionAnswer->adoption->application->user->barangay . ' ' . $adoptionAnswer->adoption->application->user->street }}
                                         </td>
                                     </tr>
                                 </table>
@@ -361,40 +372,40 @@
                             <div
                                 class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                                 <img class="object-cover object-center w-32 h-32"
-                                    src="{{ asset('storage/images/' . $adoptionAnswer->pet->dropzone_file) }}"
+                                    src="{{ asset('storage/images/' . $adoptionAnswer->adoption->pet->dropzone_file) }}"
                                     alt='Woman looking front'>
                             </div>
-                            <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $adoptionAnswer->pet->pet_name }}
+                            <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $adoptionAnswer->adoption->pet->pet_name }}
                             </h1>
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
                                         <td class = "font-bold">Age</td>
-                                        <td>{{ $adoptionAnswer->pet->age }}</td>
+                                        <td>{{ $adoptionAnswer->adoption->pet->age }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->pet->pet_name }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->pet_name }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Breed</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->pet->breed }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->breed }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Weight</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->pet->weight }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->weight }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Size</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->pet->size }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->size }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Color</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->pet->color }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->color }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Vaccination</td>
-                                        <td class = "capitalize">{{ $adoptionAnswer->pet->vaccination_status }}</td>
+                                        <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->vaccination_status }}</td>
                                     </tr>
                                 </table>
                                 <x-primary-button>
@@ -421,38 +432,38 @@
                     <div
                         class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center w-32 h-32"
-                            src="{{ asset('storage/' . $adoptionAnswer->application->user->profile_image) }}"
+                            src="{{ asset('storage/' . $adoptionAnswer->adoption->application->user->profile_image) }}"
                             alt='user profile'>
                     </div>
                     <h1 class = "text-center font-bold text-2xl py-2 capitalize">
-                        {{ $adoptionAnswer->application->user->firstname . ' ' . $adoptionAnswer->application->user->name }}
+                        {{ $adoptionAnswer->adoption->application->user->firstname . ' ' . $adoptionAnswer->adoption->application->user->name }}
                     </h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->application->user->birthday }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->birthday }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->application->user->gender }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->gender }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Phone</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->application->user->phone_number }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->phone_number }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Email</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
+                                <td>{{ $adoptionAnswer->adoption->application->user->email }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Civil Status</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->application->user->email }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->civil_status }}</td>
                             </tr>
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->application->user->province . ' ' . $adoptionAnswer->application->user->city . ' ' . $adoptionAnswer->application->user->barangay . ' ' . $adoptionAnswer->application->user->street }}
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->application->user->province . ' ' . $adoptionAnswer->adoption->application->user->city . ' ' . $adoptionAnswer->adoption->application->user->barangay . ' ' . $adoptionAnswer->adoption->application->user->street }}
                                 </td>
                             </tr>
                         </table>
@@ -465,39 +476,39 @@
 
                     <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center  w-32 h-32"
-                            src="{{ asset('storage/images/' . $adoptionAnswer->pet->dropzone_file) }}"
+                            src="{{ asset('storage/images/' . $adoptionAnswer->adoption->pet->dropzone_file) }}"
                             alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $adoptionAnswer->pet->pet_name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $adoptionAnswer->adoption->pet->pet_name }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->pet->age }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->age }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->pet->pet_name }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->pet_name }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Breed</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->pet->breed }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->breed }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Weight</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->pet->weight }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->weight }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Size</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->pet->size }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->size }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Color</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->pet->color }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->color }}</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Vaccination</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->pet->vaccination_status }}</td>
+                                <td class = "capitalize">{{ $adoptionAnswer->adoption->pet->vaccination_status }}</td>
                             </tr>
                         </table>
                         <x-primary-button>
@@ -509,21 +520,21 @@
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     @if ($stage === '2')
                         <!-- Modal toggle -->
-                        <button data-modal-target="progress-modal-{{ $adoptionAnswer->id }}" data-modal-toggle="progress-modal-{{ $adoptionAnswer->id }}"
+                        <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             type="button">
                             Interview Schedule
                         </button>
 
                         <!-- Main modal -->
-                        <div id="progress-modal-{{ $adoptionAnswer->id }}" tabindex="-1" aria-hidden="true"
+                        <div id="progress-modal" tabindex="-1" aria-hidden="true"
                             class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                             <div class="relative p-4 w-full max-w-md max-h-full">
                                 <!-- Modal content -->
                                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                     <button type="button"
                                         class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-hide="progress-modal-{{ $adoptionAnswer->id }}">
+                                        data-modal-hide="progress-modal">
                                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                             fill="none" viewBox="0 0 14 14">
                                             <path stroke="currentColor" stroke-linecap="round"
@@ -557,6 +568,7 @@
                                 </div>
                             </div>
                         </div>
+
                     @endif
                 </div>
             </div>

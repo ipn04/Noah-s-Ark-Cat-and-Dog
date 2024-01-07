@@ -48,7 +48,7 @@
         <div class="flex justify-center items-center">
         <div class="grid grid-cols-1 lg:grid-cols-2 px-4 py-4">
             <div class = "bg-white p-10 max-w-2xl shadow-lg rounded-2xl items-center justify-center flex">
-                <form method="POST" action="{{ route('send.form', ['petId' => $petId]) }}" class="max-w-lg">
+                <form method="POST" action="{{ route('send.form', ['petId' => $petId]) }}" class="max-w-lg" enctype="multipart/form-data">
                 @csrf
                 <div id="section1" class="block">
                     <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>

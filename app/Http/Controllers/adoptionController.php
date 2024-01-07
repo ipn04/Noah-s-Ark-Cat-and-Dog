@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use App\Models\Adoption;
 use App\Models\Application;
@@ -9,7 +10,8 @@ use App\Models\AdoptionAnswer;
 use App\Models\Pet;
 use App\Models\ScheduleInterview;
 use App\Models\Schedule;
-
+use App\Models\SchedulePickup;
+use Illuminate\Support\Str;
 
 class adoptionController extends Controller
 {
@@ -68,28 +70,34 @@ class adoptionController extends Controller
             'upload2.mimes' => 'Allowed image formats are: jpeg, png, jpg, gif.',
             'upload2.max' => 'Maximum file size allowed is 2MB.',
         ]
-        );      
-
+        );    
+         
+        if (!Storage::exists('public/signatures')) {
+            Storage::makeDirectory('public/signatures');
+        }
+        
         if ($request->hasFile('upload')) {
             $image = $request->file('upload');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
-
-            $directory = 'signatures'; // Update this directory as needed
-
+            $imageName = 'upload_' . time() . '_' . Str::random(10) . '.' . $image->getClientOriginalExtension();
+        
+            $directory = 'signatures'; 
+        
             $image->storeAs('public/' . $directory, $imageName);
-
+        
             $validatedData['upload'] = $imageName;
         }
+        
         if ($request->hasFile('upload2')) {
             $image2 = $request->file('upload2');
-            $imageName2 = time() . '_2.' . $image2->getClientOriginalExtension();
+            $imageName2 = 'upload2_' . time() . '_' . Str::random(10) . '.' . $image2->getClientOriginalExtension();
         
-            $directory2 = 'signatures'; // Update this directory as needed
+            $directory2 = 'signatures'; 
         
             $image2->storeAs('public/' . $directory2, $imageName2);
         
             $validatedData['upload2'] = $imageName2;
         }
+        
 
         try {
             $adoptionAnswer = new AdoptionAnswer();
@@ -106,28 +114,35 @@ class adoptionController extends Controller
     public function adoptionProgress($adoptionAnswer = false)
     {
         $userId = auth()->user()->id; // Get the authenticated user's ID
+
         $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId) {
             $query->whereHas('application', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             });
         })->with('adoption.pet')->first(); // Load the 'adoption' and 'pet' relationships
-        $stage = null;
 
+        $stage = null;
+        $adoption = null; 
         $petData = null;
-    
+        $scheduleInterview = null; 
+
         if ($adoptionAnswerData && $adoptionAnswerData->adoption) {
             $stage = $adoptionAnswerData->adoption->stage;
-            
             $petData = $adoptionAnswerData->adoption->pet;
-
+            $adoption = $adoptionAnswerData->adoption;
             $userr = $adoptionAnswerData->adoption->application->user;
+
+            $scheduleInterview = SchedulePickup::where('application_id', $adoptionAnswerData->adoption->application_id)
+            ->with('schedule', 'application')
+            ->first();
         }
 
         // Pass the pet data and other necessary variables to the view
         return view('user_contents.adoptionprogress', [
             'adoption_answer' => $adoptionAnswer, 
-            'petData' => $petData, 'stage' => $stage, 'userr' => $userr
+            'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview
         ]);
+
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {
         $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
@@ -150,34 +165,45 @@ class adoptionController extends Controller
     }   
 
     public function adminLoadProgress($id) {
-        $adoptionAnswer = Adoption::with('application.user')->find($id);
+        $adoptionAnswer = AdoptionAnswer::find($id);
 
-        $stage = $adoptionAnswer->stage;
-        $userId = $adoptionAnswer->application->user->id;
+        $userId = $adoptionAnswer->adoption->application->user->id;
+        $stage = $adoptionAnswer->adoption->stage;
     
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
-        ->where('application_id', $adoptionAnswer->application_id)
+        ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
        
+        $schedulePickup = SchedulePickup::with('schedule', 'application')
+        ->where('application_id', $adoptionAnswer->adoption->application_id)
+        ->first();
+
         return view('admin_contents.adoptionprogress', [
             'adoptionAnswer' => $adoptionAnswer,
             'stage' => $stage,
             'userId' => $userId,
             'scheduleInterview' => $scheduleInterview,
+            'schedulePickup' => $schedulePickup,
         ]);
     } 
     public function updateStage($id)
     {
-        $adoptionAnswer = Adoption::find($id);
+        $adoptionAnswer = AdoptionAnswer::find($id);
 
         if ($adoptionAnswer) {
-            $currentStage = $adoptionAnswer->stage;
+            $adoption = $adoptionAnswer->adoption;
 
-            $newStage = $currentStage + 1;
+            if ($adoption) {
+                $newStage = $adoption->stage + 1;
 
-            $adoptionAnswer->update(['stage' => $newStage]);
+                $adoption->update(['stage' => $newStage]);
 
-            return redirect()->back()->with(['updateStage' => true]); 
+                return redirect()->back()->with(['updateStage' => true]);
+            } else {
+                return redirect()->back()->with(['error' => 'Adoption not found']);
+            }
+        } else {
+            return redirect()->back()->with(['error' => 'AdoptionAnswer not found']);
         }
     }
 
@@ -245,5 +271,58 @@ class adoptionController extends Controller
                 return redirect()->back()->with(['updateStage' => true]); 
             }
         }
+    }
+    public function updateContract(Request $request, $id)
+    {
+        if (!Storage::exists('public/contracts')) {
+            Storage::makeDirectory('public/contracts');
+        }   
+        $adoptionAnswer = AdoptionAnswer::find($id);
+        
+        if ($adoptionAnswer) {
+            $adoption = $adoptionAnswer->adoption;
+            
+            if ($adoption) {
+                if ($request->hasFile('contract_file')) {
+                    $file = $request->file('contract_file');
+                    
+                    $filePath = $file->store('contracts', 'public');
+    
+                    $adoption->contract = $filePath;
+                    $adoption->save();
+                    
+                    $adoption->stage++;
+                    $adoption->save();
+
+                    return redirect()->back()->with(['updateStage' => true]); 
+                }
+    
+                return redirect()->back()->with(['updateStage' => true]); 
+            }
+    
+            return redirect()->back()->with(['updateStage' => true]); 
+        }
+
+        return redirect()->back()->with(['updateStage' => true]); 
+    }
+    public function downloadContract($id)
+    {
+        $adoption = Adoption::find($id);
+
+        if ($adoption && $adoption->contract) {
+            $filePath = $adoption->contract;
+
+            $userId = $adoption->application->user_id;
+
+            if (auth()->user()->id === $userId) {
+                $fileName = basename($filePath);
+
+                if (Storage::disk('public')->exists($filePath)) {
+                    return response()->download(storage_path("app/public/$filePath"), $fileName);
+                }
+            }
+        }
+
+        return redirect()->back()->with(['updateStage' => true, 'adoption' => $adoption]);
     }
 }

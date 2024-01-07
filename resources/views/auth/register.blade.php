@@ -31,7 +31,7 @@
         </script>
     @endif
     <div class="w-full bg-white mb-4">
-        <h1 class="text-center text-2xl font-bold">Create your Account</h1>
+        <h1 class="text-center text-4xl text-red-500 font-bold">Create your Account</h1>
     </div>
     <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
         @csrf

@@ -36,6 +36,8 @@
                 {{ $slot }}
             </div>
         </div>
+        @include('navbar.main_footer')
+
     @elseif(Route::is('register'))
         @include('navbar.main_navbar')
         <div class="flex items-center justify-center pt-20 lg:pt-32 pb-10 px-5 bg-gray-100">
@@ -43,16 +45,22 @@
                 {{ $slot }}
             </div>
         </div>
+        @include('navbar.main_footer')
+
     @elseif(Route::is('pets'))
         @include('navbar.main_navbar')
         <div class="mt-20">
             {{ $slot }}
         </div>
+        @include('navbar.main_footer')
+
     @elseif(Route::is('ivan'))
         @include('navbar.main_navbar')
         <div class="mt-20">
             {{ $slot }}
         </div>
+        @include('navbar.main_footer')
+
     @else
         @include('navbar.main_navbar')
         <div class="mt-20 flex justfify-center align-center w-full">
@@ -60,6 +68,8 @@
                 {{ $slot }}
             </div>
         </div>
+        @include('navbar.main_footer')
+
     @endif
 
 

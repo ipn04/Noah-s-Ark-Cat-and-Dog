@@ -29,6 +29,8 @@ Route::get('/', function () {
 Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])->middleware(['auth', 'verified'])
 ->name('user.dashboard');   
 
+
+
 // Route::get('/user/messages', function () {
 //     return view('user_contents.messages');
 // })->middleware(['auth', 'verified'])->name('user.messages');   
@@ -54,6 +56,7 @@ Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->na
 Route::get('/user/progress', [AdoptionController::class, 'adoptionProgress'])
     ->middleware(['auth', 'verified'])
     ->name('user.adoptionprogress');
+
 
 Route::get('/user/applications', [adoptionController::class, 'userApplication'])->middleware(['auth', 'verified'])->name('user.applications');   
 
@@ -113,6 +116,11 @@ Route::get('/admin/reports', function () {
 // Route::get('/admin/adoptions', function () {
 //     return view('admin_contents.adoptions');
 // })->middleware(['auth', 'verified'])->name('admin.adoptions');
+
+
+ Route::get('/user/volunteerprogress', function () {
+     return view('user_contents.volunteer_progress');
+})->middleware(['auth', 'verified'])->name('user.volunteerprogress');
 
 Route::get('/admin/volunteers', function () {
     return view('admin_contents.volunteers');

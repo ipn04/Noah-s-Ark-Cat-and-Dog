@@ -94,6 +94,8 @@
                                         clip-rule="evenodd" />
                                 </svg>
                             </div>
+                            <h1 class = " lg:hidden text-center py-2 ">Application Validated</h1>
+
                         </div>
                         <h1 class = "hidden lg:block text-center py-2 ">Application Validated</h1>
                     </div>

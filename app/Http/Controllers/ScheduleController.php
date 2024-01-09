@@ -7,6 +7,7 @@ use App\Models\ScheduleInterview;
 use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
 use App\Models\AdoptionAnswer;
+use App\Models\Schedule;
 
 class ScheduleController extends Controller
 {
@@ -16,6 +17,23 @@ class ScheduleController extends Controller
         $pickups = SchedulePickup::with('schedule')->get();
         $interviews = ScheduleInterview::with('schedule')->get();
 
-        return view('admin_contents.schedule', compact('visits', 'pickups', 'interviews'));
+        $allVisits = ScheduleVisit::with('user')->get();
+        $allPickups = SchedulePickup::with('schedule')->get();
+        $allInterviews = ScheduleInterview::with('schedule')->get();
+    
+        // Filtered records with schedule_status as "Accepted"
+        $acceptedVisits = $allVisits->filter(function ($visit) {
+            return $visit->schedule->schedule_status === 'Accepted';
+        });
+    
+        $acceptedPickups = $allPickups->filter(function ($pickup) {
+            return $pickup->schedule->schedule_status === 'Accepted';
+        });
+    
+        $acceptedInterviews = $allInterviews->filter(function ($interview) {
+            return $interview->schedule->schedule_status === 'Accepted';
+        });
+
+        return view('admin_contents.schedule', compact('visits', 'pickups', 'interviews', 'acceptedVisits', 'acceptedPickups', 'acceptedInterviews'));
     }
 }

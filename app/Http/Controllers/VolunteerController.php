@@ -16,9 +16,10 @@ class VolunteerController extends Controller
 
         $volunteerApplication = new VolunteerApplication();
         $volunteerApplication->application_id = $volApplication->id; 
+        $volunteerApplication->stage = '0'; 
         $volunteerApplication->save();
 
-        $volunteerApplicationId = $volunteerApplication->id;
+        $volunteerApplicationId = $volunteerApplication->volunteer_id;
         // dd($volunteerApplicationId);
         $answers = $request->except('_token');
 
@@ -27,5 +28,11 @@ class VolunteerController extends Controller
         VolunteerAnswers::create(['volunteer_id' => $volunteerApplicationId, 'answers' => $serializedAnswers]);
 
         return redirect()->back()->with(['send_volunteer_form' => true]); 
+    }
+    public function showVolunteer(Request $request)
+    {
+        $volunteer = VolunteerAnswers::all();
+
+        return view('admin_contents.volunteers', ['volunteer' => $volunteer]);
     }
 }

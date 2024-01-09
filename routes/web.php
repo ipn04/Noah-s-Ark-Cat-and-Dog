@@ -95,6 +95,14 @@ Route::patch('/admin/update-contract/{id}', [adoptionController::class, 'updateC
 
 Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContract'])->name('download.contract');
 
+// Route::get('/admin/volunteers', function () {
+//     return view('admin_contents.volunteers');
+// })->middleware(['auth', 'verified'])->name('admin.volunteers');
+
+Route::get('/admin/volunteers', [VolunteerController::class, 'showVolunteer'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.volunteers');
+
 Route::get('/admin/progress/{id}', [adoptionController::class, 'adminLoadProgress'])
     ->middleware(['auth', 'verified'])
     ->name('admin.adoptionprogress');
@@ -128,9 +136,6 @@ Route::get('/admin/reports', function () {
      return view('user_contents.volunteer_progress');
 })->middleware(['auth', 'verified'])->name('user.volunteerprogress');
 
-Route::get('/admin/volunteers', function () {
-    return view('admin_contents.volunteers');
-})->middleware(['auth', 'verified'])->name('admin.volunteers');
 
 // Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
 

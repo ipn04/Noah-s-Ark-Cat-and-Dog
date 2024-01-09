@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class ScheduleInterview extends Model
 {
     use HasFactory;
+    protected $table = 'schedule_interviews';
     protected $primaryKey = 'interview_id';
     
     public function schedule()

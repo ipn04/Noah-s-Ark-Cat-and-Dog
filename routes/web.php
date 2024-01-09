@@ -7,6 +7,7 @@ use App\Http\Controllers\adoptionController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PickupController;
 use App\Http\Controllers\VisitController;
+use App\Http\Controllers\ScheduleController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -121,8 +122,11 @@ Route::get('/admin/volunteers', function () {
     return view('admin_contents.volunteers');
 })->middleware(['auth', 'verified'])->name('admin.volunteers');
 
-Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
+// Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
 
+Route::get('/admin/schedule', [ScheduleController::class, 'view_schedule'])
+    ->middleware(['auth', 'verified'])
+    ->name('admin.schedule');
 
 Route::get('/admin/profile/{id}', [ProfileController::class, 'adminProfile'])->name('admin.profile');
 

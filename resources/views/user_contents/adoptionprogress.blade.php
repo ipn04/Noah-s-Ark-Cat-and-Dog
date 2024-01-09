@@ -236,7 +236,7 @@
                                     hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                            <h2 class = "font-bold text-lg p-2 ps-2">{{ $scheduleInterview->date }} at {{ $scheduleInterview->time }}</h2>
+                            <h2 class = "font-bold text-lg p-2 ps-2">{{ $scheduleInterview->date ?? ''}} at {{ $scheduleInterview->time ?? '' }}</h2>
                             <p class = "p-2 pe-2 ps-4"></p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
                             <p class = "p-2 pe-2 ps-4">{{ $adoption->application->user->province . ' ' . $adoption->application->user->city . ' ' . $adoption->application->user->barangay . ' ' . $adoption->application->user->street }}</p>

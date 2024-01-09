@@ -219,11 +219,14 @@
                         <div class="relative w-full">
 
                             <div class="relative w-full">
+                                <x-input-label for="date" :value="__('Select Date and Time')" />
 
                                 <input value= "Select Date and Time"
-                                    class = "w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+                                    class = "w-full mb-3 mt-1 border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
                                     type="datetime-local" id="date">
-
+                                <x-input-label for="concern" :value="__('Concern')" />
+                                <x-text-input id="concern" class="block mt-1 w-full" type="text" name="concern"
+                                    :value="old('concern')" required autocomplete="concern" />
                             </div>
 
 

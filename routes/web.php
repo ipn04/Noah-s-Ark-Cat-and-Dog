@@ -151,6 +151,8 @@ Route::get('/about', function () {
     return view('initial_page.aboutus');
 })->name('about');
 
+
+
 Route::get('/contact', function () {
     return view('initial_page.contact');
 })->name('contact');
@@ -183,6 +185,10 @@ Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['
 
 Route::get('/filter-pets', [PetDataController::class, 'filterPets'])->name('filter.pets');
 
+
+Route::get('/contactdev', function () {
+    return view('profile.developer');
+})->name('admin.developer');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

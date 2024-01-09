@@ -22,7 +22,7 @@
         </script>
     @endif
 
-    @if (session('adoption_answer'))
+    @if (session('send_volunteer_form'))
         <script>
             document.addEventListener('DOMContentLoaded', function() {
                 swal(
@@ -47,7 +47,7 @@
         <div class="max-w-xl mx-auto">
             <div class="grid grid-cols-1">
                 <div class = "bg-white p-10  shadow-lg rounded-2xl items-center ">
-                    <form method="POST" action="" class="max-w-lg" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('volunteer.form')}} " class="max-w-lg" enctype="multipart/form-data">
                         @csrf
                         <div id="section1" class="block">
                             <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>
@@ -123,16 +123,13 @@
 
                             <div class = "mt-3">
                                 <x-primary-button type="submit">Submit</x-primary-button>
-                                </div>
                             </div>
-
-
-                        
-                        </form>
-                    </div>
+                        </div>                   
+                    </form>
                 </div>
-
             </div>
+
+        </div>
 
 
     </section>

@@ -8,6 +8,7 @@ use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PickupController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\VolunteerController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -31,6 +32,7 @@ Route::get('/', function () {
 Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])->middleware(['auth', 'verified'])
 ->name('user.dashboard');   
 
+Route::post('/send/volunteer_form', [VolunteerController::class, 'store'])->name('volunteer.form');
 
 
 // Route::get('/user/messages', function () {

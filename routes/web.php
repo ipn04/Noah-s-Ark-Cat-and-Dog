@@ -6,6 +6,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\adoptionController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PickupController;
+use App\Http\Controllers\VisitController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -36,6 +37,8 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])->middl
 Route::post('/schedule/interview', [InterviewController::class, 'store'])->name('schedule.interview');
 
 Route::post('/schedule/pickup', [PickupController::class, 'store'])->name('schedule.pickup');
+
+Route::post('/schedule/visit', [VisitController::class, 'store'])->name('schedule.visit');
 
 Route::get('/user/messages', [MessageController::class, 'displayMessage'])
     ->middleware(['auth', 'verified'])
@@ -118,9 +121,8 @@ Route::get('/admin/volunteers', function () {
     return view('admin_contents.volunteers');
 })->middleware(['auth', 'verified'])->name('admin.volunteers');
 
-Route::get('/admin/schedule', function () {
-    return view('admin_contents.schedule');
-})->middleware(['auth', 'verified'])->name('admin.schedule');
+Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
+
 
 Route::get('/admin/profile/{id}', [ProfileController::class, 'adminProfile'])->name('admin.profile');
 

@@ -6,7 +6,36 @@
             {{ __('Dashboard') }}
         </h2>
     </x-slot>
+    @if ($errors->any())
+        <script>
+            var errorMessages = [];
+            @foreach ($errors->all() as $error)
+                errorMessages.push("{{ $error }}");
+            @endforeach
 
+            // Check if there are error messages before showing the alert
+            if (errorMessages.length > 0) {
+                swal({
+                    title: "Error!",
+                    text: errorMessages.join('\n'), // Join error messages with line breaks
+                    type: "error",
+                    confirmButtonText: "Cool"
+                });
+            }
+        </script>
+    @endif
+
+    @if (session('send_schedule'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal(
+                    "Success!",
+                    "Press 'OK' to exit!",
+                    "success"
+                )
+            });
+        </script>
+    @endif
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <h1 class = "px-10 py-3 font-bold text-3xl lg:text-2xl text-center lg:text-left text-red-500 ">What can we do for
             you?</h1>
@@ -52,7 +81,6 @@
                                 d="M6.75 2.25A.75.75 0 0 1 7.5 3v1.5h9V3A.75.75 0 0 1 18 3v1.5h.75a3 3 0 0 1 3 3v11.25a3 3 0 0 1-3 3H5.25a3 3 0 0 1-3-3V7.5a3 3 0 0 1 3-3H6V3a.75.75 0 0 1 .75-.75Zm13.5 9a1.5 1.5 0 0 0-1.5-1.5H5.25a1.5 1.5 0 0 0-1.5 1.5v7.5a1.5 1.5 0 0 0 1.5 1.5h13.5a1.5 1.5 0 0 0 1.5-1.5v-7.5Z"
                                 clip-rule="evenodd" />
                         </svg>
-
                         <h1 class=" text-xl mt-2">Schedule shelter visit</h1>
                     </div>
                 </button>
@@ -214,29 +242,54 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <div class="p-4 md:p-5 space-y-4">
-
-                        <div class="relative w-full">
+                    <form action="{{ route('schedule.visit')}}" method="POST">
+                        @csrf
+                        <div class="p-4 md:p-5 space-y-4">
 
                             <div class="relative w-full">
 
-                                <input value= "Select Date and Time"
-                                    class = "w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                    type="datetime-local" id="date">
+                                <div class="relative w-full flex">
+
+                                    <div class="w-full px-3 sm:w-1/2">
+                                        <div class="mb-5">
+                                            <label for="date"
+                                                class="mb-3 block text-base  font-bold text-[#07074D]">
+                                                Date
+                                            </label>
+                                            <input type="date" name="date" id="date"
+                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                        </div>
+                                    </div>
+                                    <div class="w-full px-3 sm:w-1/2">
+                                        <div class="mb-5">
+                                            <label for="time"
+                                                class="mb-3 block text-base font-bold text-[#07074D]">
+                                                Time
+                                            </label>
+                                            <input type="time" name="time" id="time"
+                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                               
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <div class="relative w-full px-3">
+                                    <x-input-label for="concern" :value="__('Concern')" />
+                                    <x-text-input id="concern" class="block mt-1 w-full" type="text" name="concern"
+                                        :value="old('concern')" required autocomplete="concern" />
+                                </div>
 
                             </div>
-
-
+                            <!-- Modal footer -->
+                            <div
+                                class="flex items-center justify-end gap-3  p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <button data-modal-hide="default-modal" type="button"
+                                    class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                <button data-modal-hide="default-modal" type="submit"
+                                    class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Schedule</button>
+                            </div>
                         </div>
-                        <!-- Modal footer -->
-                        <div
-                            class="flex items-center justify-end gap-3  p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <button data-modal-hide="default-modal" type="button"
-                                class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-                            <button data-modal-hide="default-modal" type="button"
-                                class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Schedule</button>
-                        </div>
-                    </div>
+                    </form>
                 </div>
             </div>
     </section>

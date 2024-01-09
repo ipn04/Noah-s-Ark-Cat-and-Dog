@@ -11,6 +11,7 @@ use App\Models\Pet;
 use App\Models\ScheduleInterview;
 use App\Models\Schedule;
 use App\Models\SchedulePickup;
+use App\Models\ScheduleVisit;
 use Illuminate\Support\Str;
 
 class adoptionController extends Controller

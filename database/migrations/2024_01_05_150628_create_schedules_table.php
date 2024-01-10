@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('schedules', function (Blueprint $table) {
-            $table->id('schedule_id');
+            $table->id();
             $table->string('schedule_type')->default('Interview');
             $table->string('schedule_status')->default('Pending');
             $table->timestamps();

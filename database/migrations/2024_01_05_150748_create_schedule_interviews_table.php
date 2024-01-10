@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('schedule_interviews', function (Blueprint $table) {
             $table->id('interview_id');
-            $table->foreignId('schedule_id')->constrained('schedules');
-            $table->foreignId('application_id')->constrained('applications');
+            $table->foreignId('schedule_id')->constrained('schedules')->onDelete('cascade');
+            $table->foreignId('application_id')->constrained('application')->onDelete('cascade');
             $table->date('date');
             $table->time('time');
             $table->timestamps();

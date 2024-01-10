@@ -30,8 +30,10 @@ Route::get('/', function () {
 
 /* user`s routes */
 
-Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])->middleware(['auth', 'verified'])
-->name('user.dashboard');   
+Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])
+    ->middleware(['auth', 'verified'])
+    ->name('user.dashboard');
+
 
 Route::post('/send/volunteer_form', [VolunteerController::class, 'store'])->name('volunteer.form');
 

@@ -74,7 +74,6 @@
             </div>
         </div>
 
-
         <div class = "flex items-center  py-4 justify-center">
             <div
                 class = "grid grid-cols-1 max-w-screen-lg px-14 lg:px-5 py-3 bg-white rounded-2xl shadow-md lg:grid-cols-7 gap-2">

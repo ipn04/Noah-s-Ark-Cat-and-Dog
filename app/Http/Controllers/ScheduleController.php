@@ -16,12 +16,12 @@ class ScheduleController extends Controller
         $visits = ScheduleVisit::with('user')->get();
         $pickups = SchedulePickup::with('schedule')->get();
         $interviews = ScheduleInterview::with('schedule')->get();
+        
 
         $allVisits = ScheduleVisit::with('user')->get();
         $allPickups = SchedulePickup::with('schedule')->get();
         $allInterviews = ScheduleInterview::with('schedule')->get();
-    
-        // Filtered records with schedule_status as "Accepted"
+
         $acceptedVisits = $allVisits->filter(function ($visit) {
             return $visit->schedule->schedule_status === 'Accepted';
         });

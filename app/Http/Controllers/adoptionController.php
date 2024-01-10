@@ -175,7 +175,7 @@ class adoptionController extends Controller
         ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
        
-        $schedulePickup = SchedulePickup::with('schedule', 'application')
+        $pickup = SchedulePickup::with('schedule', 'application')
         ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
 
@@ -198,6 +198,18 @@ class adoptionController extends Controller
                 $newStage = $adoption->stage + 1;
 
                 $adoption->update(['stage' => $newStage]);
+
+                $application = $adoption->application;
+
+                if ($application) {
+                    $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
+
+                    $schedule = $schedulepickup->schedule;
+
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Accepted']);
+                    }
+                }
 
                 return redirect()->back()->with(['updateStage' => true]);
             } else {
@@ -268,6 +280,18 @@ class adoptionController extends Controller
                 $newStage = $currentStage + 1;
     
                 $adoption->update(['stage' => $newStage]);
+
+                $application = $adoption->application;
+
+                if ($application) {
+                    $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+
+                    $schedule = $scheduleInterview->schedule;
+
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Accepted']);
+                    }
+                }
     
                 return redirect()->back()->with(['updateStage' => true]); 
             }

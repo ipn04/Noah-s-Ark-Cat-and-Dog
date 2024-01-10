@@ -39,9 +39,7 @@
             <a href = "{{ route('user.dashboard') }}"
                 class = "text-lg hover:font-bold hover:cursor-pointer hover:text-red-500">Home</a>
             <p class = "text-lg">>></p>
-            <a href = ""class=" hover:text-red-500 font-bold text-lg"></a>
-            <p class = "text-lg">>></p>
-            <h2 class="font-bold text-lg text-red-500">Adoption Form</h2>
+            <h2 class="font-bold text-lg text-red-500">Volunteer Form</h2>
         </div>
 
         <div class="max-w-xl mx-auto">

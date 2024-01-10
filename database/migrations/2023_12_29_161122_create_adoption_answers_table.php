@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('adoption_answers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('adoption_id')->constrained('adoption');
+            $table->foreignId('adoption_id')->constrained('adoption')->onDelete('cascade');
             $table->string('first_question');
             $table->string('second_question');
             $table->string('third_question');

@@ -82,6 +82,43 @@
                                 </td>
                             </tr>
                         @endforeach
+                        @if(isset($volunteer) && !$volunteer->isEmpty())
+                        <!-- Your foreach loop and table data -->
+                            @foreach($volunteer as $vol)
+                                <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">                                         
+                                    <td class="px-6 py-4  hidden lg:table-cell">
+                                        <div class="text-base text-gray-500 ">{{ $vol->created_at }}</div>
+                                    </td>
+                                    <td class="px-6 py-4   lg:table-cell">
+                                        <div class="text-base text-gray-500 ">
+                                            @if($answerData->adoption->application->application_type === 'application_form')
+                                            Adoption
+                                            @else
+                                                
+                                            @endif    
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 lg:table-cell">
+                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class="text-center"></p>
+                                        </div>
+                                        
+                                    </td>
+                                    <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
+                                        <a href="{{ route('user.adoptionprogress') }}" type="button" data-drawer-target="drawer-read-product-advanced" onclick="" data-drawer-show="drawer-read-product-advanced" aria-controls="drawer-read-product-advanced" class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ">
+                                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                            </svg>
+                                        </a>
+                                
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
+                            <!-- Handle case when $volunteer is empty or null -->
+                            No volunteer data availablesss.
+                        @endif
                     </tbody>
                 </table> 
                 <div class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-20 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">

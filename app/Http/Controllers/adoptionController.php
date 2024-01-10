@@ -12,6 +12,9 @@ use App\Models\ScheduleInterview;
 use App\Models\Schedule;
 use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
+use App\Models\VolunteerApplication;
+use App\Models\VolunteerAnswers;
+
 use Illuminate\Support\Str;
 
 class adoptionController extends Controller
@@ -250,8 +253,11 @@ class adoptionController extends Controller
             })
             ->get();
 
-
-        return view('user_contents.applications', compact('answers'));
+        $volunteer = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ($userId) {
+            $query->where('user_id', $userId);
+        })->with('volunteer_application.application')->get();
+            
+        return view('user_contents.applications', compact('answers', 'volunteer'));
     }
 
     public function interviewStage($id)

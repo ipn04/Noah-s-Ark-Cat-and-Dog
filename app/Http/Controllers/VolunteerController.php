@@ -11,23 +11,31 @@ class VolunteerController extends Controller
 {
     public function store(Request $request)
     {
-        $currentUserId = auth()->user()->id; // Change this to your actual way of getting the user ID
-        $volApplication = Application::where('user_id', $currentUserId)->first();
+        $currentUserId = auth()->user()->id;
+        
+        $existingApplication = VolunteerApplication::where('application_id', $currentUserId)->first();
+
+        if ($existingApplication) {
+            // If an existing application is found, redirect back with a message
+            return redirect()->back()->with(['already_submitted' => true]);
+        }
 
         $volunteerApplication = new VolunteerApplication();
-        $volunteerApplication->application_id = $volApplication->id; 
+        $volunteerApplication->application_id = $currentUserId;
         $volunteerApplication->stage = '0'; 
         $volunteerApplication->save();
-
+    
         $volunteerApplicationId = $volunteerApplication->volunteer_id;
-        // dd($volunteerApplicationId);
+    
         $answers = $request->except('_token');
-
         $serializedAnswers = json_encode($answers);
-
-        VolunteerAnswers::create(['volunteer_id' => $volunteerApplicationId, 'answers' => $serializedAnswers]);
-
-        return redirect()->back()->with(['send_volunteer_form' => true]); 
+    
+        VolunteerAnswers::create([
+            'volunteer_id' => $volunteerApplicationId,
+            'answers' => $serializedAnswers
+        ]);
+    
+        return redirect()->back()->with(['send_volunteer_form' => true]);
     }
     public function showVolunteer(Request $request)
     {

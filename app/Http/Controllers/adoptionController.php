@@ -175,7 +175,7 @@ class adoptionController extends Controller
         ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
        
-        $pickup = SchedulePickup::with('schedule', 'application')
+        $schedulePickup = SchedulePickup::with('schedule', 'application')
         ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
 
@@ -204,10 +204,15 @@ class adoptionController extends Controller
                 if ($application) {
                     $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
 
-                    $schedule = $schedulepickup->schedule;
-
-                    if ($schedule) {
-                        $schedule->update(['schedule_status' => 'Accepted']);
+                    if ($schedulepickup) {
+                        $schedule = $schedulepickup->schedule;
+                    
+                        if ($schedule) {
+                            $schedule->update(['schedule_status' => 'Accepted']);
+                        }
+                    } else {
+                        // Handle the case where $schedulepickup is null
+                        return redirect()->back()->with(['error' => 'Schedule Pickup not found']);
                     }
                 }
 

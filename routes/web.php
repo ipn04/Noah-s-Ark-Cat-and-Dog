@@ -9,6 +9,7 @@ use App\Http\Controllers\PickupController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\VolunteerController;
+use App\Http\Controllers\RegisteredUserController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -85,15 +86,18 @@ Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middle
 
 /* admin`s routes */
 
-Route::patch('/admin/update-stage/{id}', [adoptionController::class, 'updateStage'])->name('admin.updateStage');
+Route::patch('/admin/update-stage/{id}', [adoptionController::class, 'updateStage'])->middleware(['auth', 'verified'])->name('admin.updateStage');
 
-Route::patch('/admin/wrap-interview/{id}', [adoptionController::class, 'wrapInterview'])->name('admin.wrap');
+Route::patch('/admin/wrap-interview/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'verified'])->name('admin.wrap');
 
-Route::patch('/admin/interview-stage/{id}', [adoptionController::class, 'interviewStage'])->name('admin.interviewStage');
+Route::patch('/admin/interview-stage/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'verified'])->name('admin.interviewStage');
 
-Route::patch('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->name('update.contract');
+Route::patch('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'verified'])->name('update.contract');
 
-Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContract'])->name('download.contract');
+Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContract'])->middleware(['auth', 'verified'])->name('download.contract');
+
+Route::get('/view/registered/user', [ProfileController::class, 'showRegisteredUsers'])->middleware(['auth', 'verified'])->name('view.users');
+
 
 // Route::get('/admin/volunteers', function () {
 //     return view('admin_contents.volunteers');

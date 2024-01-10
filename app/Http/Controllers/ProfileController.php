@@ -33,6 +33,12 @@ class ProfileController extends Controller
         ]);
     }
 
+    public function showRegisteredUsers() {
+        $showUsers = User::where('role', 'user')->get();
+
+        return view ('admin_contents.view_registered_users', compact('showUsers'));
+    }
+
     public function updateUserProfile(Request $request, $id)
     {
         // Validate incoming request data

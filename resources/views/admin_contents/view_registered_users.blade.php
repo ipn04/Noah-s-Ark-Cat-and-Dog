@@ -115,10 +115,10 @@
                                         <div class="text-base text-gray-500 ">{{ $user->email }}</div>
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        <div class="text-base text-gray-500 ">{{ $user->gender }}</div>
+                                        <div class="text-base capitalize text-gray-500 ">{{ $user->gender }}</div>
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        <div class="text-base text-gray-500 ">{{ $user->civil_status }}</div>
+                                        <div class="text-base capitalize text-gray-500 ">{{ $user->civil_status }}</div>
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-base text-gray-500 ">{{ $user->phone_number }}</div>

@@ -111,8 +111,6 @@
                                 </tr>
                             @endforeach
                         @else
-                            <!-- Handle case when $volunteer is empty or null -->
-                            No volunteer data availablesss.
                         @endif
                     </tbody>
                 </table> 

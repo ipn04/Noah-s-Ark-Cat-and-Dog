@@ -9,7 +9,7 @@ class VolunteerApplication extends Model
 {
     use HasFactory;
     protected $table = 'volunteer_application';
-    protected $primaryKey = 'volunteer_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = ['stage'];
     public function application()

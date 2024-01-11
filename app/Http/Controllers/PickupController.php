@@ -22,7 +22,7 @@ class PickupController extends Controller
         $schedule->schedule_status = 'Pending'; // Default value
         $schedule->save();
  
-        $schedID = $schedule->schedule_id;
+        $schedID = $schedule->id;
         
         $schedulePickup = new SchedulePickup();
         $schedulePickup->schedule_id = $schedID;

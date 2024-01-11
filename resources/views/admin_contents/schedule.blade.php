@@ -35,17 +35,6 @@
                     });
                 </script>
             @endif
-            @if(session('pet_deleted'))
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        swal(
-                            "You successfully deleted a pet!", 
-                            "Press 'OK' to exit!", 
-                            "success"
-                        )
-                    });
-                </script>
-            @endif
         </div>
 
         <div class="mx-auto max-w-screen-2xl px-4  lg:px-12">
@@ -166,9 +155,9 @@
                             @if($visit->schedule->schedule_status === 'Accepted')
                                 <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td scope="row" class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
-                                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/' . $visit->application->user->profile_image) }}" alt="Pet Image">
+                                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/' . $visit->user->profile_image) }}" alt="Pet Image">
                                         <div class="ps-2 flex flex-col">
-                                            <div class="text-lg lg:text-base">{{ $visit->application->user->firstname }} {{ $visit->application->user->name }}</div>
+                                            <div class="text-lg lg:text-base">{{ $visit->user->firstname }} {{ $visit->user->name }}</div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">

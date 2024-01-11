@@ -271,12 +271,26 @@
                         </x-primary-button>
 
                     </div>
+    
+                    
+
                     <div class="flex items-center justify-center mt-4">
 
 
 
                     </div>
 
+                </form>
+                <form method="POST" action="{{ route('delete.account') }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('DELETE')
+                    <div class=" gap-3">
+                    
+                        <x-primary-button class="" type="submit">
+                            {{ __('Delete Account') }}
+                        </x-primary-button>
+
+                    </div>
                 </form>
             </div>
             <div class = "flex justify-center">
@@ -287,7 +301,7 @@
                         <img class="h-32 w-32 object-cover rounded-full "
                             src='{{ asset('storage/' . Auth::user()->profile_image) }}' alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl">Czarina Cuarez</h1>
+                    <h1 class = "text-center font-bold text-2xl">{{ Auth::user()->firstname . ' ' . Auth::user()->name  }}</h1>
                     <div class = "pb-4">
                         <table class = "border-separate border-spacing-3">
                             <tr>

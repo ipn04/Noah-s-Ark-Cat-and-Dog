@@ -31,25 +31,25 @@ Route::get('/', function () {
 /* user`s routes */
 
 Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'user'])
     ->name('user.dashboard');
 
 
-Route::post('/send/volunteer_form', [VolunteerController::class, 'store'])->name('volunteer.form');
+Route::post('/send/volunteer_form', [VolunteerController::class, 'store'])->middleware(['auth', 'user'])->name('volunteer.form');
 
 
 // Route::get('/user/messages', function () {
 //     return view('user_contents.messages');
 // })->middleware(['auth', 'verified'])->name('user.messages');   
 
-Route::post('/schedule/interview', [InterviewController::class, 'store'])->name('schedule.interview');
+Route::post('/schedule/interview', [InterviewController::class, 'store'])->middleware(['auth', 'user'])->name('schedule.interview');
 
-Route::post('/schedule/pickup', [PickupController::class, 'store'])->name('schedule.pickup');
+Route::post('/schedule/pickup', [PickupController::class, 'store'])->middleware(['auth', 'user'])->name('schedule.pickup');
 
-Route::post('/schedule/visit', [VisitController::class, 'store'])->name('schedule.visit');
+Route::post('/schedule/visit', [VisitController::class, 'store'])->middleware(['auth', 'user'])->name('schedule.visit');
 
 Route::get('/user/messages', [MessageController::class, 'displayMessage'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'user'])
 ->name('user.messages');
 
 // Route::get('/inbox/messages', function () {
@@ -63,17 +63,17 @@ Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->m
 Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->name('messages.reply');
 
 Route::get('/user/progress/{petId}', [AdoptionController::class, 'adoptionProgress'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'user'])
     ->name('user.adoptionprogress');
 
 
-Route::get('/user/applications', [adoptionController::class, 'userApplication'])->middleware(['auth', 'verified'])->name('user.applications');   
+Route::get('/user/applications', [adoptionController::class, 'userApplication'])->middleware(['auth', 'user'])->name('user.applications');   
 
-Route::get('/user/pets/{petId}', [adoptionController::class, 'adoptPet'])->middleware(['auth', 'verified'])->name('user.pet');
+Route::get('/user/pets/{petId}', [adoptionController::class, 'adoptPet'])->middleware(['auth', 'user'])->name('user.pet');
 
-Route::post('/send/form/{petId}', [adoptionController::class, 'store'])->name('send.form');
+Route::post('/send/form/{petId}', [adoptionController::class, 'store'])->middleware(['auth', 'user'])->name('send.form');
 
-Route::get('/user/sendAdoption/{petId}', [PetDataController::class, 'sendAdoption'])->middleware(['auth', 'verified'])->name('user.adoption');
+Route::get('/user/sendAdoption/{petId}', [PetDataController::class, 'sendAdoption'])->middleware(['auth', 'user'])->name('user.adoption');
 
 // Route::get('/user/adoption_form', function () {
 //     return view('user_contents.adoptionform');
@@ -81,27 +81,27 @@ Route::get('/user/sendAdoption/{petId}', [PetDataController::class, 'sendAdoptio
 
 Route::get('/user/volunteer_form', function () {
     return view('user_contents.volunteerform');
-})->middleware(['auth', 'verified'])->name('user.volunteer');
+})->middleware(['auth', 'user'])->name('user.volunteer');
 
 // User send message 
 Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middleware(['auth', 'verified'])->name('messages.send');
 
 /* admin`s routes */
 
-Route::patch('/admin/update-stage/{id}', [adoptionController::class, 'updateStage'])->middleware(['auth', 'verified'])->name('admin.updateStage');
+Route::patch('/admin/update-stage/{id}', [adoptionController::class, 'updateStage'])->middleware(['auth', 'admin'])->name('admin.updateStage');
 
-Route::patch('/admin/wrap-interview/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'verified'])->name('admin.wrap');
+Route::patch('/admin/wrap-interview/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'admin'])->name('admin.wrap');
 
-Route::patch('/admin/interview-stage/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'verified'])->name('admin.interviewStage');
+Route::patch('/admin/interview-stage/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'admin'])->name('admin.interviewStage');
 
-Route::patch('/admin/pickup-stage/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'verified'])->name('admin.pickupStage');
+Route::patch('/admin/pickup-stage/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
 
 
-Route::patch('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'verified'])->name('update.contract');
+Route::patch('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'admin'])->name('update.contract');
 
 Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContract'])->middleware(['auth', 'verified'])->name('download.contract');
 
-Route::get('/view/registered/user', [ProfileController::class, 'showRegisteredUsers'])->middleware(['auth', 'verified'])->name('view.users');
+Route::get('/view/registered/user', [ProfileController::class, 'showRegisteredUsers'])->middleware(['auth', 'admin'])->name('view.users');
 
 
 // Route::get('/admin/volunteers', function () {
@@ -109,32 +109,32 @@ Route::get('/view/registered/user', [ProfileController::class, 'showRegisteredUs
 // })->middleware(['auth', 'verified'])->name('admin.volunteers');
 
 Route::get('/admin/volunteers', [VolunteerController::class, 'showVolunteer'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin'])
     ->name('admin.volunteers');
 
 Route::get('/admin/progress/{id}', [adoptionController::class, 'adminLoadProgress'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin'])
     ->name('admin.adoptionprogress');
 
 Route::get('/admin/dashboard', function () {
     return view('dashboards.admin_dashboard');
-})->middleware(['auth', 'verified'])->name('admin.dashboard');
+})->middleware(['auth', 'admin'])->name('admin.dashboard');
 
 Route::get('/admin/messages', function () {
     return view('admin_contents.messages');
-})->middleware(['auth', 'verified'])->name('admin.messages');
+})->middleware(['auth', 'admin'])->name('admin.messages');
 
 Route::get('/pet/management', [PetDataController::class, 'showPetManagement'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin'])
     ->name('admin.pet.management');
 
 Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgress'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin'])
     ->name('admin.adoptions');
 
 Route::get('/admin/reports', function () {
     return view('admin_contents.reports');
-})->middleware(['auth', 'verified'])->name('admin.reports');
+})->middleware(['auth', 'admin'])->name('admin.reports');
 
 // Route::get('/admin/adoptions', function () {
 //     return view('admin_contents.adoptions');
@@ -143,13 +143,13 @@ Route::get('/admin/reports', function () {
 
  Route::get('/user/volunteerprogress', function () {
      return view('user_contents.volunteer_progress');
-})->middleware(['auth', 'verified'])->name('user.volunteerprogress');
+})->middleware(['auth', 'user'])->name('user.volunteerprogress');
 
 
 // Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
 
 Route::get('/admin/schedule', [ScheduleController::class, 'view_schedule'])
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth', 'admin'])
     ->name('admin.schedule');
 
 Route::get('/admin/profile/{id}', [ProfileController::class, 'adminProfile'])->name('admin.profile');
@@ -195,6 +195,7 @@ Route::put('/pets/{id}', [PetDataController::class, 'update'])->middleware(['aut
 Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'verified'])->name('pets.delete');
 
 
+Route::delete('/delete-account', [ProfileController::class, 'deleteAccount'])->middleware('auth')->name('delete.account');
 
 // for search
 // Route::post('/pet/search', [PetDataController::class, 'search'])->middleware(['auth', 'verified'])->name('search');

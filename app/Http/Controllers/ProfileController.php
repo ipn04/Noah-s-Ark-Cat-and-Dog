@@ -138,4 +138,14 @@ class ProfileController extends Controller
 
         return Redirect::to('/');
     }
+    public function deleteAccount(Request $request): RedirectResponse
+    {
+        $user=auth()->user();
+
+        Auth::logout();
+
+        $user->delete();
+
+        return Redirect::to('/');
+    }
 }

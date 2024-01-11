@@ -753,7 +753,7 @@
                                   <img id="previewImage" class="hidden w-full mx-auto max-h-56 object-cover" alt="Image preview">
 
                                 </div>
-                                <button class="select-image bg-red-500 text-white w-full py-4 mt-4 rounded-lg bg-blue  font-semibold text-xl transition duration-300 hover:bg-dark-blue focus:outline-none">
+                                <button type="button" class="select-image bg-red-500 text-white w-full py-4 mt-4 rounded-lg bg-blue  font-semibold text-xl transition duration-300 hover:bg-dark-blue focus:outline-none">
                                   Select Image
                                 </button>
                               </div>

@@ -24,7 +24,7 @@ class adoptionController extends Controller
     {
         $userId = auth()->user()->id; // Get the authenticated user's ID
         $pet = Pet::find($petId);
-
+        // dd($petId);
         $application = new Application();
         $application->user_id = $userId; // Use the authenticated user's ID
         $application->application_type = "application_form";
@@ -33,7 +33,7 @@ class adoptionController extends Controller
         $applicationId = $application->id;
 
         $adoption = new Adoption();
-        $adoption['stage'] = '0';
+        $adoption->stage = 0;
         $adoption->pet_id = $petId; // Use the existing pet ID
         $adoption->application_id = $applicationId; // Set this to the application ID if applicable
         $adoption->save();
@@ -115,17 +115,17 @@ class adoptionController extends Controller
             dd($e);
         }
 
-        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true]);
+        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'petId' => $petId]);
     } 
-    public function adoptionProgress($adoptionAnswer = false)
+    public function adoptionProgress($petId, $adoptionAnswer = false)
     {
-        $userId = auth()->user()->id; // Get the authenticated user's ID
+        $userId = auth()->user()->id;
 
-        $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId) {
+        $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId, $petId) {
             $query->whereHas('application', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
-            });
-        })->with('adoption.pet')->first(); // Load the 'adoption' and 'pet' relationships
+            })->where('pet_id', $petId);
+        })->with('adoption.pet')->first();
 
         $stage = null;
         $adoption = null; 
@@ -175,7 +175,7 @@ class adoptionController extends Controller
 
         $userId = $adoptionAnswer->adoption->application->user->id;
         $stage = $adoptionAnswer->adoption->stage;
-    
+        
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
         ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
@@ -238,16 +238,16 @@ class adoptionController extends Controller
             return redirect()->back()->with('error', 'Pet not found');
         }
 
-        $user = User::with('adoption')->find(auth()->user()->id);
+        $user = User::with(['adoption' => function ($query) {
+            $query->orderByDesc('created_at')->first();
+        }])->find(auth()->user()->id);
 
-        // $hasSubmittedForm = AdoptionAnswer::whereHas('adoption.application', function ($query) use ($user) {
-        //     $query->where('user_id', $user->id);
-        // })->exists();
-
-        $isAllowedToAdoptAgain = $user->adoption->stage == 9;
-        // dd($user->adoption ? $user->adoption->stage : null, $isAllowedToAdoptAgain);
-        
-        return view('user_contents.petcontents', ['pets' => $pets, 'isAllowedToAdoptAgain' => $isAllowedToAdoptAgain,]);
+        $hasSubmittedForm = AdoptionAnswer::whereHas('adoption.application', function ($query) use ($user) {
+            $query->where('user_id', $user->id);
+        })->exists();
+        // dd($user->adoption ? $user->adoption->stage : null, $hasSubmittedForm);
+        // dd($petId, $user->id, $hasSubmittedForm);
+        return view('user_contents.petcontents', ['pets' => $pets, 'hasSubmittedForm' => $hasSubmittedForm, 'user' => $user]);
     }
 
     public function userApplication() {

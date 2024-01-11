@@ -62,7 +62,7 @@ Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->m
 // reply message in the inbox
 Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->name('messages.reply');
 
-Route::get('/user/progress', [AdoptionController::class, 'adoptionProgress'])
+Route::get('/user/progress/{petId}', [AdoptionController::class, 'adoptionProgress'])
     ->middleware(['auth', 'verified'])
     ->name('user.adoptionprogress');
 

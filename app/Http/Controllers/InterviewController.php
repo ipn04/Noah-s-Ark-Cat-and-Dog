@@ -23,7 +23,7 @@ class InterviewController extends Controller
         $schedule->schedule_status = 'Pending'; // Default value
         $schedule->save();
  
-        $schedID = $schedule->schedule_id;
+        $schedID = $schedule->id;
         
         $scheduleInterview = new ScheduleInterview();
         $scheduleInterview->schedule_id = $schedID;
@@ -32,13 +32,15 @@ class InterviewController extends Controller
         $scheduleInterview->time = $request->input('time');
         $scheduleInterview->save();
 
+        // Find the most recent adoption for the current user
         $adoption = Adoption::whereHas('application', function ($query) use ($currentUserId) {
             $query->where('user_id', $currentUserId);
-        })->first();
+        })->latest('created_at')->first();
 
-        $adoption->stage += 1; // Update 'stage' field in the Adoption model
-        $adoption->save();
-
+        if ($adoption) {
+            $adoption->stage += 1; // Increment 'stage' field
+            $adoption->save();
+        }
         return redirect()->back()->with(['send_schedule' => true]); 
     }
 }

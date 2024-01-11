@@ -94,6 +94,9 @@ Route::patch('/admin/wrap-interview/{id}', [adoptionController::class, 'wrapInte
 
 Route::patch('/admin/interview-stage/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'verified'])->name('admin.interviewStage');
 
+Route::patch('/admin/pickup-stage/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'verified'])->name('admin.pickupStage');
+
+
 Route::patch('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'verified'])->name('update.contract');
 
 Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContract'])->middleware(['auth', 'verified'])->name('download.contract');

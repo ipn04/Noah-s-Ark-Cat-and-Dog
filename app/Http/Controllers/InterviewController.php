@@ -15,7 +15,10 @@ class InterviewController extends Controller
     {
         $currentUserId = auth()->user()->id; // Change this to your actual way of getting the user ID
 
-        $application = Application::where('user_id', $currentUserId)->first();
+        $application = Application::where('user_id', $currentUserId)
+        ->latest('created_at') // Order by created_at in descending order
+        ->first();
+
 
         // Create a new schedule
         $schedule = new Schedule();

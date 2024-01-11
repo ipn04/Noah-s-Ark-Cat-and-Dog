@@ -29,15 +29,16 @@ class ScheduleController extends Controller
         $allInterviews = ScheduleInterview::with('schedule')->get();
 
         $acceptedVisits = $allVisits->filter(function ($visit) {
-            return $visit->schedule->schedule_status === 'Accepted';
+            return $visit->schedule && $visit->schedule->schedule_status === 'Accepted';
         });
     
         $acceptedPickups = $allPickups->filter(function ($pickup) {
-            return $pickup->schedule->schedule_status === 'Accepted';
+            return $pickup->schedule && $pickup->schedule->schedule_status === 'Accepted';
         });
+        
     
         $acceptedInterviews = $allInterviews->filter(function ($interview) {
-            return $interview->schedule->schedule_status === 'Accepted';
+            return $interview->schedule && $interview->schedule->schedule_status === 'Accepted';
         });
 
         return view('admin_contents.schedule', compact('visits', 'pickups', 'interviews', 'acceptedVisits', 'acceptedPickups', 'acceptedInterviews', 'interviewss'));

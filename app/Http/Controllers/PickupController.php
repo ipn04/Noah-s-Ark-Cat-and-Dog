@@ -14,8 +14,9 @@ class PickupController extends Controller
     {
     $currentUserId = auth()->user()->id; // Change this to your actual way of getting the user ID
 
-        $application = Application::where('user_id', $currentUserId)->first();
-
+        $application = Application::where('user_id', $currentUserId)
+        ->latest('created_at') // Order by created_at in descending order
+        ->first();
         // Create a new schedule
         $schedule = new Schedule();
         $schedule->schedule_type = 'Pickup'; // Default value
@@ -33,10 +34,12 @@ class PickupController extends Controller
 
         $adoption = Adoption::whereHas('application', function ($query) use ($currentUserId) {
             $query->where('user_id', $currentUserId);
-        })->first();
+        })->latest('created_at')->first();
 
-        $adoption->stage += 1; // Update 'stage' field in the Adoption model
-        $adoption->save();
+        if ($adoption) {
+            $adoption->stage += 1; // Increment 'stage' field
+            $adoption->save();
+        }
 
         return redirect()->back()->with(['send_schedule' => true]); 
     }

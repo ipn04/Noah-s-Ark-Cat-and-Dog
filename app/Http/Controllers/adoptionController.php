@@ -179,7 +179,7 @@ class adoptionController extends Controller
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
         ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
-       
+
         $schedulePickup = SchedulePickup::with('schedule', 'application')
         ->where('application_id', $adoptionAnswer->adoption->application_id)
         ->first();
@@ -204,22 +204,6 @@ class adoptionController extends Controller
 
                 $adoption->update(['stage' => $newStage]);
 
-                $application = $adoption->application;
-
-                if ($application) {
-                    $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
-
-                    if ($schedulepickup) {
-                        $schedule = $schedulepickup->schedule;
-                    
-                        if ($schedule) {
-                            $schedule->update(['schedule_status' => 'Accepted']);
-                        }
-                    } else {
-                        // Handle the case where $schedulepickup is null
-                        return redirect()->back()->with(['error' => 'Schedule Pickup not found']);
-                    }
-                }
 
                 return redirect()->back()->with(['updateStage' => true]);
             } else {
@@ -281,11 +265,55 @@ class adoptionController extends Controller
                 $newStage = $currentStage + 1;
     
                 $adoption->update(['stage' => $newStage]);
-    
+                $application = $adoption->application;
+
+                if ($application) {
+                    $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+
+                    $schedule = $scheduleInterview->schedule;
+
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Accepted']);
+                    }
+                }
+                
                 return redirect()->back()->with(['updateStage' => true]); 
             }
         }
     }
+
+    public function pickupStage($id)
+    {
+        $adoptionAnswer = AdoptionAnswer::find($id);
+
+        if ($adoptionAnswer) {
+            $adoption = $adoptionAnswer->adoption;
+    
+            if ($adoption) {
+                $currentStage = $adoption->stage;
+    
+                $newStage = $currentStage + 1;
+    
+                $adoption->update(['stage' => $newStage]);
+                $application = $adoption->application;
+
+                if ($application) {
+                    $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
+
+                    if ($schedulepickup) {
+                        $schedule = $schedulepickup->schedule;
+
+                        if ($schedule) {
+                            $schedule->update(['schedule_status' => 'Accepted']);
+                        }
+                    }
+                }
+                
+                return redirect()->back()->with(['updateStage' => true]); 
+            }
+        }
+    }
+
     public function wrapInterview($id)
     {
         $adoptionAnswer = AdoptionAnswer::find($id);
@@ -300,18 +328,6 @@ class adoptionController extends Controller
     
                 $adoption->update(['stage' => $newStage]);
 
-                $application = $adoption->application;
-
-                if ($application) {
-                    $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
-
-                    $schedule = $scheduleInterview->schedule;
-
-                    if ($schedule) {
-                        $schedule->update(['schedule_status' => 'Accepted']);
-                    }
-                }
-    
                 return redirect()->back()->with(['updateStage' => true]); 
             }
         }

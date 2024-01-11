@@ -13,7 +13,7 @@ class SchedulePickup extends Model
     
     public function schedule()
     {
-        return $this->belongsTo(Schedule::class, 'id'); 
+        return $this->belongsTo(Schedule::class, 'schedule_id'); 
     }
     public function application()
     {

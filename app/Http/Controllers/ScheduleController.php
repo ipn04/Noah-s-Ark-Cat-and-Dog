@@ -43,4 +43,20 @@ class ScheduleController extends Controller
 
         return view('admin_contents.schedule', compact('visits', 'pickups', 'interviews', 'acceptedVisits', 'acceptedPickups', 'acceptedInterviews', 'interviewss'));
     }
+    public function updateScheduleStatus(Request $request, $id)
+    {
+        // dd($id, $request->all());
+        $scheduleVisit = ScheduleVisit::where('visit_id', $id)->first();
+        // dd($scheduleVisit);
+        if ($scheduleVisit) {
+            // Update the schedule_status column
+            $scheduleVisit->schedule->update(['schedule_status' => 'Accepted']);
+
+            // Redirect or return a response as needed
+            return redirect()->back()->with(['success', 'Schedule status updated successfully', 'update_status' => true]);
+        }
+
+        // If no ScheduleVisit record is found for the user, handle accordingly
+        return redirect()->back()->with(['error', 'ScheduleVisit record not found for the user', 'update_status' => true]);
+    }
 }

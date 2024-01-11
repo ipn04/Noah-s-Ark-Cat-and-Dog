@@ -39,7 +39,7 @@
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <h1 class = "px-10 py-3 font-bold text-3xl lg:text-2xl text-center lg:text-left text-red-500 ">What can we do for
             you?</h1>
-        <div class = "lg:px-10 lg:py-5 grid  lg:grid-cols-4 grid-cols-1 gap-5 px-5 py-2 lg:gap-4 container">
+        <div class = "mx-auto lg:px-10 lg:py-5 grid  lg:grid-cols-4 grid-cols-1 gap-5 px-5 py-2 lg:gap-4 container">
             <div class="flex items-center justify-center">
                 <button
                     class="bg-white h-40 w-11/12 rounded-xl  py-5 px-10  shadow-md hover:shadow-lg hover:text-red-700 text-gray-500">

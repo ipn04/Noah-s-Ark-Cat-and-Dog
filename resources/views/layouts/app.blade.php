@@ -32,7 +32,8 @@
         bg-transparent
         @else
         bg-red-800
-        @endif dark:bg-gray-900">
+        @endif 
+        dark:bg-gray-900">
 
            
         </div>

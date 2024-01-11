@@ -1,8 +1,8 @@
 <x-app-layout>
     <x-slot name="title">Adoption Form Page</x-slot>
-    @include('admin_top_navbar.user_top_navbar')
+    @include('admin_top_navbar.admin_top_navbar')
 
-    @include('sidebars.user_sidebar')
+    @include('sidebars.admin_sidebar')
     @if ($errors->any())
         <script>
             var errorMessages = [];

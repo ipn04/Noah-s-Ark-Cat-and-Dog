@@ -24,22 +24,11 @@
                 </script>
             @endif
 
-            @if(session('pet_added'))
+            @if(session('update_status'))
                 <script>
                     document.addEventListener('DOMContentLoaded', function() {
                         swal(
                             "You successfully added a pet!", 
-                            "Press 'OK' to exit!", 
-                            "success"
-                        )
-                    });
-                </script>
-            @endif
-            @if(session('pet_deleted'))
-                <script>
-                    document.addEventListener('DOMContentLoaded', function() {
-                        swal(
-                            "You successfully deleted a pet!", 
                             "Press 'OK' to exit!", 
                             "success"
                         )
@@ -141,9 +130,9 @@
                             @if($visit->schedule->schedule_status === 'Accepted')
                                 <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td scope="row" class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
-                                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/' . $visit->application->user->profile_image) }}" alt="Pet Image">
+                                        <img class="w-10 h-10 rounded-full" src="{{ asset('storage/' . $visit->user->profile_image) }}" alt="Pet Image">
                                         <div class="ps-2 flex flex-col">
-                                            <div class="text-lg lg:text-base">{{ $visit->application->user->firstname }} {{ $visit->application->user->name }}</div>
+                                            <div class="text-lg lg:text-base">{{ $visit->user->firstname }} {{ $visit->user->name }}</div>
                                         </div>
                                     </td>                            
                                     <td class="px-6 py-4  hidden lg:table-cell">
@@ -470,6 +459,15 @@
                                             <path fill-rule="evenodd" clip-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
                                         </svg>
                                     </button>
+                                    <td class="items-center gap-1 hidden lg:table-cell">
+                                        <form method="POST" action="{{ route('update.schedule.status', ['id' => $visit->visit_id]) }}">
+                                            @csrf
+                                            @method('PUT')
+                                            <button type="submit" class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
+                                                Update Schedule
+                                            </button>
+                                        </form>
+                                    </td>
                                 </td>    
                             </tr>
                         @endforeach

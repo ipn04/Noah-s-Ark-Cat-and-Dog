@@ -18,7 +18,7 @@ class VisitController extends Controller
         $schedule->schedule_status = 'Pending'; 
         $schedule->save();
  
-        $schedID = $schedule->schedule_id;
+        $schedID = $schedule->id;
         
         $scheduleVisit = new ScheduleVisit();
         $scheduleVisit->schedule_id = $schedID;

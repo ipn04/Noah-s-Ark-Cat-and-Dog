@@ -16,4 +16,8 @@ class VolunteerApplication extends Model
     {
         return $this->belongsTo(Application::class, 'application_id'); 
     }
+    public function volunteerAnswers()
+    {
+        return $this->hasMany(VolunteerAnswers::class, 'volunteer_id', 'volunteer_id');
+    }
 }

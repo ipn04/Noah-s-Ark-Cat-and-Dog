@@ -35,7 +35,7 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])
     ->name('user.dashboard');
 
 
-Route::post('/send/volunteer_form', [VolunteerController::class, 'store'])->middleware(['auth', 'user'])->name('volunteer.form');
+Route::post('/send/volunteer_form/{id}', [VolunteerController::class, 'store'])->middleware(['auth', 'user'])->name('volunteer.form');
 
 
 // Route::get('/user/messages', function () {
@@ -141,12 +141,19 @@ Route::get('/admin/reports', function () {
 // })->middleware(['auth', 'verified'])->name('admin.adoptions');
 
 
- Route::get('/user/volunteerprogress', function () {
-     return view('user_contents.volunteer_progress');
-})->middleware(['auth', 'user'])->name('user.volunteerprogress');
+// Route::get('/user/volunteerprogress', function () {
+//      return view('user_contents.volunteer_progress');
+// })->middleware(['auth', 'user'])->name('user.volunteerprogress');
 
+Route::get('/user/volunteerprogress/{id}', [VolunteerController::class, 'UserVolunteerProgress'])
+    ->middleware(['auth', 'user'])
+    ->name('user.volunteerprogress');
+
+Route::get('/admin-volunteer-progress/{userId}', [VolunteerController::class, 'AdminVolunteerProgress'])->name('admin.volunteer.progress');
 
 // Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
+
+Route::put('/update-schedule-status/{id}', [ScheduleController::class, 'updateScheduleStatus'])->name('update.schedule.status');
 
 Route::get('/admin/schedule', [ScheduleController::class, 'view_schedule'])
     ->middleware(['auth', 'admin'])

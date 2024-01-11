@@ -20,4 +20,8 @@ class Adoption extends Model
     {
         return $this->belongsTo(Application::class); // Assuming an adoption belongs to an Application
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

@@ -11,12 +11,12 @@ class Application extends Model
     protected $table = 'application';
     protected $fillable = ['user_id', 'application_type']; // Fillable fields in the 'application' table
 
-    protected static function booted()
-    {
-        static::creating(function ($application) {
-            $application->application_type = 'application_form'; // Set default value for application_type
-        });
-    }
+    // protected static function booted()
+    // {
+    //     static::creating(function ($application) {
+    //         $application->application_type = 'application_form'; // Set default value for application_type
+    //     });
+    // }
     
     public function user()
     {
@@ -26,4 +26,9 @@ class Application extends Model
     {
         return $this->hasMany(ScheduleInterview::class);
     }
+    public function adoption()
+    {
+        return $this->hasOne(Adoption::class);
+    }
+
 }

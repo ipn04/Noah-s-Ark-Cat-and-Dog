@@ -14,6 +14,7 @@ use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
 use App\Models\VolunteerApplication;
 use App\Models\VolunteerAnswers;
+use App\Models\User;
 
 use Illuminate\Support\Str;
 
@@ -26,6 +27,7 @@ class adoptionController extends Controller
 
         $application = new Application();
         $application->user_id = $userId; // Use the authenticated user's ID
+        $application->application_type = "application_form";
         $application->save();
 
         $applicationId = $application->id;
@@ -235,11 +237,17 @@ class adoptionController extends Controller
         if(!$pets) {
             return redirect()->back()->with('error', 'Pet not found');
         }
-        $hasSubmittedForm = AdoptionAnswer::whereHas('adoption.application', function ($query) {
-            $query->where('user_id', auth()->user()->id);
-        })->exists();
 
-        return view('user_contents.petcontents', ['pets' => $pets, 'hasSubmittedForm' => $hasSubmittedForm]);
+        $user = User::with('adoption')->find(auth()->user()->id);
+
+        // $hasSubmittedForm = AdoptionAnswer::whereHas('adoption.application', function ($query) use ($user) {
+        //     $query->where('user_id', $user->id);
+        // })->exists();
+
+        $isAllowedToAdoptAgain = $user->adoption->stage == 9;
+        // dd($user->adoption ? $user->adoption->stage : null, $isAllowedToAdoptAgain);
+        
+        return view('user_contents.petcontents', ['pets' => $pets, 'isAllowedToAdoptAgain' => $isAllowedToAdoptAgain,]);
     }
 
     public function userApplication() {
@@ -256,7 +264,7 @@ class adoptionController extends Controller
         $volunteer = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })->with('volunteer_application.application')->get();
-            
+        // dd($volunteer); 
         return view('user_contents.applications', compact('answers', 'volunteer'));
     }
 

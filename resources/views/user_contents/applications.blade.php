@@ -89,18 +89,13 @@
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-base text-gray-500 ">{{ $vol->created_at }}</div>
                                     </td>
-                                    <td class="px-6 py-4   lg:table-cell">
+                                    <td class="px-6 py-4 lg:table-cell">
                                         <div class="text-base text-gray-500 ">
-                                            @if($answerData->adoption->application->application_type === 'application_form')
-                                            Adoption
-                                            @else
-                                                
-                                            @endif    
+                                            Volunteer
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 lg:table-cell">
                                         <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                            <p class="text-center"></p>
                                         </div>
                                         
                                     </td>

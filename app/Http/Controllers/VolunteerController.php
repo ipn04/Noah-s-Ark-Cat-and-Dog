@@ -20,6 +20,11 @@ class VolunteerController extends Controller
             return redirect()->back()->with(['already_submitted' => true]);
         }
 
+        $application = new Application();
+        $application->user_id = $currentUserId; // Use the authenticated user's ID
+        $application->application_type = 'application_volunteer';
+        $application->save();
+
         $volunteerApplication = new VolunteerApplication();
         $volunteerApplication->application_id = $currentUserId;
         $volunteerApplication->stage = '0'; 

@@ -60,4 +60,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+    public function application()
+    {
+        return $this->hasOne(Application::class);
+    }
+    public function adoption()
+    {
+        return $this->hasOneThrough(Adoption::class, Application::class, 'user_id', 'application_id');
+    }
 }

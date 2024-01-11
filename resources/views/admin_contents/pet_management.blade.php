@@ -645,7 +645,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form method="POST" action="{{ route('addPet') }}" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('addPet') }}" id="myForm" enctype="multipart/form-data">
                     @csrf
                     <div class="grid gap-4 mb-4 sm:grid-cols-2">
                         <div>
@@ -743,9 +743,24 @@
                     </div>
                     <div class="mb-4">
                         <span class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Pet Image</span>
-                        {{-- <div class="px-4 ">
-                            <div id="image-preview" class="max-w-sm max-h-64 p-4 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
-                                <input id="dropzone_file" name="dropzone_file" type="file" class="hidden" accept="image/*" />
+                        <div class="px-4 ">
+                            <div class="container bg-gray-50 max-w-md w-full mx-auto p-8 rounded-3xl">
+                                <input name="dropzone_file" id="dropzone_file" type="file" class="hidden" accept="image/*">
+                                <div class="img-area bg-gray-200 p-5 rounded-lg " data-img="">
+                                  <i class='bx bxs-cloud-upload icon text-6xl'></i>
+                                  <h3 class="text-2xl font-semibold mb-2">Upload Image</h3>
+                                  <p class="text-gray-600">Image size must be less than <span class="font-bold">2MB</span></p>
+                                  <img id="previewImage" class="hidden w-full mx-auto max-h-56 object-cover" alt="Image preview">
+
+                                </div>
+                                <button class="select-image bg-red-500 text-white w-full py-4 mt-4 rounded-lg bg-blue  font-semibold text-xl transition duration-300 hover:bg-dark-blue focus:outline-none">
+                                  Select Image
+                                </button>
+                              </div>
+
+                            {{-- <div id="image-preview" class="max-w-sm max-h-64 p-4 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
+                                <input name="dropzone_file" id="dropzone_file" type="file" class="hidden"
+                                    accept="image/*" />
                                 <label for="dropzone_file" class="cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-8 h-8 text-gray-700 mx-auto mb-4">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
@@ -755,10 +770,10 @@
                                     <p class="font-normal text-sm text-gray-400 md:px-6">and should be in <b class="text-gray-600">JPG, PNG, or GIF</b> format.</p>
                                     <span id="filename" class="text-gray-500 bg-gray-200 z-50"></span>
                                 </label>
-                            </div>
-                        </div> --}}
+                            </div> --}}
+                        </div>
                         {{-- IVAN PA CONNECT NALANG ITO HEHEHEHE AS BACKEND TY ILY --}}
-                        <div class="flex justify-center items-center w-full">
+                        {{-- <div class="flex justify-center items-center w-full">
                             <label for="dropzone_file"
                                 class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-gray-800 dark:bg-gray-700 hover:bg-gray-100 dark:border-gray-600 dark:hover:border-gray-500 dark:hover:bg-gray-600">
                                 <div class="flex flex-col justify-center items-center pt-5 pb-6">
@@ -778,7 +793,7 @@
                                     accept="image/*"
                                     onchange="document.getElementById('file-name-placeholder').innerText = this.files[0].name;">
                             </label>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="items-center space-y-4 sm:flex sm:space-y-0 sm:space-x-4">
                         <button type="submit"
@@ -903,7 +918,7 @@
                     </div>
                     <div class="hidden lg:grid grid-cols-2 gap-4 mt-6">
                         <button type="submit"
-                            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update
+                            class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Update
                             pet</button>
                         <button type="button"
                             class="text-red-600 inline-flex justify-center items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
@@ -1106,7 +1121,7 @@
         <div class="w-full mb-4">
             <img class="h-full w-full pet_image" alt="Pet Image">
         </div>
-        <div class="flex left-0 justify-center space-x-4 w-full">
+        {{-- <div class="flex left-0 justify-center space-x-4 w-full">
             @if ($pets->isNotEmpty())
                 <button type="button" data-drawer-target="drawer-update-product-{{ $pet->id }}"
                     data-drawer-show="drawer-update-product-{{ $pet->id }}"
@@ -1132,7 +1147,7 @@
                     Delete
                 </button>
             @else
-            @endif
+            @endif --}}
         </div>
     </div>
 

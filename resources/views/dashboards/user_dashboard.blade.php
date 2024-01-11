@@ -151,8 +151,8 @@
             <div class="lg:px-10 lg:py-5 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6 ">
                 @if ($pets->isNotEmpty())
                     @foreach ($pets as $pet)
-                        <a href=""
-                            class="h-fit w-full group shadow-xl rounded-lg user-pet-lists"
+                    <a href="{{ route('user.pet', $pet->id) }}"
+                        class="h-fit w-full group shadow-xl rounded-lg user-pet-lists"
                             data-name="{{ $pet->pet_name }}">
                             <div class="relative overflow-hidden hover:cursor-pointer">
                                 <img class="h-72 w-full rounded-xl object-cover"

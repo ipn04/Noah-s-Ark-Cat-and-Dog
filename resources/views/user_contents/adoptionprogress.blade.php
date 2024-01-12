@@ -134,7 +134,8 @@
                                 @elseif($stage == 3)
                                 bg-yellow-200 text-yellow-500
                                 @else
-                                text-gray-600 bg-gray-200 @endif">
+                                text-gray-600 bg-gray-200 @endif
+                                ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -157,7 +158,8 @@
                                 @elseif($stage == 4)
                                 bg-yellow-200 text-yellow-500
                                 @else
-                                text-gray-600 bg-gray-200 @endif">
+                                text-gray-600 bg-gray-200 @endif
+                                ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path fill-rule="evenodd"

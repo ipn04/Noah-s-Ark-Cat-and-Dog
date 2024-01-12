@@ -66,6 +66,8 @@ class VolunteerController extends Controller
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->get();
+
+
     
         return view('admin_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId]);
     }

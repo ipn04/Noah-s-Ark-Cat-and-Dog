@@ -45,8 +45,10 @@
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
                 <a href=""
                     class="
-                 
-                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md ">Cancel
+                    {{-- @if ($stage >= 5) hidden 
+                    @else
+                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif --}}
+                    ">Cancel
                     Application</a>
             </div>
         </div>
@@ -57,7 +59,12 @@
                     <div class = "flex items-center justify-center gap-2">
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
-                                text-gray-600 bg-gray-200 ">
+                                {{-- @if($answers->volunteer_application->stage == 0 && $answers->volunteer_application->stage <6)
+                                text-green-600
+                                @else
+                                text-gray-600 bg-gray-200 
+                                @endif --}}
+                                ">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="lg:w-8 lg:h-8 w-4 h-4">
                                 <path fill-rule="evenodd"
@@ -78,7 +85,10 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                    text-gray-600 bg-gray-200 ">
+                                {{-- @if ($stage > 0 && $stage < 6) bg-green-200 text-green-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif --}}
+                                 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -100,8 +110,12 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                 
-                                
-                                text-gray-600 bg-gray-200 ">
+                                {{-- @if ($stage > 2 && $stage < 6) bg-green-200 text-green-500
+                                @elseif($stage == 2)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif --}}
+                                 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -123,7 +137,13 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
                                 y-200
-                                bg-gray-200 text-gray-600 ">
+                                {{-- @if ($stage > 3 && $stage < 6) bg-green-200 text-green-500
+                                @elseif($stage == 3)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif --}}
+                                
+                                ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path
@@ -142,8 +162,12 @@
                         ">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  
-                                
-                                text-gray-600 bg-gray-200 ">
+                                {{-- @if ($stage > 4 && $stage < 6) bg-green-200 text-green-500
+                                @elseif($stage == 4)
+                                bg-yellow-200 text-yellow-500
+                                @else
+                                text-gray-600 bg-gray-200 @endif --}}
+                                ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
                                     <path fill-rule="evenodd"
@@ -160,7 +184,11 @@
             </div>
         </div>
 
-        <div class="flex hidden items-center py-5 px-10 justify-center        ">
+        <div class="  
+        {{-- @if ($stage == 3 ) flex items-center py-5 justify-center
+        @else
+        hidden @endif   --}}
+         ">
             <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-2xl">
                 <div class = "col-span-2 ">
 
@@ -237,7 +265,13 @@
         </div>
 
 
-        <div class="flex  items-center py-5 px-10 justify-center        ">
+        <div class="   
+        {{-- @if ($stage == 3 || $stage == 7) hidden 
+        @else 
+        flex items-center  py-5  px-10  justify-center
+         @endif     --}}
+          "
+         >
             <div class = "grid grid-cols-1 lg:grid-cols-2  gap-10 px-4 max-w-screen-lg lg:mt-12">
 
                     <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">

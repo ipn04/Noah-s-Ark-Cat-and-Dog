@@ -45,9 +45,9 @@
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
                 <a href=""
                     class="
-                    {{-- @if ($stage >= 5) hidden 
+                    @if ($stage >= 5) hidden 
                     @else
-                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif --}}
+                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif
                     ">Cancel
                     Application</a>
             </div>
@@ -59,11 +59,11 @@
                     <div class = "flex items-center justify-center gap-2">
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
-                                {{-- @if($answers->volunteer_application->stage == 0 && $answers->volunteer_application->stage <6)
-                                text-green-600
+                                @if($stage >= 0 && $stage <6)
+                                text-green-500 bg-green-200
                                 @else
                                 text-gray-600 bg-gray-200 
-                                @endif --}}
+                                @endif
                                 ">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="lg:w-8 lg:h-8 w-4 h-4">
@@ -85,9 +85,9 @@
                         <div class = "flex items-center justify-start lg:justify-center gap-2">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
-                                {{-- @if ($stage > 0 && $stage < 6) bg-green-200 text-green-500
+                                @if ($stage > 0 && $stage < 6) bg-green-200 text-green-500
                                 @else
-                                text-gray-600 bg-gray-200 @endif --}}
+                                text-gray-600 bg-gray-200 @endif
                                  ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
@@ -110,11 +110,11 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                 
-                                {{-- @if ($stage > 2 && $stage < 6) bg-green-200 text-green-500
+                                @if ($stage > 2 && $stage < 6) bg-green-200 text-green-500
                                 @elseif($stage == 2)
                                 bg-yellow-200 text-yellow-500
                                 @else
-                                text-gray-600 bg-gray-200 @endif --}}
+                                text-gray-600 bg-gray-200 @endif
                                  ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
@@ -137,11 +137,11 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
                                 y-200
-                                {{-- @if ($stage > 3 && $stage < 6) bg-green-200 text-green-500
+                                @if ($stage > 3 && $stage < 6) bg-green-200 text-green-500
                                 @elseif($stage == 3)
                                 bg-yellow-200 text-yellow-500
                                 @else
-                                text-gray-600 bg-gray-200 @endif --}}
+                                text-gray-600 bg-gray-200 @endif
                                 
                                 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -162,11 +162,11 @@
                         ">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  
-                                {{-- @if ($stage > 4 && $stage < 6) bg-green-200 text-green-500
+                                @if ($stage > 4 && $stage < 6) bg-green-200 text-green-500
                                 @elseif($stage == 4)
                                 bg-yellow-200 text-yellow-500
                                 @else
-                                text-gray-600 bg-gray-200 @endif --}}
+                                text-gray-600 bg-gray-200 @endif
                                 ">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                     class="lg:w-8 lg:h-8 w-4 h-4">
@@ -185,9 +185,9 @@
         </div>
 
         <div class="  
-        {{-- @if ($stage == 3 ) flex items-center py-5 justify-center
+        @if ($stage == 3 ) flex items-center py-5 justify-center
         @else
-        hidden @endif   --}}
+        hidden @endif  
          ">
             <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-2xl">
                 <div class = "col-span-2 ">
@@ -222,23 +222,23 @@
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
                                         <td class = "font-bold">Age</td>
-                                        <td>18</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">female</td>
+                                        <td class = "capitalize"></td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Phone</td>
-                                        <td class = "capitalize">09566216696</td>
+                                        <td class = "capitalize"></td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Email</td>
-                                        <td>czarinakrisel@gmail.com</td>
+                                        <td></td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Civil Status</td>
-                                        <td class = "capitalize">single</td>
+                                        <td class = "capitalize"></td>
                                     </tr>
 
                                     <tr>
@@ -266,49 +266,49 @@
 
 
         <div class="   
-        {{-- @if ($stage == 3 || $stage == 7) hidden 
+        @if ($stage == 3 || $stage == 7) hidden 
         @else 
         flex items-center  py-5  px-10  justify-center
-         @endif     --}}
+         @endif    
           "
          >
             <div class = "grid grid-cols-1 lg:grid-cols-2  gap-10 px-4 max-w-screen-lg lg:mt-12">
 
                     <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                         @if($userVolunteerAnswers)
-                            @foreach ($userVolunteerAnswers as $answers)
+                            {{-- @foreach ($userVolunteerAnswers as $answers) --}}
                                 <div
                                     class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                                    <img class="object-cover object-center w-32 h-32" src="{{ asset('storage/' . $answers->volunteer_application->application->user->profile_image) }}" alt='user profile'>
+                                    <img class="object-cover object-center w-32 h-32" src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}" alt='user profile'>
                                 </div>
                                 <h1 class = "text-center font-bold text-2xl py-2 capitalize">
-                                    {{ $answers->volunteer_application->application->user->firstname .' '.$answers->volunteer_application->application->user->name }}
+                                    {{ $userVolunteerAnswers->volunteer_application->application->user->firstname .' '.$userVolunteerAnswers->volunteer_application->application->user->name }}
                                 </h1>
                                 <div class = "pb-4">
                                     <table class = "border-separate border-spacing-3">
                                         <tr>
                                             <td class="font-bold">Birthday</td>
-                                            <td>{{ $answers->volunteer_application->application->user->birthday }}</td>
+                                            <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}</td>
                                         </tr>
                                         <tr>
                                             <td class="font-bold">Gender</td>
-                                            <td class="capitalize">{{ $answers->volunteer_application->application->user->gender }}</td>
+                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->gender }}</td>
                                         </tr>
                                         <tr>
                                             <td class="font-bold">Phone</td>
-                                            <td class="capitalize">{{ $answers->volunteer_application->application->user->phone_number }}</td>
+                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}</td>
                                         </tr>
                                         <tr>
                                             <td class="font-bold">Email</td>
-                                            <td>{{ $answers->volunteer_application->application->user->email }}</td>
+                                            <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}</td>
                                         </tr>
                                         <tr>
                                             <td class="font-bold">Civil Status</td>
-                                            <td class="capitalize">{{ $answers->volunteer_application->application->user->civil_status }}</td>
+                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}</td>
                                         </tr>
                                         <tr>
                                             <td class="font-bold">Address</td>
-                                            <td class="capitalize">{{ $answers->volunteer_application->application->user->region . ' ' . $answers->volunteer_application->application->user->province  . ' ' . $answers->volunteer_application->application->user->city  . ' ' . $answers->volunteer_application->application->user->barangay  . ' ' . $answers->volunteer_application->application->user->street}}</td>
+                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province  . ' ' . $userVolunteerAnswers->volunteer_application->application->user->city  . ' ' . $userVolunteerAnswers->volunteer_application->application->user->barangay  . ' ' . $userVolunteerAnswers->volunteer_application->application->user->street}}</td>
                                         </tr>
                                             
                                     </table>
@@ -316,7 +316,7 @@
                                        View Answers
                                     </x-primary-button>
                                 </div>
-                            @endforeach
+                            {{-- @endforeach --}}
                         @else
                             <p>No volunteer answers found.</p>
                         @endif
@@ -324,7 +324,100 @@
 
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                    @if ($stage === '1')
+                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button">
+                            Schedule Interview
+                        </button>
 
+
+                        <!-- Main modal -->
+                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div
+                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Schedule
+                                        </h3>
+                                        <button type="button"
+                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-toggle="crud-modal">
+                                            <svg class="w-3 h-3" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <form action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id] ) }}"
+                                        class="p-4 md:p-5" method="POST">
+                                        @csrf
+                                        <h1 class = " text-left  text-lg">Please state your interview availability and
+                                            start time.
+                                            Interviews are limited to <b>1 hour.</b>
+                                        </h1>
+                                        <p class = "text-xs  italic">Note that the administration will have the final
+                                            say on
+                                            whether or not to approve your proposed schedule.</p>
+                                        <div class="-mx-3  pt-3 flex flex-wrap">
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <div class="mb-5">
+                                                    <label for="date"
+                                                        class="mb-3 block text-base  font-bold text-[#07074D]">
+                                                        Date
+                                                    </label>
+                                                    <input type="date" name="date" id="date"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                </div>
+                                            </div>
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <div class="mb-5">
+                                                    <label for="time"
+                                                        class="mb-3 block text-base font-bold text-[#07074D]">
+                                                        Time
+                                                    </label>
+                                                    <input type="time" name="time" id="time"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4 mx-auto">
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                Submit
+                                            </button>
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
+                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                    viewBox="0 0 20 20">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endif
                 </div>
             </div>
 

@@ -126,7 +126,7 @@
                 </form>
             </div>
 
-            <div
+            <div 
                 class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
                     class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -144,6 +144,150 @@
                             d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
                     </svg>
                 </button>
+            </div>
+            <div id="filterDropdown" class="z-50 hidden py-1 px-3 bg-white rounded-lg shadow w-60 dark:bg-gray-700 right-0">
+                <div class="flex items-center justify-between pt-2">
+                    <h6 class="text-sm font-medium text-black dark:text-white">Filters</h6>
+                </div>
+                <div id="accordion-flush" data-accordion="collapse" data-active-classes="text-black dark:text-white"
+                    data-inactive-classes="text-gray-500 dark:text-gray-400">
+                    <h2 id="category-heading">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
+                            <span>Pet Type</span>
+                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </button>
+                    </h2>
+        
+                    <div id="category-body" class="hidden" aria-labelledby="category-heading">
+                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <input id="filter_dog" type="checkbox" value="Dog"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_dog"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Dog</label>
+                                </li>
+                                <li class="flex items-center">
+                                    <input id="filter_cat" type="checkbox" value="Cat"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_cat"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Cat</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <h2 id="gender-heading">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            data-accordion-target="#gender-body" aria-expanded="true" aria-controls="gender-body">
+                            <span>Pet Gender</span>
+                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </button>
+                    </h2>
+        
+                    <div id="gender-body" class="hidden" aria-labelledby="gender-heading">
+                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <input id="filter_male" type="checkbox" value="Male"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_male"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Male</label>
+                                </li>
+                                <li class="flex items-center">
+                                    <input id="filter_female" type="checkbox" value="Female"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_female"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Female</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <h2 id="vacStatus-heading">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            data-accordion-target="#vacStatus-body" aria-expanded="true" aria-controls="vacStatus-body">
+                            <span>Age</span>
+                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </button>
+                    </h2>
+        
+                    <div id="vacStatus-body" class="hidden" aria-labelledby="vacStatus-heading">
+                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <input id="filter_Fully_Vaccinated" type="checkbox" value="Fully Vaccinated"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_Fully_Vaccinated"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Fully
+                                        Vaccinated</label>
+                                </li>
+                                <li class="flex items-center">
+                                    <input id="filter_Not_Vaccinated" type="checkbox" value="Not Vaccinated"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_Not_Vaccinated"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Not
+                                        Vaccinated</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                    <h2 id="size-heading">
+                        <button type="button"
+                            class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
+                            data-accordion-target="#size-body" aria-expanded="true" aria-controls="size-body">
+                            <span>Pet Size</span>
+                            <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
+                                fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
+                            </svg>
+                        </button>
+                    </h2>
+        
+                    <div id="size-body" class="hidden" aria-labelledby="size-heading">
+                        <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
+                            <ul class="space-y-2">
+                                <li class="flex items-center">
+                                    <input id="filter_small" type="checkbox" value="Small"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_small"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Small</label>
+                                </li>
+                                <li class="flex items-center">
+                                    <input id="filter_medium" type="checkbox" value="Medium"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_medium"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Medium</label>
+                                </li>
+                                <li class="flex items-center">
+                                    <input id="filter_large" type="checkbox" value="Large"
+                                        class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500">
+                                    <label for="filter_large"
+                                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Large</label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+        
+                </div>
             </div>
         </div>
         {{-- tama --}}
@@ -284,10 +428,10 @@
                             </div>
                             <!-- Modal footer -->
                             <div
-                                class="flex items-center justify-end gap-3  p-4 md:p-5 border-t border-gray-200 rounded-b dark:border-gray-600">
-                                <button data-modal-hide="default-modal" type="button"
+                                class="grid grid-cols-2 gap-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                <button data-modal-hide="static-modal" type="button"
                                     class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-                                <button data-modal-hide="default-modal" type="submit"
+                                <button data-modal-hide="static-modal" type="submit"
                                     class="text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Schedule</button>
                             </div>
                         </div>

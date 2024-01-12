@@ -7,7 +7,7 @@ use App\Models\Schedule;
 use App\Models\ScheduleInterview;
 use App\Models\Application;
 use App\Models\Adoption;
-
+use App\Models\VolunteerAnswers;
 
 class InterviewController extends Controller
 {
@@ -45,5 +45,45 @@ class InterviewController extends Controller
             $adoption->save();
         }
         return redirect()->back()->with(['send_schedule' => true]); 
+    }
+    public function volunteerInterview(Request $request, $userId) 
+    {
+        try {
+            // Find the latest application for the user
+            $application = Application::where('user_id', $userId)
+                ->latest('created_at') 
+                ->firstOrFail();
+
+            // Create a new schedule
+            $schedule = new Schedule();
+            $schedule->schedule_type = 'Volunteer Interview'; 
+            $schedule->schedule_status = 'Pending'; 
+            $schedule->save();
+
+            // Create a new schedule interview
+            $scheduleInterview = new ScheduleInterview();
+            $scheduleInterview->schedule_id = $schedule->id;
+            $scheduleInterview->application_id = $application->id;
+            $scheduleInterview->date = $request->input('date');
+            $scheduleInterview->time = $request->input('time');
+            $scheduleInterview->save();
+
+            // Find the volunteer answers for the user
+            $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+                $query->where('id', $userId);
+            })->first();
+
+            // If answers are found, update the stage
+            if ($userVolunteerAnswers) {
+                $newStage = $userVolunteerAnswers->volunteer_application->stage + 1;
+
+                $userVolunteerAnswers->volunteer_application->update(['stage' => $newStage]);
+            }
+
+            return redirect()->back()->with(['send_schedule' => true]);
+        } catch (\Exception $e) {
+            // Handle any exceptions that might occur
+            return redirect()->back()->with(['error' => $e->getMessage()]);
+        }
     }
 }

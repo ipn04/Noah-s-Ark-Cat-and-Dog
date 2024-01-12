@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\VolunteerApplication;
 use App\Models\Application;
 use App\Models\VolunteerAnswers;
+use App\Models\ScheduleInterview;
 use App\Models\User;
 
 class VolunteerController extends Controller
@@ -56,19 +57,38 @@ class VolunteerController extends Controller
 
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ($user) {
             $query->where('user_id', $user->id);
-        })->get();
+        })->first();
         // dd($userVolunteerAnswers);
+        $stage = $userVolunteerAnswers->volunteer_application->stage;
 
-        return view('user_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id]);
+        return view('user_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage]);
     }
     public function AdminVolunteerProgress(Request $request, $userId)
     {
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
-        })->get();
+        })->first();
 
+        $scheduleInterview = ScheduleInterview::with('schedule', 'application')
+        ->where('application_id', $userVolunteerAnswers->volunteer_application->application_id)
+        ->first();
 
-    
-        return view('admin_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId]);
+        $stage = $userVolunteerAnswers->volunteer_application->stage;
+        $answers = json_decode($userVolunteerAnswers->answers, true);
+        return view('admin_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId, 'stage' => $stage, 'answers' => $answers, 'scheduleInterview' => $scheduleInterview]);
     }
+    public function updateVolunteerStage(Request $request, $userId)
+    {
+        $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->first();
+
+        if ($userVolunteerAnswers) {
+            $newStage = $userVolunteerAnswers->volunteer_application->stage + 1;
+
+            $userVolunteerAnswers->volunteer_application->update(['stage' => $newStage]);
+        }
+        return redirect()->back()->with(['volunteer_progress' => true]);
+    }
+    
 }

@@ -8,6 +8,8 @@ use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
 use App\Models\AdoptionAnswer;
 use App\Models\Schedule;
+use App\Models\VolunteerApplication;
+
 use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
@@ -52,11 +54,33 @@ class ScheduleController extends Controller
             // Update the schedule_status column
             $scheduleVisit->schedule->update(['schedule_status' => 'Accepted']);
 
-            // Redirect or return a response as needed
             return redirect()->back()->with(['success', 'Schedule status updated successfully', 'update_status' => true]);
         }
 
         // If no ScheduleVisit record is found for the user, handle accordingly
         return redirect()->back()->with(['error', 'ScheduleVisit record not found for the user', 'update_status' => true]);
+    }
+    public function updateScheduleForVolunteer(Request $request, $userId)
+    {   
+        $scheduleInterview = ScheduleInterview::whereHas('application.user', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->first();
+    
+        if ($scheduleInterview) {
+            // Update the status column in the related Schedule model
+            $scheduleInterview->schedule->update(['schedule_status' => 'Accepted']);
+            
+            $volunteerApplication = VolunteerApplication::where('application_id', $userId)->first();
+            dd($volunteerApplication);
+            if ($volunteerApplication) {
+                // Update the stage column in the related VolunteerApplication model
+                $newStage = $volunteerApplication->stage + 1;
+                $volunteerApplication->update(['stage' => $newStage]);
+    
+                return redirect()->back()->with(['success', 'Updates applied successfully', 'volunteer_progress' => true]);
+            }
+        }
+    
+        return redirect()->back()->with(['error', 'ScheduleInterview record not found', 'volunteer_progress' => true]);
     }
 }

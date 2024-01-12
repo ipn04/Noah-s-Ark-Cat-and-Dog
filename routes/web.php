@@ -96,8 +96,14 @@ Route::patch('/admin/interview-stage/{id}', [adoptionController::class, 'intervi
 
 Route::patch('/admin/pickup-stage/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
 
+Route::patch('/admin/volunteer/interview/{userId}', [ScheduleController::class, 'updateScheduleForVolunteer'])->middleware(['auth', 'admin'])->name('admin.volunter.interview.accept');
 
-Route::patch('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'admin'])->name('update.contract');
+Route::get('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'admin'])->name('update.contract');
+
+Route::patch('/admin/update/volunteer/progress/{userId}', [VolunteerController::class, 'updateVolunteerStage'])->middleware(['auth', 'admin'])->name('update.volunteer.progress');
+
+Route::post('/admin/update/volunteer/interview/{userId}', [InterviewController::class, 'volunteerInterview'])
+    ->name('update.volunteer.interview');
 
 Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContract'])->middleware(['auth', 'verified'])->name('download.contract');
 

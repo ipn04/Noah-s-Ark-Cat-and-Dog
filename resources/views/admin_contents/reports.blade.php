@@ -105,6 +105,25 @@
                             </div>
                         </div>
                     </div>
+                     <!-- Column 1 -->
+                     <div class="flex items-center justify-center p-6 bg-white shadow-md rounded-xl hover:shadow-lg">
+                        <div>
+                            <p class="text-gray-700 text-xl font-semibold">Shelter Visit Requests</p>
+                            <p class="text-red-500 text-5xl text-center font-bold">500</p>
+                            <div class="pt-3 flex items-center justify-center"> 
+                                <a href="" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">
+                                    Export to Excel
+                                </a>
+                                <a href="" class="bg-green-500 ml-1 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" data-slot="icon" class="w-6 h-6">
+                                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
+                                        <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                     </div>
+                    
                       <!-- Column 1 -->
                       <div class="flex items-center justify-center p-6 bg-white shadow-md rounded-xl hover:shadow-lg">
                         <div>
@@ -126,7 +145,7 @@
                      <!-- Column 1 -->
                      <div class="flex items-center justify-center p-6 bg-white shadow-md rounded-xl hover:shadow-lg">
                         <div>
-                            <p class="text-gray-700 text-xl font-semibold">Pets Available for Adoption</p>
+                            <p class="text-gray-700 text-xl  text-center font-semibold">Pets Information</p>
                             <p class="text-red-500 text-5xl text-center font-bold">500</p>
                             <div class="pt-3 flex items-center justify-center"> 
                                 <a href="" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">
@@ -144,7 +163,7 @@
                     <!-- Column 1 -->
                     <div class="flex items-center justify-center p-6 bg-white shadow-md rounded-xl hover:shadow-lg">
                         <div>
-                            <p class="text-gray-700 text-xl font-semibold">Pets Available for Adoption</p>
+                            <p class="text-gray-700 text-xl font-semibold">Registered User's Information</p>
                             <p class="text-red-500 text-5xl text-center font-bold">500</p>
                             <div class="pt-3 flex items-center justify-center"> 
                                 <a href="" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">
@@ -160,24 +179,6 @@
                         </div>
                      </div>
 
-                     <!-- Column 1 -->
-                     <div class="flex items-center justify-center p-6 bg-white shadow-md rounded-xl hover:shadow-lg">
-                        <div>
-                            <p class="text-gray-700 text-xl font-semibold">Pets Available for Adoption</p>
-                            <p class="text-red-500 text-5xl text-center font-bold">500</p>
-                            <div class="pt-3 flex items-center justify-center"> 
-                                <a href="" class="bg-yellow-500 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded-full">
-                                    Export to Excel
-                                </a>
-                                <a href="" class="bg-green-500 ml-1 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" data-slot="icon" class="w-6 h-6">
-                                        <path d="M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
-                                        <path fill-rule="evenodd" d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 0 1 0-1.113ZM17.25 12a5.25 5.25 0 1 1-10.5 0 5.25 5.25 0 0 1 10.5 0Z" clip-rule="evenodd" />
-                                    </svg>
-                                </a>
-                            </div>
-                        </div>
-                     </div>
                     
                     
             

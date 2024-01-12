@@ -238,7 +238,7 @@
 
 
         <div class="flex  items-center py-5 px-10 justify-center        ">
-            <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-2xl lg:mt-12">
+            <div class = "grid grid-cols-1 lg:grid-cols-2  gap-10 px-4 max-w-screen-lg lg:mt-12">
 
                     <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                         @if($userVolunteerAnswers)

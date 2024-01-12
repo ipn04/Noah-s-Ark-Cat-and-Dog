@@ -77,14 +77,26 @@
                                 <x-input-label for="fourth_question" :value="__('Select your weekly availability (in hours)')" />
                                 <x-select id="fourth_question" name="fourth_question" :value="old('fourth_question')" required
                                     autocomplete="fourth_question">
-                                    <option value="Less than 5 hours a week">Less than 5 hours a week</option>
+                                    <option value="Less than 5 hours">Less than 5 hours</option>
+                                    <option value="5-10 hours">5-10 hours</option>
+                                    <option value="10-15 hours">10-15 hours</option>
+                                    <option value="15-20 hours">15-20 hours</option>
+                                    <option value="20 or more hours">20 or more hours</option>
+
+
                                 </x-select>
                             </div>
                             <div class = "mt-2">
                                 <x-input-label for="fifth_question" :value="__('Select your areas of interest in volunteering:')" />
                                 <x-select id="fifth_question" name="fifth_question" :value="old('fifth_question')" required
                                     autocomplete="fifth_question">
-                                    <option value="Less than 5 hours a week">Less than 5 hours a week</option>
+                                    <option value="Animal Care">Animal Care</option>
+                                    <option value="Administrative Support">Administrative Support</option>
+                                    <option value="Fundraising (FunRun Events, Pet Adoption Drive, etc. )">Fundraising (FunRun Events, Pet Adoption Drive, etc. )</option>
+                                    <option value="Outreach and Education">Outreach and Education</option>
+                                    <option value="Public Materials ">Public Materials</option>
+                                    <option value="Social Media Managing ">Social Media Managing </option>
+
 
                                 </x-select>
                             </div>
@@ -106,16 +118,23 @@
                                 <x-input-label for="eight_question" :value="__('Select your preferred method of communication:')" />
                                 <x-select id="eight_question" name="eight_question" :value="old('eight_question')" required
                                     autocomplete="eight_question">
-                                    <option value="Friends">Friends</option>
-                                  
+                                    <option value="Email">Email</option>
+                                    <option value="Text Message">Text Message</option>
+                                    <option value="In-person meetings">In-person meetings</option>
+                                    <option value="Viber">Viber</option>
+                                    <option value="Messenger ">Messenger </option>
+
                                 </x-select>
                             </div>
                             <div class = "mt-2">
                                 <x-input-label for="ninth_question" :value="__('Select your availability for meetings or events:')" />
                                 <x-select id="ninth_question" name="ninth_question" :value="old('ninth_question')" required
                                     autocomplete="ninth_question">
-                                    <option value="Friends">Friends</option>
-                                  
+                                    <option value="Weekdays (9 AM - 5 PM)">Weekdays (9 AM - 5 PM)</option>
+                                    <option value="Evenings (5 PM - 9 PM)">Evenings (5 PM - 9 PM)</option>
+                                    <option value="Weekends">Weekends</option>
+                                    <option value="Flexible schedule">Flexible schedule</option>
+                                    <option value="Rarely available for meetings or events">Rarely available for meetings or event</option>  
                                 </x-select>
                             </div>
 

@@ -153,7 +153,7 @@ class adoptionController extends Controller
     public function adminAdoptionProgress($adoptionAnswer = false) {
         $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
         $adoptionCount = AdoptionAnswer::count();
-        $pendingStages = ['0', '1', '2', '3', '4', '5'];
+        $pendingStages = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
 
         $pendingAdoptionAnswerData = $adoptionAnswerData->filter(function ($adoptionAnswer) use ($pendingStages) {
             return in_array($adoptionAnswer->adoption->stage, $pendingStages);
@@ -217,7 +217,6 @@ class adoptionController extends Controller
     public function adoptPet($petId)
     {
         $pets = Pet::find($petId);
-
         if(!$pets) {
             return redirect()->back()->with('error', 'Pet not found');
         }
@@ -225,7 +224,7 @@ class adoptionController extends Controller
         $user = User::with(['adoption' => function ($query) {
             $query->orderByDesc('created_at')->first();
         }])->find(auth()->user()->id);
-
+        
         $hasSubmittedForm = AdoptionAnswer::whereHas('adoption.application', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->exists();
@@ -236,7 +235,8 @@ class adoptionController extends Controller
 
     public function userApplication() {
         $userId = auth()->user()->id; // Assuming you're using authentication and want to fetch data for the currently logged-in user
-
+        $totalApplicationsForUser = Application::where('user_id', $userId)->count();
+        
         $answers = AdoptionAnswer::with('adoption')
             ->whereHas('adoption', function ($query) use ($userId) {
                 $query->whereHas('application', function ($query) use ($userId) {
@@ -244,12 +244,28 @@ class adoptionController extends Controller
                 });
             })
             ->get();
-
+            // dd($answers);
+        $pendingApplicationForUser = $answers->filter(function ($adoptionAnswer) {
+            $pendingStages = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
+            return in_array($adoptionAnswer->adoption->stage, $pendingStages);
+        });
+    
+        $totalPendingApplicationsForUser = $pendingApplicationForUser->count();
+        $approvedApplicationForUser = $answers->where('adoption.stage', '9')->count();
+        $rejectedApplicationForUser = $answers->where('adoption.stage', '10')->count();
+        
         $volunteer = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ($userId) {
             $query->where('user_id', $userId);
         })->with('volunteer_application.application')->get();
-        // dd($volunteer); 
-        return view('user_contents.applications', compact('answers', 'volunteer'));
+
+        $pendingVolunteerApplicationForUser = $volunteer->filter(function ($adoptionAnswer) {
+            $pendingStages = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
+            return in_array($adoptionAnswer->volunteer_application->stage, $pendingStages);
+        });
+
+        $volunteerPending = $pendingVolunteerApplicationForUser->count();
+        $volunteerApproved = $volunteer->where('volunteer_application.stage', '9')->count();
+        return view('user_contents.applications', compact('answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved'));
     }
 
     public function interviewStage($id)

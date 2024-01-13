@@ -30,7 +30,7 @@
                             <p class="text-gray-500 text-sm">Since today</p>
                         </div>
                         <div class="ml-auto flex items-center">
-                            <p class="text-4xl font-bold text-red-500">5</p>
+                            <p class="text-4xl font-bold text-red-500">{{ $totalApplication }}</p>
                         </div>
                     </div>
 
@@ -49,7 +49,7 @@
                             <p class="text-gray-500 text-sm">Since today</p>
                         </div>
                         <div class="ml-auto flex items-center">
-                            <p class="text-4xl font-bold text-red-500">5</p>
+                            <p class="text-4xl font-bold text-red-500">{{ $availpet }}</p>
                         </div>
                     </div>
 
@@ -69,7 +69,7 @@
                             <p class="text-gray-500 text-sm">Since today</p>
                         </div>
                         <div class="ml-auto flex items-center">
-                            <p class="text-4xl font-bold text-red-500">5</p>
+                            <p class="text-4xl font-bold text-red-500">{{ $registered }}</p>
                         </div>
                     </div>
 
@@ -87,7 +87,7 @@
                             <div class = "flex justify-between">
                                 <div>
                                     Today's Shelter's Schedule
-                                    <p class="text-base text-gray-500 font-normal">December 03, 2023</p>
+                                    <p class="text-base text-gray-500 font-normal">{{ $formattedDate }}</p>
                                 </div>
                                 <button type="button"
                                     class="text-white shadow-md text-sm lg:text-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">View
@@ -106,109 +106,92 @@
                         </thead>
                         <tbody class="bg-white">
                             <tr>
-                                <td class="p-4">
-                                    <div class=" text-sm  text-center">Czarina Cuarez</div>
+                                @foreach ($schedules as $schedule)
+                                    <td class="p-4">
+                                        <div class=" text-sm  text-center">{{ $schedule->firstname }}
+                                            {{ $schedule->lastname }}</div>
 
-                                </td>
-                                <td class="p-2">
-                                    <div class=" text-sm text-center">Adoption</div>
+                                    </td>
+                                    <td class="p-2">
 
-                                </td>
-                                <td class="p-4">
-                                    <div class="  text-xs text-center">5:00 pm</div>
-                                </td>
-                                <td class="p-4  text-center">
-                                    <button type="button"
-                                        class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor" class="w-6 h-6">
-                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                            <path fill-rule="evenodd"
-                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
+                                    @if ($schedule->type == 'Interview')
+                                        @if ($schedule->application_type == 'application_form')
+                                                <div class=" text-sm text-center">Adoption Interview</div>
+                                            @else
+                                                <div class=" text-sm text-center">Volunteer Interview</div>
+                                        @endif
+                                    @elseif($schedule->type == 'Pickup')
+                                        <div class=" text-sm text-center">Pet Pickup</div>
+                                    @else
+                                        <div class=" text-sm text-center">Shelter Visit</div>
+                                    @endif
+                                    </td>
+                                    <td class="p-4">
+                                        @if ($schedule->type == 'Interview')
+                                       <p class = "text-sm text-center"> {{ \Carbon\Carbon::createFromFormat('H:i:s', $schedule->interview_time)->format('h:ia') }} </p>
 
-                                    </button>
+                                    @elseif($schedule->type == 'Pickup')
+                                    <p class = "text-sm text-center"> {{ \Carbon\Carbon::createFromFormat('H:i:s', $schedule->pickup_time)->format('h:ia') }} </p>                                    @else
+                                    <p class = "text-sm text-center"> {{ \Carbon\Carbon::createFromFormat('H:i:s', $schedule->visit_time)->format(' h:ia') }} </p>                                    @endif
+                                    </td>
+                                    <td class="p-4  text-center">
+                                            @if ($schedule->type == 'Interview')
+                                                @if ($schedule->interview_type == 'application_form')
+                                                    <a
+                                                        href="{{ route('admin.adoptionprogress', [$schedule->adoption_id]) }}">
+                                                        <button type="button"
+                                                            class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                                fill="currentColor" class="w-4 h-4 ">
+                                                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                            </svg>
+                                                        </button>
+                                                    @else
+                                                        <a
+                                                            href="{{ route('admin.volunteer.progress', [$schedule->interview_id]) }}">
+                                                            <button type="button"
+                                                                class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
+                                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                                    viewBox="0 0 24 24" fill="currentColor"
+                                                                    class="w-4 h-4 ">
+                                                                    <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                                    <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                        d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                                </svg>
+                                                            </button>
+                                                        </a>
+                                                @endif
+                                            @elseif($schedule->type == 'Pickup')
+                                                <a href="{{ route('admin.adoptionprogress', [$schedule->adoption_id]) }}">
+                                                    <button type="button"
+                                                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                            fill="currentColor" class="w-4 h-4 ">
+                                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                        </svg>
+                                                    </button>
+                                                </a>
+                                            @elseif($schedule->type == 'dsds')
+                                            @else
+                                                <button type="button" data-modal-target="default-modal"
+                                                    data-modal-toggle="default-modal"
+                                                    class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                        fill="currentColor" class="w-4 h-4 ">
+                                                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                    </svg> </button>
+                                            @endif
+    
+                                @endforeach
                                 </td>
                             </tr>
-                            <tr>
-                                <td class="p-4">
-                                    <div class=" text-sm  text-center">Czarina Cuarez</div>
 
-                                </td>
-                                <td class="p-2">
-                                    <div class=" text-sm text-center">Adoption</div>
-
-                                </td>
-                                <td class="p-4">
-                                    <div class="  text-xs text-center">5:00 pm</div>
-                                </td>
-                                <td class="p-4  text-center">
-                                    <button type="button"
-                                        class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor" class="w-6 h-6">
-                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                            <path fill-rule="evenodd"
-                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-4">
-                                    <div class=" text-sm  text-center">Czarina Cuarez</div>
-
-                                </td>
-                                <td class="p-2">
-                                    <div class=" text-sm text-center">Adoption</div>
-
-                                </td>
-                                <td class="p-4">
-                                    <div class="  text-xs text-center">5:00 pm</div>
-                                </td>
-                                <td class="p-4  text-center">
-                                    <button type="button"
-                                        class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor" class="w-6 h-6">
-                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                            <path fill-rule="evenodd"
-                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="p-4">
-                                    <div class=" text-sm  text-center">Czarina Cuarez</div>
-
-                                </td>
-                                <td class="p-2">
-                                    <div class=" text-sm text-center">Adoption</div>
-
-                                </td>
-                                <td class="p-4">
-                                    <div class="  text-xs text-center">5:00 pm</div>
-                                </td>
-                                <td class="p-4  text-center">
-                                    <button type="button"
-                                        class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-                                        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor" class="w-6 h-6">
-                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                            <path fill-rule="evenodd"
-                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                                                clip-rule="evenodd" />
-                                        </svg>
-
-                                    </button>
-                                </td>
-                            </tr>
 
                         </tbody>
                     </table>
@@ -304,6 +287,17 @@
                                     @if ($application->type == 'application_form')
                                         <a href = "{{ route('admin.adoptionprogress', $application->id) }}"
                                             class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
+                                            <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="w-6 h-6">
+                                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
+                                                    clip-rule="evenodd" />
+                                            </svg>
+                                        </a>
+                                    @else
+                                        <a href = "{{ route('admin.volunteer.progress', $application->id) }}"
+                                            class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
                                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                                 <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
@@ -312,17 +306,6 @@
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </a>
-                                    @else
-                                    <a href = "{{ route('admin.volunteer.progress', $application->id) }}"
-                                    class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
-                                    <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                        <path fill-rule="evenodd"
-                                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                </a>
                                     @endif
                                 </td>
                             </tr>

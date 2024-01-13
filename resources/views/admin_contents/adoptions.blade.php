@@ -204,7 +204,7 @@
                                         @endif  
                                     </td>
                                     <td class="items-center gap-1  hidden lg:table-cell">
-                                        <a href="{{ route('admin.adoptionprogress', ['id' => $adoptionAnswer->id]) }}" >
+                                        <a href="{{ route('admin.adoptionprogress', ['userId' => $adoptionAnswer->adoption->application->user_id, 'id' => $adoptionAnswer->adoption->application->id]) }}" >
                                             <button class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4 ">
                                                     <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />

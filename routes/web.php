@@ -64,7 +64,7 @@ Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->m
 // reply message in the inbox
 Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->name('messages.reply');
 
-Route::get('/user/progress/{petId}', [AdoptionController::class, 'adoptionProgress'])
+Route::get('/user/progress/{petId}/{applicationId}', [AdoptionController::class, 'adoptionProgress'])
     ->middleware(['auth', 'user'])
     ->name('user.adoptionprogress');
 
@@ -90,17 +90,19 @@ Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middle
 
 /* admin`s routes */
 
-Route::patch('/admin/update-stage/{id}', [adoptionController::class, 'updateStage'])->middleware(['auth', 'admin'])->name('admin.updateStage');
+Route::patch('/admin/update-stage/{userId}/{id}', [adoptionController::class, 'updateStage'])->middleware(['auth', 'admin'])->name('admin.updateStage');
 
-Route::patch('/admin/wrap-interview/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'admin'])->name('admin.wrap');
+Route::patch('/admin/wrap-interview/{userId}/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'admin'])->name('admin.wrap');
 
-Route::patch('/admin/interview-stage/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'admin'])->name('admin.interviewStage');
+Route::patch('/admin/interview-stage/{userId}/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'admin'])->name('admin.interviewStage');
 
-Route::patch('/admin/pickup-stage/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
+Route::patch('/admin/pickup-stage/{userId}/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
 
-Route::patch('/admin/volunteer/interview/{userId}', [ScheduleController::class, 'updateScheduleForVolunteer'])->middleware(['auth', 'admin'])->name('admin.volunter.interview.accept');
+Route::patch('/admin/volunteer/interview/{id}', [ScheduleController::class, 'updateScheduleForVolunteer'])->middleware(['auth', 'admin'])->name('admin.volunter.interview.accept');
 
-Route::get('/admin/update-contract/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'admin'])->name('update.contract');
+Route::patch('/admin/volunteer/add-stage/{id}', [ScheduleController::class, 'addStage'])->middleware(['auth', 'admin'])->name('volunteer.add.stage');
+
+Route::patch('/admin/update-contract/{user}/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'admin'])->name('update.contract');
 
 Route::patch('/admin/update/volunteer/progress/{userId}', [VolunteerController::class, 'updateVolunteerStage'])->middleware(['auth', 'admin'])->name('update.volunteer.progress');
 
@@ -120,7 +122,7 @@ Route::get('/admin/volunteers', [VolunteerController::class, 'showVolunteer'])
     ->middleware(['auth', 'admin'])
     ->name('admin.volunteers');
 
-Route::get('/admin/progress/{id}', [adoptionController::class, 'adminLoadProgress'])
+Route::get('/admin/progress/{userId}/{id}', [adoptionController::class, 'adminLoadProgress'])
     ->middleware(['auth', 'admin'])
     ->name('admin.adoptionprogress');
 

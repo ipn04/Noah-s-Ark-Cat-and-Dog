@@ -605,7 +605,7 @@
                     @else @endif">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <!-- Modal toggle -->
-                    @if ($stage === '1')
+                    @if ($stage === 1)
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                             type="button">
@@ -698,7 +698,7 @@
                                 </div>
                             </div>
                         </div>
-                    @elseif ($stage === '9')
+                    @elseif ($stage === 9)
                         <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
                             <button
                                 class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">

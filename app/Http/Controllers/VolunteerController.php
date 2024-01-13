@@ -68,11 +68,12 @@ class VolunteerController extends Controller
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->first();
-
+        
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
         ->where('application_id', $userVolunteerAnswers->volunteer_application->application_id)
         ->first();
-
+        
+        // dd($scheduleInterview);
         $stage = $userVolunteerAnswers->volunteer_application->stage;
         $answers = json_decode($userVolunteerAnswers->answers, true);
         return view('admin_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId, 'stage' => $stage, 'answers' => $answers, 'scheduleInterview' => $scheduleInterview]);

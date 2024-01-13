@@ -214,8 +214,7 @@
                 <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
                     later at 10:00 am</p>
                 <div class = "grid grid-cols-1 gap-2 py-2">
-                    <form action="#"
-                        method="POST">
+                    <form action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id]) }}" method="POST">
                         @csrf
                         @method('PATCH')
                         <button
@@ -501,14 +500,20 @@
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
                                             {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' .$userVolunteerAnswers->volunteer_application->application->user->name }}
                                             {{-- {{ $scheduleInterview->application->user->name }}</h3> --}}
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
-                                            {{ $scheduleInterview->date }}</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
-                                            {{ $scheduleInterview->time }}</h3>
+                                            @if($scheduleInterview)
+                                                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date: {{ $scheduleInterview->date }}</h3>
+                                            @else
+                                                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date: N/A</h3>
+                                            @endif
+                                            @if($scheduleInterview)
+                                                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date: {{ $scheduleInterview->time }}</h3>
+                                            @else
+                                                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date: N/A</h3>
+                                            @endif
                                         <!-- Modal footer -->
                                         <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
                                             <form
-                                                action="{{ route('admin.volunter.interview.accept', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id]) }}"
+                                                action="{{ route('admin.volunter.interview.accept', ['id' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('PATCH')

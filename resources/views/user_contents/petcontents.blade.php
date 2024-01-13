@@ -24,7 +24,7 @@
                     <div>
                         @if($user->adoption && (int)$user->adoption->stage === 9)
                             <!-- User is allowed to adopt again, show the link -->
-                            <a href="{{ route('user.adoption', $pets->id) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
+                            <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
                         @else
                             @if($hasSubmittedForm)
                                 <!-- User has a pending application, show a message and a link to check details -->
@@ -33,7 +33,7 @@
                                 {{-- <a href="{{ route('user.adoptionprogress', ['petId' => $pets->id]) }}">Check Details</a> --}}
                             @else
                                 <!-- No pending application, but adoption stage is not 9 -->
-                                <a href="{{ route('user.adoption', $pets->id) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
+                                <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
                             @endif
                         @endif
                     </div>

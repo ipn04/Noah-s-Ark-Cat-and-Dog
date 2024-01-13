@@ -50,48 +50,49 @@ class ScheduleController extends Controller{
 
     public function view_schedule(){
         $schedules = DB::table('schedules')
-    ->leftJoin('schedule_interviews', 'schedules.id', '=', 'schedule_interviews.schedule_id')
-    ->leftJoin('schedule_pickup', 'schedules.id', '=', 'schedule_pickup.schedule_id')
-    ->leftJoin('schedule_visit', 'schedules.id', '=', 'schedule_visit.schedule_id')
-    ->leftJoin('users as visit_users', 'schedule_visit.user_id', '=', 'visit_users.id')
-    ->leftJoin('application as applications', function ($join) {
-        $join->on('schedule_pickup.application_id', '=', 'applications.id')
-            ->orOn('schedule_interviews.application_id', '=', 'applications.id');
-            
-    })
-    ->leftJoin('adoption as adopt', 'applications.id', '=', 'adopt.application_id')
-    ->leftJoin('volunteer_application as volunteer', 'applications.id', '=', 'volunteer.application_id')
+        ->leftJoin('schedule_interviews', 'schedules.id', '=', 'schedule_interviews.schedule_id')
+        ->leftJoin('schedule_pickup', 'schedules.id', '=', 'schedule_pickup.schedule_id')
+        ->leftJoin('schedule_visit', 'schedules.id', '=', 'schedule_visit.schedule_id')
+        ->leftJoin('users as visit_users', 'schedule_visit.user_id', '=', 'visit_users.id')
+        ->leftJoin('application as applications', function ($join) {
+            $join->on('schedule_pickup.application_id', '=', 'applications.id')
+                ->orOn('schedule_interviews.application_id', '=', 'applications.id');
+                
+        })
+        ->leftJoin('adoption as adopt', 'applications.id', '=', 'adopt.application_id')
+        ->leftJoin('volunteer_application as volunteer', 'applications.id', '=', 'volunteer.application_id')
 
-    ->leftJoin('users as application_users', function ($join) {
-        $join->on('applications.user_id', '=', 'application_users.id')
-            ->orOn('applications.user_id', '=', 'application_users.id')
-            ->orOn('visit_users.id', '=', 'application_users.id');
-    })
-    ->select(
-        'schedules.schedule_status as schedule_status',
-        'schedules.schedule_type as schedule_type',
-        'schedule_interviews.application_id as interview_application_id',
-        'schedule_pickup.application_id as pickup_application_id',
-        'application_users.firstname as firstname',
-        'application_users.name as lastname',
-        'application_users.profile_image as image',
-        'schedule_interviews.date as schedule_date',
-        'schedule_interviews.time as schedule_time',
-        'schedule_pickup.date as pickup_date',
-        'schedule_pickup.time as pickup_time',
-        'schedule_visit.date as visit_date',
-        'schedule_visit.time as visit_time',
-        'applications.application_type as interview_type',
-        'applications.application_type as pickup_type',
-        'applications.id as interview_id',
-        'schedule_visit.visit_id as visit_id',
-        'adopt.id as adoption_id',
-        'volunteer.id as volunteer_id'
+        ->leftJoin('users as application_users', function ($join) {
+            $join->on('applications.user_id', '=', 'application_users.id')
+                ->orOn('applications.user_id', '=', 'application_users.id')
+                ->orOn('visit_users.id', '=', 'application_users.id');
+        })
+        ->select(
+            'schedules.schedule_status as schedule_status',
+            'schedules.schedule_type as schedule_type',
+            'schedule_interviews.application_id as interview_application_id',
+            'schedule_pickup.application_id as pickup_application_id',
+            'application_users.firstname as firstname',
+            'application_users.name as lastname',
+            'application_users.profile_image as image',
+            'schedule_interviews.date as schedule_date',
+            'schedule_interviews.time as schedule_time',
+            'schedule_pickup.date as pickup_date',
+            'schedule_pickup.time as pickup_time',
+            'schedule_visit.date as visit_date',
+            'schedule_visit.time as visit_time',
+            'applications.application_type as interview_type',
+            'applications.application_type as pickup_type',
+            'applications.id as interview_id',
+            'schedule_visit.visit_id as visit_id',
+            'adopt.id as adoption_id',
+            'volunteer.id as volunteer_id',
+            'application_users.id as user_id',
 
-    )
-    ->get();
+        )
+        ->get();
 
-return view('admin_contents.schedule', ['schedules' => $schedules]);
+    return view('admin_contents.schedule', ['schedules' => $schedules]);
 
     }
    
@@ -111,17 +112,17 @@ return view('admin_contents.schedule', ['schedules' => $schedules]);
         // If no ScheduleVisit record is found for the user, handle accordingly
         return redirect()->back()->with(['error', 'ScheduleVisit record not found for the user', 'update_status' => true]);
     }
-    public function updateScheduleForVolunteer(Request $request, $userId)
+    public function updateScheduleForVolunteer(Request $request, $id)
     {   
-        $scheduleInterview = ScheduleInterview::whereHas('application.user', function ($query) use ($userId) {
-            $query->where('id', $userId);
+        $scheduleInterview = ScheduleInterview::whereHas('application', function ($query) use ($id) {
+            $query->where('id', $id);
         })->first();
-    
+        // dd($scheduleInterview);
         if ($scheduleInterview) {
             // Update the status column in the related Schedule model
             $scheduleInterview->schedule->update(['schedule_status' => 'Accepted']);
             
-            $volunteerApplication = VolunteerApplication::where('application_id', $userId)->first();
+            $volunteerApplication = VolunteerApplication::where('application_id', $id)->first();
             if ($volunteerApplication) {
                 // Update the stage column in the related VolunteerApplication model
                 $newStage = $volunteerApplication->stage + 1;
@@ -131,6 +132,20 @@ return view('admin_contents.schedule', ['schedules' => $schedules]);
             }
         }
     
+        return redirect()->back()->with(['error', 'ScheduleInterview record not found', 'volunteer_progress' => true]);
+    }
+    public function addStage(Request $request, $id)
+    {   
+        $volunteerApplication = VolunteerApplication::where('application_id', $id)->first();
+        
+        if ($volunteerApplication) {
+            // Update the stage column in the related VolunteerApplication model
+            $newStage = $volunteerApplication->stage + 1;
+            $volunteerApplication->update(['stage' => $newStage]);
+
+            return redirect()->back()->with(['success', 'Updates applied successfully', 'volunteer_progress' => true]);
+        }
+
         return redirect()->back()->with(['error', 'ScheduleInterview record not found', 'volunteer_progress' => true]);
     }
 }

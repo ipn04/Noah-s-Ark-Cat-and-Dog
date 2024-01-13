@@ -10,7 +10,8 @@ class ScheduleInterview extends Model
     use HasFactory;
     protected $table = 'schedule_interviews';
     protected $primaryKey = 'interview_id';
-    
+    protected $fillable = ['date', 'time', 'room'];
+
     public function schedule()
     {
         return $this->belongsTo(Schedule::class, 'schedule_id'); 

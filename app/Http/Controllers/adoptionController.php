@@ -15,6 +15,7 @@ use App\Models\ScheduleVisit;
 use App\Models\VolunteerApplication;
 use App\Models\VolunteerAnswers;
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Str;
 
@@ -115,9 +116,9 @@ class adoptionController extends Controller
             dd($e);
         }
 
-        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'petId' => $petId]);
+        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'petId' => $petId, 'applicationId' => $applicationId]);
     } 
-    public function adoptionProgress($petId, $adoptionAnswer = false)
+    public function adoptionProgress($petId, $applicationId, $adoptionAnswer = false)
     {
         $userId = auth()->user()->id;
 
@@ -148,7 +149,6 @@ class adoptionController extends Controller
             'adoption_answer' => $adoptionAnswer, 
             'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview
         ]);
-
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {
         $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
@@ -170,19 +170,24 @@ class adoptionController extends Controller
         return view('admin_contents.adoptions', compact('adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers'));
     }   
 
-    public function adminLoadProgress($id) {
-        $adoptionAnswer = AdoptionAnswer::find($id);
+    public function adminLoadProgress($userId, $id) {
+        $adoptionAnswer = Application::where('user_id', $userId)->findOrFail($id);
 
-        $userId = $adoptionAnswer->adoption->application->user->id;
-        $stage = $adoptionAnswer->adoption->stage;
-        
+        // Find the specific adoption for the application
+        $adoption = Adoption::where('application_id', $adoptionAnswer->id)->firstOrFail();
+    
+        $stage = $adoption->stage;
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
-        ->where('application_id', $adoptionAnswer->adoption->application_id)
-        ->first();
+            ->where('application_id', $adoptionAnswer->id)
+            ->first();
 
         $schedulePickup = SchedulePickup::with('schedule', 'application')
-        ->where('application_id', $adoptionAnswer->adoption->application_id)
-        ->first();
+            ->where('application_id', $adoptionAnswer->id)
+            ->first();
+
+        // if (!$scheduleInterview && !$schedulePickup) {
+        //     return redirect()->back()->with(['error' => 'Schedule not found']);
+        // }
 
         return view('admin_contents.adoptionprogress', [
             'adoptionAnswer' => $adoptionAnswer,
@@ -190,27 +195,25 @@ class adoptionController extends Controller
             'userId' => $userId,
             'scheduleInterview' => $scheduleInterview,
             'schedulePickup' => $schedulePickup,
+            'adoption' => $adoption,
         ]);
     } 
-    public function updateStage($id)
+    public function updateStage($userId, $id)
     {
-        $adoptionAnswer = AdoptionAnswer::find($id);
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+            ->where('adoption.application_id', $id)
+            ->where('application.user_id', $userId)
+            ->first();
 
         if ($adoptionAnswer) {
-            $adoption = $adoptionAnswer->adoption;
+            // Increment the stage directly
+            DB::table('adoption')
+            ->where('application_id', $id)
+            ->update(['stage' => \DB::raw('stage + 1')]);
 
-            if ($adoption) {
-                $newStage = $adoption->stage + 1;
-
-                $adoption->update(['stage' => $newStage]);
-
-
-                return redirect()->back()->with(['updateStage' => true]);
-            } else {
-                return redirect()->back()->with(['error' => 'Adoption not found']);
-            }
+            return redirect()->back()->with(['updateStage' => true]);
         } else {
-            return redirect()->back()->with(['error' => 'AdoptionAnswer not found']);
+            return redirect()->back()->with(['error' => 'Application not found']);
         }
     }
 
@@ -268,119 +271,123 @@ class adoptionController extends Controller
         return view('user_contents.applications', compact('answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved'));
     }
 
-    public function interviewStage($id)
+    public function interviewStage($userId, $id)
     {
-        $adoptionAnswer = AdoptionAnswer::find($id);
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+            ->where('adoption.application_id', $id)
+            ->where('application.user_id', $userId)
+            ->first();
 
         if ($adoptionAnswer) {
-            $adoption = $adoptionAnswer->adoption;
-    
-            if ($adoption) {
-                $currentStage = $adoption->stage;
-    
-                $newStage = $currentStage + 1;
-    
-                $adoption->update(['stage' => $newStage]);
-                $application = $adoption->application;
+            DB::table('adoption')
+                ->where('application_id', $id)
+                ->update(['stage' => \DB::raw('stage + 1')]);
 
-                if ($application) {
-                    $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+            $application = $adoptionAnswer->application;
 
+            if ($application) {
+                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+
+                if ($scheduleInterview) { // Check if $scheduleInterview is not null
                     $schedule = $scheduleInterview->schedule;
 
                     if ($schedule) {
                         $schedule->update(['schedule_status' => 'Accepted']);
                     }
+                } else {
+                    // Handle the case when scheduleInterview is not found
+                    // You might want to log or handle this situation appropriately
                 }
-                
-                return redirect()->back()->with(['updateStage' => true]); 
             }
+
+            return redirect()->back()->with(['updateStage' => true]);
         }
+
+        // Handle the case when the record is not found
+        return redirect()->back()->with(['updateStage' => false]);
     }
 
-    public function pickupStage($id)
+    
+
+    public function pickupStage($userId, $id)
     {
-        $adoptionAnswer = AdoptionAnswer::find($id);
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+        ->where('adoption.application_id', $id)
+        ->where('application.user_id', $userId)
+        ->first();
 
         if ($adoptionAnswer) {
-            $adoption = $adoptionAnswer->adoption;
-    
-            if ($adoption) {
-                $currentStage = $adoption->stage;
-    
-                $newStage = $currentStage + 1;
-    
-                $adoption->update(['stage' => $newStage]);
-                $application = $adoption->application;
+            DB::table('adoption')
+            ->where('application_id', $id)
+            ->update(['stage' => \DB::raw('stage + 1')]);
+            $application = $adoptionAnswer->application;
+            if ($application) {
+                $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
+                if ($schedulepickup) {
+                    $schedule = $schedulepickup->schedule;
 
-                if ($application) {
-                    $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
-
-                    if ($schedulepickup) {
-                        $schedule = $schedulepickup->schedule;
-
-                        if ($schedule) {
-                            $schedule->update(['schedule_status' => 'Accepted']);
-                        }
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Accepted']);
                     }
-                }
-                
+                }   
                 return redirect()->back()->with(['updateStage' => true]); 
             }
         }
     }
 
-    public function wrapInterview($id)
+    public function wrapInterview($userId, $id)
     {
-        $adoptionAnswer = AdoptionAnswer::find($id);
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+            ->where('adoption.application_id', $id)
+            ->where('application.user_id', $userId)
+            ->first();
 
         if ($adoptionAnswer) {
-            $adoption = $adoptionAnswer->adoption;
-    
-            if ($adoption) {
-                $currentStage = $adoption->stage;
-    
-                $newStage = $currentStage + 1;
-    
-                $adoption->update(['stage' => $newStage]);
+            // Increment the stage directly
+            DB::table('adoption')
+            ->where('application_id', $id)
+            ->update(['stage' => \DB::raw('stage + 1')]);
 
-                return redirect()->back()->with(['updateStage' => true]); 
-            }
+            return redirect()->back()->with(['updateStage' => true]);
+        } else {
+            return redirect()->back()->with(['error' => 'Application not found']);
         }
     }
-    public function updateContract(Request $request, $id)
+    public function updateContract(Request $request, $userId, $id)
     {
         if (!Storage::exists('public/contracts')) {
             Storage::makeDirectory('public/contracts');
-        }   
-        $adoptionAnswer = AdoptionAnswer::find($id);
-        
-        if ($adoptionAnswer) {
-            $adoption = $adoptionAnswer->adoption;
+        }
+    
+        // Find the Adoption record directly
+        $adoption = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+            ->where('adoption.application_id', $id)
+            ->where('application.user_id', $userId)
+            ->first();
             
-            if ($adoption) {
-                if ($request->hasFile('contract_file')) {
-                    $file = $request->file('contract_file');
-                    
-                    $filePath = $file->store('contracts', 'public');
-    
-                    $adoption->contract = $filePath;
-                    $adoption->save();
-                    
-                    $adoption->stage++;
-                    $adoption->save();
-
-                    return redirect()->back()->with(['updateStage' => true]); 
-                }
-    
-                return redirect()->back()->with(['updateStage' => true]); 
+        if ($adoption) {
+            // Using DB::table for direct update
+            
+            if ($request->hasFile('contract_file')) {
+                $file = $request->file('contract_file');
+                $filePath = $file->store('contracts', 'public');
+                
+                DB::table('adoption')
+                ->where('application_id', $id)
+                ->update([
+                    'contract' => $filePath,
+                    'stage' => DB::raw('`stage` + 1'), // Increment the stage directly
+                ]);
+                
+                return redirect()->back()->with(['updateStage' => true]);
             }
     
-            return redirect()->back()->with(['updateStage' => true]); 
+            return redirect()->back()->with(['updateStage' => true]);
         }
-
-        return redirect()->back()->with(['updateStage' => true]); 
+    
+        return redirect()->back()->with(['updateStage' => true]);
     }
+
     public function downloadContract($id)
     {
         $adoption = Adoption::find($id);

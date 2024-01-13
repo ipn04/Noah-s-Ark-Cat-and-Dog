@@ -284,8 +284,11 @@
                                     <div class="  text-sm text-center">{{ $application->update }}</div>
                                 </td>
                                 <td class="p-4  text-center">
-                                    @if ($application->type == 'application_form')
-                                        <a href = "{{ route('admin.adoptionprogress', $application->id) }}"
+
+                                    {{-- comment ko muna kase nag kaka error sa'ken --}}
+                                    {{-- ginawa ko na kase reference both application and user io --}}
+                                    {{-- @if ($application->type == 'application_form')
+                                        <a href = "{{ route('admin.adoptionprogress', ['userId' => $application->user_id, 'id' => $application->id]) }}"
                                             class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
                                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                 fill="currentColor" class="w-6 h-6">
@@ -296,7 +299,7 @@
                                             </svg>
                                         </a>
                                     @else
-                                        <a href = "{{ route('admin.volunteer.progress', $application->id) }}"
+                                        <a href = "{{ route('admin.volunteer.progress', ['userId' => $application->user_id, 'id' => $application->id])  }}"
                                             class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
                                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
@@ -306,7 +309,7 @@
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </a>
-                                    @endif
+                                    @endif --}}
                                 </td>
                             </tr>
                         @endforeach

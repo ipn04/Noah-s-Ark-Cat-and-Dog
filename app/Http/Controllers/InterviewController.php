@@ -56,7 +56,7 @@ class InterviewController extends Controller
 
             // Create a new schedule
             $schedule = new Schedule();
-            $schedule->schedule_type = 'Volunteer Interview'; 
+            $schedule->schedule_type = 'Interview'; 
             $schedule->schedule_status = 'Pending'; 
             $schedule->save();
 

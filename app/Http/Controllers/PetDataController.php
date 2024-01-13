@@ -18,9 +18,15 @@ class PetDataController extends Controller
         $petCount = Pet::count();
         $availpet = Pet::where('adoption_status', 'available')->count(); // Get the count of cats
         $dogCount = Pet::where('pet_type', 'dog')->count();
+        $dogCount = Pet::where('pet_type', 'dog')
+        ->where('adoption_status', 'available')
+        ->count();
+        $catCount = Pet::where('pet_type', 'cat')
+        ->where('adoption_status', 'available')
+        ->count();
 
         return view('admin_contents.pet_management', ['pets' => $pets,'petCount' => $petCount, 'availpet' => $availpet,
-        'dogCount' => $dogCount,]);
+        'dogCount' => $dogCount, 'catCount'=> $catCount]);
     }
 
     public function filterPets(Request $request)

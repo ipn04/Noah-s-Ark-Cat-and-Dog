@@ -4,6 +4,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PetDataController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\adoptionController;
+use App\Http\Controllers\ApplicationController;
+
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PickupController;
 use App\Http\Controllers\VisitController;
@@ -122,9 +124,11 @@ Route::get('/admin/progress/{id}', [adoptionController::class, 'adminLoadProgres
     ->middleware(['auth', 'admin'])
     ->name('admin.adoptionprogress');
 
-Route::get('/admin/dashboard', function () {
-    return view('dashboards.admin_dashboard');
-})->middleware(['auth', 'admin'])->name('admin.dashboard');
+
+    Route::get('/admin/dashboard', [ApplicationController::class, 'recentapplication'])
+    ->middleware(['auth', 'admin'])
+    ->name('admin.dashboard');
+
 
 Route::get('/admin/messages', function () {
     return view('admin_contents.messages');

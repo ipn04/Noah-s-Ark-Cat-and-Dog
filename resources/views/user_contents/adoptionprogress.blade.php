@@ -240,14 +240,17 @@
                                     hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                            <h2 class = "font-bold text-lg p-2 ps-2">{{ $scheduleInterview->date ?? ''}} at {{ $scheduleInterview->time ?? '' }}</h2>
+                            <h2 class = "font-bold text-lg p-2 ps-2">{{ $scheduleInterview->date ?? '' }} at
+                                {{ $scheduleInterview->time ?? '' }}</h2>
                             <p class = "p-2 pe-2 ps-4"></p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
-                            <p class = "p-2 pe-2 ps-4">{{ $adoption->application->user->province . ' ' . $adoption->application->user->city . ' ' . $adoption->application->user->barangay . ' ' . $adoption->application->user->street }}</p>
+                            <p class = "p-2 pe-2 ps-4">
+                                {{ $adoption->application->user->province . ' ' . $adoption->application->user->city . ' ' . $adoption->application->user->barangay . ' ' . $adoption->application->user->street }}
+                            </p>
 
-                          
 
-                          
+
+
                         </div>
                     </div>
                     <div
@@ -308,9 +311,11 @@
                                         </td>
                                     </tr>
                                 </table>
-                                <x-primary-button>
-                                    <a href = "">View Answers</a>
-                                </x-primary-button>
+                                <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
+                                    class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                    type="button">
+                                    View Answers
+                                </button>
                             </div>
                         </div>
                         <div class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
@@ -354,9 +359,11 @@
                                         <td class = "capitalize">{{ $petData->vaccination_status }}</td>
                                     </tr>
                                 </table>
-                                <x-primary-button>
-                                    <a href = "">More Details</a>
-                                </x-primary-button>
+                                <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
+                                    class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                    type="button">
+                                    More details
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -405,7 +412,7 @@
                             </button>
                             {{-- Select Schedule --}}
                             <div id="pickup-schedule" tabindex="-1" aria-hidden="true"
-                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                 <div class="relative p-4 w-full max-w-md max-h-full">
                                     <!-- Modal content -->
                                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
@@ -429,14 +436,17 @@
                                             </button>
                                         </div>
                                         <!-- Modal body -->
-                                        <form action="{{ route('schedule.pickup', ['userId' => auth()->user()->id]) }}"
+                                        <form
+                                            action="{{ route('schedule.pickup', ['userId' => auth()->user()->id]) }}"
                                             class="p-4 md:p-5" method="POST">
                                             @csrf
-                                            <h1 class = " text-left  text-lg">Please state your interview availability and
+                                            <h1 class = " text-left  text-lg">Please state your interview availability
+                                                and
                                                 start time.
                                                 Interviews are limited to <b>1 hour.</b>
                                             </h1>
-                                            <p class = "text-xs  italic">Note that the administration will have the final
+                                            <p class = "text-xs  italic">Note that the administration will have the
+                                                final
                                                 say on
                                                 whether or not to approve your proposed schedule.</p>
                                             <div class="-mx-3  pt-3 flex flex-wrap">
@@ -534,9 +544,11 @@
                                 </td>
                             </tr>
                         </table>
-                        <x-primary-button>
-                            <a href = "">View Answers</a>
-                        </x-primary-button>
+                        <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
+                            class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            type="button">
+                            View Answers
+                        </button>
                     </div>
                 </div>
                 <div
@@ -580,9 +592,11 @@
                                 <td class = "capitalize">{{ $petData->vaccination_status }}</td>
                             </tr>
                         </table>
-                        <x-primary-button>
-                            <a href = "">More Details</a>
-                        </x-primary-button>
+                        <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
+                            class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            type="button">
+                            More details
+                        </button>
                     </div>
                 </div>
                 <div
@@ -686,15 +700,227 @@
                         </div>
                     @elseif ($stage === '9')
                         <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
-                            <button class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z"/></svg>
+                            <button
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                </svg>
                                 <span>Download</span>
                             </button>
                         </a>
                     @else
-                    
                     @endif
                 </div>
             </div>
     </section>
+
+    <!-- Main modal -->
+    <div id="pet-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-2xl max-h-full">
+            <!-- Modal content -->
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <!-- Modal header -->
+                <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                        {{ $petData->pet_name . ' Details' }} </h3>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="pet-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
+                </div>
+                <!-- Modal body -->
+                <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
+                    <ul class="space-y-4 ">
+                        <li>
+                            <input type="text" id="pet-name" name="job" value="pet-name"
+                                class="hidden peer" required>
+                            <label for="pet-name"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->pet_name }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Name</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-type" name="job" value="pet-type"
+                                class="hidden peer" required>
+                            <label for="pet-type"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->pet_type }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Pet Type</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-breed" name="job" value="pet-breed"
+                                class="hidden peer" required>
+                            <label for="pet-breed"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->breed }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Breed</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-age" name="job" value="pet-age" class="hidden peer"
+                                required>
+                            <label for="pet-age"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->age }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Age</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-color" name="job" value="pet-color"
+                                class="hidden peer" required>
+                            <label for="pet-color"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->color }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Color</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="adoption-status" name="job" value="adoption-status"
+                                class="hidden peer" required>
+                            <label for="adoption-status"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->adoption_status }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Adoption Status</div>
+                                </div>
+                            </label>
+                        </li>
+                    </ul>
+                    <ul class = "space-y-4 ">
+                        <li>
+                            <input type="text" id="pet-gender" name="job" value="pet-gender"
+                                class="hidden peer" required>
+                            <label for="pet-gender"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->gender }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Gender</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="vaccination-status" name="job" value="vaccination-status"
+                                class="hidden peer" required>
+                            <label for="vaccination-status"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->vaccination_status }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Vaccination Status</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-weight" name="job" value="pet-weight"
+                                class="hidden peer" required>
+                            <label for="pet-weight"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->weight }} kg</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Weight</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-size" name="job" value="pet-size"
+                                class="hidden peer" required>
+                            <label for="pet-size"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->size }} cm</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Size</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-behavior" name="job" value="pet-behavior"
+                                class="hidden peer" required>
+                            <label for="pet-behavior"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->behaviour }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Behavior</div>
+                                </div>
+                            </label>
+                        </li>
+                        <li>
+                            <input type="text" id="pet-description" name="job" value="job-1"
+                                class="hidden peer" required>
+                            <label for="job-1"
+                                class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                <div class="block">
+                                    <div class="w-full text-lg font-semibold">
+                                        {{ $petData->description }}</div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Description</div>
+                                </div>
+                            </label>
+                        </li>
+                    </ul>
+                </div>
+                <div class = "p-5 text-center">
+                    <button type="submit" class="rounded" data-modal-target="petimage-modal"
+                        data-modal-toggle="petimage-modal">
+                        <img class="max-w-2xl max-h-60 mx-auto"
+                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
+                            alt="pet image">
+                    </button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="petimage-modal" tabindex="-1"
+    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+    <div class="relative p-4 w-full max-w-7xl max-h-full">
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+            <button type="button"
+                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                data-modal-hide="petimage-modal">
+                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 14 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                </svg>
+                <span class="sr-only">Close modal</span>
+            </button>
+            <div class="p-4 md:p-5 items-center text-center">
+                <img class="object-cover object-center mx-auto max-w-3xl h-full"
+                    src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
+                    alt='user profile'>
+            </div>
+        </div>
+    </div>
+</div>
+
 </x-app-layout>

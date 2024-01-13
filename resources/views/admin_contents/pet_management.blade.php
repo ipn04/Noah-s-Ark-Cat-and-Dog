@@ -38,7 +38,7 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-gray-700 text-xl font-semibold">Adopted Pets</p>
+                            <p class="text-gray-700 text-xl font-semibold">Available Dogs</p>
                             <p class="text-gray-500 text-sm">Since today</p>
                         </div>
                         <div class="ml-auto flex items-center">
@@ -56,11 +56,11 @@
                             </svg>
                         </div>
                         <div>
-                            <p class="text-gray-700 text-xl font-semibold">Available Pets</p>
+                            <p class="text-gray-700 text-xl font-semibold">Available Cats</p>
                             <p class="text-gray-500 text-sm">Since today</p>
                         </div>
                         <div class="ml-auto flex items-center">
-                            <p class="text-4xl font-bold text-red-500">{{ $availpet }}</p>
+                            <p class="text-4xl font-bold text-red-500">{{ $catCount }}</p>
                         </div>
                     </div>
 

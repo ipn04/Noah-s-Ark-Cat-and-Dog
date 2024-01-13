@@ -203,7 +203,7 @@
                 <x-input-label for="phone_number" :value="__('Phone Number')" />
                 <x-text-input id="phone_number" class="block mt-1 w-full ps-10"
                     aria-describedby="helper-text-explanation" type="number" name="phone_number" :value="old('phone_number')"
-                    required autocomplete="number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="965-621-6696" />
+                    required autocomplete="number" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" placeholder="9656216696" />
                 {{-- <x-input-error :messages="$errors->get('phone_number')" class="mt-2" /> --}}
                 <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Select a phone
                     number that matches the format.</p>

@@ -358,7 +358,7 @@
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id] ) }}"
+                                    <form action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id,'applicationId' => $userVolunteerAnswers->volunteer_application->application->id] ) }}"
                                         class="p-4 md:p-5" method="POST">
                                         @csrf
                                         <h1 class = " text-left  text-lg">Please state your interview availability and

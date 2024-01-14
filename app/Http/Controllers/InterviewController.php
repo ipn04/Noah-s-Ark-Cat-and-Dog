@@ -46,7 +46,7 @@ class InterviewController extends Controller
         }
         return redirect()->back()->with(['send_schedule' => true]); 
     }
-    public function volunteerInterview(Request $request, $userId) 
+    public function volunteerInterview(Request $request, $userId, $applicationId) 
     {
         try {
             // Find the latest application for the user

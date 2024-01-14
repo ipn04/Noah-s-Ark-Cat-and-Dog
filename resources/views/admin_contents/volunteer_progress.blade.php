@@ -513,7 +513,7 @@
                                         <!-- Modal footer -->
                                         <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
                                             <form
-                                                action="{{ route('admin.volunter.interview.accept', ['id' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                                action="{{ route('admin.volunter.interview.accept', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id,'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                                                 method="POST">
                                                 @csrf
                                                 @method('PATCH')

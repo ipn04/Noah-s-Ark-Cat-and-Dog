@@ -8,7 +8,7 @@ use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
 use App\Models\AdoptionAnswer;
 use App\Models\Adoption;
-
+use App\Models\Schedule;
 use App\Models\VolunteerApplication;
 use App\Models\Application;
 
@@ -91,8 +91,17 @@ class ScheduleController extends Controller{
 
         )
         ->get();
+        $allSchedules = Schedule::where('schedule_status', 'Accepted')->count();
+        $scheduleInterview = $schedules->where('schedule_type', 'Interview')->where('schedule_status', 'Accepted')->count();
+        $scheduleVisit = $schedules->where('schedule_type', 'Visit')->where('schedule_status', 'Accepted')->count();
+        $scheduleInPickup = $schedules->where('schedule_type', 'Pickup')->where('schedule_status', 'Accepted')->count();
+        
+        $allSchedulesPending = Schedule::where('schedule_status', 'Pending')->count();
+        $pendingInterview = $schedules->where('schedule_type', 'Interview')->where('schedule_status', 'Pending')->count();
+        $pendingVisit = $schedules->where('schedule_type', 'Visit')->where('schedule_status', 'Pending')->count();
+        $pendingInPickup = $schedules->where('schedule_type', 'Pickup')->where('schedule_status', 'Pending')->count();
 
-    return view('admin_contents.schedule', ['schedules' => $schedules]);
+    return view('admin_contents.schedule', ['schedules' => $schedules, 'allSchedules' =>$allSchedules, 'scheduleInterview' => $scheduleInterview, 'scheduleVisit' => $scheduleVisit, 'scheduleInPickup' =>$scheduleInPickup, 'allSchedulesPending' => $allSchedulesPending, 'pendingInterview' => $pendingInterview, 'pendingVisit' => $pendingVisit, 'pendingInPickup' => $pendingInPickup]);
 
     }
    
@@ -112,17 +121,18 @@ class ScheduleController extends Controller{
         // If no ScheduleVisit record is found for the user, handle accordingly
         return redirect()->back()->with(['error', 'ScheduleVisit record not found for the user', 'update_status' => true]);
     }
-    public function updateScheduleForVolunteer(Request $request, $id)
+    public function updateScheduleForVolunteer(Request $request, $userId, $applicationId)
     {   
-        $scheduleInterview = ScheduleInterview::whereHas('application', function ($query) use ($id) {
-            $query->where('id', $id);
+        // dd($applicationId);
+        $scheduleInterview = ScheduleInterview::whereHas('application', function ($query) use ($applicationId) {
+            $query->where('application_id', $applicationId);
         })->first();
         // dd($scheduleInterview);
         if ($scheduleInterview) {
             // Update the status column in the related Schedule model
             $scheduleInterview->schedule->update(['schedule_status' => 'Accepted']);
             
-            $volunteerApplication = VolunteerApplication::where('application_id', $id)->first();
+            $volunteerApplication = VolunteerApplication::where('application_id', $applicationId)->first();
             if ($volunteerApplication) {
                 // Update the stage column in the related VolunteerApplication model
                 $newStage = $volunteerApplication->stage + 1;

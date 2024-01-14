@@ -99,7 +99,7 @@ Route::patch('/admin/interview-stage/{userId}/{id}', [adoptionController::class,
 
 Route::patch('/admin/pickup-stage/{userId}/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
 
-Route::patch('/admin/volunteer/interview/{id}', [ScheduleController::class, 'updateScheduleForVolunteer'])->middleware(['auth', 'admin'])->name('admin.volunter.interview.accept');
+Route::patch('/admin/volunteer/interview/{userId}/{applicationId}', [ScheduleController::class, 'updateScheduleForVolunteer'])->middleware(['auth', 'admin'])->name('admin.volunter.interview.accept');
 
 Route::patch('/admin/volunteer/add-stage/{id}', [ScheduleController::class, 'addStage'])->middleware(['auth', 'admin'])->name('volunteer.add.stage');
 
@@ -107,7 +107,7 @@ Route::patch('/admin/update-contract/{user}/{id}', [adoptionController::class, '
 
 Route::patch('/admin/update/volunteer/progress/{userId}', [VolunteerController::class, 'updateVolunteerStage'])->middleware(['auth', 'admin'])->name('update.volunteer.progress');
 
-Route::post('/admin/update/volunteer/interview/{userId}', [InterviewController::class, 'volunteerInterview'])
+Route::post('/admin/update/volunteer/interview/{userId}/{applicationId}', [InterviewController::class, 'volunteerInterview'])
     ->name('update.volunteer.interview');
 
 Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContract'])->middleware(['auth', 'verified'])->name('download.contract');
@@ -164,7 +164,7 @@ Route::get('/user/volunteerprogress/{id}', [VolunteerController::class, 'UserVol
     ->middleware(['auth', 'user'])
     ->name('user.volunteerprogress');
 
-Route::get('/admin-volunteer-progress/{userId}', [VolunteerController::class, 'AdminVolunteerProgress'])->name('admin.volunteer.progress');
+Route::get('/admin-volunteer-progress/{userId}/{applicationId}', [VolunteerController::class, 'AdminVolunteerProgress'])->name('admin.volunteer.progress');
 
 // Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
 

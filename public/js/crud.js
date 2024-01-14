@@ -27,97 +27,8 @@ $(document).ready(function() {
                 console.error("Data attributes 'data-type' or 'data-adoption' are missing.");
             }
         });
-    }).trigger('change'); // Trigger the change event initially to show all pets
-    
-    // $(function(){
-
-    //     // whenever the region dropdown change, update the value of hidden field
-    //     $('#region').on('change', function(){
-    
-    //         // we are getting the text() here, not val()
-    //         var selected_region = $("#region option:selected").text();
-    
-    //         // the hidden field will contain the name of the region, not the code
-    //         $('input[name=selected_region]').val(selected_region);
-    
-    //     }).ph_locations('fetch_list');
-    
-    //     $('#province').on('change', function(){
-    
-    //         // we are getting the text() here, not val()
-    //         var selected_province = $("#province option:selected").text();
-    
-    //         // the hidden field will contain the name of the region, not the code
-    //         $('input[name=selected_province]').val(selected_province);
-    
-    //     }).ph_locations('fetch_list');
-    
-    //     $('#city').on('change', function(){
-    
-    //         // we are getting the text() here, not val()
-    //         var selected_city = $("#city option:selected").text();
-    
-    //         // the hidden field will contain the name of the region, not the code
-    //         $('input[name=selected_city]').val(selected_city);
-    
-    //     }).ph_locations('fetch_list');
-    
-    //     $('#barangay').on('change', function(){
-    
-    //         // we are getting the text() here, not val()
-    //         var selected_barangay = $("#barangay option:selected").text();
-    
-    //         // the hidden field will contain the name of the region, not the code
-    //         $('input[name=selected_barangay]').val(selected_barangay);
-    
-    //     }).ph_locations('fetch_list');
-    
-    // });
-    
-    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
-        const link = document.getElementById(`${tab}Link`);
-    
-        link.addEventListener('click', function(event) {
-            event.preventDefault();
-    
-            const selectedTab = tab;
-            const tabs = ['all', 'pending', 'approved', 'rejected'];
-    
-            tabs.forEach(item => {
-                const tabLink = document.getElementById(`${item}Link`);
-                const tabContent = document.getElementById(item);
-    
-                if (item === selectedTab) {
-                    tabLink.classList.remove('text-gray-600')
-                    tabLink.classList.add('border-b-2', 'border-red-600','text-red-500');
-                    tabContent.classList.remove('hidden');
-                } else {
-                    tabLink.classList.remove('border-b-2', 'border-red-600','text-red-500');
-                    tabContent.classList.add('hidden');
-                }
-            });
-    
-            const allRows = document.querySelectorAll('#adoptionDataContainer[data-stage]');
-
-            allRows.forEach(row => {
-                const stage = row.getAttribute('data-stage');
-    
-                if (
-                    selectedTab === 'all' ||
-                    (selectedTab === 'pending' && stage <= '8') ||
-                    (selectedTab === 'approved' && stage === '9') ||
-                    (selectedTab === 'rejected' && stage === '10')
-                ) {
-                    row.style.display = ''; 
-                } else {
-                    row.style.display = 'none'; 
-                }
-            });
-
-            console.log(`Selected Tab: ${selectedTab}`);
-            console.log(`Filtered Rows: ${allRows}`);
-        });
-    });    
+    }).trigger('change'); 
+       
     // JavaScript code to filter based on selected stages and pet types
     const checkboxes = document.querySelectorAll('input[type="checkbox"]');
     checkboxes.forEach(checkbox => {
@@ -145,8 +56,134 @@ $(document).ready(function() {
             });
         });
     });
-
+    initializeAdoptionTabs(['all', 'pending', 'approved', 'rejected']);
+    initializeVolunteerTabs(['all', 'pending', 'approved', 'rejected']);
+    initializeScheduleTabs(['allSchedule', 'pickupSchedule', 'interviewSchedule', 'visitSchedule']);
 });
+// admin adoption tab filter 
+function initializeAdoptionTabs() {
+    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
+        const link = document.getElementById(`${tab}Link`);
+
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const selectedTab = tab;
+            const tabs = ['all', 'pending', 'approved', 'rejected'];
+
+            tabs.forEach(item => {
+                const tabLink = document.getElementById(`${item}Link`);
+                const tabContent = document.getElementById(item);
+
+                if (item === selectedTab) {
+                    tabLink.classList.remove('text-gray-600')
+                    tabLink.classList.add('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.remove('hidden');
+                } else {
+                    tabLink.classList.remove('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.add('hidden');
+                }
+            });
+
+            const allRows = document.querySelectorAll('#adoptionDataContainer[data-stage]');
+
+            allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'pending' && stage >= '0' && stage <= '8') ||
+                    (selectedTab === 'approved' && stage === '9') ||
+                    (selectedTab === 'rejected' && stage === '10')
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+
+            console.log(`Selected Tab: ${selectedTab}`);
+            console.log(`Filtered Rows: ${allRows}`);
+        });
+    });   
+}
+// admin volunteer tab filter
+function initializeVolunteerTabs() {
+    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
+        const link = document.getElementById(`${tab}Link`);
+
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const selectedTab = tab;
+            const tabs = ['all', 'pending', 'approved', 'rejected'];
+
+            tabs.forEach(item => {
+                const tabLink = document.getElementById(`${item}Link`);
+                const tabContent = document.getElementById(item);
+
+                if (item === selectedTab) {
+                    tabLink.classList.remove('text-gray-600')
+                    tabLink.classList.add('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.remove('hidden');
+                } else {
+                    tabLink.classList.remove('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.add('hidden');
+                }
+            });
+
+            const allRows = document.querySelectorAll('#volunteerData[data-stage]');
+
+            allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'pending' && stage >= '0' && stage <= '4' ) ||
+                    (selectedTab === 'approved' && stage === '5') ||
+                    (selectedTab === 'rejected' && stage === '10')
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+
+            console.log(`Selected Tab: ${selectedTab}`);
+            console.log(`Filtered Rows: ${allRows}`);
+        });
+    });   
+}
+
+function initializeScheduleTabs() {
+    ['all', 'pickup', 'interview', 'visit'].forEach(tab => {
+        const link = document.getElementById(`${tab}Schedule`);
+
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const selectedTab = tab;
+            const tabs = ['all', 'pickup', 'interview', 'visit'];
+
+            tabs.forEach(item => {
+                const tabLink = document.getElementById(`${item}Schedule`);
+                const tabContent = document.getElementById(item);
+
+                if (item === selectedTab) {
+                    tabLink.classList.remove('text-gray-600');
+                    tabLink.classList.add('border-b-2', 'border-red-600', 'text-red-500');
+                    tabContent.classList.remove('hidden');
+                } else {
+                    tabLink.classList.remove('border-b-2', 'border-red-600', 'text-red-500');
+                    tabContent.classList.add('hidden');
+                }
+            });
+
+            console.log(`Selected Tab: ${selectedTab}`);
+            
+        });
+    });
+}
 
 // user pet page search
 $(document).ready(function() {

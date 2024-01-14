@@ -54,43 +54,39 @@
                     <h1 class = "text-2xl text-red-500 font-bold">Volunteers Applications</h1>
                 </div>
             </div>
-
-
-
             <!-- WEB RESPONSIVENESS TABLE -->
             <div
                 class="relative overflow-y-hidden  bg-white overflow-x-hidden flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between lg:px-4 lg:py-6">
 
-
                 <div
                     class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px">
-
                         <li class="me-2 relative">
-                            <a href="#"
-                                class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500 flex items-center justify-between">
-                                <span class = "mr-2">All</span>
-                                <p
-                                    class="bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-6 h-6 p-4 text-center text-xs">
-                                    200</p>
+                            <a href="{{ route('admin.volunteers') }}" id="allLink" class="inline-block p-4 text-base border-b-2 text-red-500 border-red-600 rounded-t-lg active  flex items-center justify-between">All
+                                <span id="all" class="bg-red-100 ms-1 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">{{ $volunteerCount }}</span>
                             </a>
                         </li>
-
-
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Pending</a>
+                            <a href="{{ route('admin.volunteers') }}" id="pendingLink" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Pending
+                                <span id="pending" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                    {{ $volunteerPendingCount }}
+                                </span>
+                            </a>
                         </li>
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Approved</a>
+                            <a href="{{ route('admin.volunteers') }}" id="approvedLink" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Approved
+                                <span  id="approved" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                    {{ $volunteerApprovedCount }}
+                                </span>
+                            </a>
                         </li>
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Rejected</a>
-                        </li>
-
-
+                            <a href="{{ route('admin.volunteers') }}" id="rejectedLink" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Rejected
+                                <span  id="rejected" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                   {{ $volunteerRejectedCount }}
+                                </span>
+                            </a>
+                        </li>      
                     </ul>
                 </div>
 
@@ -158,7 +154,7 @@
                     </thead>
                     <tbody>
                         @foreach ($volunteer as $volunteers)
-                            <tr
+                            <tr id="volunteerData"  data-stage="{{ $volunteers->volunteer_application->stage }}"
                                 class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td scope="row"
                                     class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
@@ -209,10 +205,8 @@
                                 </td>
                                 <td class="items-center gap-1  hidden lg:table-cell">
                                     <a
-                                        href="{{ route('admin.volunteer.progress', ['userId' => $volunteers->volunteer_application->application->user->id]) }}">
-                                        <button type="button" data-drawer-target="drawer-read-product-advanced"
-                                            onclick="" data-drawer-show="drawer-read-product-advanced"
-                                            aria-controls="drawer-read-product-advanced"
+                                        href="{{ route('admin.volunteer.progress', ['userId' => $volunteers->volunteer_application->application->user->id, 'applicationId' =>$volunteers->volunteer_application->application->id]) }}">
+                                        <button type="button" 
                                             class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                 fill="currentColor" class="w-4 h-4 ">

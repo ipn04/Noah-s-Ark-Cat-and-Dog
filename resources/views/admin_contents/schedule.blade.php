@@ -51,40 +51,34 @@
                 <div
                     class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px">
-
                         <li class="me-2 relative">
-                            <a href="#"
-                                class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500 flex items-center justify-between">
-                                <span class = "mr-2">All</span>
-                                <p
-                                    class="bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-6 h-6 p-4 text-center text-xs">
-                                    200</p>
+                            <a href="{{ route('admin.schedule') }}" id="allLink" class="inline-block p-4 text-base border-b-2 text-red-500 border-red-600 rounded-t-lg active  flex items-center justify-between">All
+                                <span id="all" class="bg-red-100 ms-1 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                    {{ $allSchedules }}
+                                </span>
                             </a>
                         </li>
-
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Today</a>
+                            <a href="{{ route('admin.schedule') }}" id="pendingLink" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Interview
+                                <span id="pending" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                   {{ $scheduleInterview }}
+                                </span>
+                            </a>
                         </li>
-
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Interview</a>
+                            <a href="{{ route('admin.schedule') }}" id="approvedLink" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Shelter Visit
+                                <span  id="approved" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                {{ $scheduleVisit }}
+                                </span>
+                            </a>
                         </li>
-
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Shelter
-                                Visit</a>
-                        </li>
-
-                        <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Pet
-                                Pickup</a>
-                        </li>
-
-
+                            <a href="{{ route('admin.schedule') }}" id="rejectedLink" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Pet Pickup
+                                <span  id="rejected" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                  {{ $scheduleInPickup }}
+                                </span>
+                            </a>
+                        </li>  
                     </ul>
                 </div>
 
@@ -353,45 +347,40 @@
             </div>
 
             <!-- WEB RESPONSIVENESS TABLE -->
-            <div
-                class="relative overflow-y-hidden  bg-white overflow-x-hidden flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between lg:px-4 lg:py-6">
-
-
+            <div class="relative overflow-y-hidden  bg-white overflow-x-hidden flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between lg:px-4 lg:py-6">
                 <div
                     class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px">
-
                         <li class="me-2 relative">
-                            <a href="#"
-                                class="inline-block p-4 text-red-600 border-b-2 border-red-600 rounded-t-lg active dark:text-red-500 dark:border-red-500 flex items-center justify-between">
-                                <span class = "mr-2">All</span>
-                                <p
-                                    class="bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-6 h-6 p-4 text-center text-xs">
-                                    200</p>
+                            <a href="{{ route('admin.schedule') }}" id="allSchedule" class="inline-block p-4 text-base border-b-2 text-red-500 border-red-600 rounded-t-lg active  flex items-center justify-between">All
+                                <span id="all" class="bg-red-100 ms-1 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                    {{ $allSchedulesPending}}
+                                </span>
                             </a>
                         </li>
-
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Interview</a>
-                        </li>
-
+                            <a href="{{ route('admin.schedule') }}" id="pickupSchedule" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Interview
+                                <span  id="pickup" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                  {{ $pendingInterview }}
+                                </span>
+                            </a>
+                        </li>  
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Shelter
-                                Visit</a>
+                            <a href="{{ route('admin.schedule') }}" id="interviewSchedule" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Shelter Visit
+                                <span id="interview" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                   {{ $pendingVisit }}
+                                </span>
+                            </a>
                         </li>
-
                         <li class="me-2">
-                            <a href="#"
-                                class="inline-block p-4 border-b-2 border-transparent rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300">Pet
-                                Pickup</a>
+                            <a href="{{ route('admin.schedule') }}" id="visitSchedule" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Pet Pickup
+                                <span  id="visit" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                {{ $pendingInPickup }}
+                                </span>
+                            </a>
                         </li>
-
-
                     </ul>
                 </div>
-
                 <div
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 ">
                     <div class="w-full md:w-1/2">

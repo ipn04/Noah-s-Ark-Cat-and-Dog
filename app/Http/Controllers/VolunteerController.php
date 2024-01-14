@@ -48,8 +48,16 @@ class VolunteerController extends Controller
     public function showVolunteer(Request $request)
     {
         $volunteer = VolunteerAnswers::all();
+        $volunteerCount = VolunteerApplication::count();
+        $volunteerPendingCount = $volunteer->where('volunteer_application.stage', '>=', 0)
+        ->where('volunteer_application.stage', '<=', 4)
+        ->count();
+        $volunteerApprovedCount = $volunteer->where('volunteer_application.stage', '==', 5)
+        ->count();
+        $volunteerRejectedCount = $volunteer->where('volunteer_application.stage', '==', 10)
+        ->count();
 
-        return view('admin_contents.volunteers', ['volunteer' => $volunteer]);
+        return view('admin_contents.volunteers', ['volunteer' => $volunteer, 'volunteerCount' => $volunteerCount, 'volunteerPendingCount' => $volunteerPendingCount, 'volunteerApprovedCount' => $volunteerApprovedCount, 'volunteerRejectedCount' => $volunteerRejectedCount]);
     }
     public function UserVolunteerProgress(Request $request)
     {
@@ -63,7 +71,7 @@ class VolunteerController extends Controller
 
         return view('user_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage]);
     }
-    public function AdminVolunteerProgress(Request $request, $userId)
+    public function AdminVolunteerProgress(Request $request, $userId, $applicationId)
     {
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);

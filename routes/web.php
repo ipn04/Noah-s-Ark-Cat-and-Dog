@@ -38,7 +38,7 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])
     ->name('user.dashboard');
 
 
-Route::post('/send/volunteer_form/{id}', [VolunteerController::class, 'store'])->middleware(['auth', 'user'])->name('volunteer.form');
+Route::post('/send/volunteer_form/{userId}', [VolunteerController::class, 'store'])->middleware(['auth', 'user'])->name('volunteer.form');
 
 
 // Route::get('/user/messages', function () {
@@ -160,7 +160,7 @@ Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgres
 //      return view('user_contents.volunteer_progress');
 // })->middleware(['auth', 'user'])->name('user.volunteerprogress');
 
-Route::get('/user/volunteerprogress/{id}', [VolunteerController::class, 'UserVolunteerProgress'])
+Route::get('/user/volunteerprogress/{userId}', [VolunteerController::class, 'UserVolunteerProgress'])
     ->middleware(['auth', 'user'])
     ->name('user.volunteerprogress');
 

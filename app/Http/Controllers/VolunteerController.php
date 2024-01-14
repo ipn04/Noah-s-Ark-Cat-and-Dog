@@ -11,7 +11,7 @@ use App\Models\User;
 
 class VolunteerController extends Controller
 {
-    public function store(Request $request, $id)
+    public function store(Request $request, $userId)
     {
         $currentUserId = auth()->user()->id;
     
@@ -43,7 +43,7 @@ class VolunteerController extends Controller
             'answers' => $serializedAnswers
         ]);
     
-        return redirect()->route('user.volunteerprogress', ['id' => $id])->with(['send_volunteer_form' => true]);
+        return redirect()->route('user.volunteerprogress', ['userId' => $userId])->with(['send_volunteer_form' => true]);
     }
     public function showVolunteer(Request $request)
     {

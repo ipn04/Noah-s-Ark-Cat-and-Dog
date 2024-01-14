@@ -86,7 +86,7 @@
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 ">
                     <div class="w-full md:w-1/2">
                         <form role="search" class="flex items-center">
-                            <label for="simple-search" class="sr-only">Search</label>
+                            <label for="accepted-user-search" class="sr-only">Search</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -95,31 +95,11 @@
                                             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
                                     </svg>
                                 </div>
-                                <input type="text" id="simple-search" placeholder="Search pet" name="search"
+                                <input type="text" id="accepted-user-search" placeholder="Search pet" name="search"
                                     required=""
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                         </form>
-                    </div>
-
-                    <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                            class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 "
-                                viewbox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Filter options
-                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
 
@@ -147,8 +127,8 @@
                     <tbody>
                         @foreach ($schedules as $schedule)
                             @if ($schedule->schedule_status == 'Accepted')
-                                <tr
-                                    class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                                <tr id="acceptedSchedule"  data-stage="{{ $schedule->schedule_type }}" data-name={{ $schedule->firstname . ' '. $schedule->lastname}}
+                                    class="schedule-user bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                     <td scope="row"
                                         class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
                                         <img class="w-10 h-10 rounded-full"
@@ -220,7 +200,7 @@
                                                 @else
                                                 {{-- comment ko muna kase 'di pa tapos si volunteer progress' --}}
                                                 {{-- <a href="{{ route('admin.volunteer.progress', [$schedule->interview_id])}}"> --}}
-                                                <a href="{{ route('admin.volunteer.progress', ['userId' => $schedule->user_id, 'id' => $schedule->interview_id])}}">
+                                                <a href="{{ route('admin.volunteer.progress', ['userId' => $schedule->user_id, 'applicationId' => $schedule->interview_id])}}">
                                                     <button type="button"
                                                         class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -359,22 +339,22 @@
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.schedule') }}" id="pickupSchedule" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Interview
-                                <span  id="pickup" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                            <a href="{{ route('admin.schedule') }}" id="interviewSchedule" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Interview
+                                <span  id="interview" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
                                   {{ $pendingInterview }}
                                 </span>
                             </a>
                         </li>  
                         <li class="me-2">
-                            <a href="{{ route('admin.schedule') }}" id="interviewSchedule" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Shelter Visit
-                                <span id="interview" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                            <a href="{{ route('admin.schedule') }}"  id="visitSchedule" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Shelter Visit
+                                <span id="visit" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
                                    {{ $pendingVisit }}
                                 </span>
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.schedule') }}" id="visitSchedule" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Pet Pickup
-                                <span  id="visit" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                            <a href="{{ route('admin.schedule') }}"  id="pickupSchedule" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Pet Pickup
+                                <span  id="pickup" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
                                 {{ $pendingInPickup }}
                                 </span>
                             </a>
@@ -385,7 +365,7 @@
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 ">
                     <div class="w-full md:w-1/2">
                         <form role="search" class="flex items-center">
-                            <label for="simple-search" class="sr-only">Search</label>
+                            <label for="pending-user-search" class="sr-only">Search</label>
                             <div class="relative w-full">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                                     <svg aria-hidden="true" class="w-5 h-5 text-gray-500 dark:text-gray-400"
@@ -394,31 +374,11 @@
                                             d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" />
                                     </svg>
                                 </div>
-                                <input type="text" id="simple-search" placeholder="Search pet" name="search"
+                                <input type="text" id="pending-user-search" placeholder="Search user" name="search"
                                     required=""
                                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
                         </form>
-                    </div>
-
-                    <div
-                        class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-                        <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                            class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-                            type="button">
-                            <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 "
-                                viewbox="0 0 20 20" fill="currentColor">
-                                <path fill-rule="evenodd"
-                                    d="M3 3a1 1 0 011-1h12a1 1 0 011 1v3a1 1 0 01-.293.707L12 11.414V15a1 1 0 01-.293.707l-2 2A1 1 0 018 17v-5.586L3.293 6.707A1 1 0 013 6V3z"
-                                    clip-rule="evenodd" />
-                            </svg>
-                            Filter options
-                            <svg class="-mr-1 ml-1.5 w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                                xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                                <path clip-rule="evenodd" fill-rule="evenodd"
-                                    d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" />
-                            </svg>
-                        </button>
                     </div>
                 </div>
 
@@ -446,8 +406,8 @@
                     <tbody>
                         @foreach ($schedules as $schedule)
                         @if ($schedule->schedule_status == 'Pending')
-                            <tr
-                                class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
+                            <tr id="pendingSchedule"  data-stage="{{ $schedule->schedule_type }}" data-name="{{$schedule->firstname . ' ' . $schedule->lastname}}"
+                                class="schedule-user-pending bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                                 <td scope="row"
                                     class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
                                     <img class="w-10 h-10 rounded-full"

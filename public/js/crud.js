@@ -58,7 +58,8 @@ $(document).ready(function() {
     });
     initializeAdoptionTabs(['all', 'pending', 'approved', 'rejected']);
     initializeVolunteerTabs(['all', 'pending', 'approved', 'rejected']);
-    initializeScheduleTabs(['allSchedule', 'pickupSchedule', 'interviewSchedule', 'visitSchedule']);
+    initializeScheduleTabs();
+    initializeScheduleAcceptedTabs();
 });
 // admin adoption tab filter 
 function initializeAdoptionTabs() {
@@ -155,8 +156,55 @@ function initializeVolunteerTabs() {
     });   
 }
 
+function initializeScheduleAcceptedTabs() {
+    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
+        const link = document.getElementById(`${tab}Link`);
+
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const selectedTab = tab;
+            const tabs = ['all', 'pending', 'approved', 'rejected'];
+
+            tabs.forEach(item => {
+                const tabLink = document.getElementById(`${item}Link`);
+                const tabContent = document.getElementById(item);
+
+                if (item === selectedTab) {
+                    tabLink.classList.remove('text-gray-600')
+                    tabLink.classList.add('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.remove('hidden');
+                } else {
+                    tabLink.classList.remove('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.add('hidden');
+                }
+            });
+
+            const allRows = document.querySelectorAll('#acceptedSchedule[data-stage]');
+
+            allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'pending' && stage === 'Interview' ) ||
+                    (selectedTab === 'approved' && stage === 'Visit') ||
+                    (selectedTab === 'rejected' && stage === 'Pickup')
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+
+            console.log(`Selected Tab: ${selectedTab}`);
+            console.log(`Filtered Rows: ${allRows}`);
+        });
+    });   
+}
+
 function initializeScheduleTabs() {
-    ['all', 'pickup', 'interview', 'visit'].forEach(tab => {
+    ['all', 'interview', 'visit', 'pickup'].forEach(tab => {
         const link = document.getElementById(`${tab}Schedule`);
 
         link.addEventListener('click', function(event) {
@@ -168,7 +216,7 @@ function initializeScheduleTabs() {
             tabs.forEach(item => {
                 const tabLink = document.getElementById(`${item}Schedule`);
                 const tabContent = document.getElementById(item);
-
+                
                 if (item === selectedTab) {
                     tabLink.classList.remove('text-gray-600');
                     tabLink.classList.add('border-b-2', 'border-red-600', 'text-red-500');
@@ -176,6 +224,24 @@ function initializeScheduleTabs() {
                 } else {
                     tabLink.classList.remove('border-b-2', 'border-red-600', 'text-red-500');
                     tabContent.classList.add('hidden');
+                }
+                tabContent.classList.toggle('hidden', item !== selectedTab);
+            });
+
+            const allRows = document.querySelectorAll('#pendingSchedule[data-stage]');
+
+            allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'interview' && stage === 'Interview' ) ||
+                    (selectedTab === 'visit' && stage === 'Visit') ||
+                    (selectedTab === 'pickup' && stage === 'Pickup')
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
                 }
             });
 
@@ -244,14 +310,14 @@ $(document).ready(function() {
 
 // admin page search
 $(document).ready(function() {
-    $('#simple-search').on('input', function() {
+    $('#pending-user-search').on('input', function() {
         let value = $(this).val().toLowerCase();  
         
-        $('.pet-container').each(function () {
-            let petName = $(this).attr('data-name'); 
-            if (petName !== undefined) { 
-                petName = petName.toLowerCase(); 
-                if (petName.indexOf(value) === -1) {
+        $('.schedule-user-pending').each(function () {
+            let username = $(this).attr('data-name'); 
+            if (username !== undefined) { 
+                username = username.toLowerCase(); 
+                if (username.indexOf(value) === -1) {
                     $(this).hide();
                 } else {
                     $(this).show();
@@ -261,6 +327,41 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $('#accepted-user-search').on('input', function() {
+        let value = $(this).val().toLowerCase();  
+        
+        $('.schedule-user').each(function () {
+            let username = $(this).attr('data-name'); 
+            if (username !== undefined) { 
+                username = username.toLowerCase(); 
+                if (username.indexOf(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+});
+
+$(document).ready(function() {
+    $('#registered-user').on('input', function() {
+        let value = $(this).val().toLowerCase();  
+        
+        $('.registeredUser').each(function () {
+            let username = $(this).attr('data-name'); 
+            if (username !== undefined) { 
+                username = username.toLowerCase(); 
+                if (username.indexOf(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+});
 // admin adoption search
 $(document).ready(function() {
     $('#adoption-search').on('input', function() {
@@ -282,6 +383,23 @@ $(document).ready(function() {
     });
 });
 
+$(document).ready(function() {
+    $('#simple-search').on('input', function() {
+        let value = $(this).val().toLowerCase();  
+        
+        $('.pet-container').each(function () {
+            let petName = $(this).attr('data-name'); 
+            if (petName !== undefined) { 
+                petName = petName.toLowerCase(); 
+                if (petName.indexOf(value) === -1) {
+                    $(this).hide();
+                } else {
+                    $(this).show();
+                }
+            }
+        });
+    });
+});
 
 $(document).ready(function() {
     $('input[type=checkbox]').change(function() {

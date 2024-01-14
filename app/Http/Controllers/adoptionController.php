@@ -320,12 +320,14 @@ class adoptionController extends Controller
             DB::table('adoption')
             ->where('application_id', $id)
             ->update(['stage' => \DB::raw('stage + 1')]);
+
             $application = $adoptionAnswer->application;
+           
             if ($application) {
                 $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
                 if ($schedulepickup) {
                     $schedule = $schedulepickup->schedule;
-
+                    
                     if ($schedule) {
                         $schedule->update(['schedule_status' => 'Accepted']);
                     }

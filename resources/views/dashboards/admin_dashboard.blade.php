@@ -89,9 +89,9 @@
                                     Today's Shelter's Schedule
                                     <p class="text-base text-gray-500 font-normal">{{ $formattedDate }}</p>
                                 </div>
-                                <button type="button"
+                                <a href = {{(route('admin.schedule'))}}
                                     class="text-white shadow-md text-sm lg:text-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">View
-                                    All</button>
+                                    All</a>
                             </div>
 
                         </caption>
@@ -177,15 +177,42 @@
                                                 </a>
                                             @elseif($schedule->type == 'dsds')
                                             @else
-                                                <button type="button" data-modal-target="default-modal"
-                                                    data-modal-toggle="default-modal"
-                                                    class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                                        fill="currentColor" class="w-4 h-4 ">
-                                                        <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                                            d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
-                                                    </svg> </button>
+                                            <button data-modal-target="static-modal" data-modal-toggle="static-modal" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-400 hover:bg-red-600 rounded-lg shadow-md" type="button">
+                                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="w-4 h-4 ">
+                                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                                </svg>    
+                                            </button>
+                                            
+                                            <!-- Main modal -->
+                                            <div id="static-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                <div class="relative p-4 w-full max-w-2xl max-h-full">
+                                                    <!-- Modal content -->
+                                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                        <!-- Modal header -->
+                                                        <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                           {{ $schedule->firstname }} {{ $schedule->lastname }}'s Shelter Visit
+                                                            </h3>
+                                                            <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="static-modal">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                        </div>
+                                                        <!-- Modal body -->
+                                                        <div class="p-4 md:p-5 space-y-4 text-left">
+                                                            <h1 class = "text-xl font-bold">Shelter Visit Details</h1>
+                                                            <p><b>Shelter Visit Date:</b> {{ $formattedDate }}</p>
+                                                            <p><b>Shelter Visit Time:</b> {{ \Carbon\Carbon::createFromFormat('H:i:s', $schedule->visit_time)->format('h:ia') }}</p>
+                                                            <p><b>Concern:</b> {{ $schedule->concern }}</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
                                             @endif
     
                                 @endforeach
@@ -197,55 +224,89 @@
                     </table>
                 </div>
 
-                <div class="rounded-lg bg-white shadow-lg overflow-x-auto max-h-screen p-6 overflow-y-hidden">
-                    <p class="caption-top text-red-500 text-xl text-center font-bold mb-4">
-                        Total Adopted Pets This Month
-                    </p>
-
-                    <!-- Chart Container -->
-                    <canvas id="myLineChart" width="400" height="200"></canvas>
+                <div class = "lg:hidden w-80 h-40 overflow-x-hidden overflow-y-hidden rounded-lg bg-white ">
+                    <canvas id="adoptedPetsChartd" class = "" style=""></canvas>
                 </div>
+                <div class=" hidden lg:block rounded-lg bg-white shadow-lg  lg:max-h-full lg:max-w-full overflow-x-hidden overflow-y-hidden">
+                  
+                    <canvas id="adoptedPetsChart" class = "lg:max-w-full lg:max-h-full " style=""></canvas>
 
-                <script>
-                    // Sample data for the chart
-                    var data = {
-                        labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                        datasets: [{
-                            label: 'Adopted Pets',
-                            borderColor: 'rgba(255, 99, 132, 1)',
-                            borderWidth: 2,
-                            data: [10, 20, 15, 25],
-                        }]
-                    };
-
-                    // Chart Configuration
-                    var config = {
-                        type: 'line',
-                        data: data,
-                        options: {
-                            scales: {
-                                x: {
-                                    display: true,
-                                    title: {
-                                        display: true,
-                                        text: 'Weeks'
-                                    }
-                                },
-                                y: {
-                                    display: true,
-                                    title: {
-                                        display: true,
-                                        text: 'Number of Pets'
+                    <script>
+                        // Chart Data
+                        var chartData = <?php echo json_encode($chartData); ?>;
+                        
+                        // Get chart labels and data
+                        var labels = Object.keys(chartData);
+                        var data = Object.values(chartData);
+                    
+                        // Reverse the order of labels and data
+                        labels = labels.reverse();
+                        data = data.reverse();
+                    
+                        // Round each data value to zero decimal places
+                        data = data.map(function(value) {
+                            return Math.round(value);
+                        });
+                    
+                        // Create a Chart.js chart
+                        var ctx = document.getElementById('adoptedPetsChart').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Adopted Pets per Month',
+                                    data: data,
+                                    backgroundColor: 'rgba(255, 0, 0, 0.47)',
+                                    borderColor: 'rgba(255, 0, 0, 0.75)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        precision: 0,  // Ensure y-axis values are displayed as whole numbers
+                                        callback: function(value) {
+                                            return Math.round(value);  // Round y-axis labels to whole numbers
+                                        }
                                     }
                                 }
                             }
-                        }
-                    };
+                        });
+                        // Create a Chart.js chart
+                        var ctx = document.getElementById('adoptedPetsChartd').getContext('2d');
+                        var myChart = new Chart(ctx, {
+                            type: 'bar',
+                            data: {
+                                labels: labels,
+                                datasets: [{
+                                    label: 'Adopted Pets per Month',
+                                    data: data,
+                                    backgroundColor: 'rgba(255, 0, 0, 0.47)',
+                                    borderColor: 'rgba(255, 0, 0, 0.75)',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                scales: {
+                                    y: {
+                                        beginAtZero: true,
+                                        precision: 0,  // Ensure y-axis values are displayed as whole numbers
+                                        callback: function(value) {
+                                            return Math.round(value);  // Round y-axis labels to whole numbers
+                                        }
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+                    
+                    
+                    
+                </div>
 
-                    // Create the chart
-                    var myChart = new Chart(document.getElementById('myLineChart'), config);
-                </script>
-
+             
 
 
             </div>
@@ -318,8 +379,6 @@
                 </table>
             </div>
         </div>
-
-
 
 
     </x-app-layout>

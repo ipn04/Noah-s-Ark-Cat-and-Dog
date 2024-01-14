@@ -625,9 +625,9 @@
     <!-- End block -->
     <div id="createProductModal" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-0.5rem)] max-h-full">
-        <div class="relative lg:mt-48 p-4 pt-10 w-full max-w-3xl h-full md:h-auto">
+        <div class="relative lg:mt-80 p-4 pt-10 w-full max-w-3xl h-full md:h-auto">
             <!-- Modal content -->
-            <div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+            <div class="relative p-4 bg-white rounded-lg shadow  dark:bg-gray-800 sm:p-5">
                 <!-- Modal header -->
                 <div
                     class="flex justify-between items-center pb-4 mb-2 rounded-t border-b sm:mb-5 dark:border-gray-600">
@@ -689,6 +689,8 @@
                                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                                 <option selected="Available">Available</option>
                                 <option value="Unavailable">Unavailable</option>
+                                <option value="Unavailable">Adopted</option>
+
                             </select></div>
                         <div><label for="gender"
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Gender</label><select

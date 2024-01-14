@@ -5,6 +5,7 @@ use App\Http\Controllers\PetDataController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\adoptionController;
 use App\Http\Controllers\ApplicationController;
+use App\Http\Controllers\ReportsController;
 
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PickupController;
@@ -144,9 +145,11 @@ Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgres
     ->middleware(['auth', 'admin'])
     ->name('admin.adoptions');
 
-Route::get('/admin/reports', function () {
-    return view('admin_contents.reports');
-})->middleware(['auth', 'admin'])->name('admin.reports');
+    Route::get('/admin/reports', [ReportsController::class, 'view_reports'])
+    ->middleware(['auth', 'admin'])
+    ->name('admin.reports');
+
+
 
 // Route::get('/admin/adoptions', function () {
 //     return view('admin_contents.adoptions');

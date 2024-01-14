@@ -12,7 +12,6 @@ use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
 use App\Models\AdoptionAnswer;
 use App\Models\Adoption;
-
 use App\Models\VolunteerApplication;
 
 use Illuminate\Support\Facades\DB;
@@ -75,14 +74,36 @@ class ApplicationController extends Controller
                     'application_users.firstname as firstname',
                     'schedule_visit.visit_id as visit_id',
                     'adopt.id as adoption_id',
-                    'volunteer.id as volunteer_id'
+                    'volunteer.id as volunteer_id',
+                    'schedule_visit.concern as concern'
+
                     
                 )
                 ->get();
     
+
+
+                $adoptedPets = Pet::where('adoption_status', 'Adopted')
+                ->where('updated_at', '>=', now()->subMonths(4))
+                ->get();
+
+// Process data and group by month
+$adoptedPetsByMonth = $adoptedPets->groupBy(function($date) {
+return \Carbon\Carbon::parse($date->updated_at)->format('m');
+});
+
+// Prepare data for the chart
+$chartData = [];
+foreach($adoptedPetsByMonth as $month => $pets) {
+$chartData[\Carbon\Carbon::createFromFormat('!m', $month)->format('F')] = count($pets);
+}
+
+
+
+
        
             return view('dashboards.admin_dashboard', ['schedules' => $schedules])
-                ->with(compact('applications', 'availpet', 'registered', 'totalApplication', 'formattedDate'));
+                ->with(compact('chartData','applications', 'availpet', 'registered', 'totalApplication', 'formattedDate'));
         
     }
     

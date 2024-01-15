@@ -43,17 +43,18 @@
                 <h2 class="font-bold text-base lg:text-lg text-yellow-500">Adoption Application Details</h2>
             </div>
             <div class="@if($stage == 8)grid grid-cols-1  @else grid grid-cols-2 @endif gap-2 lg:py-0 mx-auto lg:mx-0 ">
-                <form action="{{ route('admin.updateStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}" method="POST"
+                <form
+                    action="{{ route('admin.updateStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                    method="POST"
                     class="
                     @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage >= 5) 
                     @else
-                    @endif
-                    ">
+                    @endif">
                     @csrf
                     @method('PATCH')
                     <button type="submit"
                         class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md
-                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 ||  $stage == 6 || $stage == 7 || $stage == 9) hidden
+                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 ||  $stage == 6 || $stage == 7 || $stage == 9 || $stage == 10) hidden
                     @else
                     block @endif
                     ">
@@ -104,6 +105,7 @@
                 </div>
             </div>
         </div>
+
         <div class = "flex items-center  py-4 justify-center">
             <div
                 class = "grid grid-cols-1 max-w-screen-lg px-14 lg:px-5 py-3 bg-white rounded-2xl shadow-md lg:grid-cols-7 gap-2">
@@ -396,8 +398,8 @@
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
-                                        <td class = "font-bold">Age</td>
-                                        <td>{{  $adoptionAnswer->user->age  }}</td>
+                                        <td class = "font-bold">Birthdate</td>
+                                        <td>{{ $adoptionAnswer->user->birthday }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
@@ -646,8 +648,7 @@
                                                 @method('PATCH')
                                                 <button data-modal-hide="progress-modal" type="submit"
                                                     class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
-                                                <button data-modal-hide="progress-modal"
-                                                    type="button"
+                                                <button data-modal-hide="progress-modal" type="button"
                                                     class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                             </form>
                                         </div>
@@ -686,25 +687,23 @@
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
                                             {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
                                             {{-- {{ $schedulePickup->application->user->name }}</h3> --}}
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
-                                            {{-- {{ $schedulePickup->date }}</h3> --}}
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
-                                            {{-- {{ $schedulePickup->time }}</h3> --}}
-                                        <!-- Modal footer -->
-                                        <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
-                                            <form
-                                                action="{{ route('admin.pickupStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button data-modal-hide="progress-modal }}"
-                                                    type="submit"
-                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
-                                                <button data-modal-hide="progress-modal"
-                                                    type="button"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-                                            </form>
-                                        </div>
+                                            <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
+                                                {{-- {{ $schedulePickup->date }}</h3> --}}
+                                                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
+                                                    {{-- {{ $schedulePickup->time }}</h3> --}}
+                                                    <!-- Modal footer -->
+                                                    <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
+                                                        <form
+                                                            action="{{ route('admin.pickupStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button data-modal-hide="progress-modal }}" type="submit"
+                                                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
+                                                            <button data-modal-hide="progress-modal" type="button"
+                                                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                                        </form>
+                                                    </div>
                                     </div>
                                 </div>
                             </div>

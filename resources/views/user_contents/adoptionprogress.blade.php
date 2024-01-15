@@ -264,22 +264,31 @@
                             <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
                                 later at 10:00 am.</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
-                                <form method="post" target="_blank"
-                                action="{{ route('interview.user', ['scheduleId' => $scheduleInterview->interview_id]) }}">
+                                {{-- <form method="post" target="_blank"
+                                action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) }}">
                                 @csrf
                                 @method('PATCH')
                                 @php
                                     $today = now()->format('Y-m-d');
                                     $currentTime = now()->format('H:i:s');
-                                @endphp
+                                @endphp --}}
 
-                                <button type="submit"
+                                {{-- <button type="submit"
                                     class="p-2 w-full mx-auto text-white {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
                                     {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ? 'disabled' : '' }}>
                                     Join Meet
-                                </button>
+                                </button> --}}
 
-                            </form>
+                            {{-- </form> --}}
+                            @php
+                                $today = now()->format('Y-m-d');
+                                $currentTime = now()->format('H:i:s');
+                            @endphp 
+                            <button type="submit"
+                                class="p-2 w-full mx-auto text-white {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
+                                {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? 'disabled' : '' }}>
+                                Join Meet
+                            </button> 
 
                             </div>
                         </div>

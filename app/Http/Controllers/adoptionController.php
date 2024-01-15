@@ -132,6 +132,7 @@ class adoptionController extends Controller
         $adoption = null; 
         $petData = null;
         $scheduleInterview = null; 
+        $schedulePickup = null;
 
         if ($adoptionAnswerData && $adoptionAnswerData->adoption) {
             $stage = $adoptionAnswerData->adoption->stage;
@@ -142,12 +143,16 @@ class adoptionController extends Controller
             $scheduleInterview = SchedulePickup::where('application_id', $adoptionAnswerData->adoption->application_id)
             ->with('schedule', 'application')
             ->first();
+
+            $schedulePickup = ScheduleInterview::where('application_id', $adoptionAnswerData->adoption->application_id)
+            ->with('schedule', 'application')
+            ->first();
         }
 
         // Pass the pet data and other necessary variables to the view
         return view('user_contents.adoptionprogress', [
             'adoption_answer' => $adoptionAnswer, 
-            'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview
+            'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview, 'schedulePickup' => $schedulePickup
         ]);
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {

@@ -7,6 +7,8 @@ use App\Models\Pet;
 use App\Models\AdoptionAnswer;
 use App\Models\Application;
 use App\Models\Adoption;
+use App\Exports\PetsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -247,6 +249,10 @@ class PetDataController extends Controller
         session()->flash('pet_deleted', true);
         
         return response()->json(['message' => 'Pet deleted successfully']);
+    }
+    public function export_pet_type()
+    {
+        return Excel::download(new PetsExport, 'pet_type.xlsx');
     }
 }
 

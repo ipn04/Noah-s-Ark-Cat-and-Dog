@@ -211,6 +211,31 @@ class adoptionController extends Controller
             ->where('application_id', $id)
             ->update(['stage' => \DB::raw('stage + 1')]);
 
+            if ($adoptionAnswer->stage == 8) {
+                DB::table('pets')
+                    ->where('id', $adoptionAnswer->pet_id)
+                    ->update(['adoption_status' => 'Adopted']);
+            }
+
+            return redirect()->back()->with(['updateStage' => true]);
+        } else {
+            return redirect()->back()->with(['error' => 'Application not found']);
+        }
+    }
+
+    public function rejectStage($userId, $id)
+    {
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+            ->where('adoption.application_id', $id)
+            ->where('application.user_id', $userId)
+            ->first();
+
+        if ($adoptionAnswer) {
+            // Increment the stage directly
+            DB::table('adoption')
+            ->where('application_id', $id)
+            ->update(['stage' => 10]);
+
             return redirect()->back()->with(['updateStage' => true]);
         } else {
             return redirect()->back()->with(['error' => 'Application not found']);
@@ -307,7 +332,41 @@ class adoptionController extends Controller
         return redirect()->back()->with(['updateStage' => false]);
     }
 
-    
+    public function rejectInterview($userId, $id)
+    {
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+            ->where('adoption.application_id', $id)
+            ->where('application.user_id', $userId)
+            ->first();
+
+        if ($adoptionAnswer) {
+            DB::table('adoption')
+                ->where('application_id', $id)
+                ->update(['stage' => \DB::raw('stage - 1')]);
+
+            $application = $adoptionAnswer->application;
+
+            if ($application) {
+                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+
+                if ($scheduleInterview) { // Check if $scheduleInterview is not null
+                    $schedule = $scheduleInterview->schedule;
+
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Rejected']);
+                    }
+                } else {
+                    // Handle the case when scheduleInterview is not found
+                    // You might want to log or handle this situation appropriately
+                }
+            }
+
+            return redirect()->back()->with(['updateStage' => true]);
+        }
+
+        // Handle the case when the record is not found
+        return redirect()->back()->with(['updateStage' => false]);
+    }
 
     public function pickupStage($userId, $id)
     {
@@ -330,6 +389,34 @@ class adoptionController extends Controller
                     
                     if ($schedule) {
                         $schedule->update(['schedule_status' => 'Accepted']);
+                    }
+                }   
+                return redirect()->back()->with(['updateStage' => true]); 
+            }
+        }
+    }
+
+    public function rejectPickup($userId, $id)
+    {
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+        ->where('adoption.application_id', $id)
+        ->where('application.user_id', $userId)
+        ->first();
+
+        if ($adoptionAnswer) {
+            DB::table('adoption')
+            ->where('application_id', $id)
+            ->update(['stage' => \DB::raw('stage - 1')]);
+
+            $application = $adoptionAnswer->application;
+           
+            if ($application) {
+                $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
+                if ($schedulepickup) {
+                    $schedule = $schedulepickup->schedule;
+                    
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Rejected']);
                     }
                 }   
                 return redirect()->back()->with(['updateStage' => true]); 

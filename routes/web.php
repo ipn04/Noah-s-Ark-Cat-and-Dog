@@ -93,11 +93,17 @@ Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middle
 
 Route::patch('/admin/update-stage/{userId}/{id}', [adoptionController::class, 'updateStage'])->middleware(['auth', 'admin'])->name('admin.updateStage');
 
+Route::patch('/admin/reject-stage/{userId}/{id}', [adoptionController::class, 'rejectStage'])->middleware(['auth', 'admin'])->name('admin.rejectStage');
+
 Route::patch('/admin/wrap-interview/{userId}/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'admin'])->name('admin.wrap');
 
 Route::patch('/admin/interview-stage/{userId}/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'admin'])->name('admin.interviewStage');
 
+Route::patch('/admin/reject-interview-stage/{userId}/{id}', [adoptionController::class, 'rejectInterview'])->middleware(['auth', 'admin'])->name('admin.rejectInterview');
+
 Route::patch('/admin/pickup-stage/{userId}/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
+
+Route::patch('/admin/pickup-reject-stage/{userId}/{id}', [adoptionController::class, 'rejectPickup'])->middleware(['auth', 'admin'])->name('admin.rejectPickup');
 
 Route::patch('/admin/volunteer/interview/{userId}/{applicationId}', [ScheduleController::class, 'updateScheduleForVolunteer'])->middleware(['auth', 'admin'])->name('admin.volunter.interview.accept');
 
@@ -114,6 +120,7 @@ Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContr
 
 Route::get('/view/registered/user', [ProfileController::class, 'showRegisteredUsers'])->middleware(['auth', 'admin'])->name('view.users');
 
+Route::get('/export_pet', [PetDataController::class, 'export_pet_type'])->middleware(['auth', 'admin'])->name('export_pet_type');
 
 // Route::get('/admin/volunteers', function () {
 //     return view('admin_contents.volunteers');

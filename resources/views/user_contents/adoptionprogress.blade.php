@@ -44,11 +44,16 @@
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
                 <a href=""
                     class="
-                    @if ($stage >= 5) hidden 
-                    @else
-                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif">Cancel
+                    @if ($stage >= 0 && $stage <= 8) 
+                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md 
+                    @elseif($stage == 10)
+                    hidden
+                    @endif">Cancel
                     Application</a>
             </div>
+            @if($stage == 10)
+                <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
+            @endif
         </div>
 
 

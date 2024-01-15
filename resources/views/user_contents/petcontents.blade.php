@@ -22,7 +22,7 @@
                     @else
                     @endif --}}
                     <div>
-                        @if($user->adoption && (int)$user->adoption->stage === 9)
+                        @if($user->adoption && (int)$user->adoption->stage === 9 || $user->adoption && (int)$user->adoption->stage === 10)
                             <!-- User is allowed to adopt again, show the link -->
                             <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
                         @else

@@ -280,15 +280,20 @@
                                 </button> --}}
 
                             {{-- </form> --}}
-                            @php
-                                $today = now()->format('Y-m-d');
-                                $currentTime = now()->format('H:i:s');
-                            @endphp 
-                            <button type="submit"
-                                class="p-2 w-full mx-auto text-white {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
-                                {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? 'disabled' : '' }}>
-                                Join Meet
-                            </button> 
+                            <form method="post" target="_blank"
+                                action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) }}">
+                                @csrf
+                                @method('PATCH')
+                                @php
+                                    $today = now()->format('Y-m-d');
+                                    $currentTime = now()->format('H:i:s');
+                                @endphp 
+                                <button type="submit"
+                                    class="p-2 w-full mx-auto text-white {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
+                                    {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? : '' }}>
+                                    Join Meet
+                                </button> 
+                            </form>
 
                             </div>
                         </div>

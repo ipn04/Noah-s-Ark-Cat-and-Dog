@@ -364,7 +364,7 @@
 
                                     <button type="submit"
                                         class="p-2 w-full mx-auto text-white {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
-                                        {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ? 'disabled' : '' }}>
+                                        {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ?  : '' }}>
                                         Join Meet
                                     </button>
 

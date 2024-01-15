@@ -40,7 +40,7 @@
                             src="{{ asset('images/noahsark.jpg') }}" alt="ark">
                     </div>
                     <img class = "lg:max-w-md lg:h-96 max-w-xs h-60 object-cover rounded-xl"
-                        src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+                        src="{{ asset('images/noahss.jpg') }}" alt="ark">
                 </div>
             </div>
             <div class = "flex items-center justify-center">
@@ -72,17 +72,17 @@
             <div class = "grid-cols-1 lg:grid-cols-3 grid gap-20">
                 <div>
                     <img class = "lg:max-w-sm lg:h-72 max-w-xs h-60 object-cover rounded-xl"
-                        src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+                        src="{{ asset('images/rescue.jpg') }}" alt="ark">
                     <h1 class = "text-3xl text-center py-4 text-white font-bold">Rescue</h1>
                 </div>
-                <div>
-                    <img class = "lg:max-w-sm lg:h-72 max-w-xs h-60 object-cover rounded-xl"
-                        src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+                <div class = "lg:max-w-sm lg:h-72  max-w-xs h-60  ">
+                    <img class = "w-full h-full object-cover rounded-xl"
+                        src="{{ asset('images/rehome.jpg') }}" alt="ark">
                     <h1 class = "text-3xl text-center py-4 text-white font-bold">Rehabilitate</h1>
                 </div>
-                <div>
-                    <img class = "lg:max-w-sm lg:h-72 max-w-xs h-60 object-cover rounded-xl"
-                        src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+                <div class = "lg:max-w-sm lg:h-72 max-w-xs h-60 ">
+                    <img class = "w-full h-full object-cover rounded-xl"
+                        src="{{ asset('images/rehabilitate.jpg') }}" alt="ark">
                     <h1 class = "text-3xl text-center py-4 text-white font-bold">Rehome</h1>
                 </div>
             </div>
@@ -104,7 +104,7 @@
         <div class="lg:py-4  mx-auto text-center lg:text-center">
             <a href="{{ route('pets') }}"
                 class="bg-white hover:bg-yellow-500 text-red-500 hover:text-white font-bold text-lg text-2xl font-bold py-2 px-6 lg:py-4 lg:px-8 rounded-full">
-                View More Pets
+                View All Pets
             </a>
         </div>
 
@@ -131,16 +131,16 @@
             </div>
         </div>
 
-        <div class = "flex lg:justify-end justify-center py-4 lg:py-0">
+        <div class = "flex justify-end">
             <img class = "lg:max-w-md lg:h-80 max-w-xs h-60 object-cover rounded-xl"
-                src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+                src="{{ asset('images/volunteerprogram.jpg') }}" alt="ark">
         </div>
     </div>
 
     <div class = "grid-cols-1 lg:grid-cols-2 grid lg:py-20 lg:px-40">
         <div class = "flex justify-start">
             <img class = "lg:max-w-md lg:h-80 max-w-xs h-60 object-cover rounded-xl"
-                src="{{ asset('images/noahsark.jpg') }}" alt="ark">
+                src="{{ asset('images/unleash.jpg') }}" alt="ark">
         </div>
         <div class = "flex justify-center items-center ">
             <div>

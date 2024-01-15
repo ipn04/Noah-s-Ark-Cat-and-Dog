@@ -22,6 +22,7 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+        <script src='https://meet.jit.si/external_api.js'></script>
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -46,6 +47,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.0/datepicker.min.js"></script>
         {{-- <script src="/js/chart.js"></script> --}}
         <script src="/js/crud.js">deletepet</script>       
+        <script src="/js/jitsi.js"></script>
         <script src="/js/ph-address-selector.js"></script>
         <script src="https://kit.fontawesome.com/729fd96d7a.js" crossorigin="anonymous"></script>
 

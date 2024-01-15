@@ -33,13 +33,13 @@
             });
         </script>
     @endif
-    
+
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class="flex flex-col sm:flex-row justify-between lg:items-center py-4 px-10">
             <div class="flex gap-2 mb-2 sm:mb-0">
                 <a href="{{ route('admin.adoptions') }}"
                     class="lg:text-lg text-base hover:font-bold hover:cursor-pointer hover:text-red-700">Adoptions</a>
-                    <p class="lg:text-lg text-base">>></p>
+                <p class="lg:text-lg text-base">>></p>
                 <h2 class="font-bold text-base lg:text-lg text-yellow-500">Adoption Application Details</h2>
             </div>
             <div class="@if($stage == 8)grid grid-cols-1  @else grid grid-cols-2 @endif gap-2 lg:py-0 mx-auto lg:mx-0 ">
@@ -53,7 +53,7 @@
                     @method('PATCH')
                     <button type="submit"
                         class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md
-                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 ||  $stage == 6 || $stage == 7 || $stage == 9 || $stage == 10) hidden
+                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 ||  $stage == 6 || $stage == 7 || $stage == 9) hidden
                     @else
                     block @endif
                     ">
@@ -299,7 +299,9 @@
                                 {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
                             </p>
 
-                            <form action="{{ route('update.contract', ['user' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}" method="POST" enctype="multipart/form-data">
+                            <form
+                                action="{{ route('update.contract', ['user' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
                                 <div class="flex items-center justify-center w-full py-3">
@@ -336,26 +338,50 @@
                     @else
                     hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
-                            <h2 class = "font-bold text-lg p-2">Interview at 2023-13-11</h2>
-                            <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
-                                later at 10:00 am</p>
+                            @php
+                                $scheduledDate = \Carbon\Carbon::parse($scheduleInterview->date);
+                                $scheduledTime = \Carbon\Carbon::parse($scheduleInterview->time);
+                                $scheduledDateTime = $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString());
+                            @endphp
+
+                            <h2 class="font-bold text-lg p-2">
+                                Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
+                            </h2>
+
+                            <p class = "p-2">You have an interview scheduled later at {{ $scheduledDateTime->format('F j, Y g:ia') }}. Please join this meet
+                                later at {{ $scheduledDateTime->format(' g:ia') }}.</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
-                                <button id="startJitsiButton"
-                                class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
-                                Meet</button>
-                                <form action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                <form method="post" target="_blank"
+                                    action="{{ route('interview.admin', ['scheduleId' => $scheduleInterview->interview_id]) }}">
+                                    @csrf
+                                    @method('PATCH')
+                                    @php
+                                        $today = now()->format('Y-m-d');
+                                        $currentTime = now()->format('H:i:s');
+                                    @endphp
+
+                                    <button type="submit"
+                                        class="p-2 w-full mx-auto text-white {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
+                                        {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ? 'disabled' : '' }}>
+                                        Join Meet
+                                    </button>
+
+                                </form>
+
+                                <form
+                                    action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
                                     method="POST">
                                     @csrf
                                     @method('PATCH')
                                     <button type="submit"
-                                        class = "p-2  w-2/3 mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
+                                        class = "p-2  w-full mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
                                         Interview</button>
                                 </form>
                             </div>
                         </div>
                     </div>
 
-                    
+
                     <div class = "grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg">
                         <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
@@ -370,8 +396,8 @@
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
-                                        <td class = "font-bold">Birthday</td>
-                                        <td>{{  $adoptionAnswer->user->birthday  }}</td>
+                                        <td class = "font-bold">Age</td>
+                                        <td>{{  $adoptionAnswer->user->age  }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
@@ -476,8 +502,7 @@
                     <div
                         class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                         <img class="object-cover object-center w-32 h-32"
-                            src="{{ asset('storage/' . $adoptionAnswer->user->profile_image) }}"
-                            alt='user profile'>
+                            src="{{ asset('storage/' . $adoptionAnswer->user->profile_image) }}" alt='user profile'>
                     </div>
                     <h1 class = "text-center font-bold text-2xl py-2 capitalize">
                         {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
@@ -491,25 +516,25 @@
                             </tr>
                             <tr>
                                 <td class = "font-bold">Gender</td>
-                                    <td class = "capitalize">{{ $adoptionAnswer->user->gender  }}
+                                <td class = "capitalize">{{ $adoptionAnswer->user->gender }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Phone</td>
                                 <td class = "capitalize">
-                                    {{ $adoptionAnswer->user->phone_number  }}
+                                    {{ $adoptionAnswer->user->phone_number }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Email</td>
                                 <td class = "capitalize">
-                                    {{ $adoptionAnswer->user->email  }}
+                                    {{ $adoptionAnswer->user->email }}
                                 </td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Civil Status</td>
                                 <td class = "capitalize">
-                                   {{ $adoptionAnswer->user->civil_status  }}
+                                    {{ $adoptionAnswer->user->civil_status }}
                                 </td>
                             </tr>
                             <tr>
@@ -605,8 +630,9 @@
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
                                             Schedule</h3>
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
-                                            {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}</h3>
-                              
+                                            {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
+                                        </h3>
+
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
                                             {{ $scheduleInterview->date }}</h3>
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
@@ -618,24 +644,18 @@
                                                 method="POST">
                                                 @csrf
                                                 @method('PATCH')
-                                                <button data-modal-hide="progress-modal"
-                                                    type="submit"
+                                                <button data-modal-hide="progress-modal" type="submit"
                                                     class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
-                                            </form>
-                                            <form
-                                                action="{{ route('admin.rejectInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button data-modal-hide="progress-modal" type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
-                                                <button data-modal-hide="progress-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                                <button data-modal-hide="progress-modal"
+                                                    type="button"
+                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                             </form>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                        @elseif ($stage === 6)
+                    @elseif ($stage === 6)
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
                             class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
@@ -664,7 +684,7 @@
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
                                             Schedule Pickup</h3>
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
-                                            {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name}}
+                                            {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
                                             {{-- {{ $schedulePickup->application->user->name }}</h3> --}}
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
                                             {{-- {{ $schedulePickup->date }}</h3> --}}
@@ -680,14 +700,9 @@
                                                 <button data-modal-hide="progress-modal }}"
                                                     type="submit"
                                                     class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
-                                            </form>
-                                            <form
-                                                action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button data-modal-hide="progress-modal" type="submit" class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
-                                                <button data-modal-hide="progress-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                                <button data-modal-hide="progress-modal"
+                                                    type="button"
+                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                             </form>
                                         </div>
                                     </div>
@@ -708,16 +723,16 @@
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         {{-- {{ $adoptionAnswer->adoption->pet->pet_name . ' Details' }} </h3> --}}
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="pet-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="pet-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
@@ -730,8 +745,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->pet_name }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Name</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Name</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -742,8 +757,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->pet_type }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Pet Type</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Pet Type</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -754,8 +769,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->breed }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Breed</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Breed</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -766,8 +781,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->age }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Age</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Age</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -778,8 +793,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->color }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Color</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Color</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -790,8 +805,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->adoption_status }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Adoption Status</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Adoption Status</div>
+                                    </div>
                             </label>
                         </li>
                     </ul>
@@ -804,8 +819,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->gender }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Gender</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Gender</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -816,8 +831,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->vaccination_status }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Vaccination Status</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Vaccination Status</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -828,8 +843,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->weight }} kg</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Weight</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Weight</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -840,8 +855,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->size }} cm</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Size</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Size</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -852,8 +867,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->behaviour }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Behavior</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Behavior</div>
+                                    </div>
                             </label>
                         </li>
                         <li>
@@ -864,8 +879,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{-- {{ $adoptionAnswer->adoption->pet->description }}</div> --}}
-                                    <div class="w-full text-gray-500 dark:text-gray-400">Description</div>
-                                </div>
+                                        <div class="w-full text-gray-500 dark:text-gray-400">Description</div>
+                                    </div>
                             </label>
                         </li>
                     </ul>
@@ -908,121 +923,129 @@
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
                     <div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
-                        <x-text-input id="first_question" class="block mt-1 w-full" type="text" name="first_question"
-                            :value="old('first_question', $adoptionAnswer->first_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
-                        <x-text-input id="second_question" class="block mt-1 w-full" type="text" name="second_question"
-                            :value="old('second_question', $adoptionAnswer->second_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
-                        <x-text-input id="third_question" class="block mt-1 w-full" type="text" name="third_question"
-                            :value="old('third_question', $adoptionAnswer->third_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
-                        <x-text-input id="fourth_question" class="block mt-1 w-full" type="text" name="fourth_question"
-                            :value="old('fourth_question', $adoptionAnswer->fourth_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
-                        <x-text-input id="fifth_question" class="block mt-1 w-full" type="text" name="fifth_question"
-                            :value="old('fifth_question', $adoptionAnswer->fifth_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
-                        <x-text-input id="sixth_question" class="block mt-1 w-full" type="text" name="sixth_question"
-                            :value="old('sixth_question', $adoptionAnswer->sixth_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
-                        <x-text-input id="sevent_question" class="block mt-1 w-full" type="text" name="sevent_question"
-                            :value="old('sevent_question', $adoptionAnswer->sevent_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
-                        <x-text-input id="eight_question" class="block mt-1 w-full" type="text" name="eight_question"
-                            :value="old('eight_question', $adoptionAnswer->eight_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
-                        <x-text-input id="ninth_question" class="block mt-1 w-full" type="text" name="ninth_question"
-                            :value="old('ninth_question', $adoptionAnswer->ninth_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="tenth_question" :value="__('Who will be responsible for feeding, grooming, and generally caring of your pet?')" />
-                        <x-text-input id="tenth_question" class="block mt-1 w-full" type="text" name="tenth_question"
-                            :value="old('tenth_question', $adoptionAnswer->tenth_question)"/>
-                    </div>
-                    <div class="mt-4" style="pointer-events: none;">
-                        <x-input-label for="eleventh_question" :value="__('Who will be financially responsible for your pets needs (i.e food,vet,bills,etc)?')" />
-                        <x-text-input id="eleventh_question" class="block mt-1 w-full" type="text" name="eleventh_question"
-                            :value="old('eleventh_question', $adoptionAnswer->eleventh_question)"/>
-                    </div>
-                 
-                    
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
+                            <x-text-input id="first_question" class="block mt-1 w-full" type="text"
+                                name="first_question" :value="old('first_question', $adoptionAnswer->first_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
+                            <x-text-input id="second_question" class="block mt-1 w-full" type="text"
+                                name="second_question" :value="old('second_question', $adoptionAnswer->second_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
+                            <x-text-input id="third_question" class="block mt-1 w-full" type="text"
+                                name="third_question" :value="old('third_question', $adoptionAnswer->third_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
+                            <x-text-input id="fourth_question" class="block mt-1 w-full" type="text"
+                                name="fourth_question" :value="old('fourth_question', $adoptionAnswer->fourth_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
+                            <x-text-input id="fifth_question" class="block mt-1 w-full" type="text"
+                                name="fifth_question" :value="old('fifth_question', $adoptionAnswer->fifth_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
+                            <x-text-input id="sixth_question" class="block mt-1 w-full" type="text"
+                                name="sixth_question" :value="old('sixth_question', $adoptionAnswer->sixth_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
+                            <x-text-input id="sevent_question" class="block mt-1 w-full" type="text"
+                                name="sevent_question" :value="old('sevent_question', $adoptionAnswer->sevent_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
+                            <x-text-input id="eight_question" class="block mt-1 w-full" type="text"
+                                name="eight_question" :value="old('eight_question', $adoptionAnswer->eight_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
+                            <x-text-input id="ninth_question" class="block mt-1 w-full" type="text"
+                                name="ninth_question" :value="old('ninth_question', $adoptionAnswer->ninth_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="tenth_question" :value="__(
+                                'Who will be responsible for feeding, grooming, and generally caring of your pet?',
+                            )" />
+                            <x-text-input id="tenth_question" class="block mt-1 w-full" type="text"
+                                name="tenth_question" :value="old('tenth_question', $adoptionAnswer->tenth_question)" />
+                        </div>
+                        <div class="mt-4" style="pointer-events: none;">
+                            <x-input-label for="eleventh_question" :value="__(
+                                'Who will be financially responsible for your pets needs (i.e food,vet,bills,etc)?',
+                            )" />
+                            <x-text-input id="eleventh_question" class="block mt-1 w-full" type="text"
+                                name="eleventh_question" :value="old('eleventh_question', $adoptionAnswer->eleventh_question)" />
+                        </div>
+
+
 
                     </div>
 
                     <div>
                         <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="twelfth_question" :value="__('Who will look after your pet if you go on vacation or in case of emergency?')" />
-                            <x-text-input id="twelfth_question" class="block mt-1 w-full" type="text" name="twelfth_question"
-                                :value="old('twelfth_question', $adoptionAnswer->twelfth_question)"/>
+                            <x-input-label for="twelfth_question" :value="__(
+                                'Who will look after your pet if you go on vacation or in case of emergency?',
+                            )" />
+                            <x-text-input id="twelfth_question" class="block mt-1 w-full" type="text"
+                                name="twelfth_question" :value="old('twelfth_question', $adoptionAnswer->twelfth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="thirteenth_question" :value="__('How many hours in an average work day will your pet be left alone?')" />
-                            <x-text-input id="thirteenth_question" class="block mt-1 w-full" type="text" name="thirteenth_question"
-                                :value="old('thirteenth_question', $adoptionAnswer->thirteenth_question)"/>
+                            <x-text-input id="thirteenth_question" class="block mt-1 w-full" type="text"
+                                name="thirteenth_question" :value="old('thirteenth_question', $adoptionAnswer->thirteenth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="fourteenth_question" :value="__('Does everyone in the family support your decision to adopt a pet?')" />
-                            <x-text-input id="fourteenth_question" class="block mt-1 w-full" type="text" name="fourteenth_question"
-                                :value="old('fourteenth_question', $adoptionAnswer->fourteenth_question)"/>
+                            <x-text-input id="fourteenth_question" class="block mt-1 w-full" type="text"
+                                name="fourteenth_question" :value="old('fourteenth_question', $adoptionAnswer->fourteenth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="fifteenth_question" :value="__('What steps will you take to familiarize your new pet with his/her new surrounding?')" />
-                            <x-text-input id="fifteenth_question" class="block mt-1 w-full" type="text" name="fifteenth_question"
-                                :value="old('fifteenth_question', $adoptionAnswer->fifteenth_question)"/>
+                            <x-input-label for="fifteenth_question" :value="__(
+                                'What steps will you take to familiarize your new pet with his/her new surrounding?',
+                            )" />
+                            <x-text-input id="fifteenth_question" class="block mt-1 w-full" type="text"
+                                name="fifteenth_question" :value="old('fifteenth_question', $adoptionAnswer->fifteenth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="seventeenth_question" :value="__('What type of building do you live in?')" />
-                            <x-text-input id="seventeenth_question" class="block mt-1 w-full" type="text" name="seventeenth_question"
-                                :value="old('seventeenth_question', $adoptionAnswer->seventeenth_question)"/>
+                            <x-text-input id="seventeenth_question" class="block mt-1 w-full" type="text"
+                                name="seventeenth_question" :value="old('seventeenth_question', $adoptionAnswer->seventeenth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="eighteenth_question" :value="__('Do you rent?')" />
-                            <x-text-input id="eighteenth_question" class="block mt-1 w-full" type="text" name="eighteenth_question"
-                                :value="old('eighteenth_question', $adoptionAnswer->eighteenth_question)"/>
+                            <x-text-input id="eighteenth_question" class="block mt-1 w-full" type="text"
+                                name="eighteenth_question" :value="old('eighteenth_question', $adoptionAnswer->eighteenth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="nineteenth_question" :value="__('What happens to your pet if or when you move?')" />
-                            <x-text-input id="nineteenth_question" class="block mt-1 w-full" type="text" name="nineteenth_question"
-                                :value="old('nineteenth_question', $adoptionAnswer->nineteenth_question)"/>
+                            <x-text-input id="nineteenth_question" class="block mt-1 w-full" type="text"
+                                name="nineteenth_question" :value="old('nineteenth_question', $adoptionAnswer->nineteenth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentieth_question" :value="__('Do you have a fenced yard? ')" />
-                            <x-text-input id="twentieth_question" class="block mt-1 w-full" type="text" name="twentieth_question"
-                                :value="old('twentieth_question', $adoptionAnswer->twentieth_question)"/>
+                            <x-text-input id="twentieth_question" class="block mt-1 w-full" type="text"
+                                name="twentieth_question" :value="old('twentieth_question', $adoptionAnswer->twentieth_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentyfirst_question" :value="__('How much time will your dog spend in the yard?')" />
-                            <x-text-input id="twentyfirst_question" class="block mt-1 w-full" type="text" name="twentyfirst_question"
-                                :value="old('twentyfirst_question', $adoptionAnswer->twentyfirst_question)"/>
+                            <x-text-input id="twentyfirst_question" class="block mt-1 w-full" type="text"
+                                name="twentyfirst_question" :value="old('twentyfirst_question', $adoptionAnswer->twentyfirst_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentysecond_question" :value="__('Are you prepared to walk and potty train your dog? ')" />
-                            <x-text-input id="twentysecond_question" class="block mt-1 w-full" type="text" name="twentysecond_question"
-                                :value="old('twentysecond_question', $adoptionAnswer->twentysecond_question)"/>
+                            <x-text-input id="twentysecond_question" class="block mt-1 w-full" type="text"
+                                name="twentysecond_question" :value="old('twentysecond_question', $adoptionAnswer->twentysecond_question)" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentythird_question" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?')" />
-                            <x-text-input id="twentythird_question" class="block mt-1 w-full" type="text" name="twentythird_question"
-                                :value="old('twentythird_question', $adoptionAnswer->twentythird_question)"/>
+                            <x-text-input id="twentythird_question" class="block mt-1 w-full" type="text"
+                                name="twentythird_question" :value="old('twentythird_question', $adoptionAnswer->twentythird_question)" />
                         </div>
                     </div>
                     <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
@@ -1032,7 +1055,8 @@
                             View ID </x-primary-button>
                     </div>
                     <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
-                        <x-primary-button data-modal-target="forsignature-modal" data-modal-toggle="forsignature-modal"
+                        <x-primary-button data-modal-target="forsignature-modal"
+                            data-modal-toggle="forsignature-modal"
                             class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             View Signature </x-primary-button>
@@ -1102,9 +1126,8 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="p-4 md:p-5 items-center text-center">
-                    {{-- <img class="object-cover object-center mx-auto max-w-3xl h-full"
-                        src="{{ asset('storage/images/' . $adoption->pet->dropzone_file) }}"
-                        alt='user profile'> --}}
+                    <img class="object-cover object-center mx-auto max-w-3xl h-full"
+                        src="{{ asset('storage/images/' . $adoption->pet->dropzone_file) }}" alt='user profile'>
                 </div>
             </div>
         </div>

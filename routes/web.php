@@ -27,6 +27,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::patch('/user/interview/{scheduleId}', [InterviewController::class, 'jitsiuserinterview'])
+    ->middleware(['auth', 'user'])
+    ->name('interview.user');
+
+Route::patch('/admin/interview/{scheduleId}', [InterviewController::class, 'jitsiadmininterview'])
+    ->middleware(['auth', 'admin'])
+    ->name('interview.admin');
+
 Route::get('/', function () {
     return view('welcome');
 })->name('ivan');

@@ -8,6 +8,7 @@ use App\Models\ScheduleInterview;
 use App\Models\Application;
 use App\Models\Adoption;
 use App\Models\VolunteerAnswers;
+use Illuminate\Support\Facades\Redirect;
 
 class InterviewController extends Controller
 {
@@ -100,13 +101,35 @@ class InterviewController extends Controller
         }
     }
 
-    public function jitsiadmininterview(Request $request, $yourDesiredId){
+    public function jitsiadmininterview(Request $request, $scheduleId){
+        $result = ScheduleInterview::select(
+            'schedule_interviews.interview_id as interview_id',
+            'schedule_interviews.room as room',
+            // Add other columns as needed
+        )
+        ->leftJoin('application', 'schedule_interviews.application_id', '=', 'application.id')
+        ->leftJoin('users', 'application.user_id', '=', 'users.id')
+        ->where('schedule_interviews.interview_id', '=', $scheduleId)
+        ->first(); // Use first() instead of get()
+    
 
-        $result = ScheduleInterview::leftJoin('application', 'schedule_interviews.application_id', '=', 'application.id')
-    ->leftJoin('users', 'application.user_id', '=', 'users.id')
-    ->where('schedule_interviews.id', '=', $yourDesiredId)
-    ->get();
-    return view('jitsiadmininterview', ['result' => $result]);
+        return view('admin_contents.interview', ['result' => $result]);
+
+    }
+
+    public function jitsiuserinterview(Request $request, $scheduleId){
+        $result = ScheduleInterview::select(
+            'schedule_interviews.interview_id as interview_id',
+            'schedule_interviews.room as room',
+            // Add other columns as needed
+        )
+        ->leftJoin('application', 'schedule_interviews.application_id', '=', 'application.id')
+        ->leftJoin('users', 'application.user_id', '=', 'users.id')
+        ->where('schedule_interviews.interview_id', '=', $scheduleId)
+        ->first(); 
+    
+
+        return view('user_contents.interview', ['result' => $result]);
 
     }
 }

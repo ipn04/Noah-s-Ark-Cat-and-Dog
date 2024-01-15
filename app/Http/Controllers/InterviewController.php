@@ -13,6 +13,18 @@ class InterviewController extends Controller
 {
     public function store(Request $request)
     {
+
+        $possible_characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+        $string_length = 30;
+
+        function pickRandom($possible_characters, $string_length)
+        {
+            $random_string = substr(str_shuffle($possible_characters), 0, $string_length);
+            return $random_string;
+        }
+        
+        $random_string = pickRandom($possible_characters, $string_length);
+
         $currentUserId = auth()->user()->id; // Change this to your actual way of getting the user ID
 
         $application = Application::where('user_id', $currentUserId)
@@ -33,6 +45,7 @@ class InterviewController extends Controller
         $scheduleInterview->application_id = $application->id;
         $scheduleInterview->date = $request->input('date');
         $scheduleInterview->time = $request->input('time');
+        $scheduleInterview->room = $random_string;
         $scheduleInterview->save();
 
         // Find the most recent adoption for the current user
@@ -85,5 +98,15 @@ class InterviewController extends Controller
             // Handle any exceptions that might occur
             return redirect()->back()->with(['error' => $e->getMessage()]);
         }
+    }
+
+    public function jitsiadmininterview(Request $request, $yourDesiredId){
+
+        $result = ScheduleInterview::leftJoin('application', 'schedule_interviews.application_id', '=', 'application.id')
+    ->leftJoin('users', 'application.user_id', '=', 'users.id')
+    ->where('schedule_interviews.id', '=', $yourDesiredId)
+    ->get();
+    return view('jitsiadmininterview', ['result' => $result]);
+
     }
 }

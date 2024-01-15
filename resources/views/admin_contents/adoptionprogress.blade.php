@@ -340,13 +340,13 @@
                             <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
                                 later at 10:00 am</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
+                                <button id="startJitsiButton"
+                                class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
+                                Meet</button>
                                 <form action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
                                     method="POST">
                                     @csrf
                                     @method('PATCH')
-                                    <button
-                                        class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
-                                        Meet</button>
                                     <button type="submit"
                                         class = "p-2  w-2/3 mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
                                         Interview</button>
@@ -354,6 +354,8 @@
                             </div>
                         </div>
                     </div>
+
+                    
                     <div class = "grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg">
                         <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div

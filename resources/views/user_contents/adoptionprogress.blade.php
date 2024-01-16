@@ -368,6 +368,9 @@
                                         </tr>
                                     </table>
                                 </div>
+
+
+
                                 <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
@@ -433,173 +436,8 @@
 
         </div>
 
-        <div id="answer-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-            <div class="relative p-4 w-full max-w-6xl max-h-full">
-                <!-- Modal content -->
-                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    <!-- Modal header -->
-                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            {{-- {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name . ' Answers' }} --}}
-                        </h3>
-                        <button type="button"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="answer-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
-                        <div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
-                                <x-text-input id="first_question" class="block mt-1 w-full" type="text"
-                                    name="first_question" :value="old('first_question', $adoptionAnswerData->first_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
-                                <x-text-input id="second_question" class="block mt-1 w-full" type="text"
-                                    name="second_question" :value="old('second_question', $adoptionAnswerData->second_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
-                                <x-text-input id="third_question" class="block mt-1 w-full" type="text"
-                                    name="third_question" :value="old('third_question', $adoptionAnswerData->third_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
-                                <x-text-input id="fourth_question" class="block mt-1 w-full" type="text"
-                                    name="fourth_question" :value="old('fourth_question', $adoptionAnswerData->fourth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
-                                <x-text-input id="fifth_question" class="block mt-1 w-full" type="text"
-                                    name="fifth_question" :value="old('fifth_question', $adoptionAnswerData->fifth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
-                                <x-text-input id="sixth_question" class="block mt-1 w-full" type="text"
-                                    name="sixth_question" :value="old('sixth_question', $adoptionAnswerData->sixth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
-                                <x-text-input id="sevent_question" class="block mt-1 w-full" type="text"
-                                    name="sevent_question" :value="old('sevent_question', $adoptionAnswerData->sevent_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
-                                <x-text-input id="eight_question" class="block mt-1 w-full" type="text"
-                                    name="eight_question" :value="old('eight_question', $adoptionAnswerData->eight_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
-                                <x-text-input id="ninth_question" class="block mt-1 w-full" type="text"
-                                    name="ninth_question" :value="old('ninth_question', $adoptionAnswerData->ninth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="tenth_question" :value="__(
-                                    'Who will be responsible for feeding, grooming, and generally caring of your pet?',
-                                )" />
-                                <x-text-input id="tenth_question" class="block mt-1 w-full" type="text"
-                                    name="tenth_question" :value="old('tenth_question', $adoptionAnswerData->tenth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="eleventh_question" :value="__(
-                                    'Who will be financially responsible for your pets needs (i.e food,vet,bills,etc)?',
-                                )" />
-                                <x-text-input id="eleventh_question" class="block mt-1 w-full" type="text"
-                                    name="eleventh_question" :value="old('eleventh_question', $adoptionAnswerData->eleventh_question ?? '')" />
-                            </div>
 
 
-
-                        </div>
-
-                        <div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="twelfth_question" :value="__(
-                                    'Who will look after your pet if you go on vacation or in case of emergency?',
-                                )" />
-                                <x-text-input id="twelfth_question" class="block mt-1 w-full" type="text"
-                                    name="twelfth_question" :value="old('twelfth_question', $adoptionAnswerData->twelfth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="thirteenth_question" :value="__('How many hours in an average work day will your pet be left alone?')" />
-                                <x-text-input id="thirteenth_question" class="block mt-1 w-full" type="text"
-                                    name="thirteenth_question" :value="old('thirteenth_question', $adoptionAnswerData->thirteenth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="fourteenth_question" :value="__('Does everyone in the family support your decision to adopt a pet?')" />
-                                <x-text-input id="fourteenth_question" class="block mt-1 w-full" type="text"
-                                    name="fourteenth_question" :value="old('fourteenth_question', $adoptionAnswerData->fourteenth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="fifteenth_question" :value="__(
-                                    'What steps will you take to familiarize your new pet with his/her new surrounding?',
-                                )" />
-                                <x-text-input id="fifteenth_question" class="block mt-1 w-full" type="text"
-                                    name="fifteenth_question" :value="old('fifteenth_question', $adoptionAnswerData->fifteenth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="seventeenth_question" :value="__('What type of building do you live in?')" />
-                                <x-text-input id="seventeenth_question" class="block mt-1 w-full" type="text"
-                                    name="seventeenth_question" :value="old('seventeenth_question', $adoptionAnswerData->seventeenth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="eighteenth_question" :value="__('Do you rent?')" />
-                                <x-text-input id="eighteenth_question" class="block mt-1 w-full" type="text"
-                                    name="eighteenth_question" :value="old('eighteenth_question', $adoptionAnswerData->eighteenth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="nineteenth_question" :value="__('What happens to your pet if or when you move?')" />
-                                <x-text-input id="nineteenth_question" class="block mt-1 w-full" type="text"
-                                    name="nineteenth_question" :value="old('nineteenth_question', $adoptionAnswerData->nineteenth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="twentieth_question" :value="__('Do you have a fenced yard? ')" />
-                                <x-text-input id="twentieth_question" class="block mt-1 w-full" type="text"
-                                    name="twentieth_question" :value="old('twentieth_question', $adoptionAnswerData->twentieth_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="twentyfirst_question" :value="__('How much time will your dog spend in the yard?')" />
-                                <x-text-input id="twentyfirst_question" class="block mt-1 w-full" type="text"
-                                    name="twentyfirst_question" :value="old('twentyfirst_question', $adoptionAnswerData->twentyfirst_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="twentysecond_question" :value="__('Are you prepared to walk and potty train your dog? ')" />
-                                <x-text-input id="twentysecond_question" class="block mt-1 w-full" type="text"
-                                    name="twentysecond_question" :value="old('twentysecond_question', $adoptionAnswerData->twentysecond_question ?? '')" />
-                            </div>
-                            <div class="mt-4" style="pointer-events: none;">
-                                <x-input-label for="twentythird_question" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?')" />
-                                <x-text-input id="twentythird_question" class="block mt-1 w-full" type="text"
-                                    name="twentythird_question" :value="old('twentythird_question', $adoptionAnswerData->twentythird_question ?? '')" />
-                            </div>
-                        </div>
-                        <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <x-primary-button data-modal-target="forid-modal" data-modal-toggle="forid-modal"
-                                class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                type="button">
-                                View ID </x-primary-button>
-                        </div>
-                        <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
-                            <x-primary-button data-modal-target="forsignature-modal"
-                                data-modal-toggle="forsignature-modal"
-                                class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                type="button">
-                                View Signature </x-primary-button>
-                        </div>
-                    </div>
-                    <!-- Modal footer -->
-                </div>
-            </div>
-        </div>
 
         <div
             class = "
@@ -765,9 +603,15 @@
                                     </td>
                                 </tr>
                             </table>
+                            <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
+                            class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            type="button">
+                            View Answers
+                        </button>
                         </div>
 
                     </div>
+                </div>
                     <div
                         class=" @if ($stage == 5) hidden 
                 @else
@@ -1142,48 +986,6 @@
             </div>
         </div>
     </div>
-    <div id="forid-modal" tabindex="-1"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-7xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button type="button"
-                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="forid-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-                <div class="p-4 md:p-5 text-center">
-                    <img class="object-cover object-center  mx-auto max-w-3xl  h-full"
-                        src="{{ asset('storage/signatures/' . $adoptionAnswerData->upload) }}" alt='user profile'>
-                </div>
-            </div>
-        </div>
-    </div>
 
-    <div id="forsignature-modal" tabindex="-1"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-7xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <button type="button"
-                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-hide="forsignature-modal">
-                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                        viewBox="0 0 14 14">
-                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                    </svg>
-                    <span class="sr-only">Close modal</span>
-                </button>
-                <div class="p-4 md:p-5 text-center">
-                    <img class="object-cover object-center  mx-auto max-w-3xl  h-full"
-                        src="{{ asset('storage/signatures/' . $adoptionAnswerData->upload2) }}" alt='user profile'>
-                </div>
-            </div>
-        </div>
-    </div>
-
+    
 </x-app-layout>

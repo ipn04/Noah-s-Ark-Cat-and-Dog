@@ -51,7 +51,7 @@
                     ">Cancel
                     Application</a>
             </div>
-            @if($stage == 10)
+            @if ($stage == 10)
                 <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
             @endif
         </div>
@@ -62,11 +62,9 @@
                     <div class = "flex items-center justify-center gap-2">
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
-                                @if($stage >= 0 && $stage <6)
-                                text-green-500 bg-green-200
+                                @if ($stage >= 0 && $stage < 6) text-green-500 bg-green-200
                                 @else
-                                text-gray-600 bg-gray-200 
-                                @endif
+                                text-gray-600 bg-gray-200 @endif
                                 ">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                 class="lg:w-8 lg:h-8 w-4 h-4">
@@ -187,8 +185,9 @@
             </div>
         </div>
 
-        <div class="  
-        @if ($stage == 3 ) flex items-center py-5 justify-center
+        <div
+            class="  
+        @if ($stage == 3) flex items-center py-5 justify-center
         @else
         hidden @endif  
          ">
@@ -213,41 +212,51 @@
                     </div>
                     <div class = " 
                         grid grid-cols-1 lg:pt-14 gap-5 px-4 max-w-screen-lg ">
-                        <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                        <div class="bg-white px-5 mt-10 max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                                <img class="object-cover object-center w-32 h-32" src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}" alt='user profile'>
+                                <img class="object-cover object-center w-32 h-32"
+                                    src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
+                                    alt='user profile'>
                             </div>
                             <h1 class = "text-center font-bold text-2xl py-2 capitalize">
-                                
+
                             </h1>
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
                                         <td class = "font-bold">Birthdate</td>
-                                        <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}</td>
+                                        <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->gender }}</td>
+                                        <td class = "capitalize">
+                                            {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Phone</td>
-                                        <td class = "capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}</td>
+                                        <td class = "capitalize">
+                                            {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Email</td>
-                                        <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}</td>
+                                        <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Civil Status</td>
-                                        <td class = "capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}</td>
+                                        <td class = "capitalize">
+                                            {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
+                                        </td>
                                     </tr>
 
                                     <tr>
                                         <td class = "font-bold">Address</td>
                                         <td class = "capitalize">
-                                            {{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province . ' ' .  $userVolunteerAnswers->volunteer_application->application->user->city . ' ' .  $userVolunteerAnswers->volunteer_application->application->user->barangay . ' ' .  $userVolunteerAnswers->volunteer_application->application->user->street}}
+                                            {{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province . ' ' . $userVolunteerAnswers->volunteer_application->application->user->city . ' ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ' ' . $userVolunteerAnswers->volunteer_application->application->user->street }}
                                         </td>
                                     </tr>
                                 </table>
@@ -257,7 +266,7 @@
                                     View Answers
                                 </button>
                             </div>
-                            
+
                         </div>
 
                     </div>
@@ -271,64 +280,75 @@
         </div>
 
 
-        <div class="   
+        <div
+            class="   
         @if ($stage == 3 || $stage == 7) hidden 
         @else 
-        flex items-center  py-5  px-10  justify-center
-         @endif    
-          "
-         >
+        flex items-center  py-5  px-10  justify-center @endif    
+          ">
             <div class = "grid grid-cols-1 lg:grid-cols-2  gap-10 px-4 max-w-screen-lg lg:mt-12">
 
-                    <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
-                        @if($userVolunteerAnswers)
-                            {{-- @foreach ($userVolunteerAnswers as $answers) --}}
-                                <div
-                                    class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                                    <img class="object-cover object-center w-32 h-32" src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}" alt='user profile'>
-                                </div>
-                                <h1 class = "text-center font-bold text-2xl py-2 capitalize">
-                                    {{ $userVolunteerAnswers->volunteer_application->application->user->firstname .' '.$userVolunteerAnswers->volunteer_application->application->user->name }}
-                                </h1>
-                                <div class = "pb-4">
-                                    <table class = "border-separate border-spacing-3">
-                                        <tr>
-                                            <td class="font-bold">Birthday</td>
-                                            <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Gender</td>
-                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->gender }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Phone</td>
-                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Email</td>
-                                            <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Civil Status</td>
-                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Address</td>
-                                            <td class="capitalize">{{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province  . ' ' . $userVolunteerAnswers->volunteer_application->application->user->city  . ' ' . $userVolunteerAnswers->volunteer_application->application->user->barangay  . ' ' . $userVolunteerAnswers->volunteer_application->application->user->street}}</td>
-                                        </tr>
-                                            
-                                    </table>
-                                    <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
-                                        class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                        type="button">
-                                        View Answers
-                                    </button>
-                                </div>
-                            {{-- @endforeach --}}
-                        @else
-                            <p>No volunteer answers found.</p>
-                        @endif
-                    </div>
+                <div class="bg-white px-5 mt-10  max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                    @if ($userVolunteerAnswers)
+                        {{-- @foreach ($userVolunteerAnswers as $answers) --}}
+                        <div
+                            class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                            <img class="object-cover object-center w-32 h-32"
+                                src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
+                                alt='user profile'>
+                        </div>
+                        <h1 class = "text-center font-bold text-2xl py-2 capitalize">
+                            {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
+                        </h1>
+                        <div class = "pb-4">
+                            <table class = "border-separate border-spacing-3">
+                                <tr>
+                                    <td class="font-bold">Birthday</td>
+                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Gender</td>
+                                    <td class="capitalize">
+                                        {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Phone</td>
+                                    <td class="capitalize">
+                                        {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Email</td>
+                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Civil Status</td>
+                                    <td class="capitalize">
+                                        {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Address</td>
+                                    <td class="capitalize">
+                                        {{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province . ' ' . $userVolunteerAnswers->volunteer_application->application->user->city . ' ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ' ' . $userVolunteerAnswers->volunteer_application->application->user->street }}
+                                    </td>
+                                </tr>
+
+                            </table>
+                            <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
+                                class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                type="button">
+                                View Answers
+                            </button>
+                        </div>
+                        {{-- @endforeach --}}
+                    @else
+                        <p>No volunteer answers found.</p>
+                    @endif
+                </div>
 
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
@@ -366,7 +386,8 @@
                                         </button>
                                     </div>
                                     <!-- Modal body -->
-                                    <form action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id,'applicationId' => $userVolunteerAnswers->volunteer_application->application->id] ) }}"
+                                    <form
+                                        action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                                         class="p-4 md:p-5" method="POST">
                                         @csrf
                                         <h1 class = " text-left  text-lg">Please state your interview availability and
@@ -438,13 +459,13 @@
                     <!-- Modal header -->
                     <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                         <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                            {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' .$userVolunteerAnswers->volunteer_application->application->user->name . ' Answers' }}
+                            {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name . ' Answers' }}
                         </h3>
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                             data-modal-hide="answer-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                                viewBox="0 0 14 14">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 14 14">
                                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
                                     stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                             </svg>
@@ -452,53 +473,55 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
+                    <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
-                            <x-text-input id="first_question" class="block mt-1 w-full" type="text" name="first_question"
-                            :value="old('first_question', $answers['first_question'] ?? '')"/>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
+                                <x-text-input id="first_question" class="block mt-1 w-full" type="text"
+                                    name="first_question" :value="old('first_question', $answers['first_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
+                                <x-text-input id="second_question" class="block mt-1 w-full" type="text"
+                                    name="second_question" :value="old('second_question', $answers['second_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
+                                <x-text-input id="third_question" class="block mt-1 w-full" type="text"
+                                    name="third_question" :value="old('third_question', $answers['third_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
+                                <x-text-input id="fourth_question" class="block mt-1 w-full" type="text"
+                                    name="fourth_question" :value="old('fourth_question', $answers['fourth_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
+                                <x-text-input id="fifth_question" class="block mt-1 w-full" type="text"
+                                    name="fifth_question" :value="old('fifth_question', $answers['fifth_question'] ?? '')" />
+                            </div>
                         </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
-                            <x-text-input id="second_question" class="block mt-1 w-full" type="text" name="second_question"
-                            :value="old('second_question', $answers['second_question'] ?? '')"/>
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
-                            <x-text-input id="third_question" class="block mt-1 w-full" type="text" name="third_question"
-                            :value="old('third_question', $answers['third_question'] ?? '')"/>
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
-                            <x-text-input id="fourth_question" class="block mt-1 w-full" type="text" name="fourth_question"
-                            :value="old('fourth_question', $answers['fourth_question'] ?? '')"/>
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
-                            <x-text-input id="fifth_question" class="block mt-1 w-full" type="text" name="fifth_question"
-                                :value="old('fifth_question', $answers['fifth_question'] ?? '')"/>
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
-                            <x-text-input id="sixth_question" class="block mt-1 w-full" type="text" name="sixth_question"
-                                :value="old('sixth_question', $answers['sixth_question'] ?? '')"/>
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
-                            <x-text-input id="sevent_question" class="block mt-1 w-full" type="text" name="sevent_question"
-                                :value="old('seventh_question', $answers['seventh_question'] ?? '')"/>
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
-                            <x-text-input id="eight_question" class="block mt-1 w-full" type="text" name="eight_question"
-                                :value="old('eight_question', $answers['eight_question'] ?? '')"/>
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
-                            <x-text-input id="ninth_question" class="block mt-1 w-full" type="text" name="ninth_question"
-                                :value="old('ninth_question', $answers['ninth_question'] ?? '')"/>
-                        </div>
+                        <div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
+                                <x-text-input id="sixth_question" class="block mt-1 w-full" type="text"
+                                    name="sixth_question" :value="old('sixth_question', $answers['sixth_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
+                                <x-text-input id="sevent_question" class="block mt-1 w-full" type="text"
+                                    name="sevent_question" :value="old('seventh_question', $answers['seventh_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
+                                <x-text-input id="eight_question" class="block mt-1 w-full" type="text"
+                                    name="eight_question" :value="old('eight_question', $answers['eight_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
+                                <x-text-input id="ninth_question" class="block mt-1 w-full" type="text"
+                                    name="ninth_question" :value="old('ninth_question', $answers['ninth_question'] ?? '')" />
+                            </div>
                         </div>
                         {{-- <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
                             <x-primary-button data-modal-target="forid-modal" data-modal-toggle="forid-modal"

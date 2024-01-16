@@ -66,6 +66,7 @@ class VolunteerController extends Controller
     {
         $user = auth()->user();
 
+        
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ($user) {
             $query->where('user_id', $user->id);
         })->first();

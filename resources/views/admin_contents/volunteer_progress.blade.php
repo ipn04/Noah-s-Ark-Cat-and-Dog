@@ -254,20 +254,25 @@
 
 
                     <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
-                        <h2 class = "font-bold text-lg p-2">Interview at 2023-13-11</h2>
-                        <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
-                            later at 10:00 am</p>
+                        <h2 class = "font-bold text-lg p-2">Interview at {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
+                        </h2>
+                        <p class = "p-2">You have an interview scheduled later at {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
+                            {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                            . Please join this meet
+                            later at{{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                         </p>
                         <div class = "grid grid-cols-1 gap-2 py-2">
+                            <button
+                            class = "p-2 w-full mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
+                            Meet</button>
                             <form
                                 action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                                 method="POST">
                                 @csrf
                                 @method('PATCH')
-                                <button
-                                    class = "p-2 w-full mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
-                                    Meet</button>
+                               
                                 <button type="submit"
-                                    class = "p-2  w-full mt-2 mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
+                                    class = "p-2  w-full  mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
                                     Interview</button>
 
                             </form>
@@ -296,7 +301,7 @@
                                     <table class = "border-separate border-spacing-3">
                                         <tr>
                                             <td class="font-bold">Birthday</td>
-                                            <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}
+                                            <td>{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('F j, Y') }}
                                             </td>
                                         </tr>
                                         <tr>
@@ -325,7 +330,7 @@
                                         <tr>
                                             <td class="font-bold">Address</td>
                                             <td class="capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province . ' ' . $userVolunteerAnswers->volunteer_application->application->user->city . ' ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ' ' . $userVolunteerAnswers->volunteer_application->application->user->street }}
+                                                {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province . '' }}
                                             </td>
                                         </tr>
 

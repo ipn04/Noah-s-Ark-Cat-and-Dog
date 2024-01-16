@@ -308,7 +308,7 @@
                             <div class = "pb-4">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
-                                        <td class = "font-bold">Age</td>
+                                        <td class = "font-bold">Birthdate</td>
                                         <td></td>
                                     </tr>
                                     <tr>

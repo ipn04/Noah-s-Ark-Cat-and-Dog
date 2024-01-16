@@ -71,8 +71,9 @@ class VolunteerController extends Controller
         })->first();
         // dd($userVolunteerAnswers);
         $stage = $userVolunteerAnswers->volunteer_application->stage;
+        $answers = json_decode($userVolunteerAnswers->answers, true);
 
-        return view('user_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage]);
+        return view('user_contents.volunteer_progress', ['userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage, 'answers' => $answers]);
     }
     public function AdminVolunteerProgress(Request $request, $userId, $applicationId)
     {

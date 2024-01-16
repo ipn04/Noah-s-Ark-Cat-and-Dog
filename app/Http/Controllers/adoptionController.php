@@ -118,7 +118,7 @@ class adoptionController extends Controller
             dd($e);
         }
 
-        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'petId' => $petId, 'applicationId' => $applicationId]);
+        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'petId' => $petId, 'applicationId' => $applicationId, 'adoptionAnswer' => $adoptionAnswer]);
     } 
     public function adoptionProgress($petId, $applicationId, $adoptionAnswer = false)
     {
@@ -150,11 +150,11 @@ class adoptionController extends Controller
             ->with('schedule', 'application')
             ->first();
         }
-
+        
         // Pass the pet data and other necessary variables to the view
         return view('user_contents.adoptionprogress', [
             'adoption_answer' => $adoptionAnswer, 
-            'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview, 'schedulePickup' => $schedulePickup
+            'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview, 'schedulePickup' => $schedulePickup, 'adoptionAnswerData' => $adoptionAnswerData
         ]);
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {
@@ -182,7 +182,9 @@ class adoptionController extends Controller
 
         // Find the specific adoption for the application
         $adoption = Adoption::where('application_id', $adoptionAnswer->id)->firstOrFail();
-    
+
+        // $volunteerAnswers = VolunteerAnswers::where('application_id', $adoptionAnswer->id)->first();
+        
         $stage = $adoption->stage;
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
@@ -195,7 +197,7 @@ class adoptionController extends Controller
         // if (!$scheduleInterview && !$schedulePickup) {
         //     return redirect()->back()->with(['error' => 'Schedule not found']);
         // }
-
+        
         return view('admin_contents.adoptionprogress', [
             'adoptionAnswer' => $adoptionAnswer,
             'stage' => $stage,
@@ -203,6 +205,7 @@ class adoptionController extends Controller
             'scheduleInterview' => $scheduleInterview,
             'schedulePickup' => $schedulePickup,
             'adoption' => $adoption,
+            
         ]);
     } 
     public function updateStage($userId, $id)

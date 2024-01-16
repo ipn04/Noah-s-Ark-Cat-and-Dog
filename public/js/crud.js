@@ -93,7 +93,7 @@ function initializeAdoptionTabs() {
 
                 if (
                     selectedTab === 'all' ||
-                    (selectedTab === 'pending' && stage >= '0' && stage <= '8') ||
+                    (selectedTab === 'pending' && stage >= '0' && stage <= '8' && stage != '10') ||
                     (selectedTab === 'approved' && stage === '9') ||
                     (selectedTab === 'rejected' && stage === '10')
                 ) {
@@ -140,9 +140,9 @@ function initializeVolunteerTabs() {
 
                 if (
                     selectedTab === 'all' ||
-                    (selectedTab === 'pending' && stage >= '0' && stage <= '4' ) ||
-                    (selectedTab === 'approved' && stage === '5') ||
-                    (selectedTab === 'rejected' && stage === '10')
+                    (selectedTab === 'pending' && stage >= '0' && stage <= '4' && stage != '10' ) ||
+                    (selectedTab === 'rejected' && stage === '10') ||
+                    (selectedTab === 'approved' && stage === '5') 
                 ) {
                     row.style.display = ''; 
                 } else {

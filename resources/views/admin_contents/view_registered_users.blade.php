@@ -56,8 +56,13 @@
                                 </div>
                                 <input type="text" id="registered-user" placeholder="Search user" name="search" required="" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500">
                             </div>
+                            
                         </form>
+                        
                     </div>
+                    <button class="py-2 px-3 text-sm font-medium text-center text-white bg-red-400 hover:bg-red-600 rounded-lg ">
+                        <a href="">Download Excel</a>
+                    </button>
                                   
                 </div>
                 
@@ -168,8 +173,8 @@
                                                         <input type="radio" id="job-1" name="job" value="job-1" class="hidden peer" required>
                                                         <label for="job-1" class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">                           
                                                             <div class="block">
-                                                                <div class="w-full text-lg font-semibold"> Full Name </div>
-                                                                <div class="w-full text-gray-500 dark:text-gray-400">{{ $user->firstname . ' ' . $user->name }}</div>
+                                                                <div class="w-full text-lg font-semibold">{{ $user->firstname . ' ' . $user->name }}</div>
+                                                                <div class="w-full text-gray-500 dark:text-gray-400">Full Name</div>
                                                             </div>
                                                         </label>
                                                     </li>
@@ -177,8 +182,8 @@
                                                         <input type="radio" id="job-2" name="job" value="job-2" class="hidden peer">
                                                         <label for="job-2" class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                             <div class="block">
-                                                                <div class="w-full text-lg font-semibold">Email</div>
-                                                                <div class="w-full text-gray-500 dark:text-gray-400">{{ $user->email }}</div>
+                                                                <div class="w-full text-lg font-semibold">{{ $user->email }}</div>
+                                                                <div class="w-full text-gray-500 dark:text-gray-400">Email</div>
                                                             </div>
                                                         </label>
                                                     </li>
@@ -186,8 +191,8 @@
                                                         <input type="radio" id="job-3" name="job" value="job-3" class="hidden peer">
                                                         <label for="job-3" class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                             <div class="block">
-                                                                <div class="w-full text-lg font-semibold">Gender</div>
-                                                                <div class="w-full text-gray-500 dark:text-gray-400">{{ $user->gender }}</div>
+                                                                <div class="w-full text-lg font-semibold capitalize">{{ $user->gender }}</div>
+                                                                <div class="w-full text-gray-500 dark:text-gray-400">Gender</div>
                                                             </div>
                                                         </label>
                                                     </li>
@@ -197,8 +202,9 @@
                                                         <input type="radio" id="job-1" name="job" value="job-1" class="hidden peer" required>
                                                         <label for="job-1" class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">                           
                                                             <div class="block">
-                                                                <div class="w-full text-lg font-semibold">Birthdate</div>
-                                                                <div class="w-full text-gray-500 dark:text-gray-400">{{ $user->birthday }}</div>
+                                                                <div class="w-full text-lg font-semibold">{{  \Carbon\Carbon::parse($user->birthday)->format('M d, Y') }}
+                                                                </div>
+                                                                <div class="w-full text-gray-500 dark:text-gray-400">Birthday</div>
                                                             </div>
                                                         </label>
                                                     </li>
@@ -206,8 +212,8 @@
                                                         <input type="radio" id="job-2" name="job" value="job-2" class="hidden peer">
                                                         <label for="job-2" class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                             <div class="block">
-                                                                <div class="w-full text-lg font-semibold">Civil Status</div>
-                                                                <div class="w-full text-gray-500 dark:text-gray-400">{{ $user->civil_status }}</div>
+                                                                <div class="w-full text-lg font-semibold capitalize">{{ $user->civil_status }}</div>
+                                                                <div class="w-full text-gray-500 dark:text-gray-400 ">Civil Status</div>
                                                             </div>
                                                         </label>
                                                     </li>
@@ -215,8 +221,8 @@
                                                         <input type="radio" id="job-3" name="job" value="job-3" class="hidden peer">
                                                         <label for="job-3" class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                             <div class="block">
-                                                                <div class="w-full text-lg font-semibold">Address</div>
-                                                                <div class="w-full text-gray-500 dark:text-gray-400">{{ $user->region . ' ' . $user->province . ' ' . $user->city . ' ' . $user->barangay . ' ' . $user->street }}</div>
+                                                                <div class="w-full text-lg font-semibold capitalize">{{ $user->street . ' ' . $user->barangay . ' ' . $user->city . ' ' . $user->province . ' ' . $user->region }}</div>
+                                                                <div class="w-full text-gray-500 dark:text-gray-400 ">Address</div>
                                                             </div>
                                                         </label>
                                                     </li>

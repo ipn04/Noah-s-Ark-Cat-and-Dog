@@ -198,7 +198,8 @@
                     <div class = "mb-7 flex justify-center items-center
                    ">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
-                            <h2 class = "font-bold text-lg p-2">Interview at 2023-13-11</h2>
+                            {{-- <h2 class = "font-bold text-lg p-2">Interview at {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                            </h2> --}}
                             <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this
                                 meet
                                 later at 10:00 am.</p>
@@ -226,7 +227,7 @@
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
                                         <td class = "font-bold">Birthdate</td>
-                                        <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}
+                                        <td>{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('F j, Y') }}
                                         </td>
                                     </tr>
                                     <tr>
@@ -256,7 +257,7 @@
                                     <tr>
                                         <td class = "font-bold">Address</td>
                                         <td class = "capitalize">
-                                            {{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province . ' ' . $userVolunteerAnswers->volunteer_application->application->user->city . ' ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ' ' . $userVolunteerAnswers->volunteer_application->application->user->street }}
+                                            {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province . ', '  }}
                                         </td>
                                     </tr>
                                 </table>

@@ -171,7 +171,9 @@
                                     @elseif ($volunteers->volunteer_application->stage == 4)
                                     text-purple-600 bg-purple-200
                                     @elseif ($volunteers->volunteer_application->stage == 5)
-                                    text-green-600 bg-green-200 @endif">
+                                    text-green-600 bg-green-200
+                                    @else
+                                    text-red-600 bg-red-200 @endif">
                                         <p class="text-center">Stage {{ $volunteers->volunteer_application->stage }}</p>
                                     </div>
                                 <td class="px-6 py-4  hidden lg:table-cell">

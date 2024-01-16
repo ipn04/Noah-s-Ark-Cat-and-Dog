@@ -270,6 +270,7 @@ class adoptionController extends Controller
         // dd($petId, $user->id, $hasSubmittedForm);
         return view('user_contents.petcontents', ['pets' => $pets, 'hasSubmittedForm' => $hasSubmittedForm, 'user' => $user]);
     }
+    
 
     public function userApplication() {
         $userId = auth()->user()->id; // Assuming you're using authentication and want to fetch data for the currently logged-in user
@@ -313,9 +314,17 @@ class adoptionController extends Controller
             return in_array($adoptionAnswer->volunteer_application->stage, $pendingStages);
         });
 
+        $schedules = Schedule::join('schedule_visit', 'schedules.id', '=', 'schedule_visit.schedule_id')
+        ->where('schedule_visit.user_id', '=', $userId)
+        ->orderBy('schedules.created_at', 'desc')
+        ->get();
+
+
+        $scheduleCount = $schedules->count();
+
         $volunteerPending = $pendingVolunteerApplicationForUser->count();
         $volunteerApproved = $volunteer->where('volunteer_application.stage', '9')->count();
-        return view('user_contents.applications', compact('answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved', 'interviewSchedules', 'visitSchedules', 'pickupSchedules'));
+        return view('user_contents.applications',  compact('scheduleCount','schedules','answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved', 'interviewSchedules', 'visitSchedules', 'pickupSchedules'));
     }
 
     public function interviewStage($userId, $id)

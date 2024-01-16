@@ -63,6 +63,17 @@ class InterviewController extends Controller
     public function volunteerInterview(Request $request, $userId, $applicationId) 
     {
         try {
+
+            $possible_characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            $string_length = 30;
+    
+            function pickRandom($possible_characters, $string_length)
+            {
+                $random_string = substr(str_shuffle($possible_characters), 0, $string_length);
+                return $random_string;
+            }
+            
+            $random_string = pickRandom($possible_characters, $string_length);
             // Find the latest application for the user
             $application = Application::where('user_id', $userId)
                 ->latest('created_at') 
@@ -80,6 +91,7 @@ class InterviewController extends Controller
             $scheduleInterview->application_id = $application->id;
             $scheduleInterview->date = $request->input('date');
             $scheduleInterview->time = $request->input('time');
+            $scheduleInterview->room = $random_string;
             $scheduleInterview->save();
 
             // Find the volunteer answers for the user

@@ -186,6 +186,8 @@
                                         text-amber-600 bg-amber-200
                                         @elseif ($adoptionAnswer->adoption->stage == 9)
                                         text-green-600 bg-green-200
+                                        @else 
+                                        text-red-600 bg-red-200
 
                                         @endif">
                                             <p class="text-center">Stage {{$adoptionAnswer->adoption->stage}}</p>

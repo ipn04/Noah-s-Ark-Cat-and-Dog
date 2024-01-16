@@ -337,38 +337,50 @@
                     </div>
                     <div
                         class = "@if ($stage == 3) mb-7 flex justify-center items-center
-                    @else
-                    hidden @endif">
-                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
-                            @php
-                                $scheduledDate = \Carbon\Carbon::parse($scheduleInterview->date);
-                                $scheduledTime = \Carbon\Carbon::parse($scheduleInterview->time);
-                                $scheduledDateTime = $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString());
-                            @endphp
+                        @else
+                        hidden @endif">
+                            <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                                @php
+                                    $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
+                                    $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
+                                    $scheduledDateTime = ($scheduledDate && $scheduledTime) ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
+                                @endphp
 
-                            <h2 class="font-bold text-lg p-2">
-                                Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
-                            </h2>
+                                <h2 class="font-bold text-lg p-2">
+                                    @if ($scheduledDateTime)
+                                        Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
+                                    @else
+                                        No scheduled interview
+                                    @endif
+                                </h2>
 
-                            <p class = "p-2">You have an interview scheduled later at {{ $scheduledDateTime->format('F j, Y g:ia') }}. Please join this meet
-                                later at {{ $scheduledDateTime->format(' g:ia') }}.</p>
-                            <div class = "grid grid-cols-1 gap-2 py-2">
-                                <form method="post" target="_blank"
-                                    action="{{ route('interview.admin', ['scheduleId' => $scheduleInterview->interview_id]) }}">
-                                    @csrf
-                                    @method('PATCH')
-                                    @php
-                                        $today = now()->format('Y-m-d');
-                                        $currentTime = now()->format('H:i:s');
-                                    @endphp
+                                @if ($scheduledDateTime)
+                                    <p class="p-2">
+                                        You have an interview scheduled later at {{ $scheduledDateTime->format('F j, Y g:ia') }}.
+                                        Please join this meet later at {{ $scheduledDateTime->format(' g:ia') }}.
+                                    </p>
 
-                                    <button type="submit"
-                                        class="p-2 w-full mx-auto text-white {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
-                                        {{ $scheduleInterview->date != $today || $scheduleInterview->time < $currentTime ?  : '' }}>
-                                        Join Meet
-                                    </button>
+                                    <div class="grid grid-cols-1 gap-2 py-2">
+                                        <form method="post" target="_blank"
+                                            action="{{ route('interview.admin', ['scheduleId' => optional($scheduleInterview)->interview_id]) }}">
+                                            @csrf
+                                            @method('PATCH')
 
-                                </form>
+                                            @php
+                                                $today = now()->format('Y-m-d');
+                                                $currentTime = now()->format('H:i:s');
+                                            @endphp
+
+                                            <button type="submit"
+                                                class="p-2 w-full mx-auto text-white {{ $scheduledDate != $today || $scheduledTime < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                                {{ $scheduledDate != $today || $scheduledTime < $currentTime ? 'disabled' : '' }}>
+                                                Join Meet
+                                            </button>
+                                        </form>
+                                    </div>
+                                @else
+                                    <p class="p-2">No interview is currently scheduled.</p>
+                                @endif
 
                                 <form
                                     action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
@@ -381,7 +393,6 @@
                                 </form>
                             </div>
                         </div>
-                    </div>
 
 
                     <div class = "grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg">
@@ -648,10 +659,19 @@
                                                 @method('PATCH')
                                                 <button data-modal-hide="progress-modal" type="submit"
                                                     class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
+                                            </form>
+                                            <form
+                                                action="{{ route('admin.rejectInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button data-modal-hide="progress-modal" type="submit"
+                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
                                                 <button data-modal-hide="progress-modal" type="button"
                                                     class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                             </form>
                                         </div>
+                                        
                                     </div>
                                 </div>
                             </div>
@@ -686,11 +706,11 @@
                                             Schedule Pickup</h3>
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
                                             {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
-                                            {{-- {{ $schedulePickup->application->user->name }}</h3> --}}
+                                            {{ $schedulePickup->application->user->name }}</h3>
                                             <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
-                                                {{-- {{ $schedulePickup->date }}</h3> --}}
+                                                {{ $schedulePickup->date }}</h3>
                                                 <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
-                                                    {{-- {{ $schedulePickup->time }}</h3> --}}
+                                                    {{ $schedulePickup->time }}</h3>
                                                     <!-- Modal footer -->
                                                     <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
                                                         <form
@@ -700,6 +720,14 @@
                                                             @method('PATCH')
                                                             <button data-modal-hide="progress-modal }}" type="submit"
                                                                 class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
+                                                        </form>
+                                                        <form
+                                                            action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button data-modal-hide="progress-modal }}" type="submit"
+                                                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
                                                             <button data-modal-hide="progress-modal" type="button"
                                                                 class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                                         </form>

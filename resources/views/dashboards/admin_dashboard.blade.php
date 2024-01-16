@@ -135,7 +135,7 @@
                                     <p class = "text-sm text-center"> {{ \Carbon\Carbon::createFromFormat('H:i:s', $schedule->visit_time)->format(' h:ia') }} </p>                                    @endif
                                     </td>
                                     <td class="p-4  text-center">
-                                            @if ($schedule->type == 'Interview')
+                                            {{-- @if ($schedule->type == 'Interview')
                                                 @if ($schedule->interview_type == 'application_form')
                                                     <a
                                                         href="{{ route('admin.adoptionprogress', [$schedule->adoption_id]) }}">
@@ -176,7 +176,7 @@
                                                     </button>
                                                 </a>
                                             @elseif($schedule->type == 'dsds')
-                                            @else
+                                            @else --}}
                                             <button data-modal-target="static-modal" data-modal-toggle="static-modal" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-400 hover:bg-red-600 rounded-lg shadow-md" type="button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                 fill="currentColor" class="w-4 h-4 ">
@@ -206,14 +206,14 @@
                                                         <!-- Modal body -->
                                                         <div class="p-4 md:p-5 space-y-4 text-left">
                                                             <h1 class = "text-xl font-bold">Shelter Visit Details</h1>
-                                                            <p><b>Shelter Visit Date:</b> {{ $formattedDate }}</p>
+                                                            {{-- <p><b>Shelter Visit Date:</b> {{ $formattedDate }}</p>
                                                             <p><b>Shelter Visit Time:</b> {{ \Carbon\Carbon::createFromFormat('H:i:s', $schedule->visit_time)->format('h:ia') }}</p>
-                                                            <p><b>Concern:</b> {{ $schedule->concern }}</p>
+                                                            <p><b>Concern:</b> {{ $schedule->concern }}</p> --}}
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            @endif
+                                            {{-- @endif --}}
     
                                 @endforeach
                                 </td>

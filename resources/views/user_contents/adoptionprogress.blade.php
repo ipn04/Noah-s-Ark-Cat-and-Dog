@@ -281,7 +281,7 @@
 
                             {{-- </form> --}}
                             <form method="post" target="_blank"
-                                action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) }}">
+                                action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id ?? 0]) }}">
                                 @csrf
                                 @method('PATCH')
                                 @php
@@ -289,10 +289,10 @@
                                     $currentTime = now()->format('H:i:s');
                                 @endphp 
                                 <button type="submit"
-                                    class="p-2 w-full mx-auto text-white {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }} text-center font-bold rounded-lg"
-                                    {{ $schedulePickup->date != $today || $schedulePickup->time < $currentTime ? : '' }}>
+                                    class="p-2 w-full mx-auto text-white {{ optional($schedulePickup)->date != $today || optional($schedulePickup)->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                    {{ optional($schedulePickup)->date != $today || optional($schedulePickup)->time < $currentTime ? 'disabled' : '' }}>
                                     Join Meet
-                                </button> 
+                                </button>
                             </form>
 
                             </div>

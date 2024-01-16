@@ -76,7 +76,8 @@
                             <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                 id="adoptionDataContainer" data-stage="{{ $answerData->adoption->stage }}">
                                 <td class="px-6 py-4  hidden lg:table-cell">
-                                    <div class="text-base text-gray-500 ">{{ $answerData->created_at }}</div>
+                                    <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($answerData->created_at)->format('F j, Y g:ia') }}
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4   lg:table-cell">
                                     <div class="text-base text-gray-500 ">
@@ -123,7 +124,7 @@
                                 <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                     id="adoptionDataContainer" data-stage="{{ $vol->volunteer_application->stage }}">
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        <div class="text-base text-gray-500 ">{{ $vol->created_at }}</div>
+                                        <div class="text-base text-gray-500 ">{{\Carbon\Carbon::parse($vol->created_at)->format('F j, Y g:ia')}}</div>
                                     </td>
                                     <td class="px-6 py-4 lg:table-cell">
                                         <div class="text-base text-gray-500 ">
@@ -252,7 +253,8 @@
                             <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                 id="adoptionDataContainer" data-stage="{{ $answerData->adoption->stage }}">
                                 <td class="px-6 py-4  hidden lg:table-cell">
-                                    <div class="text-base text-gray-500 ">{{ $answerData->created_at }}</div>
+                                    <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($answerData->created_at)->format('F j, Y g:ia') }}
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4   lg:table-cell">
                                     <div class="text-base text-gray-500 ">
@@ -300,7 +302,8 @@
                                 <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
                                     id="adoptionDataContainer" data-stage="{{ $vol->volunteer_application->stage }}">
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        <div class="text-base text-gray-500 ">{{ $vol->created_at }}</div>
+                                        <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($vol->created_at)->format('F j, Y g:ia') }}
+                                        </div>
                                     </td>
                                     <td class="px-6 py-4 lg:table-cell">
                                         <div class="text-base text-gray-500 ">

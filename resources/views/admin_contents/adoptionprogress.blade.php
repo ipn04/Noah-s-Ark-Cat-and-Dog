@@ -312,8 +312,13 @@
                             <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
                             <p class="p-2 pe-2 ps-4">
                                 @isset($schedulePickup->date)
-                                    {{ $schedulePickup->date }}
+                                    {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
                                 @endisset
+
+                                @isset($schedulePickup->time)
+                                    {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
+                                @endisset
+
                             </p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
                             <p class = "p-2 pe-2 ps-4">
@@ -395,6 +400,11 @@
                                             class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
                                             {{ $isDisabled ? 'disabled' : '' }}>
                                             Join Meet
+                                        </button>
+                                        <button type="submit"
+                                            class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
+
+                                            Cancel Meet
                                         </button>
 
                                     </form>
@@ -494,7 +504,7 @@
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Weight</td>
-                                        <td class = "capitalize">{{ $adoption->pet->weight }}</td>
+                                        <td class = "capitalize">{{ $adoption->pet->weight }} kg</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Size</td>
@@ -611,7 +621,7 @@
                             </tr>
                             <tr>
                                 <td class = "font-bold">Weight</td>
-                                <td class = "capitalize">{{ $adoption->pet->weight }}</td>
+                                <td class = "capitalize">{{ $adoption->pet->weight }} kg</td>
                             </tr>
                             <tr>
                                 <td class = "font-bold">Size</td>
@@ -638,7 +648,7 @@
                     @if ($stage === 2)
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             Interview Schedule
                         </button>
@@ -679,7 +689,7 @@
                                                 @csrf
                                                 @method('PATCH')
                                                 <button data-modal-hide="progress-modal" type="submit"
-                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
+                                                    class="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
                                             </form>
                                             <form
                                                 action="{{ route('admin.rejectInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
@@ -687,9 +697,8 @@
                                                 @csrf
                                                 @method('PATCH')
                                                 <button data-modal-hide="progress-modal" type="submit"
-                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
-                                                <button data-modal-hide="progress-modal" type="button"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Reject</button>
+                                            </form>
                                             </form>
                                         </div>
 
@@ -700,7 +709,7 @@
                     @elseif ($stage === 6)
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             Schedule Pickup
                         </button>
@@ -722,16 +731,42 @@
                                         </svg>
                                         <span class="sr-only">Close modal</span>
                                     </button>
-                                    <div class="p-4 md:p-5">
+                                    <div class="p-4 md:p-5 max-w-full">
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
-                                            Schedule Pickup</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
-                                            {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
-                                            {{ $schedulePickup->application->user->name }}</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
-                                            {{ $schedulePickup->date }}</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
-                                            {{ $schedulePickup->time }}</h3>
+                                            Schedule Pickup
+                                        </h3>
+
+                                        <div class = "mt-1">
+                                            <x-input-label for="name" value="{{ __('Name') }}" />
+                                            <x-text-input type="text" name="name" label="name"
+                                                value="{{ $schedulePickup->application->user->firstname }} {{ $schedulePickup->application->user->name }}"
+                                                disabled class="w-full" />
+                                        </div>
+
+                                        <div class = "mt-2">
+                                            <x-input-label for="location" value="{{ __('Location') }}" />
+                                            <textarea name="location"
+                                                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm "
+                                                label="location" value="" disabled>{{ $schedulePickup->application->user->street }}, {{ $schedulePickup->application->user->barangay }}, {{ $schedulePickup->application->user->city }}, {{ $schedulePickup->application->user->province }}</textarea>
+                                        </div>
+
+                                        <div class = "mt-1">
+                                            <x-input-label for="date" value="{{ __('Date of Pickup') }}" />
+                                            <x-text-input type="text" name="date" label="date"
+                                                value="{{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
+                                                "
+                                                disabled class="w-full" />
+                                        </div>
+
+
+                                        <div class = "mt-2">
+                                            <x-input-label for="time" value="{{ __('Time of Pickup') }}" />
+                                            <x-text-input type="text" name="time" label="time"
+                                                value="{{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}"
+                                                disabled class="w-full" />
+                                        </div>
+
+
                                         <!-- Modal footer -->
                                         <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
                                             <form
@@ -740,7 +775,9 @@
                                                 @csrf
                                                 @method('PATCH')
                                                 <button data-modal-hide="progress-modal }}" type="submit"
-                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
+                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                    Accept
+                                                </button>
                                             </form>
                                             <form
                                                 action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
@@ -748,12 +785,13 @@
                                                 @csrf
                                                 @method('PATCH')
                                                 <button data-modal-hide="progress-modal }}" type="submit"
-                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
-                                                <button data-modal-hide="progress-modal" type="button"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                    Reject
+                                                </button>
                                             </form>
                                         </div>
                                     </div>
+
                                 </div>
                             </div>
                         </div>
@@ -771,16 +809,16 @@
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
                         {{ $adoption->pet->pet_name . ' Details' }} </h3>
-                        <button type="button"
-                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                            data-modal-hide="pet-modal">
-                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="none" viewBox="0 0 14 14">
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                            </svg>
-                            <span class="sr-only">Close modal</span>
-                        </button>
+                    <button type="button"
+                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="pet-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                        </svg>
+                        <span class="sr-only">Close modal</span>
+                    </button>
                 </div>
                 <!-- Modal body -->
                 <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
@@ -793,8 +831,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->pet_name }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Name</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Name</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -805,8 +843,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->pet_type }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Pet Type</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Pet Type</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -817,8 +855,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->breed }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Breed</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Breed</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -829,8 +867,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->age }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Age</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Age</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -841,8 +879,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->color }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Color</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Color</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -853,8 +891,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->adoption_status }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Adoption Status</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Adoption Status</div>
+                                </div>
                             </label>
                         </li>
                     </ul>
@@ -867,8 +905,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->gender }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Gender</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Gender</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -879,8 +917,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->vaccination_status }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Vaccination Status</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Vaccination Status</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -891,8 +929,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->weight }} kg</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Weight</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Weight</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -903,8 +941,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->size }} cm</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Size</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Size</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -915,8 +953,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->behaviour }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Behavior</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Behavior</div>
+                                </div>
                             </label>
                         </li>
                         <li>
@@ -927,8 +965,8 @@
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
                                         {{ $adoption->pet->description }}</div>
-                                        <div class="w-full text-gray-500 dark:text-gray-400">Description</div>
-                                    </div>
+                                    <div class="w-full text-gray-500 dark:text-gray-400">Description</div>
+                                </div>
                             </label>
                         </li>
                     </ul>
@@ -937,8 +975,7 @@
                     <button type="submit" class="rounded" data-modal-target="petimage-modal"
                         data-modal-toggle="petimage-modal">
                         <img class="max-w-2xl max-h-60 mx-auto"
-                            src="{{ asset('storage/images/' . $adoption->pet->dropzone_file) }}"
-                            alt="pet image">
+                            src="{{ asset('storage/images/' . $adoption->pet->dropzone_file) }}" alt="pet image">
                     </button>
                 </div>
 

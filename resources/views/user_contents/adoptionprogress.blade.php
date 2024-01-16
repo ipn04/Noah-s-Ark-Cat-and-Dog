@@ -44,14 +44,12 @@
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
                 <a href=""
                     class="
-                    @if ($stage >= 0 && $stage <= 8) 
-                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md 
-                    @elseif($stage == 10)
-                    hidden
-                    @endif">Cancel
+                    @if ($stage >= 0 && $stage <= 3) block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md 
+                    @elseif($stage > 3)
+                    hidden @endif">Cancel
                     Application</a>
             </div>
-            @if($stage == 10)
+            @if ($stage == 10)
                 <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
             @endif
         </div>
@@ -245,12 +243,24 @@
                                     hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                            <h2 class = "font-bold text-lg p-2 ps-2">{{ $scheduleInterview->date ?? '' }} at
-                                {{ $scheduleInterview->time ?? '' }}</h2>
-                            <p class = "p-2 pe-2 ps-4"></p>
+                            <p class = "italic text-sm px-2 pb-3 ps-2">The shelter is on their way now to your location,
+                                please wait for them</p>
+                            <h2 class = "font-bold text-lg p-2 ps-2">Estimated Date and Time of Arrival</h2>
+
+                            <p class="p-2 pe-2 ps-4">
+                                @isset($scheduleInterview->date)
+                                    {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
+                                @endisset
+
+                                @isset($scheduleInterview->time)
+                                    {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
+                                @endisset
+
+                            </p>
+
                             <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
                             <p class = "p-2 pe-2 ps-4">
-                                {{ $adoption->application->user->province . ' ' . $adoption->application->user->city . ' ' . $adoption->application->user->barangay . ' ' . $adoption->application->user->street }}
+                                {{ $adoption->application->user->street . ', ' . $adoption->application->user->barangay . ', ' . $adoption->application->user->city . ', ' . $adoption->application->user->province }}
                             </p>
 
                         </div>
@@ -260,9 +270,14 @@
                 @else
                 hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
-                            <h2 class = "font-bold text-lg p-2">Interview at 2023-13-11</h2>
-                            <p class = "p-2">You have an interview scheduled later at 10:00am. Please join this meet
-                                later at 10:00 am.</p>
+                            <h2 class = "font-bold text-lg p-2">Interview at
+                                {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
+                            </h2>
+                            <p class = "p-2">You have an interview scheduled later at
+                                {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
+                                . Please join this meet
+                                later at {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
+                                .</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
                                 {{-- <form method="post" target="_blank"
                                 action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) }}">
@@ -279,21 +294,32 @@
                                     Join Meet
                                 </button> --}}
 
-                            {{-- </form> --}}
-                            <form method="post" target="_blank"
-                                action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id ?? 0]) }}">
-                                @csrf
-                                @method('PATCH')
-                                @php
-                                    $today = now()->format('Y-m-d');
-                                    $currentTime = now()->format('H:i:s');
-                                @endphp 
+                                {{-- </form> --}}
+                                <form method="post" target="_blank"
+                                    action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) }}">
+                                    @csrf
+                                    @method('PATCH')
+
+                                    @php
+                                        $scheduledDate = optional($schedulePickup)->date ? \Carbon\Carbon::parse($schedulePickup->date) : null;
+                                        $scheduledTime = optional($schedulePickup)->time ? \Carbon\Carbon::parse($schedulePickup->time) : null;
+                                        $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
+
+                                        $today = \Carbon\Carbon::now();
+                                        $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+                                    @endphp
+                                    <button type="submit"
+                                        class="p-2 w-full rounded-lg mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                        {{ $isDisabled ? 'disabled' : '' }}>
+
+                                        Join Meet
+                                    </button>
+                                </form>
                                 <button type="submit"
-                                    class="p-2 w-full mx-auto text-white {{ optional($schedulePickup)->date != $today || optional($schedulePickup)->time < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                    {{ optional($schedulePickup)->date != $today || optional($schedulePickup)->time < $currentTime ? 'disabled' : '' }}>
-                                    Join Meet
+                                    class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
+
+                                    Cancel Meet
                                 </button>
-                            </form>
 
                             </div>
                         </div>
@@ -311,35 +337,40 @@
                                 {{ $userr->firstname . ' ' . $userr->name }}
                             </h1>
                             <div class = "pb-4">
-                                <table class = "border-separate border-spacing-3">
-                                    <tr>
-                                        <td class = "font-bold">Age</td>
-                                        <td>{{ $userr->birthday }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">{{ $userr->gender }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Phone</td>
-                                        <td class = "capitalize">{{ $userr->phone_number }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Email</td>
-                                        <td class = "capitalize">{{ $userr->email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Civil Status</td>
-                                        <td class = "capitalize">{{ $userr->email }}</td>
-                                    </tr>
+                                <div class="overflow-x-visible">
 
-                                    <tr>
-                                        <td class = "font-bold">Address</td>
-                                        <td class = "capitalize">
-                                            {{ $userr->province . ' ' . $userr->city . ' ' . $userr->barangay . ' ' . $userr->street }}
-                                        </td>
-                                    </tr>
-                                </table>
+                                    <table class="min-w-full table-auto border-separate border-spacing-3">
+                                        <tr>
+                                            <td class="font-bold">Birthdate</td>
+                                            <td class="whitespace-nowrap">{{ $userr->birthday }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-bold">Gender</td>
+                                            <td class="capitalize whitespace-nowrap">{{ $userr->gender }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-bold">Phone</td>
+                                            <td class="capitalize whitespace-nowrap">{{ $userr->phone_number }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-bold">Email</td>
+                                            <td class="whitespace-nowrap">{{ $userr->email }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-bold">Civil Status</td>
+                                            <td class="capitalize whitespace-nowrap">{{ $userr->civil_status }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="font-bold">Address</td>
+                                            <td class="capitalize whitespace-normal break-all">
+                                                {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+
+
                                 <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
@@ -357,7 +388,7 @@
                             </div>
                             <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $petData->pet_name }}
                             </h1>
-                            <div class = "pb-4">
+                            <div class = "pb-4 overflow-x-visible">
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
                                         <td class = "font-bold">Age</td>
@@ -469,10 +500,9 @@
                                             action="{{ route('schedule.pickup', ['userId' => auth()->user()->id]) }}"
                                             class="p-4 md:p-5" method="POST">
                                             @csrf
-                                            <h1 class = " text-left  text-lg">Please state your interview availability
-                                                and
-                                                start time.
-                                                Interviews are limited to <b>1 hour.</b>
+                                            <h1 class = " text-left  text-lg">Please state your schedule availability
+                                                for pet pickup.
+                                                <b>The Shelter will bring the dog to the home.</b>
                                             </h1>
                                             <p class = "text-xs  italic">Note that the administration will have the
                                                 final
@@ -544,204 +574,205 @@
                     <h1 class = "text-center font-bold text-2xl capitalize">
                         {{ $userr->firstname . ' ' . $userr->name }}</h1>
                     <div class = "pb-4">
-                        <table class = "border-separate border-spacing-3">
-                            <tr>
-                                <td class = "font-bold">Age</td>
-                                <td>{{ $userr->birthday }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold ">Gender</td>
-                                <td class = "capitalize">{{ $userr->gender }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Phone</td>
-                                <td>{{ $userr->phone_number }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Email</td>
-                                <td>{{ $userr->email }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Civil Status</td>
-                                <td class = "capitalize">{{ $userr->civil_status }}</td>
-                            </tr>
+                        <div class="overflow-x-hidden">
+                            <table class="min-w-full table-auto border-separate border-spacing-3">
+                                <tr>
+                                    <td class="font-bold">Birthdate</td>
+                                    <td class="whitespace-nowrap">{{ $userr->birthday }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Gender</td>
+                                    <td class="capitalize whitespace-nowrap">{{ $userr->gender }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Phone</td>
+                                    <td class="capitalize whitespace-nowrap">{{ $userr->phone_number }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Email</td>
+                                    <td class="whitespace-nowrap">{{ $userr->email }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Civil Status</td>
+                                    <td class="capitalize whitespace-nowrap">{{ $userr->civil_status }}</td>
+                                </tr>
+                                <tr>
+                                    <td class="font-bold">Address</td>
+                                    <td class="capitalize whitespace-normal break-all">
+                                        {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
 
-                            <tr>
-                                <td class = "font-bold">Address</td>
-                                <td class = "capitalize">
-                                    {{ $userr->street . ',' . $userr->barangay . ',' . $userr->city . ', ' . $userr->province }}
-                                </td>
-                            </tr>
-                        </table>
-                        <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
-                            class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                            type="button">
-                            View Answers
-                        </button>
                     </div>
-                </div>
-                <div
-                    class=" @if ($stage == 5) hidden 
+                    <div
+                        class=" @if ($stage == 5) hidden 
                 @else
                 block bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900 @endif">
 
-                    <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                        <img class="object-cover object-center h-32"
-                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt='Woman looking front'>
+                        <div
+                            class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                            <img class="object-cover object-center h-32"
+                                src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
+                                alt='Woman looking front'>
+                        </div>
+                        <h1 class = "text-center font-bold text-2xl capitalize">{{ $petData->pet_name }}</h1>
+                        <div class = "pb-4">
+                            <table class = "border-separate border-spacing-3">
+                                <tr>
+                                    <td class = "font-bold">Age</td>
+                                    <td class = "capitalize">{{ $petData->age }}</td>
+                                </tr>
+                                <tr>
+                                    <td class = "font-bold">Gender</td>
+                                    <td class = "capitalize">{{ $petData->gender }}</td>
+                                </tr>
+                                <tr>
+                                    <td class = "font-bold">Breed</td>
+                                    <td class = "capitalize">{{ $petData->breed }}</td>
+                                </tr>
+                                <tr>
+                                    <td class = "font-bold">Weight</td>
+                                    <td>{{ $petData->weight }}</td>
+                                </tr>
+                                <tr>
+                                    <td class = "font-bold">Size</td>
+                                    <td class = "capitalize">{{ $petData->size }}</td>
+                                </tr>
+                                <tr>
+                                    <td class = "font-bold">Color</td>
+                                    <td class = "capitalize">{{ $petData->color }}</td>
+                                </tr>
+                                <tr>
+                                    <td class = "font-bold">Vaccination</td>
+                                    <td class = "capitalize">{{ $petData->vaccination_status }}</td>
+                                </tr>
+                            </table>
+                            <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
+                                class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                type="button">
+                                More details
+                            </button>
+                        </div>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl capitalize">{{ $petData->pet_name }}</h1>
-                    <div class = "pb-4">
-                        <table class = "border-separate border-spacing-3">
-                            <tr>
-                                <td class = "font-bold">Age</td>
-                                <td class = "capitalize">{{ $petData->age }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Gender</td>
-                                <td class = "capitalize">{{ $petData->gender }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Breed</td>
-                                <td class = "capitalize">{{ $petData->breed }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Weight</td>
-                                <td>{{ $petData->weight }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Size</td>
-                                <td class = "capitalize">{{ $petData->size }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Color</td>
-                                <td class = "capitalize">{{ $petData->color }}</td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Vaccination</td>
-                                <td class = "capitalize">{{ $petData->vaccination_status }}</td>
-                            </tr>
-                        </table>
-                        <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
-                            class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                            type="button">
-                            More details
-                        </button>
-                    </div>
-                </div>
-                <div
-                    class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md
+                    <div
+                        class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md
                     @if ($stage == 5) w-3/4 mx-auto
                     @else @endif">
-                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                    <!-- Modal toggle -->
-                    @if ($stage === 1)
-                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">
-                            Schedule Interview
-                        </button>
+                        <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                        <!-- Modal toggle -->
+                        @if ($stage === 1)
+                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                type="button">
+                                Schedule Interview
+                            </button>
 
 
-                        <!-- Main modal -->
-                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <!-- Modal header -->
-                                    <div
-                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                            Schedule
-                                        </h3>
-                                        <button type="button"
-                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                            data-modal-toggle="crud-modal">
-                                            <svg class="w-3 h-3" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 14 14">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                            </svg>
-                                            <span class="sr-only">Close modal</span>
-                                        </button>
-                                    </div>
-                                    <!-- Modal body -->
-                                    <form action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
-                                        class="p-4 md:p-5" method="POST">
-                                        @csrf
-                                        <h1 class = " text-left  text-lg">Please state your interview availability and
-                                            start time.
-                                            Interviews are limited to <b>1 hour.</b>
-                                        </h1>
-                                        <p class = "text-xs  italic">Note that the administration will have the final
-                                            say on
-                                            whether or not to approve your proposed schedule.</p>
-                                        <div class="-mx-3  pt-3 flex flex-wrap">
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <div class="mb-5">
-                                                    <label for="date"
-                                                        class="mb-3 block text-base  font-bold text-[#07074D]">
-                                                        Date
-                                                    </label>
-                                                    <input type="date" name="date" id="date"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                </div>
-                                            </div>
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <div class="mb-5">
-                                                    <label for="time"
-                                                        class="mb-3 block text-base font-bold text-[#07074D]">
-                                                        Time
-                                                    </label>
-                                                    <input type="time" name="time" id="time"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="grid grid-cols-2 gap-4 mx-auto">
-                                            <button type="submit"
-                                                class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Submit
-                                            </button>
-                                            <button type="submit"
-                                                class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
+                            <!-- Main modal -->
+                            <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <!-- Modal header -->
+                                        <div
+                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                Schedule
+                                            </h3>
+                                            <button type="button"
+                                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-toggle="crud-modal">
+                                                <svg class="w-3 h-3" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 20 20">
+                                                    viewBox="0 0 14 14">
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2"
                                                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                                 </svg>
-                                                Cancel
+                                                <span class="sr-only">Close modal</span>
                                             </button>
                                         </div>
-                                    </form>
+                                        <!-- Modal body -->
+                                        <form
+                                            action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
+                                            class="p-4 md:p-5" method="POST">
+                                            @csrf
+                                            <h1 class = " text-left  text-lg">Please state your interview availability
+                                                and
+                                                start time.
+                                                Interviews are limited to <b>1 hour.</b>
+                                            </h1>
+                                            <p class = "text-xs  italic">Note that the administration will have the
+                                                final
+                                                say on
+                                                whether or not to approve your proposed schedule.</p>
+                                            <div class="-mx-3  pt-3 flex flex-wrap">
+                                                <div class="w-full px-3 sm:w-1/2">
+                                                    <div class="mb-5">
+                                                        <label for="date"
+                                                            class="mb-3 block text-base  font-bold text-[#07074D]">
+                                                            Date
+                                                        </label>
+                                                        <input type="date" name="date" id="date"
+                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                    </div>
+                                                </div>
+                                                <div class="w-full px-3 sm:w-1/2">
+                                                    <div class="mb-5">
+                                                        <label for="time"
+                                                            class="mb-3 block text-base font-bold text-[#07074D]">
+                                                            Time
+                                                        </label>
+                                                        <input type="time" name="time" id="time"
+                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="grid grid-cols-2 gap-4 mx-auto">
+                                                <button type="submit"
+                                                    class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    Submit
+                                                </button>
+                                                <button type="submit"
+                                                    class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                    <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 20 20">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    Cancel
+                                                </button>
+                                            </div>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    @elseif ($stage === 9)
-                        <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
-                            <button
-                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                                </svg>
-                                <span>Download</span>
-                            </button>
-                        </a>
-                    @else
-                    @endif
+                        @elseif ($stage === 9)
+                            <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                                <button
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                    </svg>
+                                    <span>Download</span>
+                                </button>
+                            </a>
+                        @else
+                        @endif
+                    </div>
                 </div>
-            </div>
     </section>
 
     <!-- Main modal -->
@@ -920,8 +951,7 @@
                     <button type="submit" class="rounded" data-modal-target="petimage-modal"
                         data-modal-toggle="petimage-modal">
                         <img class="max-w-2xl max-h-60 mx-auto"
-                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
-                            alt="pet image">
+                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt="pet image">
                     </button>
                 </div>
 
@@ -930,26 +960,25 @@
     </div>
 
     <div id="petimage-modal" tabindex="-1"
-    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-    <div class="relative p-4 w-full max-w-7xl max-h-full">
-        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-            <button type="button"
-                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                data-modal-hide="petimage-modal">
-                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-                    viewBox="0 0 14 14">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                </svg>
-                <span class="sr-only">Close modal</span>
-            </button>
-            <div class="p-4 md:p-5 items-center text-center">
-                <img class="object-cover object-center mx-auto max-w-3xl h-full"
-                    src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
-                    alt='user profile'>
+        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div class="relative p-4 w-full max-w-7xl max-h-full">
+            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                <button type="button"
+                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="petimage-modal">
+                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                        viewBox="0 0 14 14">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                    </svg>
+                    <span class="sr-only">Close modal</span>
+                </button>
+                <div class="p-4 md:p-5 items-center text-center">
+                    <img class="object-cover object-center mx-auto max-w-3xl h-full"
+                        src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt='user profile'>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
 </x-app-layout>

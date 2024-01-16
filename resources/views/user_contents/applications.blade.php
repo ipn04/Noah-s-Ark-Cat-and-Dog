@@ -87,18 +87,18 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 lg:table-cell">
-                                    @if ($answerData->adoption->stage >= 0 && $answerData->adoption->stage < 9) 
-                                    <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
-                                        <p class="text-center">Pending</p>
-                                    </div>                                
+                                    @if ($answerData->adoption->stage >= 0 && $answerData->adoption->stage < 9)
+                                        <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                            <p class="text-center">Pending</p>
+                                        </div>
                                     @elseif($answerData->adoption->stage == 10)
-                                    <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                        <p class="text-center">Rejected</p>
-                                    </div>
+                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class="text-center">Rejected</p>
+                                        </div>
                                     @else
-                                    <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
-                                        <p class="text-center">Accepted</p>
-                                    </div>  
+                                        <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
+                                            <p class="text-center">Accepted</p>
+                                        </div>
                                     @endif
 
                                 </td>
@@ -134,18 +134,19 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 lg:table-cell">
-                                        @if ($vol->volunteer_application->stage >= 0 && $vol->volunteer_application->stage < 5) 
-                                        <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
-                                            <p class="text-center">Pending</p>
-                                        </div>                                
+                                        @if ($vol->volunteer_application->stage >= 0 && $vol->volunteer_application->stage < 5)
+                                            <div
+                                                class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                                <p class="text-center">Pending</p>
+                                            </div>
                                         @elseif($vol->volunteer_application->stage == 10)
-                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                            <p class="text-center">Rejected</p>
-                                        </div>
+                                            <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                                <p class="text-center">Rejected</p>
+                                            </div>
                                         @else
-                                        <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
-                                            <p class="text-center">Accepted</p>
-                                        </div>  
+                                            <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
+                                                <p class="text-center">Accepted</p>
+                                            </div>
                                         @endif
 
                                     </td>
@@ -262,8 +263,20 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 lg:table-cell">
-                             
-                                    
+                                    @if ($answerData->schedule_status = 'Pending')
+                                        <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                            <p class="text-center">Pending</p>
+                                        </div>
+                                    @elseif($answerData->schedule_status = 'Approved')
+                                        <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
+                                            <p class="text-center">Approved</p>
+                                        </div>
+                                    @else
+                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class="text-center">Rejected</p>
+                                        </div>
+                                    @endif
+
 
                                 </td>
                                 <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
@@ -298,7 +311,7 @@
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 lg:table-cell">
-                                    
+
 
                                     </td>
                                     <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">

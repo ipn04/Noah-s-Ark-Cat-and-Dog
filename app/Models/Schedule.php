@@ -22,4 +22,8 @@ class Schedule extends Model
     {
         return $this->hasOne(ScheduleVisit::class);
     }
+    public function application()
+    {
+        return $this->belongsTo(Application::class, 'application_id');
+    }
 }

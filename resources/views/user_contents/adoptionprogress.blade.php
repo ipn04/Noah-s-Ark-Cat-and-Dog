@@ -49,9 +49,9 @@
                     hidden @endif">Cancel
                     Application</a>
             </div>
-            @if ($stage == 10)
+            {{-- @if ($stage == 10)
                 <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
-            @endif
+            @endif --}}
         </div>
 
 
@@ -271,12 +271,12 @@
                 hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-lg p-2">Interview at
-                                {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
+                                {{ \Carbon\Carbon::parse($schedulePickup->date ?? '')->format('F j, Y') }}
                             </h2>
                             <p class = "p-2">You have an interview scheduled later at
-                                {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
+                                {{ \Carbon\Carbon::parse($schedulePickup->time  ?? '')->format('g:i A') }}
                                 . Please join this meet
-                                later at {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
+                                later at {{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('g:i A') }}
                                 .</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
                                 {{-- <form method="post" target="_blank"
@@ -296,7 +296,7 @@
 
                                 {{-- </form> --}}
                                 <form method="post" target="_blank"
-                                    action="{{ route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) }}">
+                                    action="{{ optional($schedulePickup)->interview_id ? route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) : '#' }}">
                                     @csrf
                                     @method('PATCH')
 
@@ -306,12 +306,13 @@
                                         $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
 
                                         $today = \Carbon\Carbon::now();
-                                        $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+
+                                        // Add a null check before calling isBefore()
+                                        $isDisabled = $scheduledDate && $scheduledDate->isBefore($today) || ($scheduledDate && $scheduledDate->equalTo($today) && $scheduledTime && $scheduledTime < $currentTime);
                                     @endphp
                                     <button type="submit"
                                         class="p-2 w-full rounded-lg mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
                                         {{ $isDisabled ? 'disabled' : '' }}>
-
                                         Join Meet
                                     </button>
                                 </form>

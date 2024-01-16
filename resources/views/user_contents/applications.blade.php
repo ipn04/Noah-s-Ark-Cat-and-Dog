@@ -104,7 +104,7 @@
 
                                 </td>
                                 <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
-                                    <a href="{{ route('user.adoptionprogress', ['petId' => $answerData->adoption->pet_id, 'applicationId' => $answerData->adoption->application_id]) }}"
+                                    <a href="{{ route('user.adoptionprogress', ['userId' => $answerData->adoption->application->user->id, 'applicationId' => $answerData->adoption->application_id]) }}"
                                         type="button" onclick=""
                                         class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -249,77 +249,41 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($answers as $answerData)
-                            <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                id="adoptionDataContainer" data-stage="{{ $answerData->adoption->stage }}">
-                                <td class="px-6 py-4  hidden lg:table-cell">
-                                    <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($answerData->created_at)->format('F j, Y g:ia') }}
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4   lg:table-cell">
-                                    <div class="text-base text-gray-500 ">
-                                        @if ($answerData->adoption->application->application_type === 'application_form')
-                                            Adoption
-                                        @else
-                                        @endif
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 lg:table-cell">
-                                    @if ($answerData->schedule_status = 'Pending')
-                                        <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
-                                            <p class="text-center">Pending</p>
-                                        </div>
-                                    @elseif($answerData->schedule_status = 'Approved')
-                                        <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
-                                            <p class="text-center">Approved</p>
-                                        </div>
-                                    @else
-                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                            <p class="text-center">Rejected</p>
-                                        </div>
-                                    @endif
-
-
-                                </td>
-                                <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
-                                    <a href="{{ route('user.adoptionprogress', ['petId' => $answerData->adoption->pet_id, 'applicationId' => $answerData->adoption->application_id]) }}"
-                                        type="button" onclick=""
-                                        class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                            fill="currentColor" class="w-4 h-4 ">
-                                            <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
-                                            <path fill-rule="evenodd" clip-rule="evenodd"
-                                                d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
-                                        </svg>
-                                    </a>
-
-                                </td>
-                            </tr>
-                        @endforeach
-                        @if (isset($volunteer) && !$volunteer->isEmpty())
-                            <!-- Your foreach loop and table data -->
-                            @foreach ($volunteer as $vol)
+                        @if ($interviewSchedules->isEmpty())
+                            
+                        @else
+                            @foreach ($interviewSchedules as $interviewSchedule)
                                 <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                    id="adoptionDataContainer" data-stage="{{ $vol->volunteer_application->stage }}">
+                                    id="adoptionDataContainer" data-stage="{{ $answerData->adoption->stage }}">
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($vol->created_at)->format('F j, Y g:ia') }}
+                                        <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($interviewSchedule->created_at)->format('F j, Y g:ia') }}
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 lg:table-cell">
-                                        <div class="text-base text-gray-500 ">
-                                            @if ($vol->volunteer_application->application->application_type === 'application_volunteer')
-                                                Volunteer
-                                            @else
-                                            @endif
+                                        <div class="w-24 rounded-lg py-1 font-semibold">
+                                            <div class="text-base text-gray-500 ">
+                                                {{$interviewSchedule->schedule->schedule_type}}
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 lg:table-cell">
-
-
+                                        @if ($interviewSchedule->schedule->schedule_status = 'Pending')
+                                            <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                                <p class="text-center">Pending</p>
+                                            </div>
+                                        @elseif($interviewSchedule->schedule->schedule_status = 'Accepted')
+                                            <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
+                                                <p class="text-center">Accepted</p>
+                                            </div>
+                                        @else
+                                            <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                                <p class="text-center">Rejected</p>
+                                            </div>
+                                        @endif
                                     </td>
                                     <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
-                                        <a href="{{ route('user.volunteerprogress', ['userId' => auth()->user()->id]) }}"
-                                            type="button"
+                                        <a href="{{ route('user.adoptionprogress', ['userId' => $answerData->adoption->application->user->id, 'applicationId' => $answerData->adoption->application_id]) }}"
+                                            type="button" onclick=""
                                             class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                 fill="currentColor" class="w-4 h-4 ">
@@ -332,7 +296,104 @@
                                     </td>
                                 </tr>
                             @endforeach
+                        @endif
+
+                        @if ($visitSchedules->isEmpty())
+                            
                         @else
+                            @foreach ($visitSchedules as $visitSchedule)
+                                <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                    id="adoptionDataContainer" data-stage="{{ $answerData->adoption->stage }}">
+                                    <td class="px-6 py-4  hidden lg:table-cell">
+                                        <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($visitSchedule->created_at)->format('F j, Y g:ia') }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 lg:table-cell">
+                                        <div class="w-24 rounded-lg py-1 font-semibold">
+                                            <div class="text-base text-gray-500 ">
+                                                {{$visitSchedule->schedule->schedule_type}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 lg:table-cell">
+                                        @if ($visitSchedule->schedule->schedule_status = 'Pending')
+                                            <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                                <p class="text-center">Pending</p>
+                                            </div>
+                                        @elseif($visitSchedule->schedule->schedule_status = 'Accepted')
+                                            <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
+                                                <p class="text-center">Accepted</p>
+                                            </div>
+                                        @else
+                                            <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                                <p class="text-center">Rejected</p>
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
+                                        <a href="{{ route('user.adoptionprogress', ['userId' => $answerData->adoption->application->user->id, 'applicationId' => $answerData->adoption->application_id]) }}"
+                                            type="button" onclick=""
+                                            class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="w-4 h-4 ">
+                                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                            </svg>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+
+                        @if ($pickupSchedules->isEmpty())
+                            
+                        @else
+                            @foreach ($pickupSchedules as $pickupSchedule)
+                                <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                    id="adoptionDataContainer" data-stage="{{ $answerData->adoption->stage }}">
+                                    <td class="px-6 py-4  hidden lg:table-cell">
+                                        <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($pickupSchedule->created_at)->format('F j, Y g:ia') }}
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 lg:table-cell">
+                                        <div class="w-24 rounded-lg py-1 font-semibold">
+                                            <div class="text-base text-gray-500 ">
+                                                {{$pickupSchedule->schedule->schedule_type}}
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="px-6 py-4 lg:table-cell">
+                                        @if ($pickupSchedule->schedule->schedule_status = 'Pending')
+                                            <div class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                                <p class="text-center">Pending</p>
+                                            </div>
+                                        @elseif($pickupSchedule->schedule->schedule_status = 'Accepted')
+                                            <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
+                                                <p class="text-center">Accepted</p>
+                                            </div>
+                                        @else
+                                            <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                                <p class="text-center">Rejected</p>
+                                            </div>
+                                        @endif
+                                    </td>
+                                    <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
+                                        <a href="{{ route('user.adoptionprogress', ['userId' => $answerData->adoption->application->user->id, 'applicationId' => $answerData->adoption->application_id]) }}"
+                                            type="button" onclick=""
+                                            class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                                                fill="currentColor" class="w-4 h-4 ">
+                                                <path d="M12 15a3 3 0 100-6 3 3 0 000 6z" />
+                                                <path fill-rule="evenodd" clip-rule="evenodd"
+                                                    d="M1.323 11.447C2.811 6.976 7.028 3.75 12.001 3.75c4.97 0 9.185 3.223 10.675 7.69.12.362.12.752 0 1.113-1.487 4.471-5.705 7.697-10.677 7.697-4.97 0-9.186-3.223-10.675-7.69a1.762 1.762 0 010-1.113zM17.25 12a5.25 5.25 0 11-10.5 0 5.25 5.25 0 0110.5 0z" />
+                                            </svg>
+                                        </a>
+
+                                    </td>
+                                </tr>
+                            @endforeach
                         @endif
                     </tbody>
                 </table>

@@ -283,11 +283,23 @@ class adoptionController extends Controller
             })
             ->get();
             // dd($answers);
+        $interviewSchedules = ScheduleInterview::with('schedule')
+            ->whereIn('application_id', $answers->pluck('adoption.application.id'))
+            ->get();
+    
+        $visitSchedules = ScheduleVisit::with('schedule')
+            ->whereIn('user_id', $answers->pluck('adoption.user.id'))
+            ->get();
+    
+        $pickupSchedules = SchedulePickup::with('schedule')
+            ->whereIn('application_id', $answers->pluck('adoption.application.id'))
+            ->get();
+    
         $pendingApplicationForUser = $answers->filter(function ($adoptionAnswer) {
             $pendingStages = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
             return in_array($adoptionAnswer->adoption->stage, $pendingStages);
         });
-    
+        
         $totalPendingApplicationsForUser = $pendingApplicationForUser->count();
         $approvedApplicationForUser = $answers->where('adoption.stage', '9')->count();
         $rejectedApplicationForUser = $answers->where('adoption.stage', '10')->count();
@@ -303,7 +315,7 @@ class adoptionController extends Controller
 
         $volunteerPending = $pendingVolunteerApplicationForUser->count();
         $volunteerApproved = $volunteer->where('volunteer_application.stage', '9')->count();
-        return view('user_contents.applications', compact('answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved'));
+        return view('user_contents.applications', compact('answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved', 'interviewSchedules', 'visitSchedules', 'pickupSchedules'));
     }
 
     public function interviewStage($userId, $id)

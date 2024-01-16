@@ -9,6 +9,8 @@ use App\Models\VolunteerAnswers;
 use App\Models\ScheduleInterview;
 use App\Models\User;
 use App\Models\SchedulePickup;
+use App\Exports\VolunteersExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class VolunteerController extends Controller
 {
@@ -147,5 +149,9 @@ class VolunteerController extends Controller
         } else {
             return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
         }
+    }
+    public function export_volunteer()
+    {
+        return Excel::download(new VolunteersExport, 'Volunteers.xlsx');
     }
 }

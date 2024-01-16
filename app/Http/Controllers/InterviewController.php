@@ -121,7 +121,8 @@ class InterviewController extends Controller
         $result = ScheduleInterview::select(
             'schedule_interviews.interview_id as interview_id',
             'schedule_interviews.room as room',
-            // Add other columns as needed
+            'users.name as lastname',
+            'users.firstname as firstname'
         )
         ->leftJoin('application', 'schedule_interviews.application_id', '=', 'application.id')
         ->leftJoin('users', 'application.user_id', '=', 'users.id')

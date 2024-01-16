@@ -17,6 +17,7 @@
                     "parentNode": container,
                     userInfo: {
                         displayName: userName,
+                        isModerator: true,
                     },
                 };
                 api = new JitsiMeetExternalAPI(domain, options);

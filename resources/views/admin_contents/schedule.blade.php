@@ -141,20 +141,20 @@
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         @if ($schedule->schedule_type == 'Interview')
-                                            <div class="text-base text-gray-500 ">{{ $schedule->schedule_date }}</div>
+                                        <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->schedule_date)->format('F j, Y') }}</div>
                                         @elseif($schedule->schedule_type == 'Pickup')
-                                            <div class="text-base text-gray-500 ">{{ $schedule->pickup_date }}</div>
+                                        <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->pickup_date)->format('F j, Y') }}</div>
                                         @else
-                                            <div class="text-base text-gray-500 ">{{ $schedule->visit_date }}</div>
+                                        <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->visit_date)->format('F j, Y') }}</div>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         @if ($schedule->schedule_type == 'Interview')
-                                            <div class="text-base text-gray-500 ">{{ $schedule->schedule_time }}</div>
+                                        <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->schedule_time)->format('g:ia') }}</div>
                                         @elseif($schedule->schedule_type == 'Pickup')
-                                            <div class="text-base text-gray-500 ">{{ $schedule->pickup_time }}</div>
+                                        <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->pickup_time)->format('g:ia') }}</div>
                                         @else
-                                            <div class="text-base text-gray-500 ">{{ $schedule->visit_time }}</div>
+                                        <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->visit_time)->format('g:ia') }}</div>
                                         @endif
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
@@ -420,20 +420,20 @@
                                 </td>
                                 <td class="px-6 py-4  hidden lg:table-cell">
                                     @if ($schedule->schedule_type == 'Interview')
-                                        <div class="text-base text-gray-500 ">{{ $schedule->schedule_date  }}</div>
+                                    <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->schedule_date)->format('F j, Y') }}</div>
                                     @elseif($schedule->schedule_type == 'Pickup')
-                                        <div class="text-base text-gray-500 ">{{ $schedule->pickup_date }}</div>
+                                    <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->pickup_date)->format('F j, Y') }}</div>
                                     @else
-                                        <div class="text-base text-gray-500 ">{{ $schedule->visit_date }}</div>
+                                    <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->visit_date)->format('F j, Y') }}</div>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4  hidden lg:table-cell">
                                     @if ($schedule->schedule_type == 'Interview')
-                                        <div class="text-base text-gray-500 ">{{ $schedule->schedule_time }}</div>
+                                    <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->schedule_time)->format('g:ia') }}</div>
                                     @elseif($schedule->schedule_type == 'Pickup')
-                                        <div class="text-base text-gray-500 ">{{ $schedule->pickup_time }}</div>
+                                    <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->pickup_time)->format('g:ia') }}</div>
                                     @else
-                                        <div class="text-base text-gray-500 ">{{ $schedule->visit_time }}</div>
+                                    <div class="text-base text-gray-500">{{ \Carbon\Carbon::parse($schedule->visit_time)->format('g:ia') }}</div>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4  hidden lg:table-cell">

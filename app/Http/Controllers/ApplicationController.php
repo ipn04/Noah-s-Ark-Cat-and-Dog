@@ -28,7 +28,8 @@ class ApplicationController extends Controller
                     'application.application_type as type',
                     'users.name as lastname',
                     'users.firstname as firstname',
-                    'users.email as user_email'
+                    'users.email as user_email',
+                    'users.id as user_id',
                 )
                 ->orderByDesc('application.updated_at')
                 ->limit(7)
@@ -69,6 +70,8 @@ class ApplicationController extends Controller
                     'schedules.schedule_type as type',
                     'schedule_pickup.time as pickup_time',
                     'schedule_visit.time as visit_time',
+                    'applications.id as application_id',
+                    'applications.user_id as user_id',
                     'applications.application_type as application_type',
                     'application_users.name as lastname',
                     'application_users.firstname as firstname',

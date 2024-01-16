@@ -42,19 +42,25 @@
                 <p class="lg:text-lg text-base">>></p>
                 <h2 class="font-bold text-base lg:text-lg text-yellow-500">Adoption Application Details</h2>
             </div>
-            <div class="@if($stage == 8)grid grid-cols-1  @else grid grid-cols-2 @endif gap-2 lg:py-0 mx-auto lg:mx-0 ">
+            <div
+                class="@if ($stage == 8) grid grid-cols-1  @else grid grid-cols-2 @endif gap-2 lg:py-0 mx-auto lg:mx-0 ">
                 <form
                     action="{{ route('admin.updateStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                    method="POST"
-                    class="
-                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage >= 5) 
-                    @else
-                    @endif">
+                    method="POST" class="
+                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage >= 5) @else @endif">
                     @csrf
                     @method('PATCH')
                     <button type="submit"
                         class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md
-                    @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5 ||  $stage == 6 || $stage == 7 || $stage == 9 || $stage == 10) hidden
+                    @if (
+                        $stage == 1 ||
+                            $stage == 2 ||
+                            $stage == 3 ||
+                            $stage == 5 ||
+                            $stage == 6 ||
+                            $stage == 7 ||
+                            $stage == 9 ||
+                            $stage == 10) hidden
                     @else
                     block @endif
                     ">
@@ -67,39 +73,52 @@
                         @endif
                     </button>
                 </form>
-                @if($stage >= 10)
+                @if ($stage >= 10)
                     <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
                 @endif
-                    <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
-                        class="
+                <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
+                    class="
                         @if ($stage > 4) hidden 
                         @else
                         hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg text-center hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif">Reject
-                        Application
-                    </button>
+                    Application
+                </button>
             </div>
         </div>
-        <div id="popup-modal" tabindex="-1" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+        <div id="popup-modal" tabindex="-1"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
             <div class="relative p-4 w-full max-w-md max-h-full">
                 <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                    <button type="button" class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="popup-modal">
-                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                    <button type="button"
+                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                        data-modal-hide="popup-modal">
+                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                            viewBox="0 0 14 14">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                         </svg>
                         <span class="sr-only">Close modal</span>
                     </button>
                     <div class="p-4 md:p-5 text-center">
-                        <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                        <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
-                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to reject this application?</h3>
-                        <form action="{{ route('admin.rejectStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}" method="POST">
+                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
+                            reject this application?</h3>
+                        <form
+                            action="{{ route('admin.rejectStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                            method="POST">
                             @csrf
                             @method('PATCH')
-                            <button data-modal-hide="popup-modal" type="submit" class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                            <button data-modal-hide="popup-modal" type="submit"
+                                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                                 Yes, I'm sure
                             </button>
-                            <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No, cancel</button>
+                            <button data-modal-hide="popup-modal" type="button"
+                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                                cancel</button>
                         </form>
                     </div>
                 </div>
@@ -339,60 +358,62 @@
                         class = "@if ($stage == 3) mb-7 flex justify-center items-center
                         @else
                         hidden @endif">
-                            <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
-                                @php
-                                    $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
-                                    $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
-                                    $scheduledDateTime = ($scheduledDate && $scheduledTime) ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
-                                @endphp
+                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                            @php
+                                $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
+                                $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
+                                $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
+                            @endphp
 
-                                <h2 class="font-bold text-lg p-2">
-                                    @if ($scheduledDateTime)
-                                        Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
-                                    @else
-                                        No scheduled interview
-                                    @endif
-                                </h2>
-
+                            <h2 class="font-bold text-lg p-2">
                                 @if ($scheduledDateTime)
-                                    <p class="p-2">
-                                        You have an interview scheduled later at {{ $scheduledDateTime->format('F j, Y g:ia') }}.
-                                        Please join this meet later at {{ $scheduledDateTime->format(' g:ia') }}.
-                                    </p>
-
-                                    <div class="grid grid-cols-1 gap-2 py-2">
-                                        <form method="post" target="_blank"
-                                            action="{{ route('interview.admin', ['scheduleId' => optional($scheduleInterview)->interview_id]) }}">
-                                            @csrf
-                                            @method('PATCH')
-
-                                            @php
-                                                $today = now()->format('Y-m-d');
-                                                $currentTime = now()->format('H:i:s');
-                                            @endphp
-
-                                            <button type="submit"
-                                                class="p-2 w-full mx-auto text-white {{ $scheduledDate != $today || $scheduledTime < $currentTime ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                                {{ $scheduledDate != $today || $scheduledTime < $currentTime ? 'disabled' : '' }}>
-                                                Join Meet
-                                            </button>
-                                        </form>
-                                    </div>
+                                    Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
                                 @else
-                                    <p class="p-2">No interview is currently scheduled.</p>
+                                    No scheduled interview
                                 @endif
+                            </h2>
 
-                                <form
-                                    action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                    method="POST">
-                                    @csrf
-                                    @method('PATCH')
-                                    <button type="submit"
-                                        class = "p-2  w-full mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
-                                        Interview</button>
-                                </form>
-                            </div>
+                            @if ($scheduledDateTime)
+                                <p class="p-2">
+                                    You have an interview scheduled later at
+                                    {{ $scheduledDateTime->format('F j, Y g:ia') }}.
+                                    Please join this meet later at {{ $scheduledDateTime->format(' g:ia') }}.
+                                </p>
+
+                                <div class="grid grid-cols-1 gap-2 py-2">
+                                    <form method="post" target="_blank"
+                                        action="{{ route('interview.admin', ['scheduleId' => optional($scheduleInterview)->interview_id]) }}">
+                                        @csrf
+                                        @method('PATCH')
+
+                                        @php
+                                            $today = \Carbon\Carbon::now();
+                                            $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+                                        @endphp
+
+                                        <button type="submit"
+                                            class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                            {{ $isDisabled ? 'disabled' : '' }}>
+                                            Join Meet
+                                        </button>
+
+                                    </form>
+                                </div>
+                            @else
+                                <p class="p-2">No interview is currently scheduled.</p>
+                            @endif
+
+                            <form
+                                action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit"
+                                    class = "p-2  w-full mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
+                                    Interview</button>
+                            </form>
                         </div>
+                    </div>
 
 
                     <div class = "grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg">
@@ -671,7 +692,7 @@
                                                     class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                             </form>
                                         </div>
-                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -707,31 +728,31 @@
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name
                                             {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
                                             {{ $schedulePickup->application->user->name }}</h3>
-                                            <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
-                                                {{ $schedulePickup->date }}</h3>
-                                                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
-                                                    {{ $schedulePickup->time }}</h3>
-                                                    <!-- Modal footer -->
-                                                    <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
-                                                        <form
-                                                            action="{{ route('admin.pickupStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <button data-modal-hide="progress-modal }}" type="submit"
-                                                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
-                                                        </form>
-                                                        <form
-                                                            action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            @method('PATCH')
-                                                            <button data-modal-hide="progress-modal }}" type="submit"
-                                                                class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
-                                                            <button data-modal-hide="progress-modal" type="button"
-                                                                class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
-                                                        </form>
-                                                    </div>
+                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date
+                                            {{ $schedulePickup->date }}</h3>
+                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time
+                                            {{ $schedulePickup->time }}</h3>
+                                        <!-- Modal footer -->
+                                        <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
+                                            <form
+                                                action="{{ route('admin.pickupStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button data-modal-hide="progress-modal }}" type="submit"
+                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
+                                            </form>
+                                            <form
+                                                action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                method="POST">
+                                                @csrf
+                                                @method('PATCH')
+                                                <button data-modal-hide="progress-modal }}" type="submit"
+                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Reject</button>
+                                                <button data-modal-hide="progress-modal" type="button"
+                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
+                                            </form>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -749,7 +770,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        {{-- {{ $adoptionAnswer->adoption->pet->pet_name . ' Details' }} </h3> --}}
+                        {{-- {{ $adoption->pet->pet_name . ' Details' }} </h3> --}}
                         <button type="button"
                             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                             data-modal-hide="pet-modal">
@@ -771,7 +792,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->pet_name }}</div> --}}
+                                        {{ $adoption->pet->pet_name }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Name</div>
                                     </div>
                             </label>
@@ -783,7 +804,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->pet_type }}</div> --}}
+                                        {{ $adoption->pet->pet_type }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Pet Type</div>
                                     </div>
                             </label>
@@ -795,7 +816,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->breed }}</div> --}}
+                                        {{ $adoption->pet->breed }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Breed</div>
                                     </div>
                             </label>
@@ -807,7 +828,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->age }}</div> --}}
+                                        {{ $adoption->pet->age }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Age</div>
                                     </div>
                             </label>
@@ -819,7 +840,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->color }}</div> --}}
+                                        {{ $adoption->pet->color }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Color</div>
                                     </div>
                             </label>
@@ -831,7 +852,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->adoption_status }}</div> --}}
+                                        {{ $adoption->pet->adoption_status }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Adoption Status</div>
                                     </div>
                             </label>
@@ -845,7 +866,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->gender }}</div> --}}
+                                        {{ $adoption->pet->gender }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Gender</div>
                                     </div>
                             </label>
@@ -857,7 +878,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->vaccination_status }}</div> --}}
+                                        {{ $adoption->pet->vaccination_status }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Vaccination Status</div>
                                     </div>
                             </label>
@@ -869,7 +890,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->weight }} kg</div> --}}
+                                        {{ $adoption->pet->weight }} kg</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Weight</div>
                                     </div>
                             </label>
@@ -881,7 +902,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->size }} cm</div> --}}
+                                        {{ $adoption->pet->size }} cm</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Size</div>
                                     </div>
                             </label>
@@ -893,7 +914,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->behaviour }}</div> --}}
+                                        {{ $adoption->pet->behaviour }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Behavior</div>
                                     </div>
                             </label>
@@ -905,7 +926,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{-- {{ $adoptionAnswer->adoption->pet->description }}</div> --}}
+                                        {{ $adoption->pet->description }}</div>
                                         <div class="w-full text-gray-500 dark:text-gray-400">Description</div>
                                     </div>
                             </label>
@@ -915,9 +936,9 @@
                 <div class = "p-5 text-center">
                     <button type="submit" class="rounded" data-modal-target="petimage-modal"
                         data-modal-toggle="petimage-modal">
-                        {{-- <img class="max-w-2xl max-h-60 mx-auto"
-                            src="{{ asset('storage/images/' . $adoptionAnswer->adoption->pet->dropzone_file) }}"
-                            alt="pet image"> --}}
+                        <img class="max-w-2xl max-h-60 mx-auto"
+                            src="{{ asset('storage/images/' . $adoption->pet->dropzone_file) }}"
+                            alt="pet image">
                     </button>
                 </div>
 
@@ -934,7 +955,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                     <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        {{-- {{ $adoptionAnswer->adoption->application->user->firstname . ' ' . $adoptionAnswer->adoption->application->user->name . ' Answers' }} --}}
+                        {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name . ' Answers' }}
                     </h3>
                     <button type="button"
                         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"

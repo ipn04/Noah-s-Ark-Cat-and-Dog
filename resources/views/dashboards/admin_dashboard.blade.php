@@ -105,8 +105,9 @@
                             </tr>
                         </thead>
                         <tbody class="bg-white">
+                            @foreach ($schedules as $schedule)
+
                             <tr>
-                                @foreach ($schedules as $schedule)
                                     <td class="p-4">
                                         <div class=" text-sm  text-center">{{ $schedule->firstname }}
                                             {{ $schedule->lastname }}</div>
@@ -135,10 +136,10 @@
                                     <p class = "text-sm text-center"> {{ \Carbon\Carbon::createFromFormat('H:i:s', $schedule->visit_time)->format(' h:ia') }} </p>                                    @endif
                                     </td>
                                     <td class="p-4  text-center">
-                                            {{-- @if ($schedule->type == 'Interview')
-                                                @if ($schedule->interview_type == 'application_form')
+                                            @if ($schedule->type == 'Interview')
+                                                @if ($schedule->application_type == 'application_form')
                                                     <a
-                                                        href="{{ route('admin.adoptionprogress', [$schedule->adoption_id]) }}">
+                                                        href="{{ route('admin.adoptionprogress', ['userId' => $schedule->user_id, 'id' => $schedule->application_id]) }}">
                                                         <button type="button"
                                                             class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
                                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -150,7 +151,7 @@
                                                         </button>
                                                     @else
                                                         <a
-                                                            href="{{ route('admin.volunteer.progress', [$schedule->interview_id]) }}">
+                                                            href="{{ route('admin.volunteer.progress',  ['userId' => $schedule->user_id, 'id' => $schedule->application_id]) }}">
                                                             <button type="button"
                                                                 class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
                                                                 <svg xmlns="http://www.w3.org/2000/svg"
@@ -164,7 +165,7 @@
                                                         </a>
                                                 @endif
                                             @elseif($schedule->type == 'Pickup')
-                                                <a href="{{ route('admin.adoptionprogress', [$schedule->adoption_id]) }}">
+                                                <a href="{{ route('admin.adoptionprogress',  ['userId' => $schedule->user_id, 'id' => $schedule->application_id]) }}">
                                                     <button type="button"
                                                         class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -176,7 +177,7 @@
                                                     </button>
                                                 </a>
                                             @elseif($schedule->type == 'dsds')
-                                            @else --}}
+                                            @else
                                             <button data-modal-target="static-modal" data-modal-toggle="static-modal" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-400 hover:bg-red-600 rounded-lg shadow-md" type="button">
                                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
                                                 fill="currentColor" class="w-4 h-4 ">
@@ -213,11 +214,11 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{-- @endif --}}
+                                            @endif
     
-                                @endforeach
                                 </td>
                             </tr>
+                            @endforeach
 
 
                         </tbody>
@@ -342,13 +343,13 @@
                                     @endif
                                 </td>
                                 <td class="p-4">
-                                    <div class="  text-sm text-center">{{ $application->update }}</div>
+                                    <div class="text-sm text-center">{{ \Carbon\Carbon::parse($application->update)->format('F j, Y g:ia') }}</div>
                                 </td>
                                 <td class="p-4  text-center">
 
                                     {{-- comment ko muna kase nag kaka error sa'ken --}}
                                     {{-- ginawa ko na kase reference both application and user io --}}
-                                    {{-- @if ($application->type == 'application_form')
+                                   @if ($application->type == 'application_form')
                                         <a href = "{{ route('admin.adoptionprogress', ['userId' => $application->user_id, 'id' => $application->id]) }}"
                                             class="text-white shadow-md bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none focus:ring-[#1da1f2]/50 font-medium rounded-lg text-sm px-3 py-2.5 text-center inline-flex items-center dark:focus:ring-[#1da1f2]/55 me-2 mb-2">
                                             <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -370,7 +371,7 @@
                                                     clip-rule="evenodd" />
                                             </svg>
                                         </a>
-                                    @endif --}}
+                                    @endif 
                                 </td>
                             </tr>
                         @endforeach

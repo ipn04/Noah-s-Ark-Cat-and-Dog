@@ -118,7 +118,7 @@ class adoptionController extends Controller
             dd($e);
         }
 
-        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'petId' => $petId, 'applicationId' => $applicationId, 'adoptionAnswer' => $adoptionAnswer]);
+        return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'userId' => $userId, 'petId' => $petId, 'applicationId' => $applicationId, 'adoptionAnswer' => $adoptionAnswer]);
     } 
     public function adoptionProgress($petId, $applicationId, $adoptionAnswer = false)
     {
@@ -129,12 +129,13 @@ class adoptionController extends Controller
                 $query->where('user_id', $userId);
             })->where('pet_id', $petId);
         })->with('adoption.pet')->first();
-
+     
         $stage = null;
         $adoption = null; 
         $petData = null;
         $scheduleInterview = null; 
         $schedulePickup = null;
+        $userr = null;
 
         if ($adoptionAnswerData && $adoptionAnswerData->adoption) {
             $stage = $adoptionAnswerData->adoption->stage;

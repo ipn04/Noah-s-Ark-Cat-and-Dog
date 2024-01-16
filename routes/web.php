@@ -103,11 +103,15 @@ Route::patch('/admin/update-stage/{userId}/{id}', [adoptionController::class, 'u
 
 Route::patch('/admin/reject-stage/{userId}/{id}', [adoptionController::class, 'rejectStage'])->middleware(['auth', 'admin'])->name('admin.rejectStage');
 
+Route::patch('/admin/reject-volunteer-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerReject'])->middleware(['auth', 'admin'])->name('admin.volunteer.reject');
+
 Route::patch('/admin/wrap-interview/{userId}/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'admin'])->name('admin.wrap');
 
 Route::patch('/admin/interview-stage/{userId}/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'admin'])->name('admin.interviewStage');
 
 Route::patch('/admin/reject-interview-stage/{userId}/{id}', [adoptionController::class, 'rejectInterview'])->middleware(['auth', 'admin'])->name('admin.rejectInterview');
+
+Route::patch('/admin/reject-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerInterviewReject'])->middleware(['auth', 'admin'])->name('admin.reject.volunteer');
 
 Route::patch('/admin/pickup-stage/{userId}/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
 
@@ -129,6 +133,10 @@ Route::get('/download-contract/{id}', [AdoptionController::class, 'downloadContr
 Route::get('/view/registered/user', [ProfileController::class, 'showRegisteredUsers'])->middleware(['auth', 'admin'])->name('view.users');
 
 Route::get('/export_pet', [PetDataController::class, 'export_pet_type'])->middleware(['auth', 'admin'])->name('export_pet_type');
+
+Route::get('/export_adoption', [adoptionController::class, 'export_adoption'])->middleware(['auth', 'admin'])->name('export.adoption');
+
+Route::get('/export_volunteer', [VolunteerController::class, 'export_volunteer'])->middleware(['auth', 'admin'])->name('export.volunteer');
 
 // Route::get('/admin/volunteers', function () {
 //     return view('admin_contents.volunteers');
@@ -179,7 +187,7 @@ Route::get('/user/volunteerprogress/{userId}', [VolunteerController::class, 'Use
     ->middleware(['auth', 'user'])
     ->name('user.volunteerprogress');
 
-Route::get('/admin-volunteer-progress/{userId}/{applicationId}', [VolunteerController::class, 'AdminVolunteerProgress'])->name('admin.volunteer.progress');
+Route::get('/admin-volunteer-progress/{userId}/{id}', [VolunteerController::class, 'AdminVolunteerProgress'])->name('admin.volunteer.progress');
 
 // Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
 

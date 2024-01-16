@@ -51,6 +51,9 @@
                     ">Cancel
                     Application</a>
             </div>
+            @if($stage == 10)
+                <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
+            @endif
         </div>
         <div class = "flex items-center  py-4 justify-center">
             <div

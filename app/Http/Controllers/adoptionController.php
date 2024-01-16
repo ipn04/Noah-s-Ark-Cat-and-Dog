@@ -16,6 +16,8 @@ use App\Models\VolunteerApplication;
 use App\Models\VolunteerAnswers;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use App\Exports\AdoptionsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 use Illuminate\Support\Str;
 
@@ -501,5 +503,9 @@ class adoptionController extends Controller
         }
 
         return redirect()->back()->with(['updateStage' => true, 'adoption' => $adoption]);
+    }
+    public function export_adoption()
+    {
+        return Excel::download(new AdoptionsExport, 'Adoption.xlsx');
     }
 }

@@ -109,6 +109,13 @@
                             </div>
                         </form>
                     </div>
+                    <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
+                        <form action="{{route('export.volunteer')}}">
+                            <button  type="submit" class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-white focus:outline-none bg-green-800 rounded-lg border border-green-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700" type="button">
+                                Download Excel
+                            </button>
+                        </form>
+                    </div>         
                 </div>
 
                 <table class=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -185,7 +192,7 @@
                                 </td>
                                 <td class="items-center gap-1  hidden lg:table-cell">
                                     <a
-                                        href="{{ route('admin.volunteer.progress', ['userId' => $volunteers->volunteer_application->application->user->id, 'applicationId' =>$volunteers->volunteer_application->application->id]) }}">
+                                        href="{{ route('admin.volunteer.progress', ['userId' => $volunteers->volunteer_application->application->user->id, 'id' =>$volunteers->volunteer_application->application->id]) }}">
                                         <button type="button" 
                                             class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

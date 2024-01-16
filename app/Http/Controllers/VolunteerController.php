@@ -8,6 +8,7 @@ use App\Models\Application;
 use App\Models\VolunteerAnswers;
 use App\Models\ScheduleInterview;
 use App\Models\User;
+use App\Models\SchedulePickup;
 
 class VolunteerController extends Controller
 {
@@ -100,4 +101,51 @@ class VolunteerController extends Controller
         return redirect()->back()->with(['volunteer_progress' => true]);
     }
     
+    public function volunteerReject($userId, $applicationId)
+    {
+        $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->first();
+
+        if ($userVolunteerAnswers) {
+            $volunteerApplication = $userVolunteerAnswers->volunteer_application;
+    
+            $volunteerApplication->update(['stage' => 10]);
+        
+            return redirect()->back()->with(['volunteer_progress' => true]);
+        } else {
+            return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
+        }
+
+        return redirect()->back()->with(['volunteer_progress' => true]);
+    }
+    public function volunteerInterviewReject($userId, $applicationId)
+    {
+        $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->first();
+        
+        if ($userVolunteerAnswers) {
+            $volunteerApplication = $userVolunteerAnswers->volunteer_application;
+ 
+            // Decrement the stage column by 1
+            $volunteerApplication->decrement('stage', 1);
+
+            if ($volunteerApplication) {
+                $scheduleInterview = ScheduleInterview::where('application_id', $volunteerApplication->application_id)->first();
+                if ($scheduleInterview) {
+                    $schedule = $scheduleInterview->schedule;
+                    
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Rejected']);
+                    }
+                }   
+                return redirect()->back()->with(['volunteer_progress' => true]); 
+            }
+        
+            return redirect()->back()->with(['volunteer_progress' => true]);
+        } else {
+            return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
+        }
+    }
 }

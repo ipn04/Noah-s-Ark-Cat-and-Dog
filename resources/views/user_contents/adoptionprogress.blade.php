@@ -49,9 +49,9 @@
                     hidden @endif">Cancel
                     Application</a>
             </div>
-            {{-- @if ($stage == 10)
+            @if ($stage == 10)
                 <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
-            @endif --}}
+            @endif
         </div>
 
 

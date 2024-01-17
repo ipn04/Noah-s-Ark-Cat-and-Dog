@@ -203,13 +203,13 @@
                    ">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-lg p-2">Interview at
-                                {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
-                                {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                                {{ \Carbon\Carbon::parse($scheduleInterview->date ?? '')->format('F j, Y') }}
+                                {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
                             </h2>
                             <p class = "p-2">You have an interview scheduled later at
-                                {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}. Please join this
+                                {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}. Please join this
                                 meet
-                                later at {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}</p>
+                                later at {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
                                 <form method="post" target="_blank"
                                     action="{{ optional($scheduleInterview)->interview_id ? route('interview.user', ['scheduleId' => $scheduleInterview->interview_id]) : '#' }}"

@@ -120,15 +120,17 @@ class adoptionController extends Controller
 
         return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'userId' => $userId, 'petId' => $petId, 'applicationId' => $applicationId, 'adoptionAnswer' => $adoptionAnswer]);
     } 
-    public function adoptionProgress($petId, $applicationId, $adoptionAnswer = false)
+    public function adoptionProgress($userId, $applicationId, $petId, $adoptionAnswer = false)
     {
-        $userId = auth()->user()->id;
+        // $userId = auth()->user()->id;
 
         $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId, $petId) {
             $query->whereHas('application', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
             })->where('pet_id', $petId);
-        })->with('adoption.pet')->first();
+        })->with('adoption.pet')
+          ->latest()  // Fetch the latest adoption attempt
+          ->first();
      
         $stage = null;
         $adoption = null; 

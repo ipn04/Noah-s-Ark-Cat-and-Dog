@@ -105,7 +105,7 @@
 
                                 </td>
                                 <td class=" px-6 lg:px-0 items-center lg:gap-1   lg:table-cell">
-                                    <a href="{{ route('user.adoptionprogress', ['userId' => $answerData->adoption->application->user->id, 'applicationId' => $answerData->adoption->application_id]) }}"
+                                    <a href="{{ route('user.adoptionprogress', ['userId' => $answerData->adoption->application->user->id, 'applicationId' => $answerData->adoption->application_id, 'petId' => $answerData->adoption->pet_id]) }}"
                                         type="button" onclick=""
                                         class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

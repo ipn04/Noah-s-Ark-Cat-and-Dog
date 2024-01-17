@@ -349,8 +349,8 @@
 
                             <tr>
                                 <td class = "font-bold">Address</td>
-                                <td>{{ Auth::user()->region }}, {{ Auth::user()->city }},
-                                    {{ Auth::user()->barangay }}, {{ Auth::user()->street }}</td>
+                                <td> {{ Auth::user()->street }}, {{ Auth::user()->barangay }}, {{ Auth::user()->city }}, {{ Auth::user()->province }}
+                                    </td>
                             </tr>
                         </table>
 

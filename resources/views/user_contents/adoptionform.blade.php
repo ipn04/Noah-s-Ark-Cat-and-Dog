@@ -280,6 +280,8 @@
                             </div>
                         </div>
 
+                        
+
                         <div class="px-4 py-3">
                             <div id="image-preview2" class="max-w-sm p-6 mb-4 bg-gray-100 border-dashed border-2 border-gray-400 rounded-lg items-center mx-auto text-center cursor-pointer">
                                 <input id="upload2" name="upload2" type="file" class="hidden" accept="image/*" />
@@ -294,6 +296,45 @@
                                 </label>
                             </div>
                         </div>
+
+                        <script>
+                            const uploadInput = document.getElementById('upload');
+                            const filenameLabel = document.getElementById('filename');
+                            const imagePreview = document.getElementById('image-preview');
+                        
+                            uploadInput.addEventListener('change', (event) => {
+                                const file = event.target.files[0];
+                        
+                                if (file) {
+                                    filenameLabel.textContent = `File Name: ${file.name}`;
+                                    // Your existing code for image preview...
+                        
+                                } else {
+                                    filenameLabel.textContent = '';
+                                    // Your existing code for image preview...
+                        
+                                }
+                            });
+
+                            const uploadInput2 = document.getElementById('upload2');
+                            const filenameLabel2 = document.getElementById('filename2');
+                            const imagePreview2 = document.getElementById('image-preview2');
+                        
+                            uploadInput2.addEventListener('change', (event) => {
+                                const file2 = event.target.files[0];
+                        
+                                if (file2) {
+                                    filenameLabel2.textContent = `File Name: ${file2.name}`;
+                                    // Your existing code for image preview...
+                        
+                                } else {
+                                    filenameLabel2.textContent = '';
+                                    // Your existing code for image preview...
+                        
+                                }
+                            });
+                        
+                        </script>
                         
                     <div class = "flex gap-2 mt-3">
                         <x-primary-button type="button" onclick="showSection(3, 2)" >Previous</x-primary-button>

@@ -16,16 +16,24 @@ class AdoptionsExport implements FromCollection, WithHeadings
         return Adoption::join('pets', 'adoption.pet_id', '=', 'pets.id')
             ->join('application', 'adoption.application_id', '=', 'application.id')
             ->join('users', 'application.user_id', '=', 'users.id')
+            ->where('adoption.stage', '=', 9)
             ->select(
-                \DB::raw("CONCAT(users.firstname, ' ', users.name) as user_name"), 
+                \DB::raw("CONCAT(users.firstname, ' ', users.name) as user_name"),
+                'users.email',
+                'users.gender',
+                'users.civil_status',
+                \DB::raw("CONCAT(users.region, ' ', users.province , ' ', users.city , ' ', users.barangay , ' ', users.street) as user_address"),
+                'users.phone_number',
                 'pets.pet_name',
+                'pets.pet_type',
+                'pets.breed',
+                'pets.age',
+                'pets.gender as pet_gender',
+                'pets.size',
                 'application.created_at',
                 \DB::raw("
                     CASE 
                         WHEN adoption.stage = 9 THEN 'Accepted'
-                        WHEN adoption.stage >= 0 AND adoption.stage <= 8 THEN 'Pending'
-                        WHEN adoption.stage = 10 THEN 'Rejected'
-                        ELSE CAST(adoption.stage AS CHAR)
                     END as status
                 ")          
             ) 
@@ -38,6 +46,6 @@ class AdoptionsExport implements FromCollection, WithHeadings
      */
     public function headings(): array
     {
-        return ['User Name', 'Pet Name', 'Date of Application', 'Progress'];
+        return ['Name', 'Email', 'Gender', 'Civil Status', 'Address', 'Phone Number', 'Pet Name', 'Pet Type', 'Breed', 'Age', 'Pet Gender', 'size', 'Date of Application', 'Progress'];
     }
 }

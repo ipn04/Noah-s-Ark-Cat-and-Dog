@@ -103,6 +103,10 @@ Route::patch('/admin/update-stage/{userId}/{id}', [adoptionController::class, 'u
 
 Route::patch('/admin/reject-stage/{userId}/{id}', [adoptionController::class, 'rejectStage'])->middleware(['auth', 'admin'])->name('admin.rejectStage');
 
+Route::patch('/admin/cancel-stage/{userId}/{id}', [adoptionController::class, 'cancelStage'])->middleware(['auth', 'user'])->name('cancel.stage');
+
+Route::patch('/cancel-application/{userId}/{applicationId}', [VolunteerController::class, 'cancelApplication'])->name('cancel.application');
+
 Route::patch('/admin/reject-volunteer-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerReject'])->middleware(['auth', 'admin'])->name('admin.volunteer.reject');
 
 Route::patch('/admin/wrap-interview/{userId}/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'admin'])->name('admin.wrap');
@@ -112,6 +116,10 @@ Route::patch('/admin/interview-stage/{userId}/{id}', [adoptionController::class,
 Route::patch('/admin/reject-interview-stage/{userId}/{id}', [adoptionController::class, 'rejectInterview'])->middleware(['auth', 'admin'])->name('admin.rejectInterview');
 
 Route::patch('/admin/reject-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerInterviewReject'])->middleware(['auth', 'admin'])->name('admin.reject.volunteer');
+
+Route::patch('/user/cancel-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'cancelInterview'])->middleware(['auth', 'user'])->name('user.cancel.interview');
+
+Route::patch('/admin/cancel-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'adminCancelInterview'])->middleware(['auth', 'admin'])->name('admin.cancel.interview');
 
 Route::patch('/admin/pickup-stage/{userId}/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
 

@@ -94,7 +94,7 @@ class InterviewController extends Controller
             // Find the volunteer answers for the user
             $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
                 $query->where('id', $userId);
-            })->first();
+            })->latest()->first();
 
             // If answers are found, update the stage
             if ($userVolunteerAnswers) {

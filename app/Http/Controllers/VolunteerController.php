@@ -129,7 +129,7 @@ class VolunteerController extends Controller
     {
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
-        })->first();
+        })->latest()->first();
 
         if ($userVolunteerAnswers) {
             $newStage = $userVolunteerAnswers->volunteer_application->stage + 1;
@@ -178,7 +178,7 @@ class VolunteerController extends Controller
     {
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
-        })->first();
+        })->latest()->first();
         
         if ($userVolunteerAnswers) {
             $volunteerApplication = $userVolunteerAnswers->volunteer_application;
@@ -193,6 +193,64 @@ class VolunteerController extends Controller
                     
                     if ($schedule) {
                         $schedule->update(['schedule_status' => 'Rejected']);
+                    }
+                }   
+                return redirect()->back()->with(['volunteer_progress' => true]); 
+            }
+        
+            return redirect()->back()->with(['volunteer_progress' => true]);
+        } else {
+            return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
+        }
+    }
+    public function cancelInterview($userId, $applicationId)
+    {
+        $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->latest()->first();
+        
+        if ($userVolunteerAnswers) {
+            $volunteerApplication = $userVolunteerAnswers->volunteer_application;
+ 
+            // Decrement the stage column by 1
+            $volunteerApplication->decrement('stage', 1);
+
+            if ($volunteerApplication) {
+                $scheduleInterview = ScheduleInterview::where('application_id', $volunteerApplication->application_id)->latest()->first();
+                if ($scheduleInterview) {
+                    $schedule = $scheduleInterview->schedule;
+                    
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Canceled']);
+                    }
+                }   
+                return redirect()->back()->with(['send_schedule' => true]); 
+            }
+        
+            return redirect()->back()->with(['send_schedule' => true]);
+        } else {
+            return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
+        }
+    }
+    public function adminCancelInterview($userId, $applicationId)
+    {
+        $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->latest()->first();
+        
+        if ($userVolunteerAnswers) {
+            $volunteerApplication = $userVolunteerAnswers->volunteer_application;
+ 
+            // Decrement the stage column by 1
+            $volunteerApplication->decrement('stage', 1);
+
+            if ($volunteerApplication) {
+                $scheduleInterview = ScheduleInterview::where('application_id', $volunteerApplication->application_id)->latest()->first();
+                if ($scheduleInterview) {
+                    $schedule = $scheduleInterview->schedule;
+                    
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Canceled']);
                     }
                 }   
                 return redirect()->back()->with(['volunteer_progress' => true]); 

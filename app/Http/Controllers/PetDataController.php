@@ -9,6 +9,7 @@ use App\Models\Application;
 use App\Models\Adoption;
 use App\Exports\PetsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Storage;
 
@@ -175,11 +176,12 @@ class PetDataController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $pet = Pet::find($id);
         if (!$pet) {
             return response()->json(['message' => 'Pet not found'], 404);
         }
-
+        
         // Validate the updated data
         $validatedData = $request->validate([
             'pet_name' => 'sometimes|required',
@@ -200,11 +202,11 @@ class PetDataController extends Controller
             'dropzone_file.mimes' => 'Allowed image formats are: jpeg, png, jpg, gif.',
             'dropzone_file.max' => 'Maximum file size allowed is 2MB.',
         ]);
-
+        // dd($validatedData);
         // Update pet details in the database
         
         $pet->fill($validatedData);
-
+       
         if ($request->hasFile('dropzone_file')) {
             // Remove the old image from storage (if exists)
             $oldImagePath = 'public/images/' . $pet->dropzone_file;
@@ -214,10 +216,10 @@ class PetDataController extends Controller
         
             // Store the new image in the storage
             $image = $request->file('dropzone_file');
-            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $imageName = Str::uuid() . '.' . $image->getClientOriginalExtension();
             $directory = 'images';
             $image->storeAs('public/' . $directory, $imageName);
-        
+
             // Update the image file name in the database
             $pet->dropzone_file = $imageName;
         }

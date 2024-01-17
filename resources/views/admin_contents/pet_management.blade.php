@@ -910,7 +910,7 @@
 
 
                         <div class="flex justify-center items-center w-full">
-                            <label for="dropzone_file_update"
+                            <label for="dropzone_file_update-{{$pet->id}}"
                                 class="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer hover:bg-gray-100">
                                 <div class="flex flex-col justify-center items-center pt-5 pb-6">
                                     <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none"
@@ -924,7 +924,7 @@
                                     <p class="text-xs text-gray-500" id="file-name-placeholder-update">SVG, PNG, JPG
                                         or GIFFF</p>
                                 </div>
-                                <input name="dropzone_file" id="dropzone_file_update" type="file" class="hidden"
+                                <input name="dropzone_file" id="dropzone_file_update-{{$pet->id}}" type="file" class="hidden"
                                     accept="image/*"
                                     onchange="console.log('File uploaded:', this.value); document.getElementById('file-name-placeholder-update').innerText = this.files[0] ? this.files[0].name : 'SVG, PNG, JPG or GIF';">
                             </label>

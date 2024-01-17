@@ -117,6 +117,10 @@ Route::patch('/admin/reject-interview-stage/{userId}/{id}', [adoptionController:
 
 Route::patch('/admin/reject-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerInterviewReject'])->middleware(['auth', 'admin'])->name('admin.reject.volunteer');
 
+Route::patch('/user/cancel-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'cancelInterview'])->middleware(['auth', 'user'])->name('user.cancel.interview');
+
+Route::patch('/admin/cancel-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'adminCancelInterview'])->middleware(['auth', 'admin'])->name('admin.cancel.interview');
+
 Route::patch('/admin/pickup-stage/{userId}/{id}', [adoptionController::class, 'pickupStage'])->middleware(['auth', 'admin'])->name('admin.pickupStage');
 
 Route::patch('/admin/pickup-reject-stage/{userId}/{id}', [adoptionController::class, 'rejectPickup'])->middleware(['auth', 'admin'])->name('admin.rejectPickup');

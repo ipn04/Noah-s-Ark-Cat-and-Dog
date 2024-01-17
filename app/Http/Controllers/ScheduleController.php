@@ -126,7 +126,7 @@ class ScheduleController extends Controller{
         // dd($applicationId);
         $scheduleInterview = ScheduleInterview::whereHas('application', function ($query) use ($applicationId) {
             $query->where('application_id', $applicationId);
-        })->first();
+        })->latest()->first();
         // dd($scheduleInterview);
         if ($scheduleInterview) {
             // Update the status column in the related Schedule model

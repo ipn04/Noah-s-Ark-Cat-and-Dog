@@ -34,7 +34,7 @@
         </script>
     @endif
 
-    <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
+    <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased ">
         <div class="flex flex-col sm:flex-row justify-between lg:items-center py-4 px-10">
             <div class="flex gap-2 mb-2 sm:mb-0">
                 <a href="{{ route('user.dashboard') }}"

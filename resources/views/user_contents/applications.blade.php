@@ -146,6 +146,10 @@
                                                 class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
                                                 <p class="text-center">Pending</p>
                                             </div>
+                                        @elseif($vol->volunteer_application->stage == 11)
+                                            <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                                <p class="text-center">Canceled</p>
+                                            </div>
                                         @elseif($vol->volunteer_application->stage == 10)
                                             <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
                                                 <p class="text-center">Rejected</p>

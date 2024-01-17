@@ -155,8 +155,25 @@ class VolunteerController extends Controller
             return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
         }
 
-        // return redirect()->back()->with(['volunteer_progress' => true]);
+        return redirect()->back()->with(['volunteer_progress' => true]);
     }
+
+    public function cancelApplication($userId, $applicationId)
+    {
+        $volunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+            $query->where('id', $userId);
+        })->latest()->first();
+        
+        if ($volunteerAnswers) {
+            // Assuming you have a 'stage' column in the 'volunteer_application' table
+            $volunteerAnswers->volunteer_application->update(['stage' => 11]);
+        
+            return redirect()->back()->with(['application_canceled' => true]);
+        } else {
+            return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
+        }
+    }
+
     public function volunteerInterviewReject($userId, $applicationId)
     {
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {

@@ -97,6 +97,10 @@
                                         <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
                                             <p class="text-center">Rejected</p>
                                         </div>
+                                    @elseif($answerData->adoption->stage == 11)
+                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class="text-center">Canceled</p>
+                                        </div>
                                     @else
                                         <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
                                             <p class="text-center">Accepted</p>

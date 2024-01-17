@@ -143,8 +143,8 @@ class VolunteerController extends Controller
     {
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
-        })->first();
-
+        })->latest()->first();
+        // dd($userId, $applicationId);
         if ($userVolunteerAnswers) {
             $volunteerApplication = $userVolunteerAnswers->volunteer_application;
     
@@ -155,7 +155,7 @@ class VolunteerController extends Controller
             return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
         }
 
-        return redirect()->back()->with(['volunteer_progress' => true]);
+        // return redirect()->back()->with(['volunteer_progress' => true]);
     }
     public function volunteerInterviewReject($userId, $applicationId)
     {

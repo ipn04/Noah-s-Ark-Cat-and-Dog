@@ -123,7 +123,6 @@ class adoptionController extends Controller
     public function adoptionProgress($userId, $applicationId, $petId, $adoptionAnswer = false)
     {
         // $userId = auth()->user()->id;
-
         $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId, $petId) {
             $query->whereHas('application', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
@@ -182,12 +181,11 @@ class adoptionController extends Controller
 
     public function adminLoadProgress($userId, $id) {
         $adoptionAnswer = Application::where('user_id', $userId)->findOrFail($id);
-
-        // Find the specific adoption for the application
         $adoption = Adoption::where('application_id', $adoptionAnswer->id)->firstOrFail();
 
-        // $volunteerAnswers = VolunteerAnswers::where('application_id', $adoptionAnswer->id)->first();
-        
+        $adoptionAnswers = $adoption->adoptionAnswer;
+
+        // dd($adoptionAnswers);
         $stage = $adoption->stage;
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
@@ -208,7 +206,7 @@ class adoptionController extends Controller
             'scheduleInterview' => $scheduleInterview,
             'schedulePickup' => $schedulePickup,
             'adoption' => $adoption,
-            
+            'adoptionAnswers' => $adoptionAnswers,
         ]);
     } 
     public function updateStage($userId, $id)
@@ -234,6 +232,16 @@ class adoptionController extends Controller
         } else {
             return redirect()->back()->with(['error' => 'Application not found']);
         }
+    }
+
+    public function cancelStage(Request $request, $userId, $id)
+    {
+        // Assuming you want to update the stage to 11 in the Adoption model
+        $adoption = Adoption::where('application_id', $id)->firstOrFail();
+        $adoption->update(['stage' => 11]);
+
+        // You can add more logic or redirect as needed
+        return redirect()->back()->with(['success' => 'Stage updated successfully']);
     }
 
     public function rejectStage($userId, $id)

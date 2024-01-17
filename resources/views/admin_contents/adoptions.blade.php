@@ -196,7 +196,11 @@
                                         
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        @if ($adoptionAnswer->adoption->stage == 10)
+                                        @if ($adoptionAnswer->adoption->stage == 11)
+                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class="text-center">Canceled</p>
+                                        </div>
+                                        @elseif ($adoptionAnswer->adoption->stage == 10)
                                         <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
                                             <p class="text-center">Rejected</p>
                                         </div>

@@ -103,6 +103,8 @@ Route::patch('/admin/update-stage/{userId}/{id}', [adoptionController::class, 'u
 
 Route::patch('/admin/reject-stage/{userId}/{id}', [adoptionController::class, 'rejectStage'])->middleware(['auth', 'admin'])->name('admin.rejectStage');
 
+Route::patch('/admin/cancel-stage/{userId}/{id}', [adoptionController::class, 'cancelStage'])->middleware(['auth', 'user'])->name('cancel.stage');
+
 Route::patch('/admin/reject-volunteer-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerReject'])->middleware(['auth', 'admin'])->name('admin.volunteer.reject');
 
 Route::patch('/admin/wrap-interview/{userId}/{id}', [adoptionController::class, 'wrapInterview'])->middleware(['auth', 'admin'])->name('admin.wrap');

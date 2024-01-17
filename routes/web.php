@@ -131,7 +131,7 @@ Route::patch('/admin/volunteer/add-stage/{id}', [ScheduleController::class, 'add
 
 Route::patch('/admin/update-contract/{user}/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'admin'])->name('update.contract');
 
-Route::patch('/admin/update/volunteer/progress/{userId}', [VolunteerController::class, 'updateVolunteerStage'])->middleware(['auth', 'admin'])->name('update.volunteer.progress');
+Route::patch('/admin/update/volunteer/progress/{userId}/{applicationId}', [VolunteerController::class, 'updateVolunteerStage'])->middleware(['auth', 'admin'])->name('update.volunteer.progress');
 
 Route::post('/admin/update/volunteer/interview/{userId}/{applicationId}', [InterviewController::class, 'volunteerInterview'])
     ->name('update.volunteer.interview');

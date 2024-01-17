@@ -44,7 +44,7 @@
             </div>
             <div class="grid grid-cols-2 gap-2 lg:py-0 mx-auto lg:mx-0">
                 <form
-                    action="{{ route('update.volunteer.progress', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id]) }}"
+                    action="{{ route('update.volunteer.progress', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                     method="POST" class="
                     @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage == 5) @else @endif">
                     @csrf

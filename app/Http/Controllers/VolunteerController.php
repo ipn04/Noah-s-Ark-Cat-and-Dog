@@ -125,12 +125,12 @@ class VolunteerController extends Controller
         $answers = json_decode($userVolunteerAnswers->answers, true);
         return view('admin_contents.volunteer_progress', ['acceptedSchedule' => $acceptedSchedule, 'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId, 'stage' => $stage, 'answers' => $answers, 'scheduleInterview' => $scheduleInterview]);
     }
-    public function updateVolunteerStage(Request $request, $userId)
+    public function updateVolunteerStage(Request $request, $userId, $applicationId)
     {
-        $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
+        $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId, $applicationId) {
             $query->where('id', $userId);
-        })->first();
-
+        })->where('application_id', $applicationId)->first();
+        
         if ($userVolunteerAnswers) {
             $newStage = $userVolunteerAnswers->volunteer_application->stage + 1;
 
@@ -138,6 +138,7 @@ class VolunteerController extends Controller
         }
         return redirect()->back()->with(['volunteer_progress' => true]);
     }
+    
     
     public function volunteerReject($userId, $applicationId)
     {

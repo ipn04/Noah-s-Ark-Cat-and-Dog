@@ -927,7 +927,9 @@
                                 <input name="dropzone_file" id="dropzone_file_update" type="file" class="hidden"
                                     accept="image/*"
                                     onchange="console.log('File uploaded:', this.value); document.getElementById('file-name-placeholder-update').innerText = this.files[0] ? this.files[0].name : 'SVG, PNG, JPG or GIF';">
-                            </label>
+                            
+                            
+                                </label>
                         </div>
 
                     </div>

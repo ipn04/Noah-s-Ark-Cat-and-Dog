@@ -66,9 +66,9 @@
                     ">
                         @if ($stage == 4)
                             Accept Application
-                        @elseif ($stage == 7)
+                        @elseif ($stage == 8)
                             Mark as Adopted
-                        @elseif($stage == 0 || $stage == 8)
+                        @elseif($stage == 0 )
                             Proceed to Next Steps
                         @endif
                     </button>
@@ -365,19 +365,20 @@
                         hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             @php
-                                $scheduledDate = optional($acceptedInterview)->date ? \Carbon\Carbon::parse($acceptedInterview->date) : null;
-                                $scheduledTime = optional($acceptedInterview)->time ? \Carbon\Carbon::parse($acceptedInterview->time) : null;
-                                $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
-                            @endphp
+                               // $scheduledDate = optional($acceptedInterview)->date ? \Carbon\Carbon::parse($acceptedInterview->date) : null;
+                               // $scheduledTime = optional($acceptedInterview)->time ? \Carbon\Carbon::parse($acceptedInterview->time) : null;
+                                // $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
+                           
+                           @endphp
 
-                            <h2 class="font-bold text-lg p-2">
+                            {{-- <h2 class="font-bold text-lg p-2">
                                 @if ($scheduledDateTime)
                                     Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
                                 @else
                                     No scheduled interview
                                 @endif
-                            </h2>
-
+                            </h2> --}}
+{{-- 
                             @if ($scheduledDateTime)
                                 <p class="p-2">
                                     You have an interview scheduled later at
@@ -412,9 +413,9 @@
                                 </div>
                             @else
                                 <p class="p-2">No interview is currently scheduled.</p>
-                            @endif
+                            @endif --}}
 
-                            <form
+                            {{-- <form
                                 action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
                                 method="POST">
                                 @csrf
@@ -422,7 +423,7 @@
                                 <button type="submit"
                                     class = "p-2  w-full mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
                                     Interview</button>
-                            </form>
+                            </form> --}}
                         </div>
                     </div>
 

@@ -247,11 +247,17 @@
                                                         class="text-green-600 w-20 rounded-lg py-1 font-semibold bg-green-200">
                                                         <p class="text-center">{{ $pet->adoption_status }}</p>
                                                     </div>
-                                                @else
+                                                @elseif ($pet->adoption_status === 'Adopted')
+                                                   
                                                     <div
                                                         class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
                                                         <p class="text-center">Not Available</p>
                                                     </div>
+                                                    @else
+                                                    <div
+                                                    class="text-blue-600 w-24 rounded-lg py-1 font-semibold bg-blue-200">
+                                                    <p class="text-center">{{ $pet->adoption_status }}</p>
+                                                </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -267,14 +273,21 @@
                                     </td>
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         @if ($pet->adoption_status === 'Available')
+                                        
                                             <div
-                                                class="text-base text-green-600 w-20 rounded-lg py-1 font-semibold bg-green-200">
-                                                <p class = "text-center">{{ $pet->adoption_status }}
+                                                class="text-base text-green-600 w-28 rounded-lg py-1 font-semibold bg-green-200">
+                                                <p class = "text-center"> Available
                                                 </p>
                                             </div>
-                                        @else
+                                        @elseif($pet->adoption_status === 'Adopted')
                                             <div
-                                                class="text-base text-red-600 w-28 rounded-lg py-1 font-semibold bg-red-200">
+                                                class="text-base text-cyan-600 w-28 rounded-lg py-1 font-semibold bg-cyan-200">
+                                                <p class = "text-center">Adopted
+                                                </p>
+                                            </div>
+                                            @else
+                                            <div
+                                                class="text-base text-red-600 w-20 rounded-lg py-1 font-semibold bg-red-200">
                                                 <p class = "text-center">Not Available
                                                 </p>
                                             </div>

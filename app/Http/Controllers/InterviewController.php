@@ -74,10 +74,7 @@ class InterviewController extends Controller
             }
             
             $random_string = pickRandom($possible_characters, $string_length);
-            // Find the latest application for the user
-            $application = Application::where('user_id', $userId)
-                ->latest('created_at') 
-                ->firstOrFail();
+            
 
             // Create a new schedule
             $schedule = new Schedule();
@@ -88,7 +85,7 @@ class InterviewController extends Controller
             // Create a new schedule interview
             $scheduleInterview = new ScheduleInterview();
             $scheduleInterview->schedule_id = $schedule->id;
-            $scheduleInterview->application_id = $application->id;
+            $scheduleInterview->application_id = $applicationId;
             $scheduleInterview->date = $request->input('date');
             $scheduleInterview->time = $request->input('time');
             $scheduleInterview->room = $random_string;

@@ -225,10 +225,10 @@
                     </table>
                 </div>
 
-                <div class = "lg:hidden w-80 h-40 overflow-x-hidden overflow-y-hidden rounded-lg bg-white ">
-                    <canvas id="adoptedPetsChartd" class = "" style=""></canvas>
+                <div class = "lg:hidden w-80 h-40 overflow-x-hidden overflow-y-hidden  rounded-lg bg-white ">
+                    <canvas id="adoptedPetsChartd" class = "r" style=""></canvas>
                 </div>
-                <div class=" hidden lg:block rounded-lg bg-white shadow-lg  lg:max-h-full lg:max-w-full overflow-x-hidden overflow-y-hidden">
+                <div class=" hidden lg:block rounded-lg bg-white shadow-lg  lg:max-h-72 lg:max-w-full overflow-x-hidden overflow-y-hidden">
                   
                     <canvas id="adoptedPetsChart" class = "lg:max-w-full lg:max-h-full " style=""></canvas>
 

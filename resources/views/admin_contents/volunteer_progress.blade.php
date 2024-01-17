@@ -254,23 +254,53 @@
 
 
                     <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
-                        <h2 class = "font-bold text-lg p-2">Interview at {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
-                        </h2>
-                        <p class = "p-2">You have an interview scheduled later at {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
-                            {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
-                            . Please join this meet
-                            later at{{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
-                         </p>
+                        @if ($scheduleInterview)
+                            <h2 class="font-bold text-lg p-2">Interview at
+                                {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}</h2>
+                        @else
+                            <p>No interview schedule available.</p>
+                        @endif
+
+                        @if ($scheduleInterview)
+                            <p class="p-2">You have an interview scheduled later at
+                                {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
+                                {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}.
+                                Please join this meet later at
+                                {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                            </p>
+                        @else
+                            <p class="p-2">You do not have an interview scheduled at the moment.</p>
+                        @endif
+
                         <div class = "grid grid-cols-1 gap-2 py-2">
-                            <button
-                            class = "p-2 w-full mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Join
-                            Meet</button>
+                            <form method="post" target="_blank"
+                            action="{{ route('interview.admin', ['scheduleId' => optional($acceptedSchedule)->interview_id]) }}">
+                            @csrf
+                            @method('PATCH')
+
+                            @php
+                             $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
+                                        $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
+                                        $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
+
+                                $today = \Carbon\Carbon::now();
+                                $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+                            @endphp
+
+                            <button type="submit"
+                                class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                {{ $isDisabled ? 'disabled' : '' }}>
+                                Join Meet
+                            </button>
+                            
+
+                        </form>
                             <form
                                 action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                                 method="POST">
                                 @csrf
                                 @method('PATCH')
-                               
+
                                 <button type="submit"
                                     class = "p-2  w-full  mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
                                     Interview</button>
@@ -408,8 +438,7 @@
                                 <tr>
                                     <td class="font-bold">Address</td>
                                     <td class="capitalize">
-                                        {{ $userVolunteerAnswers->volunteer_application->application->user->region . ' ' . $userVolunteerAnswers->volunteer_application->application->user->province . ' ' . $userVolunteerAnswers->volunteer_application->application->user->city . ' ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ' ' . $userVolunteerAnswers->volunteer_application->application->user->street }}
-                                    </td>
+                                        {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
                                 </tr>
 
                             </table>
@@ -430,7 +459,7 @@
                     @if ($stage === '2')
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             Interview Schedule
                         </button>
@@ -466,7 +495,8 @@
                                             <div class = "mt-1">
                                                 <x-input-label for="date" value="{{ __('Interview Date') }}" />
                                                 <x-text-input type="text" name="date" label="date"
-                                                    value=" {{ $scheduleInterview->date }}" disabled
+                                                    value="{{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
+                                                    " disabled
                                                     class="w-full" />
                                             </div>
                                         @else
@@ -482,7 +512,8 @@
 
                                                 <x-input-label for="time" value="{{ __('Interview Time') }}" />
                                                 <x-text-input type="text" name="time" label="time"
-                                                    value=" {{ $scheduleInterview->time }}" disabled
+                                                    value="{{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                                                    " disabled
                                                     class="w-full" />
                                             </div>
                                         @else
@@ -578,96 +609,83 @@
         </div>
 
 
-        @if($userVolunteerAnswers)
-        <div id="answer-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-6xl max-h-full">
-            <!-- Modal content -->
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                <!-- Modal header -->
-                <div
-                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                        {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name . ' Answers' }}
-                    </h3>
-                    <button type="button"
-                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                        data-modal-hide="answer-modal">
-                        <svg class="w-3 h-3" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none"
-                            viewBox="0 0 14 14">
-                            <path stroke="currentColor" stroke-linecap="round"
-                                stroke-linejoin="round" stroke-width="2"
-                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                        </svg>
-                        <span class="sr-only">Close modal</span>
-                    </button>
-                </div>
-                <!-- Modal body -->
-                <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
-                    <div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
-                            <x-text-input id="first_question" class="block mt-1 w-full"
-                                type="text" name="first_question" :value="old('first_question', $answers['first_question'] ?? '')" />
+        @if ($userVolunteerAnswers)
+            <div id="answer-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                <div class="relative p-4 w-full max-w-6xl max-h-full">
+                    <!-- Modal content -->
+                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                        <!-- Modal header -->
+                        <div
+                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name . ' Answers' }}
+                            </h3>
+                            <button type="button"
+                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                data-modal-hide="answer-modal">
+                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                    fill="none" viewBox="0 0 14 14">
+                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                </svg>
+                                <span class="sr-only">Close modal</span>
+                            </button>
                         </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
-                            <x-text-input id="second_question" class="block mt-1 w-full"
-                                type="text" name="second_question" :value="old(
-                                    'second_question',
-                                    $answers['second_question'] ?? '',
-                                )" />
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
-                            <x-text-input id="third_question" class="block mt-1 w-full"
-                                type="text" name="third_question" :value="old('third_question', $answers['third_question'] ?? '')" />
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
-                            <x-text-input id="fourth_question" class="block mt-1 w-full"
-                                type="text" name="fourth_question" :value="old(
-                                    'fourth_question',
-                                    $answers['fourth_question'] ?? '',
-                                )" />
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
-                            <x-text-input id="fifth_question" class="block mt-1 w-full"
-                                type="text" name="fifth_question" :value="old('fifth_question', $answers['fifth_question'] ?? '')" />
-                        </div>
+                        <!-- Modal body -->
+                        <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-5">
+                            <div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
+                                    <x-text-input id="first_question" class="block mt-1 w-full" type="text"
+                                        name="first_question" :value="old('first_question', $answers['first_question'] ?? '')" />
+                                </div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
+                                    <x-text-input id="second_question" class="block mt-1 w-full" type="text"
+                                        name="second_question" :value="old('second_question', $answers['second_question'] ?? '')" />
+                                </div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
+                                    <x-text-input id="third_question" class="block mt-1 w-full" type="text"
+                                        name="third_question" :value="old('third_question', $answers['third_question'] ?? '')" />
+                                </div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
+                                    <x-text-input id="fourth_question" class="block mt-1 w-full" type="text"
+                                        name="fourth_question" :value="old('fourth_question', $answers['fourth_question'] ?? '')" />
+                                </div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
+                                    <x-text-input id="fifth_question" class="block mt-1 w-full" type="text"
+                                        name="fifth_question" :value="old('fifth_question', $answers['fifth_question'] ?? '')" />
+                                </div>
 
 
-                    </div>
-                    <div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
-                            <x-text-input id="sixth_question" class="block mt-1 w-full"
-                                type="text" name="sixth_question" :value="old('sixth_question', $answers['sixth_question'] ?? '')" />
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
-                            <x-text-input id="sevent_question" class="block mt-1 w-full"
-                                type="text" name="sevent_question" :value="old(
-                                    'seventh_question',
-                                    $answers['seventh_question'] ?? '',
-                                )" />
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
-                            <x-text-input id="eight_question" class="block mt-1 w-full"
-                                type="text" name="eight_question" :value="old('eight_question', $answers['eight_question'] ?? '')" />
-                        </div>
-                        <div class="mt-4" style="pointer-events: none;">
-                            <x-input-label for="ninth_question" :value="__(
-                                'Are any members of your house hold allergic to animals?',
-                            )" />
-                            <x-text-input id="ninth_question" class="block mt-1 w-full"
-                                type="text" name="ninth_question" :value="old('ninth_question', $answers['ninth_question'] ?? '')" />
-                        </div>
-                    </div>
-                    {{-- <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
+                            </div>
+                            <div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
+                                    <x-text-input id="sixth_question" class="block mt-1 w-full" type="text"
+                                        name="sixth_question" :value="old('sixth_question', $answers['sixth_question'] ?? '')" />
+                                </div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
+                                    <x-text-input id="sevent_question" class="block mt-1 w-full" type="text"
+                                        name="sevent_question" :value="old('seventh_question', $answers['seventh_question'] ?? '')" />
+                                </div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
+                                    <x-text-input id="eight_question" class="block mt-1 w-full" type="text"
+                                        name="eight_question" :value="old('eight_question', $answers['eight_question'] ?? '')" />
+                                </div>
+                                <div class="mt-4" style="pointer-events: none;">
+                                    <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
+                                    <x-text-input id="ninth_question" class="block mt-1 w-full" type="text"
+                                        name="ninth_question" :value="old('ninth_question', $answers['ninth_question'] ?? '')" />
+                                </div>
+                            </div>
+                            {{-- <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
                             <x-primary-button data-modal-target="forid-modal" data-modal-toggle="forid-modal"
                                 class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                 type="button">
@@ -679,12 +697,12 @@
                                 type="button">
                                 View Signature </x-primary-button>
                         </div> --}}
+                        </div>
+                        <!-- Modal footer -->
+                    </div>
                 </div>
-                <!-- Modal footer -->
             </div>
-        </div>
-    </div>
-    @endif
+        @endif
 
     </section>
 </x-app-layout>

@@ -183,7 +183,7 @@ Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgres
 //      return view('user_contents.volunteer_progress');
 // })->middleware(['auth', 'user'])->name('user.volunteerprogress');
 
-Route::get('/user/volunteerprogress/{userId}', [VolunteerController::class, 'UserVolunteerProgress'])
+Route::get('/user/volunteerprogress/{userId}/{applicationId}', [VolunteerController::class, 'UserVolunteerProgress'])
     ->middleware(['auth', 'user'])
     ->name('user.volunteerprogress');
 

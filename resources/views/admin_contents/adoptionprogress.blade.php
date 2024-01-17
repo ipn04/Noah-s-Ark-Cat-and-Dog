@@ -365,8 +365,8 @@
                         hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             @php
-                                $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
-                                $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
+                                $scheduledDate = optional($acceptedInterview)->date ? \Carbon\Carbon::parse($acceptedInterview->date) : null;
+                                $scheduledTime = optional($acceptedInterview)->time ? \Carbon\Carbon::parse($acceptedInterview->time) : null;
                                 $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
                             @endphp
 
@@ -387,7 +387,7 @@
 
                                 <div class="grid grid-cols-1 gap-2 py-2">
                                     <form method="post" target="_blank"
-                                        action="{{ route('interview.admin', ['scheduleId' => optional($scheduleInterview)->interview_id]) }}">
+                                        action="{{ route('interview.admin', ['scheduleId' => optional($acceptedInterview)->interview_id]) }}">
                                         @csrf
                                         @method('PATCH')
 
@@ -401,13 +401,14 @@
                                             {{ $isDisabled ? 'disabled' : '' }}>
                                             Join Meet
                                         </button>
-                                        <button type="submit"
+                                        
+
+                                    </form>
+                                    <button type="submit"
                                             class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
 
                                             Cancel Meet
                                         </button>
-
-                                    </form>
                                 </div>
                             @else
                                 <p class="p-2">No interview is currently scheduled.</p>

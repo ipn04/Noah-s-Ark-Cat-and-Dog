@@ -151,7 +151,8 @@
                                     </td>
                                                                                     
                                     <td class="px-6 py-4  hidden lg:table-cell">
-                                        <div class="text-base text-gray-500 ">{{date("M d Y", strtotime($adoptionAnswer->created_at))}}</div>
+                                        <div class="text-base text-gray-500 ">{{ \Carbon\Carbon::parse($adoptionAnswer->created_at)->format('M d, Y g:ia') }}
+                                        </div>
                                     </td>
                                     <td scope="row" class=" hidden lg:flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
                                         <img class="w-10 h-10 rounded-full" src="{{ asset('storage/images/' . $adoptionAnswer->adoption->pet->dropzone_file) }}" alt="Pet Image">

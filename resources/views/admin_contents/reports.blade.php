@@ -77,7 +77,7 @@
                 <div class = "grid grid-cols-1 lg:grid-cols-3 gap-4">
                     <div class = "bg-white rounded-lg shadow-lg p-3">
                         <h1 class = " text-lg text-center font-bold">Total Adoptions based by Pet Type</h1>
-                        <a href="{{route('export_pet_type')}}">download</a>
+                        {{-- <a href="{{route('export_pet_type')}}">download</a> --}}
                         <div>
                             <canvas id="petAdoptionChart"></canvas>
                         </div>

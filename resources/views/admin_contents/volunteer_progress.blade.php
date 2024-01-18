@@ -278,26 +278,22 @@
 
                         <div class = "grid grid-cols-1 gap-2 py-2">
                             @if(isset($acceptedSchedule))
-                                <form method="post" target="_blank"
-                                action="{{ route('interview.admin', ['scheduleId' => $acceptedSchedule->interview_id]) }}">
-                                @csrf
-                                @method('PATCH')
+                                <a target="_blank" href="{{ route('interview.admin', ['scheduleId' => $acceptedSchedule->interview_id]) }}">
+                                    @php
+                                    $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
+                                                $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
+                                                $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
 
-                                @php
-                                $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
-                                            $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
-                                            $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
+                                        $today = \Carbon\Carbon::now();
+                                        $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+                                    @endphp
 
-                                    $today = \Carbon\Carbon::now();
-                                    $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
-                                @endphp
-
-                                <button type="submit"
-                                    class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                    {{ $isDisabled ? 'disabled' : '' }}>
-                                    Join Meet
-                                </button>
-                                </form>
+                                    <button type="submit"
+                                        class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                        {{ $isDisabled ? 'disabled' : '' }}>
+                                        Join Meet
+                                    </button>
+                                </a>
                             @endif
                             <form
                                 action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id]) }}"

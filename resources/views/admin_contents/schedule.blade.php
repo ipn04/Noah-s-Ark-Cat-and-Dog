@@ -200,7 +200,7 @@
                                                 @else
                                                 {{-- comment ko muna kase 'di pa tapos si volunteer progress' --}}
                                                 {{-- <a href="{{ route('admin.volunteer.progress', [$schedule->interview_id])}}"> --}}
-                                                <a href="{{ route('admin.volunteer.progress', ['userId' => $schedule->user_id, 'id' => $schedule->interview_id])}}">
+                                                {{-- <a href="{{ route('admin.volunteer.progress', ['userId' => $schedule->user_id, 'id' => $schedule->interview_id])}}"> --}}
                                                     <button type="button"
                                                         class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
@@ -492,7 +492,7 @@
                                         {{-- </a> --}}
                                     @elseif($schedule->schedule_type == 'Pickup')
                                     {{-- <a href="{{ route('admin.adoptionprogress', [$schedule->adoption_id])}}"> --}}
-                                    <a href="{{ route('admin.adoptionprogress', ['userId' => $schedule->user_id, 'id' => $schedule->pickup_application_id]) }}">
+                                    {{-- <a href="{{ route('admin.adoptionprogress', ['userId' => $schedule->user_id, 'id' => $schedule->pickup_application_id]) }}"> --}}
                                         <button type="button"
                                             class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

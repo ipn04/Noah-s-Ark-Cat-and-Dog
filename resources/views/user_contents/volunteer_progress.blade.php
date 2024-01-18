@@ -256,11 +256,9 @@
                                 meet
                                 later at {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}</p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
-                                <form method="post" target="_blank"
-                                    action="{{ optional($scheduleInterview)->interview_id ? route('interview.user', ['scheduleId' => $scheduleInterview->interview_id]) : '#' }}"
+                                <a target="_blank"
+                                    href="{{ optional($scheduleInterview)->interview_id ? route('interview.user', ['scheduleId' => $scheduleInterview->interview_id]) : '#' }}"
                                     class="rounded-xl">
-                                    @csrf
-                                    @method('PATCH')
 
                                     @php
                                         $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
@@ -277,7 +275,7 @@
                                         {{ $isDisabled ? 'disabled' : '' }}>
                                         Join Meet
                                     </button>
-                                </form>
+                                </a>
 
                                 <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
                                     Cancel Meet

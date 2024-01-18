@@ -191,13 +191,15 @@ class adoptionController extends Controller
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
             ->first();
+            // dd($scheduleInterview);
 
-        // dd($stage);
+        // dd($scheduleInterview);
 
         $schedulePickup = SchedulePickup::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
             ->first();
-            
+
+        // dd($schedulePickup);
 
         // if (!$scheduleInterview && !$schedulePickup) {
         //     return redirect()->back()->with(['error' => 'Schedule not found']);

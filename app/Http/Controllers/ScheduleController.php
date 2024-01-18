@@ -121,6 +121,21 @@ class ScheduleController extends Controller{
         // If no ScheduleVisit record is found for the user, handle accordingly
         return redirect()->back()->with(['error', 'ScheduleVisit record not found for the user', 'update_status' => true]);
     }
+    public function rejectScheduleStatusVisit(Request $request, $id)
+    {
+        // dd($id, $request->all());
+        $scheduleVisit = ScheduleVisit::where('visit_id', $id)->first();
+        // dd($scheduleVisit);
+        if ($scheduleVisit) {
+            // Update the schedule_status column
+            $scheduleVisit->schedule->update(['schedule_status' => 'Rejected']);
+
+            return redirect()->back()->with(['success', 'Schedule status updated successfully', 'update_status' => true]);
+        }
+
+        // If no ScheduleVisit record is found for the user, handle accordingly
+        return redirect()->back()->with(['error', 'ScheduleVisit record not found for the user', 'update_status' => true]);
+    }
     public function updateScheduleForVolunteer(Request $request, $userId, $applicationId)
     {   
         // dd($applicationId);

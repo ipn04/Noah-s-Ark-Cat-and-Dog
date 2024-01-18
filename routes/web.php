@@ -105,6 +105,8 @@ Route::patch('/admin/reject-stage/{userId}/{id}', [adoptionController::class, 'r
 
 Route::patch('/admin/cancel-stage/{userId}/{id}', [adoptionController::class, 'cancelStage'])->middleware(['auth', 'user'])->name('cancel.stage');
 
+Route::patch('/cancel-schedule/{scheduleId}', [VisitController::class, 'cancelSchedule'])->middleware(['auth', 'user'])->name('cancel.schedule');
+
 Route::patch('/cancel-application/{userId}/{applicationId}', [VolunteerController::class, 'cancelApplication'])->name('cancel.application');
 
 Route::patch('/admin/reject-volunteer-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerReject'])->middleware(['auth', 'admin'])->name('admin.volunteer.reject');
@@ -200,6 +202,8 @@ Route::get('/admin-volunteer-progress/{userId}/{id}', [VolunteerController::clas
 // Route::get('/admin/schedule', function () {return view('admin_contents.schedule');})->middleware(['auth', 'verified'])->name('admin.schedule');
 
 Route::put('/update-schedule-status/{id}', [ScheduleController::class, 'updateScheduleStatus'])->name('update.schedule.status');
+
+Route::put('/reject-schedule-status/{id}', [ScheduleController::class, 'rejectScheduleStatusVisit'])->middleware(['auth', 'admin'])->name('reject.visit');
 
 Route::get('/admin/schedule', [ScheduleController::class, 'view_schedule'])
     ->middleware(['auth', 'admin'])

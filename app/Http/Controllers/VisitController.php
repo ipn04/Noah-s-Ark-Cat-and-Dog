@@ -30,4 +30,12 @@ class VisitController extends Controller
 
         return redirect()->back()->with(['send_schedule' => true]); 
     }
+    public function cancelSchedule($scheduleId)
+    {
+        $scheduleVisit = ScheduleVisit::findOrFail($scheduleId);
+
+        $scheduleVisit->schedule->update(['schedule_status' => 'Canceled']);
+
+        return redirect()->back()->with(['send_schedule' => true]); 
+    }
 }

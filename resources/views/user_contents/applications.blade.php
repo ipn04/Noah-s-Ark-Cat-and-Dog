@@ -470,8 +470,7 @@
                                 <td class="px-6 py-4  hidden lg:table-cell">
                                     <div class="text-base text-gray-500 ">
                                         {{ \Carbon\Carbon::parse($schedule->date)->format('F j, Y') }} {{ \Carbon\Carbon::parse($schedule->date)->format('h:ia') }}
-                
-                                                                       </div>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4   lg:table-cell">
                                     <div class="text-base text-gray-500 ">
@@ -486,6 +485,10 @@
                                     @elseif($schedule->schedule_status == 'Accepted')
                                         <div class="text-green-600 w-24 rounded-lg py-1 font-semibold bg-green-200">
                                             <p class="text-center">Accepted</p>
+                                        </div>
+                                    @elseif($schedule->schedule_status == 'Canceled')
+                                        <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
+                                            <p class="text-center">Canceled</p>
                                         </div>
                                     @else
                                         <div class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
@@ -544,7 +547,7 @@
                                                     <div class="mt-1 w-full">
                                                         <x-input-label for="time" value="Time" />
                                                         <x-text-input type="text" name="time"
-                                                            label="Time of Visit" value="{{ \Carbon\Carbon::parse($schedule->date)->format('h:ia') }}
+                                                            label="Time of Visit" value="{{ \Carbon\Carbon::parse($schedule->time)->format('h:ia') }}
                                                             "
                                                             readonly />
                                                     </div>
@@ -554,12 +557,15 @@
                                                         <x-text-input type="text" name="concern" label="Concern"
                                                             value="{{ $schedule->concern }}" readonly />
                                                     </div>
-
-                                                    <button type="button"
-                                                        class="mt-4 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm"
-                                                        data-modal-hide="default-modal">
-                                                        Cancel Schedule
-                                                    </button>
+                                                    <form action="{{ route('cancel.schedule', ['scheduleId' => $schedule->visit_id]) }}" method="POST">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button type="submit"
+                                                            class="mt-4 w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-500 text-base font-medium text-white hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:w-auto sm:text-sm"
+                                                            data-modal-hide="default-modal">
+                                                            Cancel Schedule
+                                                        </button>
+                                                    </form>
                                                 </div>
 
 

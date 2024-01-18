@@ -187,13 +187,17 @@ class adoptionController extends Controller
 
         // dd($adoptionAnswers);
         $stage = $adoption->stage;
+
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
             ->first();
 
+        // dd($stage);
+
         $schedulePickup = SchedulePickup::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
             ->first();
+            
 
         // if (!$scheduleInterview && !$schedulePickup) {
         //     return redirect()->back()->with(['error' => 'Schedule not found']);
@@ -379,6 +383,7 @@ class adoptionController extends Controller
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
+            ->latest('adoption.created_at')
             ->first();
 
         if ($adoptionAnswer) {
@@ -408,6 +413,73 @@ class adoptionController extends Controller
 
         // Handle the case when the record is not found
         return redirect()->back()->with(['updateStage' => false]);
+    }
+
+    public function AdminCancelInterview($userId, $id)
+    {
+        $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
+            ->where('adoption.application_id', $id)
+            ->where('application.user_id', $userId)
+            ->latest()->first();
+
+        if ($adoptionAnswer) {
+            DB::table('adoption')
+                ->where('application_id', $id)
+                ->update(['stage' => \DB::raw('stage - 2')]);
+
+            $application = $adoptionAnswer->application;
+
+            if ($application) {
+                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+
+                if ($scheduleInterview) { // Check if $scheduleInterview is not null
+                    $schedule = $scheduleInterview->schedule;
+
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Canceled']);
+                    }
+                } else {
+                    // Handle the case when scheduleInterview is not found
+                    // You might want to log or handle this situation appropriately
+                }
+            }
+
+            return redirect()->back()->with(['updateStage' => true]);
+        }
+
+        // Handle the case when the record is not found
+        return redirect()->back()->with(['updateStage' => false]);
+    }
+
+    public function UserCancelInterview($userId, $id)
+    {
+        $adoptionAnswer = Adoption::where('application_id', $id)->firstOrFail();
+        
+        if ($adoptionAnswer) {
+            DB::table('adoption')
+                ->where('application_id', $id)
+                ->update(['stage' => \DB::raw('stage - 2')]);
+
+            $application = $adoptionAnswer->application;
+
+            if ($application) {
+                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+
+                if ($scheduleInterview) { // Check if $scheduleInterview is not null
+                    $schedule = $scheduleInterview->schedule;
+
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Canceled']);
+                    }
+                } else {
+                    // Handle the case when scheduleInterview is not found
+                    // You might want to log or handle this situation appropriately
+                }
+            }
+
+            return redirect()->back()->with(['send_schedule' => true]);
+        }
+        return redirect()->back()->with(['send_schedule' => false]);
     }
 
     public function pickupStage($userId, $id)

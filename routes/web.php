@@ -27,11 +27,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::patch('/user/interview/{scheduleId}', [InterviewController::class, 'jitsiuserinterview'])
+Route::get('/user/interview/{scheduleId}', [InterviewController::class, 'jitsiuserinterview'])
     ->middleware(['auth', 'user'])
     ->name('interview.user');
 
-Route::patch('/admin/interview/{scheduleId}', [InterviewController::class, 'jitsiadmininterview'])
+Route::get('/admin/interview/{scheduleId}', [InterviewController::class, 'jitsiadmininterview'])
     ->middleware(['auth', 'admin'])
     ->name('interview.admin');
 
@@ -116,6 +116,10 @@ Route::patch('/admin/wrap-interview/{userId}/{id}', [adoptionController::class, 
 Route::patch('/admin/interview-stage/{userId}/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'admin'])->name('admin.interviewStage');
 
 Route::patch('/admin/reject-interview-stage/{userId}/{id}', [adoptionController::class, 'rejectInterview'])->middleware(['auth', 'admin'])->name('admin.rejectInterview');
+
+Route::patch('/admin/cancel-interview-stage/{userId}/{id}', [adoptionController::class, 'AdminCancelInterview'])->middleware(['auth', 'admin'])->name('admin.cancelInterview');
+
+Route::patch('/admin/user/cancel-interview/{userId}/{id}', [adoptionController::class, 'UserCancelInterview'])->middleware(['auth', 'user'])->name('user.cancelInterview');
 
 Route::patch('/admin/reject-volunteer-interview-stage/{userId}/{applicationId}', [VolunteerController::class, 'volunteerInterviewReject'])->middleware(['auth', 'admin'])->name('admin.reject.volunteer');
 

@@ -109,7 +109,7 @@ class VolunteerController extends Controller
         ->where('schedule_interviews.application_id', $userVolunteerAnswers->volunteer_application->application_id)
         ->where('application.user_id', $userId) 
         ->select('schedule_interviews.*')
-        ->first();
+        ->latest()->first();
     
         $acceptedSchedule = ScheduleInterview::with('schedule', 'application')
         ->join('schedules', 'schedule_interviews.schedule_id', '=', 'schedules.id')
@@ -243,7 +243,7 @@ class VolunteerController extends Controller
             $volunteerApplication = $userVolunteerAnswers->volunteer_application;
  
             // Decrement the stage column by 1
-            $volunteerApplication->decrement('stage', 1);
+            $volunteerApplication->decrement('stage', 2);
 
             if ($volunteerApplication) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $volunteerApplication->application_id)->latest()->first();

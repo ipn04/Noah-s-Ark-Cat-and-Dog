@@ -180,9 +180,10 @@ class adoptionController extends Controller
     }   
 
     public function adminLoadProgress($userId, $id) {
+
         $adoptionAnswer = Application::where('user_id', $userId)->findOrFail($id);
         $adoption = Adoption::where('application_id', $adoptionAnswer->id)->firstOrFail();
-
+        
         $adoptionAnswers = $adoption->adoptionAnswer;
 
         // dd($adoptionAnswers);
@@ -190,14 +191,14 @@ class adoptionController extends Controller
 
         $scheduleInterview = ScheduleInterview::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
-            ->first();
+            ->latest()->first();
             // dd($scheduleInterview);
 
         // dd($scheduleInterview);
 
         $schedulePickup = SchedulePickup::with('schedule', 'application')
             ->where('application_id', $adoptionAnswer->id)
-            ->first();
+            ->latest()->first();
 
         // dd($schedulePickup);
 
@@ -359,7 +360,7 @@ class adoptionController extends Controller
             $application = $adoptionAnswer->application;
 
             if ($application) {
-                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->latest()->first();
 
                 if ($scheduleInterview) { // Check if $scheduleInterview is not null
                     $schedule = $scheduleInterview->schedule;
@@ -396,7 +397,7 @@ class adoptionController extends Controller
             $application = $adoptionAnswer->application;
 
             if ($application) {
-                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
+                $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->latest()->first();
 
                 if ($scheduleInterview) { // Check if $scheduleInterview is not null
                     $schedule = $scheduleInterview->schedule;
@@ -499,7 +500,7 @@ class adoptionController extends Controller
             $application = $adoptionAnswer->application;
            
             if ($application) {
-                $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
+                $schedulepickup = SchedulePickup::where('application_id', $application->id)->latest()->first();
                 if ($schedulepickup) {
                     $schedule = $schedulepickup->schedule;
                     

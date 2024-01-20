@@ -241,7 +241,7 @@
                                 </svg>
                             </div>
                             <h1 class = "lg:hidden text-center py-2">Schedule Pickup</h1>
-
+                     
                         </div>
                         <h1 class = "lg:block hidden text-center py-2">Schedule Pickup</h1>
                     </div>
@@ -291,7 +291,7 @@
                             <p class = "italic text-sm px-2 pb-3 ps-2">The shelter is on their way now to your location,
                                 please wait for them</p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Estimated Date and Time of Arrival</h2>
-
+                           
                             <p class="p-2 pe-2 ps-4">
                                 @isset($scheduleInterview->date)
                                     {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}

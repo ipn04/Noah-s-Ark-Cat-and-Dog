@@ -15,8 +15,10 @@ class PickupController extends Controller
     $currentUserId = auth()->user()->id; // Change this to your actual way of getting the user ID
 
         $application = Application::where('user_id', $currentUserId)
+        ->where('application_type', 'application_form') 
         ->latest('created_at') // Order by created_at in descending order
         ->first();
+
         // Create a new schedule
         $schedule = new Schedule();
         $schedule->schedule_type = 'Pickup'; // Default value

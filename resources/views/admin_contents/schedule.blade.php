@@ -477,7 +477,7 @@
                                                 </button>
                                             </a>
                                         @elseif($schedule->interview_type == 'application_volunteer')
-                                            <a href="{{ route('admin.volunteer.progress', ['userId' => $schedule->user_id, 'id' => $schedule->volunteer_id])}}">
+                                            <a href="{{ route('admin.volunteer.progress', ['userId' => $schedule->user_id, 'id' => $schedule->interview_application_id])}}">
                                                 <button type="button"
                                                     class="py-2 px-3 text-sm font-medium text-center text-white bg-cyan-400 hover:bg-cyan-600 rounded-lg shadow-md">
                                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"

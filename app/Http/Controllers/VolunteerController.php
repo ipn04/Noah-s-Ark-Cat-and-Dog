@@ -97,7 +97,7 @@ class VolunteerController extends Controller
     }
     public function AdminVolunteerProgress(Request $request, $userId, $applicationId)
     {
-         
+        //  dd($userId, $applicationId);
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ( $userId, $applicationId) {
             $query->where('user_id', $userId)
                   ->where('application_id', $applicationId); 

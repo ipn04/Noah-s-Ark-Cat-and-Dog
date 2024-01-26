@@ -691,9 +691,9 @@
                                         </h3>
 
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date:
-                                            {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F, j, Y') }}</h3>
+                                            {{ \Carbon\Carbon::parse($scheduleInterview->date ?? null)->format('F, j, Y') }}</h3>
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time:
-                                            {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i, A') }}</h3>
+                                            {{ \Carbon\Carbon::parse($scheduleInterview->time ?? null)->format('g:i, A') }}</h3>
                                         <!-- Modal footer -->
                                         <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
                                             <form

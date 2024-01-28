@@ -46,6 +46,11 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])
     ->name('user.dashboard');
 
 
+Route::get('/inbox/messages/{messageId}', function () {
+        return view('user_contents.inbox_message.inbox');
+    })->middleware(['auth', 'user'])->name('inbox.message');
+    
+
 Route::post('/send/volunteer_form/{userId}', [VolunteerController::class, 'store'])->middleware(['auth', 'user'])->name('volunteer.form');
 
 
@@ -68,7 +73,7 @@ Route::get('/user/messages', [MessageController::class, 'displayMessage'])
 // })->name('view.messages');
 
 // show message in the inbox
-Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->middleware(['auth', 'verified'])->name('view.messages');
+// Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->middleware(['auth', 'verified'])->name('view.messages');
 
 // reply message in the inbox
 Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->name('messages.reply');
@@ -95,7 +100,7 @@ Route::get('/user/volunteer_form', function () {
 })->middleware(['auth', 'user'])->name('user.volunteer');
 
 // User send message 
-Route::post('/send/messages', [MessageController::class, 'sendMessage'])->middleware(['auth', 'verified'])->name('messages.send');
+Route::post('/send/messages', [MessageController::class, 'store'])->middleware(['auth', 'verified'])->name('messages.send');
 
 /* admin`s routes */
 

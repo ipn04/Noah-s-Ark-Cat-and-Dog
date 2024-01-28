@@ -9,20 +9,11 @@ class Message extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['admin_id', 'sender_id', 'concern', 'message', 'parent_id'];
-
-    public function admin()
+    protected $fillable = ['sender_id', 'receiver_id', 'concern', 'content'];
+    protected $table = 'messages';
+    
+    public function user()
     {
-        return $this->belongsTo(User::class, 'admin_id');
-    }
-
-    public function sender()
-    {
-        return $this->belongsTo(User::class, 'sender_id');
-    }
-
-    public function replies()
-    {
-        return $this->hasMany(Message::class, 'parent_id');
+        return $this->belongsTo(User::class); 
     }
 }

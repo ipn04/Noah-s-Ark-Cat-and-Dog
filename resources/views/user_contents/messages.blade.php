@@ -34,7 +34,7 @@
     @endif
     <div class="sm:ml-64">
         <!-- Modal toggle -->
-        <div class="absolute bottom-4 right-4">
+        <div class="mx-4 my-4">
             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="flex items-center text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 text-base" type="button">
                 <svg class="h-4 w-4 text-white mx-0.5"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/>
@@ -65,7 +65,7 @@
                         @csrf
                         <div class="col-span-2 sm:col-span-1 py-2">
                             <label for="admin_id" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Send to:</label>
-                            <input type="text" id="admin_id" name="admin_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly value="{{ $adminName }}">
+                            <input type="text" id="admin_id" name="admin_id" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly value="{{ $admin->name }}">
                         </div>
                         <div class="col-span-2 sm:col-span-1 py-2">
                             <label for="concern" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Concern</label>
@@ -75,8 +75,8 @@
                             </select>
                         </div>
                         <div class="col-span-2 py-2">
-                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
-                            <textarea id="message" name="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here" required></textarea>                    
+                            <label for="content" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Message</label>
+                            <textarea id="content" name="content" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write product description here" required></textarea>                    
                         </div>
                         
                         <button type="submit" class="flex my-2 text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -86,5 +86,48 @@
                 </div>
             </div>
         </div> 
+        {{-- <div class="flex flex-col mx-4 my-4">
+            @foreach ($message as $messages)
+                <div class="bg-green-300">
+                    <p><strong>Concern:</strong> {{ $messages->concern }}</p>
+                    <p><strong>Content:</strong> {{ $messages->content }}</p>
+                </div>
+            @endforeach
+        </div> --}}
+        <section class="flex flex-col antialiased bg-gray-50 text-gray-600 min-h-screen p-4">
+            <div class="h-full">
+                <!-- Card -->
+                <div class="relative max-w-[340px] bg-white shadow-lg rounded-lg">                    
+                    <!-- Card body -->
+                    <div class="py-3 px-5">
+                        <h3 class="text-xs font-semibold uppercase text-gray-400 mb-1">Chats</h3>
+                        <!-- Chat list -->
+                        <div class="divide-y divide-gray-200">
+                            <!-- User -->
+                            @foreach ($message as $messages)
+                                <a href="{{ route('inbox.message', ['messageId' => $messages->id]) }}">
+                                    <button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
+                                        <div class="flex items-center">
+                                            <img class="rounded-full items-start flex-shrink-0 mr-3" src="{{ asset('storage/' . $admin->profile_image) }}" alt='user profile' width="32" height="32" />
+                                            <div>
+                                                <h4 class="text-sm font-semibold text-gray-900">{{ $admin->firstname }}</h4>
+                                                <div class="text-[13px]">You: {{ $messages->content }} <span class="text-xs">{{ \Carbon\Carbon::parse($messages->created_at)->format('h:iA') }}</span></div>
+                                            </div>
+                                        </div>
+                                    </button>
+                                </a>
+                            @endforeach
+                        </div>
+                    </div>
+                    <!-- Bottom right button -->
+                    {{-- <button class="absolute bottom-5 right-5 inline-flex items-center text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 rounded-full text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2">
+                        <svg class="w-3 h-3 fill-current text-indigo-300 flex-shrink-0 mr-2" viewBox="0 0 12 12">
+                            <path d="M11.866.146a.5.5 0 0 0-.437-.139c-.26.044-6.393 1.1-8.2 2.913a4.145 4.145 0 0 0-.617 5.062L.305 10.293a1 1 0 1 0 1.414 1.414L7.426 6l-2 3.923c.242.048.487.074.733.077a4.122 4.122 0 0 0 2.933-1.215c1.81-1.809 2.87-7.94 2.913-8.2a.5.5 0 0 0-.139-.439Z" />
+                        </svg>
+                        <span>Reply</span>
+                    </button> --}}
+                </div>
+            </div>
+        </section>
     </div>
 </x-app-layout>

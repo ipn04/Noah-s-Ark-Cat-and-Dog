@@ -24,6 +24,9 @@ export default {
                 ...colors,
 
             },
+            height: {
+                customHeight: '90vh',
+            },
         },
     },
 

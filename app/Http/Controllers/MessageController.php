@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Message;
+use App\Models\MessageThread;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
 
@@ -25,10 +26,69 @@ class MessageController extends Controller
 
         return redirect()->back()->with(['message_sent' => true]);
     }
+
+    public function storeReply(Request $request, $messageId, $receiverId)
+    {
+        // dd($request->all());
+        $request->validate([
+            'content' => 'required',
+        ]);
+
+        $reply = new MessageThread([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $receiverId,
+            'parent_message_id' => $messageId,
+            'content' => $request->input('content'),
+        ]);
+        // dd($reply);
+        $reply->save();
+
+        return redirect()->back();
+    }
+
+    public function AdminStoreReply(Request $request, $messageId, $receiverId)
+    {
+        $request->validate([
+            'content' => 'required',
+        ]);
+
+        $reply = new MessageThread([
+            'sender_id' => auth()->id(),
+            'receiver_id' => $receiverId,
+            'parent_message_id' => $messageId,
+            'content' => $request->input('content'),
+        ]);
+        // dd($reply);
+        // $reply->save();
+        
+        return response()->json([$reply]);
+    }
+    //sa user
     public function displayMessage() {
         $admin = User::where('role', 'admin')->first();
-        $message = Message::all();        
+        $user = auth()->user();
+        $message = $user->sentMessages; 
 
         return view('user_contents.messages', ['admin' => $admin, 'message_sent' => true, 'message' => $message]);
+    }
+
+    //sa user
+    public function messageContent($messageId) {
+        $initialMessage = Message::find($messageId);
+        $threads = $initialMessage->threads;
+
+        return view('user_contents.inbox_message.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads]);
+    }
+
+    public function AllMessage() {
+        $ShowAllMessage = Message::all();
+
+        return view('admin_contents.messages', ['ShowAllMessage' => $ShowAllMessage]);
+    }
+    public function AdminInbox($messageId) {
+        $initialMessage = Message::find($messageId);
+        $threads = $initialMessage->threads;
+
+        return view('admin_contents.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads]);
     }
 }

@@ -45,11 +45,13 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])
     ->middleware(['auth', 'user'])
     ->name('user.dashboard');
 
+Route::post('/user/send/reply/{messageId}/{receiverId}', [MessageController::class, 'storeReply'])->name('send.reply');
 
-Route::get('/inbox/messages/{messageId}', function () {
-        return view('user_contents.inbox_message.inbox');
-    })->middleware(['auth', 'user'])->name('inbox.message');
-    
+Route::post('/admin/send/reply/{messageId}/{receiverId}', [MessageController::class, 'AdminStoreReply'])->name('send.replies');
+
+Route::get('/user/inbox/messages/{messageId}', [MessageController::class, 'messageContent'])->middleware(['auth', 'user'])->name('inbox.message');
+
+Route::get('/admin/inbox/messages/{messageId}', [MessageController::class, 'AdminInbox'])->middleware(['auth', 'admin'])->name('admin.inbox');
 
 Route::post('/send/volunteer_form/{userId}', [VolunteerController::class, 'store'])->middleware(['auth', 'user'])->name('volunteer.form');
 
@@ -68,15 +70,15 @@ Route::get('/user/messages', [MessageController::class, 'displayMessage'])
     ->middleware(['auth', 'user'])
 ->name('user.messages');
 
+Route::get('/admin/messages', [MessageController::class, 'AllMessage'])->middleware(['auth', 'admin'])->name('admin.messages');
+
+
 // Route::get('/inbox/messages', function () {
 //     return view('user_contents.inbox_message.inbox');
 // })->name('view.messages');
 
 // show message in the inbox
 // Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->middleware(['auth', 'verified'])->name('view.messages');
-
-// reply message in the inbox
-Route::post('/messages/reply', [MessageController::class, 'replyToMessage'])->name('messages.reply');
 
 Route::get('/user/progress/{userId}/{applicationId}/{petId}', [AdoptionController::class, 'adoptionProgress'])
     ->middleware(['auth', 'user'])
@@ -174,10 +176,6 @@ Route::get('/admin/progress/{userId}/{id}', [adoptionController::class, 'adminLo
     ->middleware(['auth', 'admin'])
     ->name('admin.dashboard');
 
-
-Route::get('/admin/messages', function () {
-    return view('admin_contents.messages');
-})->middleware(['auth', 'admin'])->name('admin.messages');
 
 Route::get('/pet/management', [PetDataController::class, 'showPetManagement'])
     ->middleware(['auth', 'admin'])

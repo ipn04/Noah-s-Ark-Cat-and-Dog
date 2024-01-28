@@ -86,14 +86,6 @@
                 </div>
             </div>
         </div> 
-        {{-- <div class="flex flex-col mx-4 my-4">
-            @foreach ($message as $messages)
-                <div class="bg-green-300">
-                    <p><strong>Concern:</strong> {{ $messages->concern }}</p>
-                    <p><strong>Content:</strong> {{ $messages->content }}</p>
-                </div>
-            @endforeach
-        </div> --}}
         <section class="flex flex-col antialiased bg-gray-50 text-gray-600 min-h-screen p-4">
             <div class="h-full">
                 <!-- Card -->
@@ -102,11 +94,11 @@
                     <div class="py-3 px-5">
                         <h3 class="text-xs font-semibold uppercase text-gray-400 mb-1">Chats</h3>
                         <!-- Chat list -->
-                        <div class="divide-y divide-gray-200">
-                            <!-- User -->
-                            @foreach ($message as $messages)
+                        @foreach ($message as $messages)
+                            <div class="divide-y divide-black-900 hover:bg-gray-200 px-2">
+                                <!-- User -->
                                 <a href="{{ route('inbox.message', ['messageId' => $messages->id]) }}">
-                                    <button class="w-full text-left py-2 focus:outline-none focus-visible:bg-indigo-50">
+                                    <button class="w-full text-left py-2">
                                         <div class="flex items-center">
                                             <img class="rounded-full items-start flex-shrink-0 mr-3" src="{{ asset('storage/' . $admin->profile_image) }}" alt='user profile' width="32" height="32" />
                                             <div>
@@ -116,8 +108,8 @@
                                         </div>
                                     </button>
                                 </a>
-                            @endforeach
-                        </div>
+                            </div>
+                        @endforeach
                     </div>
                     <!-- Bottom right button -->
                     {{-- <button class="absolute bottom-5 right-5 inline-flex items-center text-sm font-medium text-white bg-indigo-500 hover:bg-indigo-600 rounded-full text-center px-3 py-2 shadow-lg focus:outline-none focus-visible:ring-2">

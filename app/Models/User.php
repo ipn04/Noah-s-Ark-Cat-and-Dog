@@ -70,4 +70,8 @@ class User extends Authenticatable
     {
         return $this->hasOneThrough(Adoption::class, Application::class, 'user_id', 'application_id');
     }
+    public function sentMessages() {
+        return $this->hasMany(Message::class, 'sender_id');
+    }
+    
 }

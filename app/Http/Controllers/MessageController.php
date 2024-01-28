@@ -59,8 +59,8 @@ class MessageController extends Controller
             'content' => $request->input('content'),
         ]);
         // dd($reply);
-        // $reply->save();
-        
+        $reply->save();
+
         return response()->json([$reply]);
     }
     //sa user

@@ -4,8 +4,8 @@
     @include('sidebars.admin_sidebar')
 
     <div class="sm:ml-64">
-        <div class="w-full px-5 flex flex-col justify-between h-customHeight">
-            <div class="flex flex-col mt-5 scroll-smooth overflow-scroll">
+        <div class="w-full px-5 flex flex-col justify-between">
+            <div class="flex flex-col mt-5 scroll-smooth overflow-auto h-customHeight">
                 <div class="flex justify-start mb-4">
                     <div class="flex justify-center items-center">
                         <img src="{{ asset('storage/' . $initialMessage->user->profile_image) }}" alt='user profile'
@@ -15,14 +15,14 @@
                         {{ $initialMessage->content }}
                     </div>
                 </div>
-                <div id="messageList">
+                <div id="messageWrapper" class="max-h-customHeight overflow-y-auto"> 
                     @foreach ($threads as $thread)
                         <div class="flex justify-{{ $thread->sender_id == auth()->id() ? 'end' : 'start' }} mb-4 "
                             data-content="{{ $thread->content }}">
                             @if ($thread->sender_id == auth()->id())
                                 {{-- admin reply --}}
                                 <div
-                                    class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                                    class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white admin_reply">
                                     {{ $thread->content ?? null }}
                                 </div>
                                 <div class="flex justify-center items-center">
@@ -36,7 +36,7 @@
                                         class="object-cover h-8 w-8 rounded-full" />
                                 </div>
                                 <div
-                                    class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tl-3xl rounded-tr-xl text-white">
+                                    class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tl-3xl rounded-tr-xl text-white user_reply">
                                     {{ $thread->content ?? null }}
                                 </div>
                             @endif
@@ -44,7 +44,7 @@
                     @endforeach
                 </div>
             </div>
-            <form id="sendMessageForm"
+            <form id="sendMessageForm" 
                 action="{{ url('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}"
                 method="POST">
                 @csrf
@@ -61,7 +61,7 @@
                     </div>
                     <div class="flex-grow ml-4">
                         <div class="relative w-full">
-                            <input type="text" id="content" name="content"
+                            <input type="text" id="content" name="content" required
                                 class="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10" />
                             <button
                                 class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
@@ -102,32 +102,45 @@
 
             $.ajax({
                 type: 'POST',
-                url: '{{ url(route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id])) }}',
+                url: '{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}',
                 data: formData,
                 success: function(result) {
                     console.log(result);
                     if (result && result.length > 0) {
                         var newMessageContent = result[0].content;
+                        console.log(newMessageContent);
+                        var isCurrentUser = result[0].sender_id == {{ auth()->id() }};
+                        console.log(isCurrentUser);
+                        var messageContainerClass = isCurrentUser ? 'admin_reply' :
+                            'user_reply';
+                        var messageJustifyClass = isCurrentUser ? 'end' : 'start';
 
-                        if (!$('.messageList .admin_reply.new-message:contains("' +
-                                newMessageContent + '")').length) {
-                            var newMessageContainer = $(
-                                '<div class="admin_reply new-message"></div>').text(
-                                newMessageContent);
+                        var newMessageContainer = $(
+                            '<div class="flex justify-' + messageJustifyClass +
+                            ' mb-4 ' + messageContainerClass + '">' +
+                            '<div class="' + messageContainerClass +
+                            ' mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">' +
+                            newMessageContent +
+                            '</div>' +
+                            '<div class="flex justify-center items-center">' +
+                            '<img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="user profile" ' +
+                            'class="object-cover h-8 w-8 rounded-full" />' +
+                            '</div>' +
+                            '</div>'
+                        );
 
-                            $('.messageList').append(newMessageContainer);
+                        $('#messageWrapper').append(newMessageContainer);
+                        console.log($('#messageWrapper')[0].scrollHeight);
 
-                            var lastAdminReply = newMessageContainer[0];
-                            if (lastAdminReply) {
-                                $('.messageList').scrollTop(lastAdminReply.scrollHeight);
-                            }
-                        }
+                        // Scroll to the last message
+                        $('#messageWrapper').scrollTop($('#messageWrapper')[0]
+                        .scrollHeight);
 
-                        jQuery('#sendMessageForm')[0].reset();
+                        $('#content').val('');
                     } else {
                         console.warn('Empty or invalid response from the server');
                     }
-                },
+                }
             });
         });
     });

@@ -17,33 +17,28 @@
                 </div>
                 <div id="messageWrapper" class="max-h-customHeight overflow-y-auto"> 
                     {{-- <div id="messages">
-
+                        
                     </div> --}}
                     @foreach ($threads as $thread)
-                        <div class="flex justify-{{ $thread->sender_id == auth()->id() ? 'end' : 'start' }} mb-4 "
-                            data-content="{{ $thread->content }}">
-                            @if ($thread->sender_id == auth()->id())
-                                {{-- admin reply --}}
-                                <div
-                                    class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white admin_reply">
-                                    {{ $thread->content ?? null }}
-                                </div>
-                                <div class="flex justify-center items-center">
-                                    <img src="{{ asset('storage/' . auth()->user()->profile_image) }}"
-                                        alt='user profile' class="object-cover h-8 w-8 rounded-full" />
-                                </div>
-                            @else
-                                {{-- user reply --}}
-                                <div class="flex justify-center items-center">
+                        <div class="flex justify-{{ $thread->sender_id == auth()->id() ? 'end' : 'start' }} mb-4" data-content="{{ $thread->content }}">
+                            <div class="flex items-center">
+                                @if ($thread->sender_id == auth()->id())
+                                    {{-- admin reply --}}
+                                    <div class="mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white admin_reply">
+                                        {{ $thread->content ?? null }}
+                                    </div>
+                                    <img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt='user profile'
+                                        class="object-cover h-8 w-8 rounded-full" />
+                                @else
+                                    {{-- user reply --}}
                                     <img src="{{ asset('storage/' . $thread->user->profile_image) }}" alt='user profile'
                                         class="object-cover h-8 w-8 rounded-full" />
-                                </div>
-                                <div
-                                    class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tl-3xl rounded-tr-xl text-white user_reply">
-                                    {{ $thread->content ?? null }}
-                                </div>
-                            @endif
-                        </div>
+                                    <div class="ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tl-3xl rounded-tr-xl text-white user_reply">
+                                        {{ $thread->content ?? null }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>                    
                     @endforeach
                 </div>
             </div>

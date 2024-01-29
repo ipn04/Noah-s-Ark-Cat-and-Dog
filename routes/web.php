@@ -6,14 +6,15 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\adoptionController;
 use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ReportsController;
-
+use App\Events\Messages;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\PickupController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\VolunteerController;
 use App\Http\Controllers\RegisteredUserController;
-
+use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,6 +27,9 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+use Illuminate\Support\Facades\Broadcast;
+
+Broadcast::routes();
 
 Route::get('/user/interview/{scheduleId}', [InterviewController::class, 'jitsiuserinterview'])
     ->middleware(['auth', 'user'])
@@ -47,7 +51,15 @@ Route::get('/user/dashboard', [PetDataController::class, 'showUserPets'])
 
 Route::post('/user/send/reply/{messageId}/{receiverId}', [MessageController::class, 'storeReply'])->name('send.reply');
 
-Route::post('/admin/send/reply/{messageId}/{receiverId}', [MessageController::class, 'AdminStoreReply'])->name('send.replies');
+Route::post('/admin/send/reply/{messageId}/{receiverId}', [MessageController::class, 'AdminStoreReply'])->middleware(['auth', 'admin'])->name('send.replies');
+
+Route::post('/send-message', [MessageController::class, 'sendMessage'])->middleware(['auth', 'admin'])->name('send.message');
+
+// Route::post('/send-message', function(Request $request) {
+//     event(new Message($request->input('content')));
+
+//     return ["success" => true];
+// });
 
 Route::get('/user/inbox/messages/{messageId}', [MessageController::class, 'messageContent'])->middleware(['auth', 'user'])->name('inbox.message');
 

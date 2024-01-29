@@ -12,7 +12,8 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laraveldaily/laravel-charts": "^0.2.3",
-        "maatwebsite/excel": "^3.1.25"
+        "maatwebsite/excel": "^3.1.25",
+        "pusher/pusher-php-server": "^7.2"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

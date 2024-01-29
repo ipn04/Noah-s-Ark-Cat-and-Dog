@@ -7,7 +7,8 @@ use App\Models\Message;
 use App\Models\MessageThread;
 use App\Models\User;
 use Illuminate\Support\Facades\Log;
-
+use App\Events\Messages;
+use Illuminate\Http\Response;
 
 class MessageController extends Controller
 {   
@@ -48,21 +49,39 @@ class MessageController extends Controller
 
     public function AdminStoreReply(Request $request, $messageId, $receiverId)
     {
-        $request->validate([
-            'content' => 'required',
-        ]);
+        try {
+            $request->validate([
+                'content' => 'required',
+            ]);
 
-        $reply = new MessageThread([
-            'sender_id' => auth()->id(),
-            'receiver_id' => $receiverId,
-            'parent_message_id' => $messageId,
-            'content' => $request->input('content'),
-        ]);
-        // dd($reply);
-        $reply->save();
+            $reply = new MessageThread([
+                'sender_id' => auth()->id(),
+                'receiver_id' => $receiverId,
+                'parent_message_id' => $messageId,
+                'content' => $request->input('content'),
+            ]);
 
-        return response()->json([$reply]);
+            $reply->save();
+
+            // event(new Messages($request->input('content')));
+            // return redirect()->back();
+            return response()->json([$reply]);
+        } catch (\Exception $e) {
+            // Log the exception for debugging
+            \Log::error($e);
+
+            // Return an error response
+            return response()->json(['error' => 'Internal Server Error'], 500);
+        }
     }
+
+
+    public function sendMessage(Request $request)
+    {
+        event(new Message($request->input('content')));
+        return ["success" => true];
+    }
+
     //sa user
     public function displayMessage() {
         $admin = User::where('role', 'admin')->first();

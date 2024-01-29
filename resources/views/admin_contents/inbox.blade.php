@@ -16,6 +16,9 @@
                     </div>
                 </div>
                 <div id="messageWrapper" class="max-h-customHeight overflow-y-auto"> 
+                    {{-- <div id="messages">
+
+                    </div> --}}
                     @foreach ($threads as $thread)
                         <div class="flex justify-{{ $thread->sender_id == auth()->id() ? 'end' : 'start' }} mb-4 "
                             data-content="{{ $thread->content }}">
@@ -45,7 +48,7 @@
                 </div>
             </div>
             <form id="sendMessageForm" 
-                action="{{ url('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}"
+                action="{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}"
                 method="POST">
                 @csrf
                 <div class="flex flex-row items-center h-16 rounded-xl w-full">
@@ -93,6 +96,8 @@
     </div>
 </x-app-layout>
 <script>
+    // const sendMessageUrl = '{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}';
+    // const userId = {{ auth()->user()->id }};
     $(document).ready(function() {
         $('#sendMessageForm').submit(function(event) {
             event.preventDefault();
@@ -144,4 +149,64 @@
             });
         });
     });
-</script>
+ 
+    // console.log("trigger");
+    // const messages_container = document.getElementById("messages");
+    // const content_input = document.getElementById("content");
+    // const send_form = document.getElementById("sendMessageForm");
+                
+    // // window.Echo.private('chat')
+    // //     .listen('.content', (event) => {
+    // //         console.log('Event Received:', event);
+    // //         console.log('Content:', event.content);
+    // //         messages_container.innerHTML += '<div class="messages"><strong>' + event.content + '</strong></div>';
+    // // });
+
+    // window.Echo.private('chat')
+    // .listen('.content', (event) => {
+    //     console.log('Event Received:', event);
+    //     console.log('Content:', event.content);
+    //     // Update your UI here with the received content
+    //     messages_container.innerHTML += '<div class="messages"><strong>' + event.content + '</strong></div>';
+    // });
+
+    // send_form.addEventListener('submit', function(e) {
+    //     e.preventDefault();
+    //     const formData = new FormData(send_form);
+
+    //     axios.post('{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}', formData)
+    //     .then(response => {
+    //         console.log(response);
+    //         const success = response.data.success; 
+    //         console.log('Success:', success);
+
+    //         if (success) {
+            
+    //         console.log('Message successfully stored.');
+
+    //         content_input.value = '';
+    //         } else {
+    //         console.error('Error storing the message.');
+    //         }
+    //     })
+    //     .catch(error => {
+    //         console.error(error);
+    //         if (error.response && error.response.data && error.response.data.error) {
+    //             console.error('Server Error: ' + error.response.data.error);
+    //         } else {
+    //             console.error('An error occurred.');
+    //         }
+    //     });
+    //     // const options = {
+    //     //     method: 'post',
+    //     //     url: '('{{ route('send.reply', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}', formData)',
+    //     //     data: {
+    //     //         content: content_input.value
+    //     //     },
+    //     // }
+
+    //     // axios(options);
+
+    // });
+
+</script> 

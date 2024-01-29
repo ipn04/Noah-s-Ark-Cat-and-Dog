@@ -31,5 +31,9 @@
             <span class = "font-bold">{{ $name }}</span>
             {{ $slot }}
         </div>
+
+        <div class="w-2 h-2 bg-red-500 rounded-full ml-2"></div>
+
+        
     </div>
 </a>

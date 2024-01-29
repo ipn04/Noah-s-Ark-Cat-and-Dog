@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }" class="  bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700
-@if(  Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') || Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+@if(   Route::is('admin.notifications')|| Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') || Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
 lg:bg-transparent
 @else
 lg:bg-red-800
@@ -97,7 +97,7 @@ lg:bg-red-800
                                 <!-- Dropdown button with image and icon -->
                                 <button class="flex items-center p-1 
                                                 
-                                @if( Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') ||  Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+                                @if( Route::is('admin.notifications')|| Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') ||  Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
                                     text-red-700
                                 @else
                                     text-white
@@ -131,7 +131,7 @@ lg:bg-red-800
                 
                         </div>
                          <!-- "Show More" button is now outside the max-h-60 container -->
-                        <a class="cursor-pointer block w-full px-4 py-2 text-center text-sm font-bold text-red-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                        <a href= "{{ route('admin.notifications') }}" class="cursor-pointer block w-full px-4 py-2 text-center text-sm font-bold text-red-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 inline-block align-middle">
                                 <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm0 8.625a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25ZM15.375 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 10.875a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z" clip-rule="evenodd" />
                             </svg>

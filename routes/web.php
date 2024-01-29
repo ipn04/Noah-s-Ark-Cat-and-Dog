@@ -179,6 +179,7 @@ Route::get('/admin/volunteers', [VolunteerController::class, 'showVolunteer'])
     ->middleware(['auth', 'admin'])
     ->name('admin.volunteers');
 
+
 Route::get('/admin/progress/{userId}/{id}', [adoptionController::class, 'adminLoadProgress'])
     ->middleware(['auth', 'admin'])
     ->name('admin.adoptionprogress');
@@ -201,7 +202,9 @@ Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgres
     ->middleware(['auth', 'admin'])
     ->name('admin.reports');
 
-
+    Route::get('/admin/notications', function () {
+        return view('admin_contents.admin_notifications');
+    })->name('admin.notifications');
 
 // Route::get('/admin/adoptions', function () {
 //     return view('admin_contents.adoptions');

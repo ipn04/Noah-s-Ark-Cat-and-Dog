@@ -26,9 +26,15 @@
         </div>
 
 
-        <div class="flex-1 ps-1">
+         
+        <div class="flex-1 ">
+            <div class = "flex-1 ps-1">
             <span class = "font-bold">{{ $name }}</span>
             {{ $slot }}
+            </div>
+            <p class = "text-xs p-1">3 hours ago</p>
         </div>
+
+        <div class="w-2 h-2 bg-red-500 rounded-full ml-2"></div>
     </div>
 </a>

@@ -49,22 +49,27 @@ class MessageController extends Controller
 
     public function AdminStoreReply(Request $request, $messageId, $receiverId)
     {
+        // dd($request)
+        // broadcast(new Messages($request->get('content')))->toOthers();
+        // dd($request->get('content'));
+        
+        // dd($request->get('content'));
         try {
             $request->validate([
                 'content' => 'required',
             ]);
-
             $reply = new MessageThread([
                 'sender_id' => auth()->id(),
                 'receiver_id' => $receiverId,
                 'parent_message_id' => $messageId,
                 'content' => $request->input('content'),
             ]);
-
-            $reply->save();
-
+            // dd($reply);
+            // $reply->save();
+            // broadcast(new Messages($reply));
             // event(new Messages($request->input('content')));
             // return redirect()->back();
+
             return response()->json([$reply]);
         } catch (\Exception $e) {
             // Log the exception for debugging
@@ -92,11 +97,14 @@ class MessageController extends Controller
     }
 
     //sa user
-    public function messageContent($messageId) {
+    public function messageContent(Request $request, $messageId) {
         $initialMessage = Message::find($messageId);
+
+        broadcast(new Messages($request->get('content')))->toOthers();
+
         $threads = $initialMessage->threads;
 
-        return view('user_contents.inbox_message.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads]);
+        return view('user_contents.inbox_message.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads, 'content' => $request->get('content')]);
     }
 
     public function AllMessage() {
@@ -104,10 +112,14 @@ class MessageController extends Controller
 
         return view('admin_contents.messages', ['ShowAllMessage' => $ShowAllMessage]);
     }
-    public function AdminInbox($messageId) {
+    public function AdminInbox(Request $request, $messageId) {
+        
         $initialMessage = Message::find($messageId);
-        $threads = $initialMessage->threads;
 
-        return view('admin_contents.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads]);
+        broadcast(new Messages($request->get('content')))->toOthers();
+        
+        $threads = $initialMessage->threads;      
+
+        return view('admin_contents.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads, 'content' => $request->get('content')]);
     }
 }

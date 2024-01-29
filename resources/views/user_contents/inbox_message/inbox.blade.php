@@ -38,6 +38,9 @@
                         @endif
                     </div>
                 @endforeach
+                <div class="grid justify-items-end messages">
+       
+                </div> 
             </div>
             <form
                 action="{{ route('send.reply', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->receiver_id]) }}"
@@ -88,5 +91,19 @@
     </div>
 </x-app-layout>
 <script>
+    const userId = {{ auth()->user()->id }};
+    // Client-side JavaScript code (User's Side)
+    const pusher = new Pusher('{{config('broadcasting.connections.pusher.key')}}', { cluster: 'ap1' });
+    const channel = pusher.subscribe('public');
+    var userProfileImage = "{{ asset('storage/' . auth()->user()->profile_image) }}";
+
+    channel.listen('content', function (data) {
+        // Update your UI here with the received content
+        console.log('Received message:', data.content)
+        $(".messages").append("<div class='flex items-center mb-4'><div class='mr-2 py-3 px-4  bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white text-right'>" + data.content + "</div>" + "<img src='" + userProfileImage + "' alt='user profile' class='object-cover h-8 w-8 rounded-full' />" + "</div>");
+
+        // Scroll to the bottom of the page
+        $(document).scrollTop($(document).height());
+    });
 
 </script>

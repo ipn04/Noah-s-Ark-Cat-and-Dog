@@ -15,17 +15,17 @@
                         <ul
                             class="flex flex-wrap text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:border-gray-700 dark:text-gray-400">
                             <li class="me-2">
-                                <a href="{{ route('admin.messages') }}" id="allLink"
-                                    class="inline-block p-4 text-blue-600 bg-gray-100 rounded-t-lg active dark:bg-gray-800 dark:text-blue-500"
+                                <a href="{{ route('admin.messages') }}" id="allTab"
+                                    class="border-b-2 border-red-600 text-red-500 inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                                     data-concern="all">All</a>
                             </li>
                             <li class="me-2">
-                                <a href="{{ route('admin.messages') }}" id="adoptionLink"
+                                <a href="{{ route('admin.messages') }}"  id="adoptionTab"
                                     class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                                     data-concern="Adoption">Adoption</a>
                             </li>
                             <li class="me-2">
-                                <a href="{{ route('admin.messages') }}" id="donationLink"
+                                <a href="{{ route('admin.messages') }}"  id="donationTab"
                                     class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
                                     data-concern="Donation">Donation</a>
                             </li>
@@ -70,7 +70,49 @@
         </section>
     </div>
 </x-app-layout>
+{{-- lagay ko muna dito js, ako na mag transfer sa crud.js next time --}}
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const messageTabs = document.querySelectorAll('.flex-wrap a');
 
+        const messageContainer = document.getElementById('messageContainer');
+
+
+        messageTabs.forEach(link => {
+            link.addEventListener('click', function(event) {
+                event.preventDefault();
+
+                const concern = this.getAttribute('data-concern');
+               
+                filterMessages(concern, this);
+            });
+        });
+
+        function filterMessages(concern, selectedTab) {
+            const messageItems = document.querySelectorAll('.message-item');
+
+            messageTabs.forEach(link => {
+                link.classList.remove('border-b-2', 'border-red-600', 'text-red-500');
+            });
+
+            // Add styles to the selected tab
+            selectedTab.classList.add('border-b-2', 'border-red-600', 'text-red-500');
+
+            if (concern === 'all') {
+                messageItems.forEach(item => {
+                    item.style.display = 'block';
+                });
+            } else {
+                messageItems.forEach(item => {
+                    item.style.display = 'none';
+                });
+
+                const filteredMessages = document.querySelectorAll(`.message-item[data-concern="${concern}"]`);
+                filteredMessages.forEach(item => {
+                    item.style.display = 'block';
+                });
+            }
+        }
+    });
 </script>
 

@@ -17,6 +17,8 @@ Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-// Broadcast::channel('post.{id}', function ($user, $id) {
-//     return true;
-// });
+Broadcast::channel('chat', function ($user) {
+    return ['id' => $user->id];
+});
+
+Broadcast::routes(['prefix' => 'pusher', 'middleware' => ['web', 'auth']]);

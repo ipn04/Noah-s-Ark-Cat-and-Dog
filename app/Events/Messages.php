@@ -31,8 +31,9 @@ class Messages implements ShouldBroadcast
     public function broadcastOn(): array
     {
         return [
-            new PrivateChannel('post.'.$this->content->post->id),
+            new PrivateChannel('chat'),
         ];
+        // return new PrivateChannel['chat'];
     }
     public function broadcastAs() {
         return 'content';

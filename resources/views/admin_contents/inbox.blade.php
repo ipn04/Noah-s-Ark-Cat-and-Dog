@@ -15,7 +15,8 @@
                         {{ $initialMessage->content }}
                     </div>
                 </div>
-                <div id="messageWrapper" class="max-h-customHeight overflow-y-auto"> 
+                <div id="messageWrapper" class="max-h-customHeight overflow-y-auto">
+                
                     {{-- <div id="messages">
                         
                     </div> --}}
@@ -40,6 +41,11 @@
                             </div>
                         </div>                    
                     @endforeach
+                        
+                    <div class="grid justify-items-end messages">
+       
+                    </div> 
+
                 </div>
             </div>
             <form id="sendMessageForm" 
@@ -90,60 +96,61 @@
         </div>
     </div>
 </x-app-layout>
+@if (auth()->check())
 <script>
     // const sendMessageUrl = '{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}';
     // const userId = {{ auth()->user()->id }};
-    $(document).ready(function() {
-        $('#sendMessageForm').submit(function(event) {
-            event.preventDefault();
+    // $(document).ready(function() {
+    //     $('#sendMessageForm').submit(function(event) {
+    //         event.preventDefault();
 
-            var formData = $(this).serialize();
-            console.log(formData);
+    //         var formData = $(this).serialize();
+    //         console.log(formData);
 
-            $.ajax({
-                type: 'POST',
-                url: '{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}',
-                data: formData,
-                success: function(result) {
-                    console.log(result);
-                    if (result && result.length > 0) {
-                        var newMessageContent = result[0].content;
-                        console.log(newMessageContent);
-                        var isCurrentUser = result[0].sender_id == {{ auth()->id() }};
-                        console.log(isCurrentUser);
-                        var messageContainerClass = isCurrentUser ? 'admin_reply' :
-                            'user_reply';
-                        var messageJustifyClass = isCurrentUser ? 'end' : 'start';
+    //         $.ajax({
+    //             type: 'POST',
+    //             url: '{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}',
+    //             data: formData,
+    //             success: function(result) {
+    //                 console.log(result);
+    //                 if (result && result.length > 0) {
+    //                     var newMessageContent = result[0].content;
+    //                     console.log(newMessageContent);
+    //                     var isCurrentUser = result[0].sender_id == {{ auth()->id() }};
+    //                     console.log(isCurrentUser);
+    //                     var messageContainerClass = isCurrentUser ? 'admin_reply' :
+    //                         'user_reply';
+    //                     var messageJustifyClass = isCurrentUser ? 'end' : 'start';
 
-                        var newMessageContainer = $(
-                            '<div class="flex justify-' + messageJustifyClass +
-                            ' mb-4 ' + messageContainerClass + '">' +
-                            '<div class="' + messageContainerClass +
-                            ' mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">' +
-                            newMessageContent +
-                            '</div>' +
-                            '<div class="flex justify-center items-center">' +
-                            '<img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="user profile" ' +
-                            'class="object-cover h-8 w-8 rounded-full" />' +
-                            '</div>' +
-                            '</div>'
-                        );
+    //                     var newMessageContainer = $(
+    //                         '<div class="flex justify-' + messageJustifyClass +
+    //                         ' mb-4 ' + messageContainerClass + '">' +
+    //                         '<div class="' + messageContainerClass +
+    //                         ' mr-2 py-3 px-4 bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white">' +
+    //                         newMessageContent +
+    //                         '</div>' +
+    //                         '<div class="flex justify-center items-center">' +
+    //                         '<img src="{{ asset('storage/' . auth()->user()->profile_image) }}" alt="user profile" ' +
+    //                         'class="object-cover h-8 w-8 rounded-full" />' +
+    //                         '</div>' +
+    //                         '</div>'
+    //                     );
 
-                        $('#messageWrapper').append(newMessageContainer);
-                        console.log($('#messageWrapper')[0].scrollHeight);
+    //                     $('#messageWrapper').append(newMessageContainer);
+    //                     console.log($('#messageWrapper')[0].scrollHeight);
 
-                        // Scroll to the last message
-                        $('#messageWrapper').scrollTop($('#messageWrapper')[0]
-                        .scrollHeight);
+    //                     // Scroll to the last message
+    //                     $('#messageWrapper').scrollTop($('#messageWrapper')[0]
+    //                     .scrollHeight);
 
-                        $('#content').val('');
-                    } else {
-                        console.warn('Empty or invalid response from the server');
-                    }
-                }
-            });
-        });
-    });
+    //                     $('#content').val('');
+    //                 } else {
+    //                     console.warn('Empty or invalid response from the server');
+    //                 }
+    //             }
+    //         });
+    //     });
+    // });
  
     // console.log("trigger");
     // const messages_container = document.getElementById("messages");
@@ -203,5 +210,88 @@
     //     // axios(options);
 
     // });
+    // const channel = Echo.private('chat');
+    const userId = {{ auth()->user()->id }};
+    const pusher  = new Pusher('{{config('broadcasting.connections.pusher.key')}}', {cluster: 'ap1'});
+    const channel = pusher.subscribe('public');
+    
+    var userProfileImage = "{{ asset('storage/' . auth()->user()->profile_image) }}";
+    
+    // channel.bind('chat', function (data) {
+    //     $.post("/receive", {
+    //     _token:  '{{csrf_token()}}',
+    //     message: data.message,
+    //     })
+    //     .done(function (res) {
+    //     // $(".messages > .message").last().after(res);
+    //     $(document).scrollTop($(document).height());
+    //     });
+    // });
+    channel.bind('content', function (data) {
+        
+        $(".messages").append("<div class='flex items-center mb-4'><div class='mr-2 py-3 px-4  bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white text-right'>" + data.message + "</div>" + "<img src='" + userProfileImage + "' alt='user profile' class='object-cover h-8 w-8 rounded-full' />" + "</div>");
+
+        // Scroll to the bottom of the page
+        $(document).scrollTop($(document).height());
+    });
+    //Broadcast messages
+    $("form").submit(function (event) {
+        event.preventDefault();
+
+        var messageContent = $("#content").val();
+
+        if (messageContent.trim() !== "") {
+            console.log("Message Content Before AJAX Request:", messageContent);
+
+            $.ajax({
+                url: '{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}',
+                method: 'POST',
+                headers: {
+                    'X-Socket-Id': pusher.connection.socket_id
+                },
+                data: {
+                    _token: '{{ csrf_token() }}',
+                    content: messageContent,
+                },
+                beforeSend: function () {
+                    console.log("Sending AJAX Request...");
+                },
+                success: function (res) {
+                    console.log("AJAX Request Successful. Response:", res);
+
+                    if (res && res.length > 0) {
+                        var messageContent = res[0].content;
+
+                        // Trigger Pusher event for the new message
+                        channel.trigger('content', {
+                            message: messageContent,
+                        });
+
+                        // Assuming you have only one .messages container
+                        $(".messages").append("<div class='flex items-center mb-4'><div class='mr-2 py-3 px-4  bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white text-right'>" + messageContent + "</div>" + "<img src='" + userProfileImage + "' alt='user profile' class='object-cover h-8 w-8 rounded-full' />" + "</div>");
+
+                        // Clear the input field
+                        $("form #content").val('');
+
+                        // Scroll to the bottom of the page
+                        $(document).scrollTop($(document).height());
+                    } else {
+                        console.log("Empty or invalid response. Unable to update the message.");
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.error("AJAX Request Failed. Status:", status, "Error:", error);
+                },
+                complete: function () {
+                    // Log a message after the request is complete (whether it succeeded or failed)
+                    console.log("AJAX Request Complete.");
+                }
+            });
+        } else {
+            console.log("Message is null or empty. Not making the AJAX request.");
+            // You can handle this case as needed, such as showing an error message.
+        }
+    });
 
 </script> 
+@endif

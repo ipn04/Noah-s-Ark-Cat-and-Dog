@@ -65,7 +65,7 @@ class MessageController extends Controller
                 'content' => $request->input('content'),
             ]);
             // dd($reply);
-            // $reply->save();
+            $reply->save();
             // broadcast(new Messages($reply));
             // event(new Messages($request->input('content')));
             // return redirect()->back();

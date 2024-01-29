@@ -43,14 +43,12 @@
                     @endforeach
                         
                     <div class="grid justify-items-end messages">
-       
+                        {{$content}}
                     </div> 
 
                 </div>
             </div>
-            <form id="sendMessageForm" 
-                action="{{ route('send.replies', ['messageId' => $initialMessage->id, 'receiverId' => $initialMessage->sender_id]) }}"
-                method="POST">
+            <form id="sendMessageForm">
                 @csrf
                 <div class="flex flex-row items-center h-16 rounded-xl w-full">
                     <div>
@@ -227,7 +225,7 @@
     //     $(document).scrollTop($(document).height());
     //     });
     // });
-    channel.bind('content', function (data) {
+    channel.bind('client-content', function (data) {
         
         $(".messages").append("<div class='flex items-center mb-4'><div class='mr-2 py-3 px-4  bg-blue-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white text-right'>" + data.message + "</div>" + "<img src='" + userProfileImage + "' alt='user profile' class='object-cover h-8 w-8 rounded-full' />" + "</div>");
 
@@ -263,7 +261,7 @@
                         var messageContent = res[0].content;
 
                         // Trigger Pusher event for the new message
-                        channel.trigger('content', {
+                        channel.trigger('client-content', {
                             message: messageContent,
                         });
 

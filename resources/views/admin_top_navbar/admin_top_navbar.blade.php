@@ -85,18 +85,61 @@ lg:bg-red-800
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <div class = " px-2
-                @if( Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') ||  Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
-                text-red-700
-                @else
-                text-white
-                @endif">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                    <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd" />
-                  </svg>
-                
-                </div>
+                <x-dropdownnotif align="right" width="80">
+                    <x-slot name="trigger">
+                        <div class="relative inline-block text-left">
+                            <div class="flex items-center relative">
+                                <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none">
+                                    3 <!-- Replace this number with your dynamic notification count -->
+                                </div>
+                                
 
+                                <!-- Dropdown button with image and icon -->
+                                <button class="flex items-center p-1 
+                                                
+                                @if( Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') ||  Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+                                    text-red-700
+                                @else
+                                    text-white
+                                @endif">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                                        <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                        <button data-drawer-target="default-sidebar" data-drawer-toggle="default-sidebar" aria-controls="default-sidebar" type="button" class="inline-flex items-center p-2 mt-2 ms-3 text-sm text-gray-500 rounded-lg sm:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600">
+                            <span class="sr-only">Open sidebar</span>
+                            <svg class="w-6 h-6" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+                            </svg>
+                        </button>
+                    </x-slot>
+                
+                    <x-slot name="content">
+                        <div class="max-h-60 overflow-y-auto">
+                            <x-dropdownmessage-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'">
+                                {{ __('sent you a message.') }}
+                            </x-dropdownmessage-link>
+                            <x-dropdownapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'">
+                                {{ __('sent an adoption application.') }}
+                            </x-dropdownapply-link>
+                            <x-dropdownvapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'">
+                                {{ __('sent a volunteer application.') }}
+                            </x-dropdownvapply-link>
+                           
+                
+                        </div>
+                         <!-- "Show More" button is now outside the max-h-60 container -->
+                        <a class="cursor-pointer block w-full px-4 py-2 text-center text-sm font-bold text-red-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 inline-block align-middle">
+                                <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm0 8.625a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25ZM15.375 12a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0ZM7.5 10.875a1.125 1.125 0 1 0 0 2.25 1.125 1.125 0 0 0 0-2.25Z" clip-rule="evenodd" />
+                            </svg>
+                            <span class="inline-block align-middle">{{ __('Show More') }}</span>
+                        </a>
+                    </x-slot>
+                </x-dropdownnotif>
+                
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <div class="relative inline-block text-left">
@@ -143,6 +186,10 @@ lg:bg-red-800
                     </x-slot>
                 </x-dropdown>
             </div>
+
+                
+
+               
 
             
             

@@ -1,5 +1,5 @@
 <x-app-layout>
-    @include('admin_top_navbar.user_top_navbar')
+    @include('admin_top_navbar.admin_top_navbar')
 
     @include('sidebars.admin_sidebar')
 

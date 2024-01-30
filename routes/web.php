@@ -16,6 +16,9 @@ use App\Http\Controllers\RegisteredUserController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Chat\Index;
+use App\Livewire\Chat\Chat;
+use App\Livewire\Chat\ChatBox;
 
 /*
 |--------------------------------------------------------------------------
@@ -293,3 +296,13 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+Route::middleware('auth')->group(function() {
+
+    Route::get('/chat', Index::class)->name('chat.index');
+    Route::get('/chat-inbox/{messageId}', Chat::class)->name('chat');
+    
+});
+
+
+

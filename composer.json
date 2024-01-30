@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
         "laraveldaily/laravel-charts": "^0.2.3",
+        "livewire/livewire": "^3.4",
         "maatwebsite/excel": "^3.1.25",
         "pusher/pusher-php-server": "^7.2"
     },

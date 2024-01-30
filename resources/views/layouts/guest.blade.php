@@ -26,6 +26,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'public/js/ph-address-selector.js'])
+    @livewireStyles
 </head>
 
 <body class="font-sans text-gray-900  antialiased">
@@ -92,7 +93,7 @@
         deletepet
     </script>
     <script src=""></script>
-
+    @livewireScripts
 </body>
 
 </html>

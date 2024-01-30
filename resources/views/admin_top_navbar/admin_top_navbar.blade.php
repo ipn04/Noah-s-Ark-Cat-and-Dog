@@ -118,15 +118,17 @@ lg:bg-red-800
                 
                     <x-slot name="content">
                         <div class="max-h-60 overflow-y-auto">
-                            <x-dropdownmessage-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'">
+                            <x-dropdownmessage-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"  :currentDate="'3 hoursddds ago'">
                                 {{ __('sent you a message.') }}
                             </x-dropdownmessage-link>
-                            <x-dropdownapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'">
+                            <x-dropdownapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"  :currentDate="'3 hoursdsdd ago'">
                                 {{ __('sent an adoption application.') }}
                             </x-dropdownapply-link>
-                            <x-dropdownvapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'">
+                            <x-dropdownvapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"    :currentDate="'3 hdsoddurs ago'"
+                                >
                                 {{ __('sent a volunteer application.') }}
                             </x-dropdownvapply-link>
+                            
                            
                 
                         </div>

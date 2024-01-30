@@ -206,6 +206,10 @@ Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgres
         return view('admin_contents.admin_notifications');
     })->name('admin.notifications');
 
+    Route::get('/user/notications', function () {
+        return view('user_contents.notifications');
+    })->name('user.notifications');
+
 // Route::get('/admin/adoptions', function () {
 //     return view('admin_contents.adoptions');
 // })->middleware(['auth', 'verified'])->name('admin.adoptions');

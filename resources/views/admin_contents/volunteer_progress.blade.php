@@ -1,5 +1,5 @@
 <x-app-layout>
-    <x-slot name="title">Adoption Form Page</x-slot>
+    <x-slot name="title">Volunteer Progress Page</x-slot>
     @include('admin_top_navbar.admin_top_navbar')
 
     @include('sidebars.admin_sidebar')
@@ -63,7 +63,7 @@
                     </button>
                 </form>
                 @if ($stage == 5)
-                    <h1 class="bg-green-300 px-3 py-3 text-white-600">Application accepted</h1>
+                    <h1 class="bg-green-200 text-green-600 font-semibold rounded-lg px-4 py-4 text-white-600">Application accepted</h1>
                 @elseif ($stage == 10)
                     <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
                 @elseif ($stage == 11)
@@ -347,48 +347,90 @@
                                     src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
                                     alt='user profile'>
                             </div>
-                            <h1 class = "text-center font-bold text-2xl py-2 capitalize">
+                            <h1 class = "text-center font-semibold text-2xl py-2 capitalize">
                                 {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
                             </h1>
                             <div class = "pb-4">
                                 @if ($userVolunteerAnswers)
-                                    <table class = "border-separate border-spacing-3">
-                                        <tr>
-                                            <td class="font-bold">Birthday</td>
-                                            <td>{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('F j, Y') }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Gender</td>
-                                            <td class="capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Phone</td>
-                                            <td class="capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Email</td>
-                                            <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Civil Status</td>
-                                            <td class="capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Address</td>
-                                            <td class="capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province . '' }}
-                                            </td>
-                                        </tr>
-
-                                    </table>
+                                <ul class="space-y-4  mb-4">
+                                    <div class = "grid-cols-2 grid gap-2">
+                                        <li>
+                                            <label
+                                                class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Birthday
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        <td>{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('F j, Y') }}
+                                                        </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Gender
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div class = "grid-cols-2 grid gap-2">
+                                        <li>
+                                            <label
+                                                class="  inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone
+                                                        Number
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil
+                                                        Status
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
+                                                    </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
+                                                </div>
+                                                <div class="w-full text-base font-medium ">
+                                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                                    </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
+                                                </div>
+                                                <div class="w-full text-base font-medium capitalize">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
+                                                </div>
+                                        </label>
+                                    </li>
+                                </ul>
+                                    
                                     <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                         class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                         type="button">
@@ -402,7 +444,7 @@
                     </div>
                 </div>
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
-                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                    <h1 class = "font-bold text-xl">Volunteer Progress</h1>
 
                 </div>
             </div>
@@ -430,42 +472,85 @@
                             {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
                         </h1>
                         <div class = "pb-4">
-                            <table class = "border-separate border-spacing-3">
-                                <tr>
-                                    <td class="font-bold">Birthday</td>
-                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Gender</td>
-                                    <td class="capitalize">
-                                        {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Phone</td>
-                                    <td class="capitalize">
-                                        {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Email</td>
-                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Civil Status</td>
-                                    <td class="capitalize">
-                                        {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Address</td>
-                                    <td class="capitalize">
-                                        {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
-                                </tr>
-
-                            </table>
+                            <ul class="space-y-4  mb-4">
+                                <div class = "grid-cols-2 grid gap-2">
+                                    <li>
+                                        <label
+                                            class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                    Birthday
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    <td>{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('F j, Y') }}
+                                                    </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Gender
+                                                </div>
+                                                <div class="w-full text-base font-medium capitalize">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </div>
+                                <div class = "grid-cols-2 grid gap-2">
+                                    <li>
+                                        <label
+                                            class="  inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone
+                                                    Number
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil
+                                                    Status
+                                                </div>
+                                                <div class="w-full text-base font-medium capitalize">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
+                                                </div>
+                                        </label>
+                                    </li>
+                                </div>
+                                <li>
+                                    <label
+                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
+                                            </div>
+                                            <div class="w-full text-base font-medium ">
+                                                <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                                </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
+                                            </div>
+                                    </label>
+                                </li>
+                            </ul>
+                          
                             <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                 class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                 type="button">
@@ -479,7 +564,7 @@
                 </div>
 
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
-                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                    <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     @if ($stage === '2')
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
@@ -508,7 +593,7 @@
                                     <div class="p-4 md:p-5">
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
                                             Schedule</h3>
-                                        <div class = "mt-1">
+                                        <div class = "mt-2">
 
                                             <x-input-label for="date" value="{{ __('Applicant Name') }}" />
                                             <x-text-input type="text" name="date" label="date"
@@ -516,7 +601,7 @@
                                                 disabled class="w-full" />
                                         </div>
                                         @if ($scheduleInterview)
-                                            <div class = "mt-1">
+                                            <div class = "mt-2">
                                                 <x-input-label for="date" value="{{ __('Interview Date') }}" />
                                                 <x-text-input type="text" name="date" label="date"
                                                     value="{{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
@@ -524,7 +609,7 @@
                                                     class="w-full" />
                                             </div>
                                         @else
-                                            <div class = "mt-1">
+                                            <div class = "mt-2">
 
                                                 <x-input-label for="date" value="{{ __('Interview Date') }}" />
                                                 <x-text-input type="text" name="date" label="date"
@@ -532,7 +617,7 @@
                                             </div>
                                         @endif
                                         @if ($scheduleInterview)
-                                            <div class = "mt-1">
+                                            <div class = "mt-2">
 
                                                 <x-input-label for="time" value="{{ __('Interview Time') }}" />
                                                 <x-text-input type="text" name="time" label="time"
@@ -541,7 +626,7 @@
                                                     class="w-full" />
                                             </div>
                                         @else
-                                            <div class = "mt-1">
+                                            <div class = "mt-2">
 
                                                 <x-input-label for="time" value="{{ __('Interview Time') }}" />
                                                 <x-text-input type="text" name="time" label="time"

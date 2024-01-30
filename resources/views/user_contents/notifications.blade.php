@@ -1,7 +1,7 @@
 <x-app-layout>
-    <x-slot name="title">Adoption Form Page</x-slot>
-    @include('admin_top_navbar.admin_top_navbar')
-    @include('sidebars.admin_sidebar')
+    <x-slot name="Notification Page"></x-slot>
+    @include('admin_top_navbar.user_top_navbar')
+    @include('sidebars.user_sidebar')
 
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class="py-3">

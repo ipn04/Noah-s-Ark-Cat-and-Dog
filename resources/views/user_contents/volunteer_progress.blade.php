@@ -56,7 +56,7 @@
             @elseif ($stage == 10)
                 <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
             @elseif ($stage == 5)
-                <h1 class="bg-green-300 px-3 py-3 text-white-600">Application Accepted</h1>
+            <h1 class="bg-green-200 text-green-600 font-semibold rounded-lg px-4 py-4 text-white-600">Application accepted</h1>
             @endif
         </div>
 
@@ -252,9 +252,11 @@
                                 {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
                             </h2>
                             <p class = "p-2">You have an interview scheduled later at
-                                {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}. Please join this
+                                {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}. Please
+                                join this
                                 meet
-                                later at {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}</p>
+                                later at {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
+                            </p>
                             <div class = "grid grid-cols-1 gap-2 py-2">
                                 <a target="_blank"
                                     href="{{ optional($scheduleInterview)->interview_id ? route('interview.user', ['scheduleId' => $scheduleInterview->interview_id]) : '#' }}"
@@ -277,27 +279,50 @@
                                     </button>
                                 </a>
 
-                                <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" class="block text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800" type="button">
+                                <button id="deleteButton" data-modal-target="deleteModal"
+                                    data-modal-toggle="deleteModal"
+                                    class="block text-white bg-yellow-400 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                    type="button">
                                     Cancel Meet
                                 </button>
-                                <div id="deleteModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                                <div id="deleteModal" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                                     <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                                         <!-- Modal content -->
-                                        <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                            <button type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
-                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        <div
+                                            class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <button type="button"
+                                                class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-toggle="deleteModal">
+                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
                                                 <span class="sr-only">Close modal</span>
                                             </button>
-                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to delete this item?</p>
+                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to
+                                                delete this item?</p>
                                             <div class="flex justify-center items-center space-x-4">
-                                                <form action="{{ route('user.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}" method="POST">
+                                                <form
+                                                    action="{{ route('user.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                    <button type="submit"
+                                                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                                                         Yes, I'm sure
                                                     </button>
-                                                    <button data-modal-toggle="deleteModal" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                    <button data-modal-toggle="deleteModal" type="button"
+                                                        class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                                                         No, cancel
                                                     </button>
                                                 </form>
@@ -313,92 +338,16 @@
                         class = "@if ($stage == 5) mb-7 max-w-md  justify-center items-center @else hidden @endif">
                         <diV class = "bg-white rounded-lg p-5">
                             <h1 class = "font-bold text-xl">Congratulations!</h1>
-                            <p class = "p-3 text-lg">Your application as a volunteer has been accepted. Keep in mind that the shelter will
+                            <p class = "p-3 text-base">Your application as a volunteer has been accepted. Keep in mind
+                                that the shelter will
                                 contact you for onboarding.</p>
+                            <img class = "w-1/2 h-1/2 mx-auto" src="{{ asset('images/congrats.svg') }}" alt="">
                         </div>
                     </div>
 
-                        <div class = " 
+                    <div class = " 
                         grid grid-cols-1 lg:pt-14 gap-5 px-4 max-w-screen-lg ">
-                            <div class="bg-white px-5 mt-10 max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
-                                <div
-                                    class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                                    <img class="object-cover object-center w-32 h-32"
-                                        src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
-                                        alt='user profile'>
-                                </div>
-                                <h1 class = "text-center font-bold text-2xl py-2 capitalize">
-                                    {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
-                                </h1>
-                                <div class = "pb-4">
-                                    <table class = "border-separate border-spacing-3">
-                                        <tr>
-                                            <td class = "font-bold">Birthdate</td>
-                                            <td>{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('F j, Y') }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class = "font-bold">Gender</td>
-                                            <td class = "capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class = "font-bold">Phone</td>
-                                            <td class = "capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class = "font-bold">Email</td>
-                                            <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td class = "font-bold">Civil Status</td>
-                                            <td class = "capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td class = "font-bold">Address</td>
-                                            <td class = "capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                    <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
-                                        class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                        type="button">
-                                        View Answers
-                                    </button>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
-                        <h1 class = "font-bold text-xl">Volunteer Progress</h1>
-
-                    </div>
-                </div>
-
-            </div>
-
-
-            <div
-                class="   
-        @if ($stage == 3 || $stage == 5) hidden 
-        @else 
-        flex items-center  py-5  px-10  justify-center @endif    
-          ">
-                <div class = "grid grid-cols-1 lg:grid-cols-2  gap-10 px-4 max-w-screen-lg lg:mt-12">
-
-                    <div class="bg-white px-5 mt-10  max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
-                        @if ($userVolunteerAnswers)
-                            {{-- @foreach ($userVolunteerAnswers as $answers) --}}
+                        <div class="bg-white px-5 mt-10 max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                                 <img class="object-cover object-center w-32 h-32"
@@ -409,231 +358,380 @@
                                 {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
                             </h1>
                             <div class = "pb-4">
-                                <table class = "border-separate border-spacing-3">
-                                    <tr>
-                                        <td class="font-bold">Birthday</td>
-                                        <td>{{ $userVolunteerAnswers->volunteer_application->application->user->birthday }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold">Gender</td>
-                                        <td class="capitalize">
-                                            {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold">Phone</td>
-                                        <td class="capitalize">
-                                            {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold">Email</td>
-                                        <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold">Civil Status</td>
-                                        <td class="capitalize">
-                                            {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td class="font-bold">Address</td>
-                                        <td class="capitalize">
-                                            {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}
-                                    </tr>
+                                <ul class="space-y-4  mb-4">
+                                    <div class = "grid-cols-2 grid gap-2">
+                                        <li>
+                                            <label
+                                                class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Birthday
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ \Carbon\Carbon::createFromDate($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('M d, Y') }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Gender
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div class = "grid-cols-2 grid gap-2">
+                                        <li>
+                                            <label
+                                                class="  inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone
+                                                        Number
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil
+                                                        Status
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
+                                                    </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
+                                                </div>
+                                                <div class="w-full text-base font-medium ">
+                                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                                </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
+                                                </div>
+                                                <div class="w-full text-base font-medium capitalize">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}
+                                                </div>
+                                        </label>
+                                    </li>
+                                </ul>
 
-                                </table>
                                 <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
                                     View Answers
                                 </button>
                             </div>
-                            {{-- @endforeach --}}
-                        @else
-                            <p>No volunteer answers found.</p>
-                        @endif
-                    </div>
 
-                    <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
-                        <h1 class = "font-bold text-xl">Volunteer Progress</h1>
-                        @if ($stage === '1')
-                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button">
-                                Schedule Interview
-                            </button>
+                        </div>
 
-
-                            <!-- Main modal -->
-                            <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                <div class="relative p-4 w-full max-w-md max-h-full">
-                                    <!-- Modal content -->
-                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                        <!-- Modal header -->
-                                        <div
-                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                Schedule
-                                            </h3>
-                                            <button type="button"
-                                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-toggle="crud-modal">
-                                                <svg class="w-3 h-3" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 14 14">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-                                        </div>
-                                        <!-- Modal body -->
-                                        <form
-                                            action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
-                                            class="p-4 md:p-5" method="POST">
-                                            @csrf
-                                            <h1 class = " text-left  text-lg">Please state your interview availability
-                                                and
-                                                start time.
-                                                Interviews are limited to <b>1 hour.</b>
-                                            </h1>
-                                            <p class = "text-xs  italic">Note that the administration will have the
-                                                final
-                                                say on
-                                                whether or not to approve your proposed schedule.</p>
-                                            <div class="-mx-3  pt-3 flex flex-wrap">
-                                                <div class="w-full px-3 sm:w-1/2">
-                                                    <div class="mb-5">
-                                                        <label for="date"
-                                                            class="mb-3 block text-base  font-bold text-[#07074D]">
-                                                            Date
-                                                        </label>
-                                                        <input type="date" name="date" id="date"
-                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                    </div>
-                                                </div>
-                                                <div class="w-full px-3 sm:w-1/2">
-                                                    <div class="mb-5">
-                                                        <label for="time"
-                                                            class="mb-3 block text-base font-bold text-[#07074D]">
-                                                            Time
-                                                        </label>
-                                                        <input type="time" name="time" id="time"
-                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid grid-cols-2 gap-4 mx-auto">
-                                                <button type="submit"
-                                                    class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
-                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd"
-                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                            clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    Submit
-                                                </button>
-                                                <button type="submit"
-                                                    class="text-white mt-6 inline-flex justify-center items-center bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                    <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                    </svg>
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        @endif
                     </div>
                 </div>
+                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                    <h1 class = "font-bold text-xl">Volunteer Progress</h1>
 
+                </div>
             </div>
-            <div id="answer-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
-                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                <div class="relative p-4 w-full max-w-6xl max-h-full">
-                    <!-- Modal content -->
-                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                        <!-- Modal header -->
+
+        </div>
+
+
+        <div
+            class="   
+        @if ($stage == 3 || $stage == 5) hidden 
+        @else 
+        flex items-center  py-5  px-10  justify-center @endif    
+          ">
+            <div class = "grid grid-cols-1 lg:grid-cols-2  gap-10 px-4 max-w-screen-lg lg:mt-12">
+
+                <div class="bg-white px-5 mt-10  max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                    @if ($userVolunteerAnswers)
+                        {{-- @foreach ($userVolunteerAnswers as $answers) --}}
                         <div
-                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
-                                {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name . ' Answers' }}
-                            </h3>
-                            <button type="button"
-                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                data-modal-hide="answer-modal">
-                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 14 14">
-                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                        stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                </svg>
-                                <span class="sr-only">Close modal</span>
+                            class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                            <img class="object-cover object-center w-32 h-32"
+                                src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
+                                alt='user profile'>
+                        </div>
+                        <h1 class = "text-center font-semibold text-2xl py-2 capitalize">
+                            {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
+                        </h1>
+                        <div class = "pb-4">
+                            <ul class="space-y-4  mb-4">
+                                <div class = "grid-cols-2 grid gap-2">
+                                    <li>
+                                        <label
+                                            class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Birthday
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ \Carbon\Carbon::createFromDate($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('M d, Y') }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class=" mt-4 inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Gender
+                                                </div>
+                                                <div class="w-full text-base font-medium capitalize">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->gender }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </div>
+                                <div class = "grid-cols-2 grid gap-2">
+                                    <li>
+                                        <label
+                                            class="  inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone
+                                                    Number
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->phone_number }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil
+                                                    Status
+                                                </div>
+                                                <div class="w-full text-base font-medium capitalize">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->civil_status }}
+                                                </div>
+                                        </label>
+                                    </li>
+                                </div>
+                                <li>
+                                    <label
+                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
+                                            </div>
+                                            <div class="w-full text-base font-medium ">
+                                                <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                            </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}
+                                            </div>
+                                    </label>
+                                </li>
+                            </ul>
+
+                            <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
+                                class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                type="button">
+                                View Answers
                             </button>
                         </div>
-                        <!-- Modal body -->
-                        <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
-                            <div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
-                                    <x-text-input id="first_question" class="block mt-1 w-full" type="text"
-                                        name="first_question" :value="old('first_question', $answers['first_question'] ?? '')" />
-                                </div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
-                                    <x-text-input id="second_question" class="block mt-1 w-full" type="text"
-                                        name="second_question" :value="old('second_question', $answers['second_question'] ?? '')" />
-                                </div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
-                                    <x-text-input id="third_question" class="block mt-1 w-full" type="text"
-                                        name="third_question" :value="old('third_question', $answers['third_question'] ?? '')" />
-                                </div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
-                                    <x-text-input id="fourth_question" class="block mt-1 w-full" type="text"
-                                        name="fourth_question" :value="old('fourth_question', $answers['fourth_question'] ?? '')" />
-                                </div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
-                                    <x-text-input id="fifth_question" class="block mt-1 w-full" type="text"
-                                        name="fifth_question" :value="old('fifth_question', $answers['fifth_question'] ?? '')" />
+                        {{-- @endforeach --}}
+                    @else
+                        <p>No volunteer answers found.</p>
+                    @endif
+                </div>
+
+                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                    <h1 class = "font-bold text-xl">Volunteer Progress</h1>
+                    @if ($stage === '1')
+                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button">
+                            Schedule Interview
+                        </button>
+
+
+                        <!-- Main modal -->
+                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div
+                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Schedule
+                                        </h3>
+                                        <button type="button"
+                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-toggle="crud-modal">
+                                            <svg class="w-3 h-3" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <form
+                                        action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                        class="p-4 md:p-5" method="POST">
+                                        @csrf
+                                        <h1 class = " text-left  text-lg">Please state your interview availability
+                                            and
+                                            start time.
+                                            Interviews are limited to <b>1 hour.</b>
+                                        </h1>
+                                        <p class = "text-xs  py-2 italic">Note that the administration will have the
+                                            final
+                                            say on
+                                            whether or not to approve your proposed schedule.</p>
+                                        <div class="-mx-3  pt-3 flex flex-wrap">
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <div class="mb-1">
+                                                    <label for="date"
+                                                        class="mb-1 block text-base  font-bold text-[#07074D]">
+                                                        Date
+                                                    </label>
+                                                    <input type="date" name="date" id="date"  min="{{ date('Y-m-d') }}"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                </div>
+                                            </div>
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <div class="mb-1">
+                                                    <label for="time"
+                                                        class="mb-1 block text-base font-bold text-[#07074D]">
+                                                        Time
+                                                    </label>
+                                                    <input type="time" name="time" id="time" min="08:00" max="17:00"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4 mx-auto">
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                Submit
+                                            </button>
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                Cancel
+                                            </button>
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
-                            <div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
-                                    <x-text-input id="sixth_question" class="block mt-1 w-full" type="text"
-                                        name="sixth_question" :value="old('sixth_question', $answers['sixth_question'] ?? '')" />
-                                </div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
-                                    <x-text-input id="sevent_question" class="block mt-1 w-full" type="text"
-                                        name="sevent_question" :value="old('seventh_question', $answers['seventh_question'] ?? '')" />
-                                </div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
-                                    <x-text-input id="eight_question" class="block mt-1 w-full" type="text"
-                                        name="eight_question" :value="old('eight_question', $answers['eight_question'] ?? '')" />
-                                </div>
-                                <div class="mt-4" style="pointer-events: none;">
-                                    <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
-                                    <x-text-input id="ninth_question" class="block mt-1 w-full" type="text"
-                                        name="ninth_question" :value="old('ninth_question', $answers['ninth_question'] ?? '')" />
-                                </div>
+                        </div>
+                    @endif
+                </div>
+            </div>
+
+        </div>
+        <div id="answer-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
+            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+            <div class="relative p-4 w-full max-w-6xl max-h-full">
+                <!-- Modal content -->
+                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                    <!-- Modal header -->
+                    <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                            {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name . "'s Answers" }}
+                        </h3>
+
+                        <button type="button"
+                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                            data-modal-hide="answer-modal">
+                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                fill="none" viewBox="0 0 14 14">
+                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                    stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                            </svg>
+                            <span class="sr-only">Close modal</span>
+                        </button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="px-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-4">
+                        <div>
+                            <div class="" style="pointer-events: none;">
+                                <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
+                                <x-text-input id="first_question" class="block mt-1 w-full" type="text"
+                                    name="first_question" :value="old('first_question', $answers['first_question'] ?? '')" />
                             </div>
-                            {{-- <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
+                                <x-text-input id="second_question" class="block mt-1 w-full" type="text"
+                                    name="second_question" :value="old('second_question', $answers['second_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
+                                <x-text-input id="third_question" class="block mt-1 w-full" type="text"
+                                    name="third_question" :value="old('third_question', $answers['third_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
+                                <x-text-input id="fourth_question" class="block mt-1 w-full" type="text"
+                                    name="fourth_question" :value="old('fourth_question', $answers['fourth_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
+                                <x-text-input id="fifth_question" class="block mt-1 w-full" type="text"
+                                    name="fifth_question" :value="old('fifth_question', $answers['fifth_question'] ?? '')" />
+                            </div>
+                        </div>
+                        <div>
+                            <div class="" style="pointer-events: none;">
+                                <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
+                                <x-text-input id="sixth_question" class="block mt-1 w-full" type="text"
+                                    name="sixth_question" :value="old('sixth_question', $answers['sixth_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
+                                <x-text-input id="sevent_question" class="block mt-1 w-full" type="text"
+                                    name="sevent_question" :value="old('seventh_question', $answers['seventh_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
+                                <x-text-input id="eight_question" class="block mt-1 w-full" type="text"
+                                    name="eight_question" :value="old('eight_question', $answers['eight_question'] ?? '')" />
+                            </div>
+                            <div class="mt-4" style="pointer-events: none;">
+                                <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
+                                <x-text-input id="ninth_question" class="block mt-1 w-full" type="text"
+                                    name="ninth_question" :value="old('ninth_question', $answers['ninth_question'] ?? '')" />
+                            </div>
+                        </div>
+                        {{-- <div class="border-t border-gray-200 rounded-b dark:border-gray-600">
                             <x-primary-button data-modal-target="forid-modal" data-modal-toggle="forid-modal"
                                 class="w-full text-white bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                 type="button">
@@ -645,11 +743,11 @@
                                 type="button">
                                 View Signature </x-primary-button>
                         </div> --}}
-                        </div>
-                        <!-- Modal footer -->
                     </div>
+                    <!-- Modal footer -->
                 </div>
             </div>
+        </div>
 
     </section>
 </x-app-layout>

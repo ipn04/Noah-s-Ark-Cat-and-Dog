@@ -1,6 +1,6 @@
 <!-- x-notifdropdown-link.blade.php -->
 
-@props(['href', 'imageSource', 'name'])
+@props(['href', 'imageSource', 'name', 'currentDate'])
 
 <a href="{{ $href }}"
     class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
@@ -27,14 +27,13 @@
         </div>
 
         
-        <div class="flex-1 ">
-            <div class = "flex-1 ps-1">
-            <span class = "font-bold">{{ $name }}</span>
-            {{ $slot }}
+        <div class="flex-1">
+            <div class="flex-1 ps-1">
+                <span class="font-bold">{{ $name }}</span>
+                {{ $slot }}
             </div>
-            <p class = "text-xs p-1">3 hours ago</p>
+            <p class="text-xs p-1">{{ $currentDate }}</p>
         </div>
-
         <div class="w-2 h-2 bg-red-500 rounded-full ml-2"></div>
 
         

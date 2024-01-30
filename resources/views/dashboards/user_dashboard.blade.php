@@ -398,22 +398,18 @@
 
                                     <div class="w-full px-3 sm:w-1/2">
                                         <div class="mb-5">
-                                            <label for="date"
-                                                class="mb-3 block text-base  font-bold text-[#07074D]">
-                                                Date
-                                            </label>
+                                            <x-input-label for="time" :value="__('Date')" />
+
                                             <input type="date" name="date" id="date"
-                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
                                         </div>
                                     </div>
                                     <div class="w-full px-3 sm:w-1/2">
                                         <div class="mb-5">
-                                            <label for="time"
-                                                class="mb-3 block text-base font-bold text-[#07074D]">
-                                                Time
+                                            <x-input-label for="time" :value="__('Time')" />
                                             </label>
                                             <input type="time" name="time" id="time"
-                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
                                
                                         </div>
                                     </div>
@@ -421,14 +417,15 @@
                                 </div>
                                 <div class="relative w-full px-3">
                                     <x-input-label for="concern" :value="__('Concern')" />
-                                    <x-text-input id="concern" class="block mt-1 w-full" type="text" name="concern"
-                                        :value="old('concern')" required autocomplete="concern" />
+                                    <textarea id="concern" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm" type="text" name="concern"
+                                        :value="old('concern')" required autocomplete="concern">
+                                    </textarea>
                                 </div>
 
                             </div>
                             <!-- Modal footer -->
                             <div
-                                class="grid grid-cols-2 gap-3 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                class="grid grid-cols-2 gap-3 ">
                                 <button data-modal-hide="static-modal" type="button"
                                     class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                 <button data-modal-hide="static-modal" type="submit"

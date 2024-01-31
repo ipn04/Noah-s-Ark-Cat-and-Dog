@@ -11,7 +11,7 @@
         @endif
 
         <div class="sm:ml-64">
-            <div class="w-full px-5 flex flex-col justify-between mt-4">
+            <div class="w-full flex flex-col justify-between">
 
                 <livewire:chat.chat-box  :messageId="$messageId">
 

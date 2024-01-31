@@ -25,7 +25,7 @@ export default {
 
             },
             height: {
-                customHeight: '82vh',
+                customHeight: '84vh',
             },
         },
     },

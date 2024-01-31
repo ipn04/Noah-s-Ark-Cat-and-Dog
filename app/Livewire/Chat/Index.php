@@ -14,7 +14,13 @@ class Index extends Component
 
     public function mount()
     {
-        $this->threads = Message::all();
+        $user = auth()->user();
+
+        if ($user && $user->isAdmin()) {
+            $this->threads = Message::all();
+        } else {
+            $this->threads = Message::where('sender_id', $user->id)->get();
+        }
     }
 
     public function render()

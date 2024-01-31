@@ -20,4 +20,8 @@ class MessageThread extends Model
     {
         return $this->belongsTo(User::class, 'sender_id');
     }
+    public function getReceiver()
+    {
+        return $this->belongsTo(User::class, 'receiver_id');
+    }
 }

@@ -123,7 +123,7 @@ $nextTick(() => conversationElement.scrollTop = height);"
                 </div>
             </header>
         @endif
-        <div class="scroll-smooth overflow-auto  bg-gray-50 h-customHeight lg:h-largeScreen px-5 py-4 mt-1"
+        <div class="scroll-smooth overflow-auto bg-gray-50 h-customHeight lg:h-largeScreen px-5 py-4 mt-1"
             id="conversation" x-ref="conversation">
             @if ($selectedConversation)
                 <div @class([
@@ -168,9 +168,9 @@ $nextTick(() => conversationElement.scrollTop = height);"
                             'mr-2 py-3 px-4 bg-red-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white admin_reply',
                         ])>
                             <div class="grid grid-row">
-                                <span class="flex justify-end">{{ $selectedConversation->content }} </span>
-                                <span
-                                    class="flex justify-end text-xs">{{ $selectedConversation->created_at->format('h:i a') }}</span>
+                                <p class="flex justify-end">{{ $selectedConversation->content }} </p>
+                                <p
+                                    class="flex justify-end text-xs">{{ $selectedConversation->created_at->format('h:i a') }}</p>
                             </div>
                         </div>
 
@@ -210,7 +210,7 @@ $nextTick(() => conversationElement.scrollTop = height);"
                                 'ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white',
                             ])>
                                 <div class="grid grid-row">
-                                    <span class="flex justify-start">{{ $message->content }} </span>
+                                    <p class="flex justify-start whitespace-pre-line">{{ $message->content }} </p>
                                     <span
                                         class="flex justify-start text-xs">{{ $message->created_at->format('h:i a') }}</span>
                                 </div>
@@ -230,9 +230,9 @@ $nextTick(() => conversationElement.scrollTop = height);"
                                 'mr-2 py-3 px-4 bg-red-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white admin_reply',
                             ])>
                                 <div class="grid grid-row">
-                                    <span class="flex justify-end">{{ $message->content }} </span>
-                                    <span
-                                        class="flex justify-end text-xs">{{ $message->created_at->format('h:i a') }}</span>
+                                    <p class="flex justify-end whitespace-pre-line">{{ $message->content }} </p>
+                                    <p
+                                        class="flex justify-end text-xs">{{ $message->created_at->format('h:i a') }}</p>
                                 </div>
                             </div>
                             @if (auth()->user()->isAdmin())

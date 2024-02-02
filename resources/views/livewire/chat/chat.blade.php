@@ -1,4 +1,5 @@
 <div>
+    <x-slot name="title">Noah's Ark</x-slot>
     <x-app-layout>
         @if(auth()->user()->isAdmin())
             @include('admin_top_navbar.admin_top_navbar')

@@ -10,7 +10,7 @@
             @include('sidebars.user_sidebar')
         @endif
 
-        <div class="sm:ml-64">
+        <div class="sm:ml-64 ">
             <div class="w-full flex flex-col justify-between">
 
                 <livewire:chat.chat-box  :messageId="$messageId">

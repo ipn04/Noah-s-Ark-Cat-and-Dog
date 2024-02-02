@@ -1,5 +1,5 @@
 <nav x-data="{ open: false }" class="  bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700
-@if(   Route::is('admin.notifications')|| Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') || Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+@if(  Route::is('chat.index') ||  Route::is('admin.notifications')|| Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') || Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
 lg:bg-transparent
 @else
 lg:bg-red-800
@@ -97,7 +97,7 @@ lg:bg-red-800
                                 <!-- Dropdown button with image and icon -->
                                 <button class="flex items-center p-1 
                                                 
-                                @if( Route::is('admin.notifications')|| Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') ||  Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
+                                @if( Route::is('chat.index') || Route::is('admin.notifications')|| Route::is('interview.admin')|| Route::is('admin.volunteer.progress')|| Route::is('view.users') ||  Route::is('admin.developer') || Route::is('admin.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
                                     text-red-700
                                 @else
                                     text-white

@@ -25,7 +25,9 @@ export default {
 
             },
             height: {
-                customHeight: '84vh',
+                largeScreen: '70vh',
+                customHeight: '72vh',
+
             },
         },
     },

@@ -29,7 +29,11 @@
         @livewireStyles
         
     </head>
-    <body class="font-sans bg-gray-100 antialiased	">
+    <body class="font-sans bg-gray-100 antialiased
+    @if(Route::is('chat'))
+    bg-white
+    @else
+    @endif">
         <div class=" 
         @if(Route::is('admin.adoptionprogress') || Route::is('view.users') || Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') || Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
         bg-transparent

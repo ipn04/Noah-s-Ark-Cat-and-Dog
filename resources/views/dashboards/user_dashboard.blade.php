@@ -299,7 +299,7 @@
                             class="h-fit w-full group shadow-xl rounded-lg user-pet-lists"
                             data-name="{{ $pet->pet_name }}">
                             <div class="relative overflow-hidden hover:cursor-pointer">
-                                <img class="h-72 w-full rounded-xl object-cover"
+                                <img class="h-72 w-72 rounded-xl object-cover"
                                     src="{{ asset('storage/images/' . $pet->dropzone_file) }}" alt="Pet Image">
                                 <div
                                     class="absolute rounded-xl bottom-0 h-full w-full bg-black/30 items-center group-hover:opacity-100 opacity-0 transition-opacity duration-300">

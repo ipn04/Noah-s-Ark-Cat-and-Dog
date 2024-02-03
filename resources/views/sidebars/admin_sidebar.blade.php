@@ -63,9 +63,18 @@
                 flex items-center p-2 text-gray-500 rounded-lg hover:text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
                 @endif">
                 <div class = "flex items-center relative">
-                    <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none">
-                        3 <!-- Replace this number with your dynamic notification count -->
-                    </div>
+                    @if (auth()->user()->isAdmin())
+                        <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none">
+                            {{-- @foreach ($unreadMessageCounts as $user)
+                                <p>{{ $user->name }}: {{ $user->messages_count }} unread messages</p>
+                            @endforeach<!-- Replace this number with your dynamic notification count --> --}}
+                            @if(isset($unreadMessageCount))
+                                {{ $unreadMessageCount }}
+                            @else
+                                {{ 'Variable not set' }}
+                            @endif
+                        </div>
+                    @endif
                 <svg class="
                     @if(Route::is('chat.index')) 
                     flex-shrink-0 w-7 h-7 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white

@@ -24,4 +24,11 @@ class MessageThread extends Model
     {
         return $this->belongsTo(User::class, 'receiver_id');
     }
+    public function scopeUnreadCount($query, $userId)
+    {
+        return $query->whereNull('read_at')
+            ->where('receiver_id', $userId)
+            ->where('sender_id', '!=', $userId)
+            ->count();
+    }
 }

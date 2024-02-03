@@ -132,10 +132,10 @@ $nextTick(() => conversationElement.scrollTop = height);"
                     'justify-end' => $selectedConversation->sender_id === auth()->id(),
                 ])>
                     <div @class([
-                        'flex items-center',
+                        'flex items-end',
                         'hidden' => $selectedConversation->sender_id === auth()->id(),
                     ])>
-                        <div class="flex justify-center items-center">
+                        <div class="flex items-end">
                             @if (auth()->user()->isAdmin())
                                 <img src="{{ asset('storage/' . $selectedConversation->user->profile_image) }}"
                                     alt='user profile' class="object-cover h-8 w-8 rounded-full">
@@ -145,12 +145,12 @@ $nextTick(() => conversationElement.scrollTop = height);"
                             @endif
                         </div>
                         <div @class([
-                            'ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white',
+                            'ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white max-w-md',
                         ])>
-                            <div class="grid grid-row">
-                                <span class="flex justify-start">{{ $selectedConversation->content }} </span>
-                                <span
-                                    class="flex justify-start text-xs">{{ $selectedConversation->created_at->format('h:i a') }}</span>
+                            <div>
+                                <p class=" whitespace-normal break-words pb-2">{{ $selectedConversation->content }} </p>
+                                <p
+                                    class="flex justify-start text-xs">{{ $selectedConversation->created_at->format('h:i a') }}</p>
                             </div>
                         </div>
                     </div>
@@ -161,14 +161,14 @@ $nextTick(() => conversationElement.scrollTop = height);"
                     'justify-end' => $selectedConversation->sender_id === auth()->id(),
                 ])>
                     <div @class([
-                        'flex items-center',
+                        'flex items-end',
                         'hidden' => !($selectedConversation->sender_id === auth()->id()),
                     ])>
                         <div @class([
-                            'mr-2 py-3 px-4 bg-red-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white admin_reply',
+                            'mr-2 py-3 px-4 bg-red-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white max-w-md admin_reply',
                         ])>
-                            <div class="grid grid-row">
-                                <p class="flex justify-end">{{ $selectedConversation->content }} </p>
+                            <div>
+                                <p class="whitespace-normal break-words pb-2">{{ $selectedConversation->content }} </p>
                                 <p
                                     class="flex justify-end text-xs">{{ $selectedConversation->created_at->format('h:i a') }}</p>
                             </div>
@@ -194,10 +194,10 @@ $nextTick(() => conversationElement.scrollTop = height);"
                         'justify-end' => $message->sender_id === auth()->id(),
                     ])>
                         <div @class([
-                            'flex items-center',
+                            'flex items-end',
                             'hidden' => $message->sender_id === auth()->id(),
                         ])>
-                            <div class="flex justify-center items-center">
+                            <div class="flex items-end">
                                 @if (auth()->user()->isAdmin())
                                     <img src="{{ asset('storage/' . $selectedConversation->user->profile_image) }}"
                                         alt='user profile' class="object-cover h-8 w-8 rounded-full" />
@@ -207,12 +207,12 @@ $nextTick(() => conversationElement.scrollTop = height);"
                                 @endif
                             </div>
                             <div @class([
-                                'ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white',
+                                'ml-2 py-3 px-4 bg-gray-400 rounded-br-3xl rounded-tr-3xl rounded-tl-xl text-white max-w-md',
                             ])>
-                                <div class="grid grid-row">
-                                    <p class="flex justify-start whitespace-pre-line">{{ $message->content }} </p>
-                                    <span
-                                        class="flex justify-start text-xs">{{ $message->created_at->format('h:i a') }}</span>
+                                <div>
+                                    <p class=" whitespace-normal break-words pb-2">{{ $message->content }} </p>
+                                    <p
+                                        class="flex justify-start text-xs">{{ $message->created_at->format('h:i a') }}</p>
                                 </div>
                             </div>
                         </div>
@@ -223,14 +223,14 @@ $nextTick(() => conversationElement.scrollTop = height);"
                         'justify-end' => $message->sender_id === auth()->id(),
                     ])>
                         <div @class([
-                            'flex items-center',
+                            'flex items-end',
                             'hidden' => !($message->sender_id === auth()->id()),
                         ])>
                             <div @class([
-                                'mr-2 py-3 px-4 bg-red-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white admin_reply',
+                                'mr-2 py-3 px-4 bg-red-400 rounded-bl-3xl rounded-tl-3xl rounded-tr-xl text-white max-w-md admin_reply',
                             ])>
-                                <div class="grid grid-row">
-                                    <p class="flex justify-end whitespace-pre-line">{{ $message->content }} </p>
+                                <div>
+                                    <p class="whitespace-normal break-words pb-2">{{ $message->content }} </p>
                                     <p
                                         class="flex justify-end text-xs">{{ $message->created_at->format('h:i a') }}</p>
                                 </div>

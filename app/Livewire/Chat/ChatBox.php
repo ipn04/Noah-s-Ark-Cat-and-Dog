@@ -78,6 +78,8 @@ class ChatBox extends Component
         // $this->selectedConversation->updated_at = now();
         // $this->selectedConversation->save();
 
+        // $this->emitTo('chat.index'. 'refresh');
+
         $latestThread = $this->loadedMessages->sortByDesc('created_at')->first();
 
         if ($latestThread) {

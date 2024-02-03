@@ -80,46 +80,45 @@ class MessageController extends Controller
         }
     }
 
+    // public function sendMessage(Request $request)
+    // {
+    //     event(new Message($request->input('content')));
+    //     return ["success" => true];
+    // }
 
-    public function sendMessage(Request $request)
-    {
-        event(new Message($request->input('content')));
-        return ["success" => true];
-    }
+    // //sa user
+    // public function displayMessage() {
+    //     $admin = User::where('role', 'admin')->first();
+    //     $user = auth()->user();
+    //     $message = $user->sentMessages; 
 
-    //sa user
-    public function displayMessage() {
-        $admin = User::where('role', 'admin')->first();
-        $user = auth()->user();
-        $message = $user->sentMessages; 
+    //     return view('user_contents.messages', ['admin' => $admin, 'message_sent' => true, 'message' => $message]);
+    // }
 
-        return view('user_contents.messages', ['admin' => $admin, 'message_sent' => true, 'message' => $message]);
-    }
+    // //sa user
+    // public function messageContent(Request $request, $messageId) {
+    //     $initialMessage = Message::find($messageId);
 
-    //sa user
-    public function messageContent(Request $request, $messageId) {
-        $initialMessage = Message::find($messageId);
+    //     broadcast(new Messages($request->get('content')))->toOthers();
 
-        broadcast(new Messages($request->get('content')))->toOthers();
+    //     $threads = $initialMessage->threads;
 
-        $threads = $initialMessage->threads;
+    //     return view('user_contents.inbox_message.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads, 'content' => $request->get('content')]);
+    // }
 
-        return view('user_contents.inbox_message.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads, 'content' => $request->get('content')]);
-    }
+    // public function AllMessage() {
+    //     $ShowAllMessage = Message::all();
 
-    public function AllMessage() {
-        $ShowAllMessage = Message::all();
-
-        return view('admin_contents.messages', ['ShowAllMessage' => $ShowAllMessage]);
-    }
-    public function AdminInbox(Request $request, $messageId) {
+    //     return view('admin_contents.messages', ['ShowAllMessage' => $ShowAllMessage]);
+    // }
+    // public function AdminInbox(Request $request, $messageId) {
         
-        $initialMessage = Message::find($messageId);
+    //     $initialMessage = Message::find($messageId);
 
-        broadcast(new Messages($request->get('content')))->toOthers();
+    //     broadcast(new Messages($request->get('content')))->toOthers();
         
-        $threads = $initialMessage->threads;      
+    //     $threads = $initialMessage->threads;      
 
-        return view('admin_contents.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads, 'content' => $request->get('content')]);
-    }
+    //     return view('admin_contents.inbox', ['initialMessage' => $initialMessage, 'threads' => $threads, 'content' => $request->get('content')]);
+    // }
 }

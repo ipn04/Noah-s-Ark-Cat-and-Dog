@@ -8,6 +8,8 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Notifications\Messages\BroadcastMessage;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
+use App\Models\MessageThread;
+
 
 class MessageSent extends Notification implements ShouldBroadcastNow
 {
@@ -62,11 +64,16 @@ class MessageSent extends Notification implements ShouldBroadcastNow
      */
     public function toBroadcast(object $notifiable): BroadcastMessage
     {
+        // $unreadMessageCount = MessageThread::unreadCount($this->receiverId);
+
+        // \Illuminate\Support\Facades\Log::debug('Unread Message Count: ' . $unreadMessageCount);
+
         return new BroadcastMessage([
             'user_id' => $this->user->id,
             'message_id' => $this->message->id,
             'content' => $this->content->id,
             'receiver_id' => $this->receiverId,
+            // 'unread_message_count' => $unreadMessageCount,
         ]);
     }
 

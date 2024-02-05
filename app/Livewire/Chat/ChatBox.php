@@ -12,6 +12,7 @@ class ChatBox extends Component
     public $selectedConversation;   
     public $body;   
     public $loadedMessages;  
+    // public $unreadMessageCount;
 
     protected $listeners=[
         'loadMore'
@@ -35,7 +36,7 @@ class ChatBox extends Component
 
                 $newMessage = MessageThread::find($event['message_id']);
 
-                $this->loadedMessages->push($newMessage);
+                $this->loadedMessages->push($newMessage);       
             }
         }
     }
@@ -68,12 +69,17 @@ class ChatBox extends Component
             'parent_message_id' => $this->selectedConversation->id,
             'content'=>$this->body
         ]);
-
+        
         $this->reset('body');
         // dd($createdMessage);
         $this->dispatch('scroll-bottom');
         
         $this->loadedMessages->push($createdMessage);
+
+        // $unreadMessageCount = MessageThread::unreadCount($this->selectedConversation->receiver_id);
+        // // dd($unreadMessageCount);
+        // // Dispatch the event with the unread message count
+        // $this->dispatch('updateUnreadMessageCount', ['unread_message_count' => $unreadMessageCount]);
 
         // $this->selectedConversation->updated_at = now();
         // $this->selectedConversation->save();

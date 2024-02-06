@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\ScheduleInterview;
 use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
+use App\Models\Notifications;
 use App\Models\AdoptionAnswer;
 use App\Models\Adoption;
 use App\Models\Schedule;
@@ -101,7 +102,15 @@ class ScheduleController extends Controller{
         $pendingVisit = $schedules->where('schedule_type', 'Visit')->where('schedule_status', 'Pending')->count();
         $pendingInPickup = $schedules->where('schedule_type', 'Pickup')->where('schedule_status', 'Pending')->count();
 
-    return view('admin_contents.schedule', ['schedules' => $schedules, 'allSchedules' =>$allSchedules, 'scheduleInterview' => $scheduleInterview, 'scheduleVisit' => $scheduleVisit, 'scheduleInPickup' =>$scheduleInPickup, 'allSchedulesPending' => $allSchedulesPending, 'pendingInterview' => $pendingInterview, 'pendingVisit' => $pendingVisit, 'pendingInPickup' => $pendingInPickup]);
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
+
+    return view('admin_contents.schedule', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'schedules' => $schedules, 'allSchedules' =>$allSchedules, 'scheduleInterview' => $scheduleInterview, 'scheduleVisit' => $scheduleVisit, 'scheduleInPickup' =>$scheduleInPickup, 'allSchedulesPending' => $allSchedulesPending, 'pendingInterview' => $pendingInterview, 'pendingVisit' => $pendingVisit, 'pendingInPickup' => $pendingInPickup]);
 
     }
    

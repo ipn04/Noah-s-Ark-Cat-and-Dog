@@ -85,14 +85,13 @@ lg:bg-red-800
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">
-                <x-dropdownnotif align="right" width="80">
-                    <x-slot name="trigger">
+                <x-dropdownnotif align="right" width="80" >
+                    <x-slot name="trigger" >
                         <div class="relative inline-block text-left">
                             <div class="flex items-center relative">
                                 <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none">
-                                    3 <!-- Replace this number with your dynamic notification count -->
+                                    {{$unreadNotificationsCount}}
                                 </div>
-                                
 
                                 <!-- Dropdown button with image and icon -->
                                 <button class="flex items-center p-1 
@@ -101,7 +100,7 @@ lg:bg-red-800
                                     text-red-700
                                 @else
                                     text-white
-                                @endif">
+                                @endif" id="notificationBellTrigger">
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
                                         <path fill-rule="evenodd" d="M5.25 9a6.75 6.75 0 0113.5 0v.75c0 2.123.8 4.057 2.118 5.52a.75.75 0 01-.297 1.206c-1.544.57-3.16.99-4.831 1.243a3.75 3.75 0 11-7.48 0 24.585 24.585 0 01-4.831-1.244.75.75 0 01-.298-1.205A8.217 8.217 0 005.25 9.75V9zm4.502 8.9a2.25 2.25 0 104.496 0 25.057 25.057 0 01-4.496 0z" clip-rule="evenodd" />
                                     </svg>
@@ -118,19 +117,19 @@ lg:bg-red-800
                 
                     <x-slot name="content">
                         <div class="max-h-60 overflow-y-auto">
-                            <x-dropdownmessage-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"  :currentDate="'3 hoursddds ago'">
-                                {{ __('sent you a message.') }}
-                            </x-dropdownmessage-link>
-                            <x-dropdownapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"  :currentDate="'3 hoursdsdd ago'">
-                                {{ __('sent an adoption application.') }}
-                            </x-dropdownapply-link>
-                            <x-dropdownvapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"    :currentDate="'3 hdsoddurs ago'"
-                                >
-                                {{ __('sent a volunteer application.') }}
-                            </x-dropdownvapply-link>
-                            
-                           
-                
+                            @if($adminNotifications)
+                                @foreach($adminNotifications as $notification)
+                                    @if ($notification->concern == 'Adoption Application')
+                                        <x-dropdownapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()">
+                                            {{ $notification->message }}
+                                        </x-dropdownapply-link>
+                                    @elseif ($notification->concern == 'Volunteer Application')
+                                        <x-dropdownvapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"    :currentDate="'3 hdsoddurs ago'">
+                                            {{ $notification->message }}
+                                        </x-dropdownvapply-link>
+                                    @endif
+                                @endforeach
+                            @endif
                         </div>
                          <!-- "Show More" button is now outside the max-h-60 container -->
                         <a href= "{{ route('admin.notifications') }}" class="cursor-pointer block w-full px-4 py-2 text-center text-sm font-bold text-red-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
@@ -187,16 +186,7 @@ lg:bg-red-800
                         </form>
                     </x-slot>
                 </x-dropdown>
-            </div>
-
-                
-
-               
-
-            
-            
-            
-            
+            </div>  
             
         </div>
     </div>
@@ -236,3 +226,38 @@ lg:bg-red-800
         </div>
     </div>
 </nav>
+<script>
+     document.addEventListener('DOMContentLoaded', function() {
+        const dropdownButton = document.getElementById('notificationBellTrigger');
+        if (dropdownButton) {
+            dropdownButton.addEventListener('click', function() {
+                console.log('bell is triggered');
+                markNotificationsAsRead();
+            });
+        } else {
+            console.error('Dropdown button not found');
+        }
+    });
+
+    function markNotificationsAsRead() {
+        fetch('/mark-notifications-as-read', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' // Assuming you're using CSRF protection
+            },
+            body: JSON.stringify({
+                // Pass any necessary data here
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to mark notifications as read');
+            }
+            // Handle success response if needed
+        })
+        .catch(error => {
+            console.error('Error marking notifications as read:', error);
+        });
+    }
+</script>

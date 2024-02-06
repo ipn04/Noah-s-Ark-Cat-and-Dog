@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\VolunteerApplication;
 use App\Models\Application;
 use App\Models\VolunteerAnswers;
+use App\Models\Notifications;
 use App\Models\ScheduleInterview;
 use App\Models\User;
 use App\Models\SchedulePickup;
@@ -17,7 +18,8 @@ class VolunteerController extends Controller
     public function store(Request $request, $userId)
     {
         $currentUserId = auth()->user()->id;
-    
+        $adminId = User::where('role', 'admin')->value('id');;
+
         // Check for an existing application for the current user
         $existingApplication = VolunteerApplication::join('application', 'volunteer_application.application_id', '=', 'application.id')
             ->where('application.user_id', $currentUserId)
@@ -52,6 +54,22 @@ class VolunteerController extends Controller
             'volunteer_id' => $volunteerApplicationId,
             'answers' => $serializedAnswers
         ]);
+
+        if (auth()->check()) {
+            $user = auth()->user();      
+        
+            $notificationMessage = 'has submitted volunteer application.';
+
+            $notification = new Notifications();
+            $notification->application_id = $application->id;;
+            $notification->sender_id = $currentUserId;
+            $notification->receiver_id = $adminId; 
+            $notification->concern = 'Adoption Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
+        } else {
+            
+        }
     
         return redirect()->route('user.volunteerprogress', ['userId' => $userId, 'applicationId' => $application->id])->with(['send_volunteer_form' => true]);
     }
@@ -68,7 +86,14 @@ class VolunteerController extends Controller
         $volunteerRejectedCount = $volunteer->where('volunteer_application.stage', '==', 10)
         ->count();
 
-        return view('admin_contents.volunteers', ['volunteer' => $volunteer, 'volunteerCount' => $volunteerCount, 'volunteerPendingCount' => $volunteerPendingCount, 'volunteerApprovedCount' => $volunteerApprovedCount, 'volunteerRejectedCount' => $volunteerRejectedCount]);
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
+        return view('admin_contents.volunteers', ['unreadNotificationsCount' => $unreadNotificationsCount,'adminNotifications' =>$adminNotifications, 'volunteer' => $volunteer, 'volunteerCount' => $volunteerCount, 'volunteerPendingCount' => $volunteerPendingCount, 'volunteerApprovedCount' => $volunteerApprovedCount, 'volunteerRejectedCount' => $volunteerRejectedCount]);
     }
     public function UserVolunteerProgress(Request $request, $userId, $applicationId)
     {
@@ -123,7 +148,15 @@ class VolunteerController extends Controller
         // dd($scheduleInterview);
         $stage = $userVolunteerAnswers->volunteer_application->stage;
         $answers = json_decode($userVolunteerAnswers->answers, true);
-        return view('admin_contents.volunteer_progress', ['acceptedSchedule' => $acceptedSchedule, 'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId, 'stage' => $stage, 'answers' => $answers, 'scheduleInterview' => $scheduleInterview]);
+        $adminId = auth()->user()->id;
+
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
+        return view('admin_contents.volunteer_progress', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'acceptedSchedule' => $acceptedSchedule, 'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId, 'stage' => $stage, 'answers' => $answers, 'scheduleInterview' => $scheduleInterview]);
     }
     public function updateVolunteerStage(Request $request, $userId, $applicationId)
     {

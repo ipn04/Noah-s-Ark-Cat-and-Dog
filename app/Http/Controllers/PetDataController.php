@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Pet;
 use App\Models\AdoptionAnswer;
 use App\Models\Application;
+use App\Models\Notifications;
 use App\Models\Adoption;
 use App\Exports\PetsExport;
 use Maatwebsite\Excel\Facades\Excel;
@@ -28,8 +29,15 @@ class PetDataController extends Controller
         ->where('adoption_status', 'available')
         ->count();
 
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
         return view('admin_contents.pet_management', ['pets' => $pets,'petCount' => $petCount, 'availpet' => $availpet,
-        'dogCount' => $dogCount, 'catCount'=> $catCount]);
+        'dogCount' => $dogCount, 'catCount'=> $catCount, 'unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications]);
     }
 
     public function filterPets(Request $request)

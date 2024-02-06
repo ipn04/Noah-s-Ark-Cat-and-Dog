@@ -8,6 +8,7 @@ use App\Http\Controllers\ApplicationController;
 use App\Http\Controllers\ReportsController;
 use App\Events\Messages;
 use App\Http\Controllers\InterviewController;
+use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PickupController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\ScheduleController;
@@ -288,6 +289,7 @@ Route::delete('/delete-account', [ProfileController::class, 'deleteAccount'])->m
 
 Route::get('/filter-pets', [PetDataController::class, 'filterPets'])->name('filter.pets');
 
+Route::post('/mark-notifications-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
 
 Route::get('/contactdev', function () {
     return view('profile.developer');

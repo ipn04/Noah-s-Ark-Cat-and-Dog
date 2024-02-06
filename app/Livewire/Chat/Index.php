@@ -3,6 +3,7 @@
 namespace App\Livewire\Chat;
 use App\Models\Message;
 use App\Models\MessageThread;
+use App\Models\Notifications;
 
 use Livewire\Component;
 
@@ -12,10 +13,19 @@ class Index extends Component
 
     public $threads;
     public $initialMessage;
+    public $unreadNotificationsCount;
+    public $adminNotifications;
 
     public function mount()
     {
         $user = auth()->user();
+
+        $adminId = auth()->user()->id;
+        $this->unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $this->adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
 
         if ($user && $user->isAdmin()) {
             $this->threads = Message::all();
@@ -57,7 +67,6 @@ class Index extends Component
         $user = auth()->user();
 
         if ($user && $user->isAdmin()) {
-            // For admins, update the read_at timestamp for messages where they are the receiver
             MessageThread::where('parent_message_id', $threadId)
                 ->whereNull('read_at')
                 ->where('receiver_id', $user->id)

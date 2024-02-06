@@ -90,11 +90,9 @@ lg:bg-red-800
                         <div class="relative inline-block text-left">
                             <div class="flex items-center relative">
                                 <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none">
-                                    3 <!-- Replace this number with your dynamic notification count -->
+                                    0 
                                 </div>
                                 
-
-                                <!-- Dropdown button with image and icon -->
                                 <button class="flex items-center p-1 
                                                 
                                 @if(  Route::is('chat.index') || Route::is('user.notifications') ||  Route::is('interview.user') || Route::is('user.volunteerprogress') ||Route::is('user.volunteer') || Route::is('user.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))

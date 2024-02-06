@@ -12,6 +12,7 @@ use App\Models\ScheduleInterview;
 use App\Models\Schedule;
 use App\Models\SchedulePickup;
 use App\Models\ScheduleVisit;
+use App\Models\Notifications;
 use App\Models\VolunteerApplication;
 use App\Models\VolunteerAnswers;
 use App\Models\User;
@@ -25,11 +26,12 @@ class adoptionController extends Controller
 {
     public function store(Request $request, $petId)
     {
-        $userId = auth()->user()->id; // Get the authenticated user's ID
+        $userId = auth()->user()->id; 
+        $adminId = User::where('role', 'admin')->value('id');;
         $pet = Pet::find($petId);
         // dd($petId);
         $application = new Application();
-        $application->user_id = $userId; // Use the authenticated user's ID
+        $application->user_id = $userId; 
         $application->application_type = "application_form";
         $application->save();
 
@@ -107,16 +109,34 @@ class adoptionController extends Controller
             $validatedData['upload2'] = $imageName2;
         }
         
-
+        
         try {
             $adoptionAnswer = new AdoptionAnswer();
             $adoptionAnswer->adoption_id = $adoptionId;
             $adoptionAnswer->fill($validatedData);
             $adoptionAnswer->save(); 
+
+            if (auth()->check()) {
+                $user = auth()->user();      
+            
+                $notificationMessage = 'has submitted adoption application.';
+
+                $notification = new Notifications();
+                $notification->application_id = $applicationId;
+                $notification->sender_id = $userId;
+                $notification->receiver_id = $adminId; 
+                $notification->concern = 'Adoption Application';
+                $notification->message = $notificationMessage;
+                $notification->save();
+            } else {
+                
+            }
         } catch (\Exception $e) {
             // Log the error or use dd($e) to dump the error and investigate
             dd($e);
         }
+
+
 
         return redirect()->route('user.adoptionprogress', ['adoption_answer' => true, 'userId' => $userId, 'petId' => $petId, 'applicationId' => $applicationId, 'adoptionAnswer' => $adoptionAnswer]);
     } 
@@ -176,7 +196,15 @@ class adoptionController extends Controller
 
         $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
 
-        return view('admin_contents.adoptions', compact('adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers'));
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
+
+        return view('admin_contents.adoptions', compact('unreadNotificationsCount', 'adminNotifications', 'adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers'));
     }   
 
     public function adminLoadProgress($userId, $id) {
@@ -205,7 +233,13 @@ class adoptionController extends Controller
         // if (!$scheduleInterview && !$schedulePickup) {
         //     return redirect()->back()->with(['error' => 'Schedule not found']);
         // }
-        
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
         return view('admin_contents.adoptionprogress', [
             'adoptionAnswer' => $adoptionAnswer,
             'stage' => $stage,
@@ -214,6 +248,8 @@ class adoptionController extends Controller
             'schedulePickup' => $schedulePickup,
             'adoption' => $adoption,
             'adoptionAnswers' => $adoptionAnswers,
+            'unreadNotificationsCount' => $unreadNotificationsCount,
+            'adminNotifications' => $adminNotifications,
         ]);
     } 
     public function updateStage($userId, $id)

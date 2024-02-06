@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\Models\User;
+use App\Models\Notifications;
 use Illuminate\Validation\Rules\Password;
 use Illuminate\Validation\Rules;
 use Carbon\Carbon;
@@ -36,7 +37,14 @@ class ProfileController extends Controller
     public function showRegisteredUsers() {
         $showUsers = User::where('role', 'user')->get();
 
-        return view ('admin_contents.view_registered_users', compact('showUsers'));
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
+        return view ('admin_contents.view_registered_users', compact('showUsers', 'unreadNotificationsCount', 'adminNotifications'));
     }
 
     public function updateUserProfile(Request $request, $id)

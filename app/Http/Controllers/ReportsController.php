@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Application;
+use App\Models\Notifications;
 use App\Models\User;
 use App\Models\Pet;
 
@@ -106,6 +107,13 @@ class ReportsController extends Controller
             ->whereYear('updated_at', $previousYear)
             ->count();
 
-        return view('admin_contents.reports', compact('currentYearCount','previousYearCount','AdoptedData','sizes','sizecounts', 'genders','gendercounts','behaviors','countss','ageRanges','count','breeds','counts','applicationsTotalCount','totalUsers','totalAdopted','dogCount','catCount'));
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+    
+        return view('admin_contents.reports', compact('currentYearCount','previousYearCount','AdoptedData','sizes','sizecounts', 'genders','gendercounts','behaviors','countss','ageRanges','count','breeds','counts','applicationsTotalCount','totalUsers','totalAdopted','dogCount','catCount', 'unreadNotificationsCount', 'adminNotifications'));
     }
 }

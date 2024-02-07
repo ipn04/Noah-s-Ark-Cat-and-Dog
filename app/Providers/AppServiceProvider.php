@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\View;
+use App\Models\Message;
 use App\Models\MessageThread;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
             $user = auth()->user();
     
             if ($user && $user->isAdmin()) {
-                $unreadMessageCount = MessageThread::unreadCount($user->id);
+                $unreadMessageCount = Message::unreadCount($user->id);
                 $view->with('unreadMessageCount', $unreadMessageCount);
             } else {
                 $view->with('unreadMessageCount', 0);

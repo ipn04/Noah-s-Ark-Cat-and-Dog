@@ -202,15 +202,15 @@ Route::get('/admin/adoptions', [adoptionController::class, 'adminAdoptionProgres
     ->middleware(['auth', 'admin'])
     ->name('admin.adoptions');
 
-    Route::get('/admin/reports', [ReportsController::class, 'view_reports'])
+Route::get('/admin/reports', [ReportsController::class, 'view_reports'])
     ->middleware(['auth', 'admin'])
     ->name('admin.reports');
 
-    Route::get('/admin/notications', function () {
-        return view('admin_contents.admin_notifications');
-    })->name('admin.notifications');
+Route::get('/admin/notications', [NotificationController::class, 'notification'])
+    ->middleware(['auth', 'admin'])
+    ->name('admin.notifications');
 
-    Route::get('/user/notications', function () {
+Route::get('/user/notications', function () {
         return view('user_contents.notifications');
     })->name('user.notifications');
 
@@ -290,6 +290,8 @@ Route::delete('/delete-account', [ProfileController::class, 'deleteAccount'])->m
 Route::get('/filter-pets', [PetDataController::class, 'filterPets'])->name('filter.pets');
 
 Route::post('/mark-notifications-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
+
+Route::post('/messages/mark-as-read', [MessageController::class, 'markAsRead'])->name('messages.markAsRead');
 
 Route::get('/contactdev', function () {
     return view('profile.developer');

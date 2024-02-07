@@ -211,3 +211,28 @@
    </div>   
 </aside>
 
+<script>
+    $(document).ready(function() {
+        var csrfToken = $('meta[name="csrf-token"]').attr('content');
+        
+        var isAdmin = @json(auth()->user()->isAdmin());
+        var isChatIndex = @json(Route::is('chat.index'));
+        
+        if (isAdmin && isChatIndex) {
+            $.ajax({
+                url: '{{ route('messages.markAsRead') }}',
+                type: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken 
+                },
+                success: function(response) {
+                    console.log('Messages marked as read');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error marking messages as read:', error);
+                }
+            });
+        }
+    });
+ </script>
+ 

@@ -20,4 +20,11 @@ class Message extends Model
     public function threads() {
         return $this->hasMany(MessageThread::class, 'parent_message_id');
     }
+    public function scopeUnreadCount($query, $userId)
+    {
+        return $query->whereNull('read_at')
+            ->where('receiver_id', $userId)
+            ->where('sender_id', '!=', $userId)
+            ->count();
+    }
 }

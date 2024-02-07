@@ -53,8 +53,10 @@ class Index extends Component
                 ->where('receiver_id', $user->id)
                 ->where('sender_id', '!=', $user->id)
                 ->count();
+                
         }
     }
+    
     public function markAsReadAndNavigate($threadId)
     {
         $this->markAsRead($threadId);

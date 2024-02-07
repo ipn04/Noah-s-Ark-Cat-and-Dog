@@ -34,6 +34,7 @@
             </div>
             <p class="text-xs p-1">{{ $currentDate }}</p>
         </div>
+        
         <div class="w-2 h-2 bg-red-500 rounded-full ml-2"></div>
 
         

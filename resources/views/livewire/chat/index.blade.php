@@ -126,7 +126,7 @@
                                 </ul>
                                 @if($threads)
                                     @foreach ($threads as $thread)
-                                        <div wire:click="markAsReadAndNavigate({{ $thread->id }})" class="message-item divide-y divide-black-900 hover:bg-gray-100 hover:rounded-lg mt-2 px-2"
+                                        <div wire:click="markAsReadAndNavigate({{ $thread->id }})" class="message-item divide-y divide-black-900 hover:bg-gray-100 hover:rounded-lg mt-2 px-2 @if ($thread->read_at === null) border border-indigo-500 @endif"
                                             data-concern="{{ $thread->concern }}">
                                             <!-- User -->
                                             {{-- <a href="{{ route('chat', ['messageId' => $thread->id]) }}"> --}}

@@ -46,6 +46,15 @@ class MessageController extends Controller
 
         return redirect()->back();
     }
+    
+    public function markAsRead()
+    {
+        $adminId = auth()->id();
+        Message::where('receiver_id', $adminId)
+               ->whereNull('read_at')
+               ->update(['read_at' => now()]);
+        return response()->json(['success' => true]);
+    }
 
     public function AdminStoreReply(Request $request, $messageId, $receiverId)
     {

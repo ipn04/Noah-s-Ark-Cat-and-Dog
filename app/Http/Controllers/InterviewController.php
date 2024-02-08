@@ -9,12 +9,14 @@ use App\Models\Application;
 use App\Models\Adoption;
 use App\Models\VolunteerAnswers;
 use Illuminate\Support\Facades\Redirect;
+use App\Models\User;
+use App\Models\Notifications;
 
 class InterviewController extends Controller
 {
     public function store(Request $request)
     {
-
+        $adminId = User::where('role', 'admin')->value('id');;
         $possible_characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         $string_length = 30;
 
@@ -49,6 +51,17 @@ class InterviewController extends Controller
         $scheduleInterview->time = $request->input('time');
         $scheduleInterview->room = $random_string;
         $scheduleInterview->save();
+
+
+        $notificationMessage = 'Sent a Schedule Interview';
+
+        $notification = new Notifications();
+        $notification->application_id = $application->id; 
+        $notification->sender_id = $currentUserId;
+        $notification->receiver_id = $adminId; 
+        $notification->concern = 'Adoption Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
 
         // Find the most recent adoption for the current user
         $adoption = Adoption::whereHas('application', function ($query) use ($currentUserId) {

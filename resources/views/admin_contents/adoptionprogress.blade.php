@@ -544,7 +544,12 @@
                 </div>
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
-
+                    @if($firstnotification)
+                        @foreach ($firstnotification as $notify)
+                            <h1 class="font-bold">{{$notify->concern}}</h1>
+                            <h5>{{$notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message}}</h5>
+                        @endforeach
+                    @endif
                 </div>
             </div>
 
@@ -658,6 +663,14 @@
                 </div>
                 <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                    <div class="bg-gray-200">
+                        @if($firstnotification)
+                            @foreach ($firstnotification as $notify)
+                                <h1 class="font-bold">{{$notify->concern}}</h1>
+                                <h5>{{$notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message}}</h5>
+                            @endforeach
+                        @endif
+                    </div>
                     @if ($stage === 2)
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"

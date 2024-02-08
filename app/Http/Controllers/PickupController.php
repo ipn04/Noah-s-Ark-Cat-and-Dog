@@ -7,12 +7,15 @@ use App\Models\Schedule;
 use App\Models\SchedulePickup;
 use App\Models\Application;
 use App\Models\Adoption;
+use App\Models\User;
+use App\Models\Notifications;
 
 class PickupController extends Controller
 {
     public function store(Request $request)
     {
     $currentUserId = auth()->user()->id; // Change this to your actual way of getting the user ID
+    $adminId = User::where('role', 'admin')->value('id');;
 
         $application = Application::where('user_id', $currentUserId)
         ->where('application_type', 'application_form') 
@@ -33,6 +36,16 @@ class PickupController extends Controller
         $schedulePickup->date = $request->input('date');
         $schedulePickup->time = $request->input('time');
         $schedulePickup->save();
+
+        $notificationMessage = 'Sent a Schedule Pickup';
+
+        $notification = new Notifications();
+        $notification->application_id = $application->id; 
+        $notification->sender_id = $currentUserId;
+        $notification->receiver_id = $adminId; 
+        $notification->concern = 'Adoption Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
 
         $adoption = Adoption::whereHas('application', function ($query) use ($currentUserId) {
             $query->where('user_id', $currentUserId);

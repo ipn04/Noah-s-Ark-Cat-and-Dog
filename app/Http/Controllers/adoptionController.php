@@ -128,6 +128,8 @@ class adoptionController extends Controller
                 $notification->concern = 'Adoption Application';
                 $notification->message = $notificationMessage;
                 $notification->save();
+
+                // $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->get();
             } else {
                 
             }
@@ -142,7 +144,9 @@ class adoptionController extends Controller
     } 
     public function adoptionProgress($userId, $applicationId, $petId, $adoptionAnswer = false)
     {
-        // $userId = auth()->user()->id;
+        $authUser = auth()->user()->id;
+        $adminId = User::where('role', 'admin')->value('id');;
+
         $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId, $petId) {
             $query->whereHas('application', function ($query) use ($userId) {
                 $query->where('user_id', $userId);
@@ -172,9 +176,12 @@ class adoptionController extends Controller
             ->with('schedule', 'application')
             ->first();
         }
-        
+
+        // dd($stage);
+        $firstnotification = Notifications::where('receiver_id', $authUser)->where('sender_id', $adminId)->where('application_id', $applicationId)->get();
+        // dd($userId);
         // Pass the pet data and other necessary variables to the view
-        return view('user_contents.adoptionprogress', [
+        return view('user_contents.adoptionprogress', ['firstnotification' => $firstnotification,
             'adoption_answer' => $adoptionAnswer, 
             'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview, 'schedulePickup' => $schedulePickup, 'adoptionAnswerData' => $adoptionAnswerData
         ]);
@@ -239,7 +246,8 @@ class adoptionController extends Controller
             ->count();
 
         $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
-
+        $firstnotification = Notifications::where('receiver_id', $adminId)->where('sender_id', $userId)->where('application_id', $id)->get();
+            
         return view('admin_contents.adoptionprogress', [
             'adoptionAnswer' => $adoptionAnswer,
             'stage' => $stage,
@@ -250,6 +258,7 @@ class adoptionController extends Controller
             'adoptionAnswers' => $adoptionAnswers,
             'unreadNotificationsCount' => $unreadNotificationsCount,
             'adminNotifications' => $adminNotifications,
+            'firstnotification' => $firstnotification
         ]);
     } 
     public function updateStage($userId, $id)
@@ -258,6 +267,19 @@ class adoptionController extends Controller
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
             ->first();
+
+        $adminId = auth()->id();
+        $notificationMessage = 'Application Validated.';
+
+        $notification = new Notifications();
+        $notification->application_id = $id; 
+        $notification->sender_id = $adminId;
+        $notification->receiver_id = $userId; 
+        $notification->concern = 'Adoption Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+        
+        // dd($notification);
 
         if ($adoptionAnswer) {
             // Increment the stage directly
@@ -388,12 +410,25 @@ class adoptionController extends Controller
             ->where('application.user_id', $userId)
             ->first();
 
+        $adminId = User::where('role', 'admin')->value('id');
+
+
         if ($adoptionAnswer) {
             DB::table('adoption')
                 ->where('application_id', $id)
                 ->update(['stage' => \DB::raw('stage + 1')]);
 
             $application = $adoptionAnswer->application;
+
+            $notificationMessage = 'Admin has Accepted the Interview Schedule';
+
+            $notification = new Notifications();
+            $notification->application_id = $application->id; 
+            $notification->sender_id = $adminId;
+            $notification->receiver_id = $userId; 
+            $notification->concern = 'Adoption Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
 
             if ($application) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->latest()->first();
@@ -528,6 +563,8 @@ class adoptionController extends Controller
         ->where('application.user_id', $userId)
         ->first();
 
+        $adminId = User::where('role', 'admin')->value('id');
+
         if ($adoptionAnswer) {
             DB::table('adoption')
             ->where('application_id', $id)
@@ -535,6 +572,16 @@ class adoptionController extends Controller
 
             $application = $adoptionAnswer->application;
            
+            $notificationMessage = 'Admin has Accepted the Pickup Schedule';
+
+            $notification = new Notifications();
+            $notification->application_id = $application->id; 
+            $notification->sender_id = $adminId;
+            $notification->receiver_id = $userId; 
+            $notification->concern = 'Adoption Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
+
             if ($application) {
                 $schedulepickup = SchedulePickup::where('application_id', $application->id)->latest()->first();
                 if ($schedulepickup) {

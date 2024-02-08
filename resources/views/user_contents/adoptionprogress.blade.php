@@ -44,11 +44,9 @@
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
                 <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="
-                    @if ($stage >= 0 && $stage <= 3) 
-                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md 
+                    @if ($stage >= 0 && $stage <= 3) block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md 
                     @elseif ($stage > 3)
-                    hidden 
-                    @endif">
+                    hidden @endif">
                     Cancel Application
                 </button>
             </div>
@@ -83,7 +81,7 @@
                         <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
                             cancel this application?</h3>
                         <form
-                            action="{{route('cancel.stage', ['userId' => auth()->user()->id, 'id' => $adoptionAnswerData->adoption->application->id] )}}"
+                            action="{{ route('cancel.stage', ['userId' => auth()->user()->id, 'id' => $adoptionAnswerData->adoption->application->id]) }}"
                             method="POST">
                             @csrf
                             @method('PATCH')
@@ -241,7 +239,7 @@
                                 </svg>
                             </div>
                             <h1 class = "lg:hidden text-center py-2">Schedule Pickup</h1>
-                     
+
                         </div>
                         <h1 class = "lg:block hidden text-center py-2">Schedule Pickup</h1>
                     </div>
@@ -288,10 +286,11 @@
                                     hidden @endif">
                         <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                            <p class = "italic text-sm px-2 pb-3 ps-2">The shelter is on their way now to your location,
+                            <p class = "italic text-sm px-2 pb-3 ps-2">The shelter is on their way now to your
+                                location,
                                 please wait for them</p>
                             <h2 class = "font-bold text-lg p-2 ps-2">Estimated Date and Time of Arrival</h2>
-                           
+
                             <p class="p-2 pe-2 ps-4">
                                 @isset($scheduleInterview->date)
                                     {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
@@ -319,7 +318,7 @@
                                 {{ \Carbon\Carbon::parse($schedulePickup->date ?? '')->format('F j, Y') }}
                             </h2>
                             <p class = "p-2">You have an interview scheduled later at
-                                {{ \Carbon\Carbon::parse($schedulePickup->time  ?? '')->format('g:i A') }}
+                                {{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('g:i A') }}
                                 . Please join this meet
                                 later at {{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('g:i A') }}
                                 .</p>
@@ -334,7 +333,7 @@
                                         $today = \Carbon\Carbon::now();
 
                                         // Add a null check before calling isBefore()
-                                        $isDisabled = $scheduledDate && $scheduledDate->isBefore($today) || ($scheduledDate && $scheduledDate->equalTo($today) && $scheduledTime && $scheduledTime < $currentTime);
+                                        $isDisabled = ($scheduledDate && $scheduledDate->isBefore($today)) || ($scheduledDate && $scheduledDate->equalTo($today) && $scheduledTime && $scheduledTime < $currentTime);
                                     @endphp
                                     <button type="submit"
                                         class="p-2 w-full rounded-lg mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
@@ -342,31 +341,52 @@
                                         Join Meet
                                     </button>
                                 </a>
-                                
-                        
-                                <button type="button" id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
+
+
+                                <button type="button" id="deleteButton" data-modal-target="deleteModal"
+                                    data-modal-toggle="deleteModal"
                                     class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
                                     Cancel Meet
                                 </button>
 
-                                <div id="deleteModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                                <div id="deleteModal" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
                                     <div class="relative p-4 w-full max-w-md h-full md:h-auto">
                                         <!-- Modal content -->
-                                        <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                            <button type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
-                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        <div
+                                            class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <button type="button"
+                                                class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-toggle="deleteModal">
+                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
                                                 <span class="sr-only">Close modal</span>
                                             </button>
-                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to cancel this meeting?</p>
+                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to
+                                                cancel this meeting?</p>
                                             <div class="flex justify-center items-center space-x-4">
-                                                <form action="{{ route('user.cancelInterview',  ['userId' => auth()->user()->id, 'id' => $adoptionAnswerData->adoption->application->id]) }}" method="POST">
+                                                <form
+                                                    action="{{ route('user.cancelInterview', ['userId' => auth()->user()->id, 'id' => $adoptionAnswerData->adoption->application->id]) }}"
+                                                    method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button type="submit" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                    <button type="submit"
+                                                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                                                         Yes, I'm sure
                                                     </button>
-                                                    <button data-modal-toggle="deleteModal" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                    <button data-modal-toggle="deleteModal" type="button"
+                                                        class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
                                                         No, cancel
                                                     </button>
                                                 </form>
@@ -390,45 +410,99 @@
                                 {{ $userr->firstname . ' ' . $userr->name }}
                             </h1>
                             <div class = "pb-4">
-                                <div class="overflow-x-visible">
+                                <ul class="space-y-3  mb-4">
+                                    <div class = "grid grid-cols-2 gap-1 pt-4">
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Birthday
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ \Carbon\Carbon::parse($userr->birthday)->format('F j, Y') }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Gender
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $userr->gender }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div class = "grid grid-cols-2 gap-1 p-1">
+                                        <li>
+                                            <label
+                                                class="  inline-flex items-center justify-between w-full h-full  p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Phone Number
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $userr->phone_number }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Civil Status
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $userr->civil_status }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <li>
+                                        <label
+                                            class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                    Email
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ $userr->email }}
+                                                </div>
+                                            </div>
+                                        </label>
 
-                                    <table class="min-w-full table-auto border-separate border-spacing-3">
-                                        <tr>
-                                            <td class="font-bold">Birthdate</td>
-                                            <td class="whitespace-nowrap">{{ $userr->birthday }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Gender</td>
-                                            <td class="capitalize whitespace-nowrap">{{ $userr->gender }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Phone</td>
-                                            <td class="capitalize whitespace-nowrap">{{ $userr->phone_number }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Email</td>
-                                            <td class="whitespace-nowrap">{{ $userr->email }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Civil Status</td>
-                                            <td class="capitalize whitespace-nowrap">{{ $userr->civil_status }}</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="font-bold">Address</td>
-                                            <td class="capitalize whitespace-normal break-all">
-                                                {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </div>
+                                    </li>
 
-
+                                    <li>
+                                        <label
+                                            class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                    Address
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                </ul>
 
                                 <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
                                     View Answers
                                 </button>
+
                             </div>
                         </div>
                         <div class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
@@ -441,11 +515,41 @@
                             </div>
                             <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $petData->pet_name }}
                             </h1>
-                            <div class = "pb-4 overflow-x-visible">
+                            <div class = "pb-4">
+                                <ul class="space-y-3  mb-4">
+                                    <div class = "grid grid-cols-2 gap-1 pt-4">
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Age
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $petData->age }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Gender
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $petData->gender }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                </ul>
+
                                 <table class = "border-separate border-spacing-3">
                                     <tr>
                                         <td class = "font-bold">Age</td>
-                                        <td>{{ $petData->age }}</td>
                                     </tr>
                                     <tr>
                                         <td class = "font-bold">Gender</td>
@@ -627,217 +731,341 @@
                     <h1 class = "text-center font-bold text-2xl capitalize">
                         {{ $userr->firstname . ' ' . $userr->name }}</h1>
                     <div class = "pb-4">
-                        <div class="overflow-x-hidden">
-                            <table class="min-w-full table-auto border-separate border-spacing-3">
-                                <tr>
-                                    <td class="font-bold">Birthdate</td>
-                                    <td class="whitespace-nowrap">{{ $userr->birthday }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Gender</td>
-                                    <td class="capitalize whitespace-nowrap">{{ $userr->gender }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Phone</td>
-                                    <td class="capitalize whitespace-nowrap">{{ $userr->phone_number }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Email</td>
-                                    <td class="whitespace-nowrap">{{ $userr->email }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Civil Status</td>
-                                    <td class="capitalize whitespace-nowrap">{{ $userr->civil_status }}</td>
-                                </tr>
-                                <tr>
-                                    <td class="font-bold">Address</td>
-                                    <td class="capitalize whitespace-normal break-all">
-                                        {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
-                                    </td>
-                                </tr>
-                            </table>
-                            <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
+                        <ul class="space-y-3  mb-4">
+                            <div class = "grid grid-cols-2 gap-1 pt-4">
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Birthday
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ \Carbon\Carbon::parse($userr->birthday)->format('F j, Y') }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Gender
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $userr->gender }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div class = "grid grid-cols-2 gap-1 p-1">
+                                <li>
+                                    <label
+                                        class="  inline-flex items-center justify-between w-full h-full  p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Phone Number
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $userr->phone_number }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Civil Status
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $userr->civil_status }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <li>
+                                <label
+                                    class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                    <div class="block">
+                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                            Email
+                                        </div>
+                                        <div class="w-full text-base font-medium">
+                                            {{ $userr->email }}
+                                        </div>
+                                    </div>
+                                </label>
+
+                            </li>
+
+                            <li>
+                                <label
+                                    class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                    <div class="block">
+                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                            Address
+                                        </div>
+                                        <div class="w-full text-base font-medium">
+                                            {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+
+                        <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             View Answers
                         </button>
-                        </div>
 
                     </div>
                 </div>
-                    <div
-                        class=" @if ($stage == 5) hidden 
+                <div
+                    class=" @if ($stage == 5) hidden 
                 @else
-                block bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900 @endif">
+                block bg-white px-5 mt-10 h-full lg:mt-0 shadow-md rounded-2xl text-gray-900 @endif">
 
-                        <div
-                            class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                            <img class="object-cover object-center h-32"
-                                src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
-                                alt='Woman looking front'>
-                        </div>
-                        <h1 class = "text-center font-bold text-2xl capitalize">{{ $petData->pet_name }}</h1>
-                        <div class = "pb-4">
-                            <table class = "border-separate border-spacing-3">
-                                <tr>
-                                    <td class = "font-bold">Age</td>
-                                    <td class = "capitalize">{{ $petData->age }}</td>
-                                </tr>
-                                <tr>
-                                    <td class = "font-bold">Gender</td>
-                                    <td class = "capitalize">{{ $petData->gender }}</td>
-                                </tr>
-                                <tr>
-                                    <td class = "font-bold">Breed</td>
-                                    <td class = "capitalize">{{ $petData->breed }}</td>
-                                </tr>
-                                <tr>
-                                    <td class = "font-bold">Weight</td>
-                                    <td>{{ $petData->weight }}</td>
-                                </tr>
-                                <tr>
-                                    <td class = "font-bold">Size</td>
-                                    <td class = "capitalize">{{ $petData->size }}</td>
-                                </tr>
-                                <tr>
-                                    <td class = "font-bold">Color</td>
-                                    <td class = "capitalize">{{ $petData->color }}</td>
-                                </tr>
-                                <tr>
-                                    <td class = "font-bold">Vaccination</td>
-                                    <td class = "capitalize">{{ $petData->vaccination_status }}</td>
-                                </tr>
-                            </table>
-                            <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
-                                class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                type="button">
-                                More details
-                            </button>
-                        </div>
+                    <div class="mx-auto w-32 h-32 -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                        <img class="object-cover object-center h-32 w-32"
+                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt='Woman looking front'>
                     </div>
-                    <div
-                        class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md
+                    <h1 class = "text-center font-bold text-2xl capitalize">{{ $petData->pet_name }}</h1>
+                    <div class = "pb-4">
+                        <ul class="space-y-3  mb-4">
+                            <div class = "grid grid-cols-2 gap-1 pt-4">
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Age
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $petData->age }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Gender
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $petData->gender }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div class = "grid grid-cols-2 gap-1 p-1">
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Breed
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $petData->breed }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Weight
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $petData->weight }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div class = "grid grid-cols-2 gap-1 p-1">
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Size
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $petData->size }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Color
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $petData->color }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <li>
+                                <label
+                                    class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                    <div class="block">
+                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                            Vaccination
+                                        </div>
+                                        <div class="w-full text-base font-medium">
+                                            {{ $petData->vaccination_status }}
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                        </ul>
+                        
+                        <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
+                            class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            type="button">
+                            More details
+                        </button>
+                    </div>
+                </div>
+                <div
+                    class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md h-96
                     @if ($stage == 5) w-3/4 mx-auto
                     @else @endif">
-                        <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                        <!-- Modal toggle -->
-                        @if ($stage === 1)
-                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button">
-                                Schedule Interview
-                            </button>
+                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                    <!-- Modal toggle -->
+                    @if ($stage === 1)
+                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                            class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                            type="button">
+                            Schedule Interview
+                        </button>
 
 
-                            <!-- Main modal -->
-                            <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                                <div class="relative p-4 w-full max-w-md max-h-full">
-                                    <!-- Modal content -->
-                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                        <!-- Modal header -->
-                                        <div
-                                            class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                Schedule
-                                            </h3>
-                                            <button type="button"
-                                                class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-toggle="crud-modal">
-                                                <svg class="w-3 h-3" aria-hidden="true"
+                        <!-- Main modal -->
+                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative p-4 w-full max-w-md max-h-full">
+                                <!-- Modal content -->
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <!-- Modal header -->
+                                    <div
+                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                            Schedule
+                                        </h3>
+                                        <button type="button"
+                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-toggle="crud-modal">
+                                            <svg class="w-3 h-3" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                    </div>
+                                    <!-- Modal body -->
+                                    <form action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
+                                        class="p-4 md:p-5" method="POST">
+                                        @csrf
+                                        <h1 class = " text-left  text-lg">Please state your interview availability
+                                            and
+                                            start time.
+                                            Interviews are limited to <b>1 hour.</b>
+                                        </h1>
+                                        <p class = "text-xs  italic">Note that the administration will have the
+                                            final
+                                            say on
+                                            whether or not to approve your proposed schedule.</p>
+                                        <div class="-mx-3  pt-3 flex flex-wrap">
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <div class="mb-5">
+                                                    <label for="date"
+                                                        class="mb-3 block text-base  font-bold text-[#07074D]">
+                                                        Date
+                                                    </label>
+                                                    <input type="date" name="date" id="date"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                </div>
+                                            </div>
+                                            <div class="w-full px-3 sm:w-1/2">
+                                                <div class="mb-5">
+                                                    <label for="time"
+                                                        class="mb-3 block text-base font-bold text-[#07074D]">
+                                                        Time
+                                                    </label>
+                                                    <input type="time" name="time" id="time"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="grid grid-cols-2 gap-4 mx-auto">
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
+                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                Submit
+                                            </button>
+                                            <button type="submit"
+                                                class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
                                                     xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 14 14">
+                                                    viewBox="0 0 20 20">
                                                     <path stroke="currentColor" stroke-linecap="round"
                                                         stroke-linejoin="round" stroke-width="2"
                                                         d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                                 </svg>
-                                                <span class="sr-only">Close modal</span>
+                                                Cancel
                                             </button>
                                         </div>
-                                        <!-- Modal body -->
-                                        <form
-                                            action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
-                                            class="p-4 md:p-5" method="POST">
-                                            @csrf
-                                            <h1 class = " text-left  text-lg">Please state your interview availability
-                                                and
-                                                start time.
-                                                Interviews are limited to <b>1 hour.</b>
-                                            </h1>
-                                            <p class = "text-xs  italic">Note that the administration will have the
-                                                final
-                                                say on
-                                                whether or not to approve your proposed schedule.</p>
-                                            <div class="-mx-3  pt-3 flex flex-wrap">
-                                                <div class="w-full px-3 sm:w-1/2">
-                                                    <div class="mb-5">
-                                                        <label for="date"
-                                                            class="mb-3 block text-base  font-bold text-[#07074D]">
-                                                            Date
-                                                        </label>
-                                                        <input type="date" name="date" id="date"
-                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                    </div>
-                                                </div>
-                                                <div class="w-full px-3 sm:w-1/2">
-                                                    <div class="mb-5">
-                                                        <label for="time"
-                                                            class="mb-3 block text-base font-bold text-[#07074D]">
-                                                            Time
-                                                        </label>
-                                                        <input type="time" name="time" id="time"
-                                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="grid grid-cols-2 gap-4 mx-auto">
-                                                <button type="submit"
-                                                    class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                    <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
-                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                        <path fill-rule="evenodd"
-                                                            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                            clip-rule="evenodd"></path>
-                                                    </svg>
-                                                    Submit
-                                                </button>
-                                                <button type="submit"
-                                                    class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                    <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
-                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                        viewBox="0 0 20 20">
-                                                        <path stroke="currentColor" stroke-linecap="round"
-                                                            stroke-linejoin="round" stroke-width="2"
-                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                    </svg>
-                                                    Cancel
-                                                </button>
-                                            </div>
-                                        </form>
-                                    </div>
+                                    </form>
                                 </div>
                             </div>
-                        @elseif ($stage === 9)
-                            <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
-                                <button
-                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                                    </svg>
-                                    <span>Download</span>
-                                </button>
-                            </a>
-                        @else
-                        @endif
-                    </div>
+                        </div>
+                    @elseif ($stage === 9)
+                        <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                            <button
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                </svg>
+                                <span>Download</span>
+                            </button>
+                        </a>
+                    @else
+                    @endif
                 </div>
+            </div>
     </section>
 
     <!-- Main modal -->
     <div id="pet-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <div class="relative p-4 w-full max-w-5xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
@@ -856,7 +1084,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
+                <div class="p-4 md:p-5 grid grid-cols-1 md:grid-cols-4 gap-2">
                     <ul class="space-y-4 ">
                         <li>
                             <input type="text" id="pet-name" name="job" value="pet-name"
@@ -894,6 +1122,10 @@
                                 </div>
                             </label>
                         </li>
+                        
+                       
+                    </ul>
+                    <ul class = "space-y-4 ">
                         <li>
                             <input type="text" id="pet-age" name="job" value="pet-age" class="hidden peer"
                                 required>
@@ -930,7 +1162,9 @@
                                 </div>
                             </label>
                         </li>
+                       
                     </ul>
+                    
                     <ul class = "space-y-4 ">
                         <li>
                             <input type="text" id="pet-gender" name="job" value="pet-gender"
@@ -956,6 +1190,7 @@
                                 </div>
                             </label>
                         </li>
+                          
                         <li>
                             <input type="text" id="pet-weight" name="job" value="pet-weight"
                                 class="hidden peer" required>
@@ -968,6 +1203,9 @@
                                 </div>
                             </label>
                         </li>
+                    </ul>
+                    <ul class = "space-y-4 ">
+                      
                         <li>
                             <input type="text" id="pet-size" name="job" value="pet-size"
                                 class="hidden peer" required>
@@ -1020,8 +1258,8 @@
 
     <div id="petimage-modal" tabindex="-1"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-7xl max-h-full">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+        <div class="relative p-4 w-full max-w-7xl max-h-screen">
+            <div class="relative  rounded-lg shadow dark:bg-gray-700">
                 <button type="button"
                     class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                     data-modal-hide="petimage-modal">
@@ -1033,7 +1271,7 @@
                     <span class="sr-only">Close modal</span>
                 </button>
                 <div class="p-4 md:p-5 items-center text-center">
-                    <img class="object-cover object-center mx-auto max-w-3xl h-full"
+                    <img class="object-cover object-center mx-auto max-w-xl  "
                         src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt='user profile'>
                 </div>
             </div>
@@ -1061,7 +1299,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
+                <div class="p-4 md:p-5 grid grid-cols-1 md:grid-cols-2 gap-2">
                     <div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />

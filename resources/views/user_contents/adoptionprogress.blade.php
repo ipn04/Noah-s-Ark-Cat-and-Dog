@@ -589,11 +589,11 @@
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     @if($firstnotification)
                         @foreach ($firstnotification as $notify)
-                            @if ($notify->message === 'Application Validated.' && $stage == 9)
-                                <h4>The Pet is Adopted</h4>
-                            @else
+                            {{-- @if ($notify->message === 'Application Validated.' && $stage == 9) --}}
+                                {{-- <h4>The Pet is Adopted</h4>
+                            @else --}}
                                 <h4>{{$notify->message}}</h4>
-                            @endif
+                            {{-- @endif --}}
                         @endforeach
                     @endif
                 </div>
@@ -960,13 +960,7 @@
                         <!-- Modal toggle -->
                         @if($firstnotification)
                             @foreach ($firstnotification as $notify)
-                                @if ($notify->message === 'Application Validated.' && $stage == 0)
-                                    <h4>The Pet is Adopted</h4>
-                                @elseif ($notify->message === 'Application Validated.' && $stage == 2)
-                                    <h4>The Pet is Adopted</h4>
-                                @else
-                                    <h4>{{$notify->message}}</h4>
-                                @endif
+                                <h4>{{$notify->message}}</h4>
                             @endforeach
                         @endif
                         @if ($stage === 1)

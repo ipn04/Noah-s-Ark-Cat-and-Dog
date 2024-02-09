@@ -269,7 +269,18 @@ class adoptionController extends Controller
             ->first();
 
         $adminId = auth()->id();
-        $notificationMessage = 'Application Validated.';
+        if ($adoptionAnswer->stage == 0){
+            $notificationMessage = 'Application Validated.';
+        }
+        elseif ($adoptionAnswer->stage == 4) {
+            $notificationMessage = 'Application Accepted';
+        }
+        elseif ($adoptionAnswer->stage == 4) {
+            $notificationMessage = 'Application Accepted';
+        }
+        elseif ($adoptionAnswer->stage == 8) {
+            $notificationMessage = 'Success';
+        }
 
         $notification = new Notifications();
         $notification->application_id = $id; 

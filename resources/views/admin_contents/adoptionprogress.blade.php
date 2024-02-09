@@ -15,7 +15,7 @@
                 swal({
                     title: "Error!",
                     text: errorMessages.join('\n'), // Join error messages with line breaks
-                    type: "error",
+                    type: "error",P
                     confirmButtonText: "Cool"
                 });
             }
@@ -550,6 +550,7 @@
                             <h5>{{$notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message}}</h5>
                         @endforeach
                     @endif
+                
                 </div>
             </div>
 

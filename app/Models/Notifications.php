@@ -15,4 +15,8 @@ class Notifications extends Model
     {
         return $this->belongsTo(User::class, 'sender_id');
     }
+    public function application()
+    {
+        return $this->belongsTo(Application::class, 'application_id');
+    }
 }

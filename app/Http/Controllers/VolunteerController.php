@@ -99,6 +99,13 @@ class VolunteerController extends Controller
     {
         $user = auth()->user();
 
+        $authUser = auth()->user()->id;
+
+        $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
         
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ($user, $userId, $applicationId) {
             $query->where('user_id', $userId)
@@ -118,7 +125,7 @@ class VolunteerController extends Controller
         $stage = $userVolunteerAnswers->volunteer_application->stage;
         $answers = json_decode($userVolunteerAnswers->answers, true);
 
-        return view('user_contents.volunteer_progress', ['scheduleInterview' => $scheduleInterview,'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage, 'answers' => $answers]);
+        return view('user_contents.volunteer_progress', ['unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications, 'scheduleInterview' => $scheduleInterview,'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage, 'answers' => $answers]);
     }
     public function AdminVolunteerProgress(Request $request, $userId, $applicationId)
     {
@@ -294,6 +301,17 @@ class VolunteerController extends Controller
         } else {
             return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
         }
+    }
+    public function volunteer_form() {
+        $authUser = auth()->user()->id;
+
+        $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
+
+        return view('user_contents.volunteerform', ['unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications]);
     }
     public function export_volunteer()
     {

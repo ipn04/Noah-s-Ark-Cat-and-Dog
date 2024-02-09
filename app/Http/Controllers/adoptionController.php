@@ -178,10 +178,15 @@ class adoptionController extends Controller
         }
 
         // dd($stage);
-        $firstnotification = Notifications::where('receiver_id', $authUser)->where('sender_id', $adminId)->where('application_id', $applicationId)->get();
+        $firstnotification = Notifications::where('receiver_id', $authUser)->where('sender_id', $adminId)->where('application_id', $applicationId)->orderByDesc('created_at')->get();
+        $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
         // dd($userId);
         // Pass the pet data and other necessary variables to the view
-        return view('user_contents.adoptionprogress', ['firstnotification' => $firstnotification,
+        return view('user_contents.adoptionprogress', ['firstnotification' => $firstnotification, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications,
             'adoption_answer' => $adoptionAnswer, 
             'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview, 'schedulePickup' => $schedulePickup, 'adoptionAnswerData' => $adoptionAnswerData
         ]);
@@ -246,7 +251,7 @@ class adoptionController extends Controller
             ->count();
 
         $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
-        $firstnotification = Notifications::where('receiver_id', $adminId)->where('sender_id', $userId)->where('application_id', $id)->get();
+        $firstnotification = Notifications::where('receiver_id', $adminId)->where('sender_id', $userId)->where('application_id', $id)->orderByDesc('created_at')->get();
             
         return view('admin_contents.adoptionprogress', [
             'adoptionAnswer' => $adoptionAnswer,
@@ -341,6 +346,8 @@ class adoptionController extends Controller
 
     public function adoptPet($petId)
     {
+        $authUser = auth()->user()->id;
+
         $pets = Pet::find($petId);
         if(!$pets) {
             return redirect()->back()->with('error', 'Pet not found');
@@ -355,7 +362,14 @@ class adoptionController extends Controller
         })->exists();
         // dd($user->adoption ? $user->adoption->stage : null, $hasSubmittedForm);
         // dd($petId, $user->id, $hasSubmittedForm);
-        return view('user_contents.petcontents', ['pets' => $pets, 'hasSubmittedForm' => $hasSubmittedForm, 'user' => $user]);
+
+        $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
+
+        return view('user_contents.petcontents', ['pets' => $pets, 'hasSubmittedForm' => $hasSubmittedForm, 'user' => $user, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications]);
     }
     
 
@@ -411,7 +425,14 @@ class adoptionController extends Controller
 
         $volunteerPending = $pendingVolunteerApplicationForUser->count();
         $volunteerApproved = $volunteer->where('volunteer_application.stage', '9')->count();
-        return view('user_contents.applications',  compact('scheduleCount','schedules','answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved', 'interviewSchedules', 'visitSchedules', 'pickupSchedules'));
+
+        $unreadNotificationsCount = Notifications::where('receiver_id', $userId)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $userId)->orderByDesc('created_at')->take(5)->get();
+
+        return view('user_contents.applications',  compact('unreadNotificationsCount', 'userNotifications', 'scheduleCount', 'schedules','answers', 'volunteer', 'totalApplicationsForUser', 'totalPendingApplicationsForUser', 'approvedApplicationForUser', 'rejectedApplicationForUser', 'volunteerPending', 'volunteerApproved', 'interviewSchedules', 'visitSchedules', 'pickupSchedules'));
     }
 
     public function interviewStage($userId, $id)
@@ -664,7 +685,7 @@ class adoptionController extends Controller
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
             ->first();
-            
+            // dd($adoption);
         if ($adoption) {
             // Using DB::table for direct update
             
@@ -690,15 +711,16 @@ class adoptionController extends Controller
 
     public function downloadContract($id)
     {
-        $adoption = Adoption::find($id);
 
+        $adoption = Adoption::find($id);
         if ($adoption && $adoption->contract) {
             $filePath = $adoption->contract;
-
+            
             $userId = $adoption->application->user_id;
 
-            if (auth()->user()->id === $userId) {
+            if ($userId === $userId) {
                 $fileName = basename($filePath);
+                // dd($fileName);
 
                 if (Storage::disk('public')->exists($filePath)) {
                     return response()->download(storage_path("app/public/$filePath"), $fileName);

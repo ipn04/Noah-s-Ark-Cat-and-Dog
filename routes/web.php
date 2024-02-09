@@ -113,9 +113,7 @@ Route::get('/user/sendAdoption/{petId}', [PetDataController::class, 'sendAdoptio
 //     return view('user_contents.adoptionform');
 // })->middleware(['auth', 'verified'])->name('user.adoption');
 
-Route::get('/user/volunteer_form', function () {
-    return view('user_contents.volunteerform');
-})->middleware(['auth', 'user'])->name('user.volunteer');
+Route::get('/user/volunteer_form', [VolunteerController::class, 'volunteer_form']) ->middleware(['auth', 'user'])->name('user.volunteer');
 
 // User send message 
 Route::post('/send/messages', [MessageController::class, 'store'])->middleware(['auth', 'verified'])->name('messages.send');

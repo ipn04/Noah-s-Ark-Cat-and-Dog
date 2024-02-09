@@ -90,7 +90,7 @@ lg:bg-red-800
                         <div class="relative inline-block text-left">
                             <div class="flex items-center relative">
                                 <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none">
-                                    0 
+                                    {{$unreadNotificationsCount}}
                                 </div>
                                 
                                 <button class="flex items-center p-1 
@@ -116,19 +116,19 @@ lg:bg-red-800
                 
                     <x-slot name="content">
                         <div class="max-h-60 overflow-y-auto">
-                            <x-dropdownmessage-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"  :currentDate="'3 hoursddds ago'">
-                                {{ __('sent you a message.') }}
-                            </x-dropdownmessage-link>
-                            <x-dropdownapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"  :currentDate="'3 hoursdsdd ago'">
-                                {{ __('sent an adoption application.') }}
-                            </x-dropdownapply-link>
-                            <x-dropdownvapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"    :currentDate="'3 hdsoddurs ago'"
-                                >
-                                {{ __('sent a volunteer application.') }}
-                            </x-dropdownvapply-link>
-                            
-                           
-                
+                            @if($userNotifications)
+                                @foreach($userNotifications as $notification)
+                                    @if ($notification->concern == 'Adoption Application')
+                                        <x-dropdownapply-link :href="route('admin.adoptionprogress', ['userId' => $notification->user->id, 'id' => $notification->application->id])" :image-source="'/storage/' .    $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()">
+                                            {{ $notification->message }}
+                                        </x-dropdownapply-link>
+                                    @elseif ($notification->concern == 'Volunteer Application')
+                                        <x-dropdownvapply-link :href="route('profile.edit', ['id' => auth()->id()])" :image-source="asset('images/logo.png')" :name="'Noahs Ark'"    :currentDate="'3 hdsoddurs ago'">
+                                            {{ $notification->message }}
+                                        </x-dropdownvapply-link>
+                                    @endif
+                                @endforeach
+                            @endif
                         </div>
                          <!-- "Show More" button is now outside the max-h-60 container -->
                         <a href= "{{ route('user.notifications') }}" class="cursor-pointer block w-full px-4 py-2 text-center text-sm font-bold text-red-500 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">

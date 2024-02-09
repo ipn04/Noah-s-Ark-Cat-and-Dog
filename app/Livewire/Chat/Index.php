@@ -15,6 +15,7 @@ class Index extends Component
     public $initialMessage;
     public $unreadNotificationsCount;
     public $adminNotifications;
+    public $userNotifications;
 
     public function mount()
     {
@@ -26,6 +27,8 @@ class Index extends Component
             ->count();
 
         $this->adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+        $this->userNotifications = Notifications::where('receiver_id', $user->id)->orderByDesc('created_at')->take(5)->get();
+
 
         if ($user && $user->isAdmin()) {
             $this->threads = Message::all();

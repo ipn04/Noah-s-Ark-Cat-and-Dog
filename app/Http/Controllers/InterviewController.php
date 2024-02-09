@@ -125,6 +125,8 @@ class InterviewController extends Controller
     }
 
     public function jitsiadmininterview(Request $request, $scheduleId){
+        $adminId = auth()->user()->id;
+
         $result = ScheduleInterview::select(
             'schedule_interviews.interview_id as interview_id',
             'schedule_interviews.room as room',
@@ -135,12 +137,19 @@ class InterviewController extends Controller
         ->where('schedule_interviews.interview_id', '=', $scheduleId)
         ->first(); // Use first() instead of get()
     
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
 
-        return view('admin_contents.interview', ['result' => $result]);
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
+        return view('admin_contents.interview', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'result' => $result]);
 
     }
 
     public function jitsiuserinterview(Request $request, $scheduleId){
+        $authUser = auth()->user()->id;
+
         $result = ScheduleInterview::select(
             'schedule_interviews.interview_id as interview_id',
             'schedule_interviews.room as room',
@@ -151,9 +160,14 @@ class InterviewController extends Controller
         ->leftJoin('users', 'application.user_id', '=', 'users.id')
         ->where('schedule_interviews.interview_id', '=', $scheduleId)
         ->first(); 
-    
 
-        return view('user_contents.interview', ['result' => $result]);
+        $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
+            ->whereNull('read_at')
+            ->count();
 
-    }
+        $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
+
+        return view('user_contents.interview', ['unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications,'result' => $result]);
+
+    }   
 }

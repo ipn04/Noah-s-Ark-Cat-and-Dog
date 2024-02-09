@@ -102,6 +102,12 @@ class PetDataController extends Controller
     {
         $userId = auth()->user()->id;
 
+        $unreadNotificationsCount = Notifications::where('receiver_id', $userId)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $userId)->orderByDesc('created_at')->take(5)->get();
+
         $userApplication = Application::where('user_id', $userId)->first();
     
         $stage = null;
@@ -118,11 +124,11 @@ class PetDataController extends Controller
         $pets = Pet::where('adoption_status', 'available')->get();
         if ($pets->isNotEmpty()) {
                     
-            return view('dashboards.user_dashboard', ['pets' => $pets, 'stage' => $stage]);
+            return view('dashboards.user_dashboard', ['pets' => $pets, 'stage' => $stage, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications]);
         } else {
 
             // Handle case when no pets are found
-            return view('dashboards.user_dashboard', ['pets' => $pets, 'stage' => $stage]);
+            return view('dashboards.user_dashboard', ['pets' => $pets, 'stage' => $stage, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications]);
         }
  
     }

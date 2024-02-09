@@ -166,7 +166,7 @@ lg:bg-red-800
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link :href="route('profile.edit',  ['id' => auth()->id()])">
+                        <x-dropdown-link :href="route('admin.profile',  ['id' => auth()->id()])">
                             {{ __('Profile') }}
                         </x-dropdown-link>
 

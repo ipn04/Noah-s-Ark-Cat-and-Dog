@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Notifications;
+use App\Models\User;
 
 class NotificationController extends Controller
 {
@@ -23,5 +24,29 @@ class NotificationController extends Controller
         $adminAllNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->get();
 
         return view('admin_contents.admin_notifications', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'adminAllNotifications' => $adminAllNotifications]);
+    }
+    public function ShowMorePage() {
+        $authUser = auth()->user()->id;
+        $adminId = User::where('role', 'admin')->value('id');;
+
+        $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
+        $userAllNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->get();
+
+        return view('user_contents.notifications', ['unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications, 'userAllNotifications' => $userAllNotifications]);
+    }
+    public function contact_developer() {
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+        $adminAllNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->get();
+
+        return view('profile.developer', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'adminAllNotifications' => $adminAllNotifications]);
     }
 }

@@ -21,9 +21,16 @@ class ProfileController extends Controller
      */
     public function adminProfile(Request $request, $id): View {      
         $users = User::find($id);
-        
+                
+        $adminId = auth()->user()->id;
+        $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
+            ->whereNull('read_at')
+            ->count();
+
+        $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+
         return view ("admin_contents.admin_profile", [
-            'user' => $request->user(),
+            'user' => $request->user(), 'unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications
         ]);
     }
     public function userProfile(Request $request, $id): View {     

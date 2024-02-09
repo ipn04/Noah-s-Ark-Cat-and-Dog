@@ -96,7 +96,7 @@ Route::get('/admin/messages', [MessageController::class, 'AllMessage'])->middlew
 // show message in the inbox
 // Route::get('/inbox/messages', [MessageController::class, 'showSentMessages'])->middleware(['auth', 'verified'])->name('view.messages');
 
-Route::get('/user/progress/{userId}/{applicationId}/{petId}', [AdoptionController::class, 'adoptionProgress'])
+Route::get('/user/progress/{userId}/{applicationId}', [AdoptionController::class, 'adoptionProgress'])
     ->middleware(['auth', 'user'])
     ->name('user.adoptionprogress');
 
@@ -208,9 +208,8 @@ Route::get('/admin/notications', [NotificationController::class, 'notification']
     ->middleware(['auth', 'admin'])
     ->name('admin.notifications');
 
-Route::get('/user/notications', function () {
-        return view('user_contents.notifications');
-    })->name('user.notifications');
+Route::get('/user/notications', [NotificationController::class, 'ShowMorePage'])
+->middleware(['auth', 'user'])->name('user.notifications');
 
 // Route::get('/admin/adoptions', function () {
 //     return view('admin_contents.adoptions');
@@ -271,13 +270,13 @@ Route::get('/howicanhelp', function () {
 
 
 // admin crud
-Route::post('/addPet', [PetDataController::class, 'addPet'])->middleware(['auth', 'verified'])->name('addPet');
+Route::post('/addPet', [PetDataController::class, 'addPet'])->middleware(['auth', 'admin'])->name('addPet');
 
-Route::get('/pets/{id}', [PetDataController::class, 'showPet'])->middleware(['auth', 'verified'])->name('showPet');
+Route::get('/pets/{id}', [PetDataController::class, 'showPet'])->middleware(['auth', 'admin'])->name('showPet');
 
-Route::put('/pets/{id}', [PetDataController::class, 'update'])->middleware(['auth', 'verified'])->name('pets.update');
+Route::put('/pets/{id}', [PetDataController::class, 'update'])->middleware(['auth', 'admin'])->name('pets.update');
 
-Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'verified'])->name('pets.delete');
+Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'admin'])->name('pets.delete');
 
 
 Route::delete('/delete-account', [ProfileController::class, 'deleteAccount'])->middleware('auth')->name('delete.account');
@@ -291,9 +290,7 @@ Route::post('/mark-notifications-as-read', [NotificationController::class, 'mark
 
 Route::post('/messages/mark-as-read', [MessageController::class, 'markAsRead'])->name('messages.markAsRead');
 
-Route::get('/contactdev', function () {
-    return view('profile.developer');
-})->name('admin.developer');
+Route::get('/contactdev', [NotificationController::class, 'contact_developer'])->middleware(['auth', 'admin'])->name('admin.developer');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

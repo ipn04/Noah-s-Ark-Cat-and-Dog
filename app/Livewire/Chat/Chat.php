@@ -12,9 +12,12 @@ class Chat extends Component
     public $selecte4dConversation;   
     public $unreadNotificationsCount;
     public $adminNotifications;
+    public $userNotifications;
 
     public function mount($messageId)
     {
+        $user = auth()->user();
+        
         $this->selecte4dConversation = Message::findOrFail($this->messageId);
         // dd($this->selecte4dConversation);
         $adminId = auth()->user()->id;
@@ -23,6 +26,7 @@ class Chat extends Component
             ->count();
 
         $this->adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
+        $this->userNotifications = Notifications::where('receiver_id', $user->id)->orderByDesc('created_at')->take(5)->get();
 
     }
 

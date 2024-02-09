@@ -8,6 +8,7 @@ use App\Models\AdoptionAnswer;
 use App\Models\Application;
 use App\Models\Notifications;
 use App\Models\Adoption;
+use App\Models\User;
 use App\Exports\PetsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Str;
@@ -91,11 +92,21 @@ class PetDataController extends Controller
 
     public function sendAdoption($petId)
     {
+        $authUser = auth()->user()->id;
+        $adminId = User::where('role', 'admin')->value('id');;
+
         $pets = Pet::find($petId);
+        $firstnotification = Notifications::where('receiver_id', $authUser)->where('sender_id', $adminId)->orderByDesc('created_at')->get();
+        $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
+            ->whereNull('read_at')
+            ->count();
+
+        $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
+
         if(!$pets) {
             return redirect()->back()->with('error', 'Pet not found');
         }
-        return view('user_contents.adoptionform', ['pets' => $pets, 'petId' => $petId]);
+        return view('user_contents.adoptionform', ['pets' => $pets, 'petId' => $petId, 'firstnotification' => $firstnotification, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications]);
     }
 
     public function showUserPets()

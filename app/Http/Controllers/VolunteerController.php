@@ -23,7 +23,7 @@ class VolunteerController extends Controller
         // Check for an existing application for the current user
         $existingApplication = VolunteerApplication::join('application', 'volunteer_application.application_id', '=', 'application.id')
             ->where('application.user_id', $currentUserId)
-            ->whereNotIn('volunteer_application.stage', [10, 5])
+            ->whereNotIn('volunteer_application.stage', [10, 5, 11])
             ->select('volunteer_application.*')
             ->first();
             
@@ -64,7 +64,7 @@ class VolunteerController extends Controller
             $notification->application_id = $application->id;;
             $notification->sender_id = $currentUserId;
             $notification->receiver_id = $adminId; 
-            $notification->concern = 'Adoption Application';
+            $notification->concern = 'Volunteer Application';
             $notification->message = $notificationMessage;
             $notification->save();
         } else {

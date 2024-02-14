@@ -105,6 +105,19 @@ class InterviewController extends Controller
             $scheduleInterview->room = $random_string;
             $scheduleInterview->save();
 
+            $userId = auth()->user()->id; 
+            $adminId = User::where('role', 'admin')->value('id');;
+    
+            $notificationMessage = 'has submitted schedule Interview application.';
+    
+            $notification = new Notifications();
+            $notification->application_id = $applicationId;
+            $notification->sender_id = $userId;
+            $notification->receiver_id = $adminId; 
+            $notification->concern = 'Volunteer Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
+
             // Find the volunteer answers for the user
             $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
                 $query->where('id', $userId);

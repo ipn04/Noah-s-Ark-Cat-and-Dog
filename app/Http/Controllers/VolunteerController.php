@@ -100,6 +100,7 @@ class VolunteerController extends Controller
         $user = auth()->user();
 
         $authUser = auth()->user()->id;
+        $adminId = User::where('role', 'admin')->value('id');;
 
         $unreadNotificationsCount = Notifications::where('receiver_id', $authUser)
             ->whereNull('read_at')
@@ -120,12 +121,14 @@ class VolunteerController extends Controller
     ->where('schedules.schedule_status', 'Accepted') // Add this line for the additional condition
     ->select('schedule_interviews.*')
     ->first();
-
+    
+        $firstnotification = Notifications::where('receiver_id', $authUser)->where('sender_id', $adminId)->where('application_id', $applicationId)->orderByDesc('created_at')->get();
+        // dd($firstnotification);
         // dd($userVolunteerAnswers);
         $stage = $userVolunteerAnswers->volunteer_application->stage;
         $answers = json_decode($userVolunteerAnswers->answers, true);
 
-        return view('user_contents.volunteer_progress', ['unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications, 'scheduleInterview' => $scheduleInterview,'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage, 'answers' => $answers]);
+        return view('user_contents.volunteer_progress', ['firstnotification' => $firstnotification, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications, 'scheduleInterview' => $scheduleInterview,'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $user->id, 'stage' => $stage, 'answers' => $answers]);
     }
     public function AdminVolunteerProgress(Request $request, $userId, $applicationId)
     {
@@ -167,11 +170,34 @@ class VolunteerController extends Controller
     }
     public function updateVolunteerStage(Request $request, $userId, $applicationId)
     {
+        $adminId = auth()->id();
+        
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId, $applicationId) {
             $query->where('id', $userId);
         })->latest()->first();
 
         if ($userVolunteerAnswers) {
+            if ($userVolunteerAnswers->volunteer_application->stage == 0){
+                $notificationMessage = 'Application Validated.';
+            }
+            elseif ($userVolunteerAnswers->volunteer_application->stage == 4) {
+                $notificationMessage = 'Application Accepted';
+            }
+            elseif ($userVolunteerAnswers->volunteer_application->stage == 4) {
+                $notificationMessage = 'Application Accepted';
+            }
+            elseif ($userVolunteerAnswers->volunteer_application->stage == 8) {
+                $notificationMessage = 'Success';
+            }
+    
+            $notification = new Notifications();
+            $notification->application_id = $applicationId; 
+            $notification->sender_id = $adminId;
+            $notification->receiver_id = $userId; 
+            $notification->concern = 'Volunteer Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
+
             $newStage = $userVolunteerAnswers->volunteer_application->stage + 1;
 
             $userVolunteerAnswers->volunteer_application->update(['stage' => $newStage]);

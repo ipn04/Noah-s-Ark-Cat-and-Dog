@@ -450,7 +450,15 @@
                 </div>
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
-
+                    @if($firstnotification)
+                        @foreach ($firstnotification as $notify)
+                            {{-- @if ($notify->message === 'Application Validated.' && $stage == 9) --}}
+                                {{-- <h4>The Pet is Adopted</h4>
+                            @else --}}
+                                <h4>{{$notify->message}}</h4>
+                            {{-- @endif --}}
+                        @endforeach
+                    @endif
                 </div>
             </div>
 
@@ -570,6 +578,11 @@
 
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
+                    @if($firstnotification)
+                        @foreach ($firstnotification as $notify)
+                            <h4>{{$notify->message}}</h4>
+                        @endforeach
+                    @endif
                     @if ($stage === '1')
                         <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                             class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

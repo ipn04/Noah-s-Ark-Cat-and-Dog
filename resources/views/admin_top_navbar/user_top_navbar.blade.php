@@ -89,7 +89,11 @@ lg:bg-red-800
                     <x-slot name="trigger">
                         <div class="relative inline-block text-left">
                             <div class="flex items-center relative">
-                                <div class="absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none">
+                                <div class="@if($unreadNotificationsCount == 0 )
+                                hidden
+                                @else
+                                absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none
+                                @endif">
                                     {{$unreadNotificationsCount}}
                                 </div>
                                 

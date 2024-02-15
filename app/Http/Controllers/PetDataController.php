@@ -271,7 +271,21 @@ class PetDataController extends Controller
 
         return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_deleted' => true]);
     }
-        public function export_pet_type()
+
+    public function updateAvail(Request $request, $id)
+    {
+        $pet = Pet::find($id);
+        if (!$pet) {
+            return response()->json(['message' => 'Pet not found'], 404);
+        }
+        
+        $pet->adoption_status = 'Available';
+        $pet->save();
+
+        return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_deleted' => true]);
+    }
+
+    public function export_pet_type()
     {
         return Excel::download(new PetsExport, 'pet_type.xlsx');
     }

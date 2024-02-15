@@ -682,10 +682,8 @@
                                                                 stroke-width="2"
                                                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
-                                                        <h3
-                                                            class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                            Are you sure you want to delete this?</h3>
-                                                        <form method="POST" action="{{ route('pets.delete', ['id' => $pet->id]) }}" enctype="multipart/form-data">
+                                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this?</h3>
+                                                        <form method="POST" action="{{ route('pets.available', ['id' => $pet->id]) }}" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')
                                                             <button

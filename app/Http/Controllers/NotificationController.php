@@ -15,6 +15,7 @@ class NotificationController extends Controller
         return response()->json(['message' => 'All notifications marked as read'], 200);
     }
     public function notification() {
+        
         $adminId = auth()->user()->id;
         $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
             ->whereNull('read_at')

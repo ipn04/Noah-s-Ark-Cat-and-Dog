@@ -542,15 +542,17 @@
                         </div>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first overflow-y-auto max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                    @if($firstnotification)
-                        @foreach ($firstnotification as $notify)
-                            <h1 class="font-bold">{{$notify->concern}}</h1>
-                            <h5>{{$notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message}}</h5>
-                        @endforeach
-                    @endif
-                
+                    <table>
+                        @if($firstnotification)
+                            @foreach ($firstnotification as $notify)
+                                <tr class = "bg-white border-b border-gray-200">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5></td>
+                                </tr>                    
+                            @endforeach
+                        @endif
+                    </table>
                 </div>
             </div>
 
@@ -662,16 +664,17 @@
                         </button>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first overflow-y-auto max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                    <div class="bg-gray-200">
+                    <table>
                         @if($firstnotification)
                             @foreach ($firstnotification as $notify)
-                                <h1 class="font-bold">{{$notify->concern}}</h1>
-                                <h5>{{$notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message}}</h5>
+                                <tr class = "bg-white border-b border-gray-200">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5></td>
+                                </tr>                    
                             @endforeach
                         @endif
-                    </div>
+                    </table>
                     @if ($stage === 2)
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"

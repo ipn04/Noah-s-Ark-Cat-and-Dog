@@ -585,18 +585,21 @@
                         </div>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first overflow-y-auto max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                    @if($firstnotification)
-                        @foreach ($firstnotification as $notify)
-                            {{-- @if ($notify->message === 'Application Validated.' && $stage == 9) --}}
-                                {{-- <h4>The Pet is Adopted</h4>
-                            @else --}}
-                                <h4>{{$notify->message}}</h4>
-                            {{-- @endif --}}
-                        @endforeach
-                    @endif
+                    <table>
+                        @if($firstnotification)
+                            @foreach ($firstnotification as $notify)
+                                <tr class = "bg-white border-b border-gray-200">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{  $notify->message }}</h5></td>
+                                </tr>                    
+                            @endforeach
+                        @endif
+                        Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.
+                    </table>
                 </div>
+
+                
             </div>
 
         </div>
@@ -953,23 +956,30 @@
                     </div>
                 </div>
                 <div
-                    class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md h-96
+                    class = "bg-white lg:order-last order-first rounded-2xl max-h-96 overflow-y-auto p-4 shadow-md h-96
                     @if ($stage == 5) w-3/4 mx-auto
                     @else @endif">
                         <h1 class = "font-bold text-xl">Adoption Progress</h1>
                         <!-- Modal toggle -->
-                        @if($firstnotification)
-                            @foreach ($firstnotification as $notify)
-                                <h4>{{$notify->message}}</h4>
-                            @endforeach
-                        @endif
-                        <h1>Default</h1>
-                        @if ($stage === 1)
+                        <table>
+                            @if($firstnotification)
+                                @foreach ($firstnotification as $notify)
+                                    <tr class = "bg-white border-b border-gray-200">
+                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->message }}</h5></td>
+                                    </tr>                    
+                                @endforeach
+                            @endif
+                            <tr class = "bg-white border-b border-gray-200">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.</h5></td>
+                            </tr>   
+                            @if ($stage === 1)
                             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                                 class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 type="button">
                                 Schedule Interview
-                            </button>
+                            </button> 
+                        </table>
+                       
                             
 
                         <!-- Main modal -->

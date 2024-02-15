@@ -276,7 +276,9 @@ Route::get('/pets/{id}', [PetDataController::class, 'showPet'])->middleware(['au
 
 Route::put('/pets/{id}', [PetDataController::class, 'update'])->middleware(['auth', 'admin'])->name('pets.update');
 
-Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'admin'])->name('pets.delete');
+Route::put('/pets/delete/{id}', [PetDataController::class, 'updateDelete'])->middleware(['auth', 'admin'])->name('pets.delete');
+
+// Route::delete('/pets/{id}', [PetDataController::class, 'delete'])->middleware(['auth', 'admin'])->name('pets.delete');
 
 
 Route::delete('/delete-account', [ProfileController::class, 'deleteAccount'])->middleware('auth')->name('delete.account');

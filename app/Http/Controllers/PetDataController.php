@@ -259,27 +259,40 @@ class PetDataController extends Controller
         return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_updated' => true]);
     }
 
-    public function delete($id)
+    public function updateDelete(Request $request, $id)
     {
         $pet = Pet::find($id);
         if (!$pet) {
             return response()->json(['message' => 'Pet not found'], 404);
         }
-
-        $imagePath = 'public/images/' . $pet->dropzone_file;
-        if (Storage::disk('local')->exists($imagePath)) {
-            Storage::disk('local')->delete($imagePath);
-        }
-
-        $pet->delete();
-
-        session()->flash('pet_deleted', true);
         
-        return response()->json(['message' => 'Pet deleted successfully']);
+        $pet->adoption_status = 'deleted';
+        $pet->save();
+
+        return redirect()->route('admin.pet.management')->with(['pet' => $pet, 'pet_deleted' => true]);
     }
-    public function export_pet_type()
+        public function export_pet_type()
     {
         return Excel::download(new PetsExport, 'pet_type.xlsx');
     }
 }
+//     public function delete($id)
+//     {
+//         $pet = Pet::find($id);
+//         if (!$pet) {
+//             return response()->json(['message' => 'Pet not found'], 404);
+//         }
+
+//         $imagePath = 'public/images/' . $pet->dropzone_file;
+//         if (Storage::disk('local')->exists($imagePath)) {
+//             Storage::disk('local')->delete($imagePath);
+//         }
+
+//         $pet->delete();
+
+//         session()->flash('pet_deleted', true);
+        
+//         return response()->json(['message' => 'Pet deleted successfully']);
+//     }
+
 

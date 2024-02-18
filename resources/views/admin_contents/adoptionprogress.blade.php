@@ -660,25 +660,17 @@
                         <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
-                            More details
+                            More details    
                         </button>
                     </div>
                 </div>
                 <div class = "bg-white lg:order-last order-first overflow-y-auto max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                    <table>
-                        @if($firstnotification)
-                            @foreach ($firstnotification as $notify)
-                                <tr class = "bg-white border-b border-gray-200">
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5></td>
-                                </tr>                    
-                            @endforeach
-                        @endif
-                    </table>
+                   
                     @if ($stage === 2)
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            class="block text-white my-2 mx-auto  bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             Interview Schedule
                         </button>
@@ -738,7 +730,7 @@
                     @elseif ($stage === 6)
                         <!-- Modal toggle -->
                         <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            class="block my-2 text-white bg-red-500 my-2 mx-auto hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             Schedule Pickup
                         </button>
@@ -825,18 +817,29 @@
                             </div>
                         </div>
                     @elseif ($stage === 9)
-                    <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
-                        <button
-                            class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                            <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20">
-                                <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                            </svg>
-                            <span>Download</span>
-                        </button>
-                    </a>
+                        <div class="flex justify-center items-center my-2">
+                            <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                                <button
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                    </svg>
+                                    <span>Download Contract</span>
+                                </button>
+                            </a>
+                        </div>
                     @else
                     @endif
+                    <table>
+                        @if($firstnotification)
+                            @foreach ($firstnotification as $notify)
+                                <tr class = "bg-white border-b border-gray-200">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5></td>
+                                </tr>                    
+                            @endforeach
+                        @endif
+                    </table>
                 </div>
             </div>
     </section>

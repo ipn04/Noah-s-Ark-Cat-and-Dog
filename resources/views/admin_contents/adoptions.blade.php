@@ -75,7 +75,17 @@
                                 {{ $rejectedAdoptionAnswers }}
                                 @endif</span>
                             </a>
-                        </li>                   
+                        </li>  
+                        <li class="me-2">
+                            <a href="{{ route('admin.adoptions') }}" id="cancelledLink" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Cancelled
+                                <span  id="cancelled" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
+                                    @if ($cancelledAdoptionAnswers === 0)
+                                    0
+                                @else
+                                {{ $cancelledAdoptionAnswers }}
+                                @endif</span>
+                            </a>
+                        </li>                 
                     </ul>
                 </div>
 

@@ -46,7 +46,7 @@
         </div>
 
         <div class="flex justify-center items-center">
-        <div class="grid grid-cols-1 lg:grid-cols-2 px-4 py-4">
+        <div class="grid grid-cols-1 lg:grid-cols-2 px-4 py-4 gap-8">
             <div class = "bg-white p-10 max-w-2xl shadow-lg rounded-2xl items-center justify-center flex">
                 <form method="POST" action="{{ route('send.form', ['petId' => $petId]) }}" class="max-w-lg" enctype="multipart/form-data">
                 @csrf
@@ -346,9 +346,9 @@
             </div>
 
             <div>
-                <div class="grid grid-cols-1 p-5   ">
+                <div>
                     <div class="flex justify-center">
-                        <div class="overflow-hidden bg-white w-full lg:w-10/12 rounded-t-2xl">
+                        <div class="overflow-hiddenw-full lg:w-10/12 rounded-t-2xl">
                             <img src="{{ asset('storage/images/' . $pets->dropzone_file) }}" class=" w-full object-cover"  style ="max-height: 30em"/>
                             <div class="flex justify-center -mt-11">
                                 <div class="rounded-2xl p-5 w-4/5 -mt-3 w-423.355 h-24 rotate-[-0.205deg] p-21.892 flex-col items-center gap-17.513 flex-shrink-0 border-26.27 bg-[rgba(255,255,255,0.40)] shadow-[0px 5.473px 43.784px 0px rgba(0,0,0,0.05)] backdrop-blur-[27.364822387695312px]">

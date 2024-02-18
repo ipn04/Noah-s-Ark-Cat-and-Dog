@@ -133,6 +133,9 @@ class VolunteerController extends Controller
     public function AdminVolunteerProgress(Request $request, $userId, $applicationId)
     {
         //  dd($userId, $applicationId);
+        $authUser = auth()->user()->id;
+        $adminId = User::where('role', 'admin')->value('id');;
+
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application', function ($query) use ( $userId, $applicationId) {
             $query->where('user_id', $userId)
                   ->where('application_id', $applicationId); 
@@ -160,13 +163,15 @@ class VolunteerController extends Controller
         $answers = json_decode($userVolunteerAnswers->answers, true);
         $adminId = auth()->user()->id;
 
+        $firstnotification = Notifications::where('receiver_id', $authUser)->where('sender_id', $userId)->where('application_id', $applicationId)->orderByDesc('created_at')->get();
+
         $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)
             ->whereNull('read_at')
             ->count();
 
         $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
 
-        return view('admin_contents.volunteer_progress', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'acceptedSchedule' => $acceptedSchedule, 'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId, 'stage' => $stage, 'answers' => $answers, 'scheduleInterview' => $scheduleInterview]);
+        return view('admin_contents.volunteer_progress', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'acceptedSchedule' => $acceptedSchedule, 'userVolunteerAnswers' => $userVolunteerAnswers, 'user' => $userId, 'stage' => $stage, 'answers' => $answers, 'scheduleInterview' => $scheduleInterview, 'firstnotification' => $firstnotification]);
     }
     public function updateVolunteerStage(Request $request, $userId, $applicationId)
     {
@@ -181,14 +186,9 @@ class VolunteerController extends Controller
                 $notificationMessage = 'Application Validated.';
             }
             elseif ($userVolunteerAnswers->volunteer_application->stage == 4) {
-                $notificationMessage = 'Application Accepted';
+                $notificationMessage = 'Success for Volunteer';
             }
-            elseif ($userVolunteerAnswers->volunteer_application->stage == 4) {
-                $notificationMessage = 'Application Accepted';
-            }
-            elseif ($userVolunteerAnswers->volunteer_application->stage == 8) {
-                $notificationMessage = 'Success';
-            }
+
     
             $notification = new Notifications();
             $notification->application_id = $applicationId; 
@@ -208,6 +208,17 @@ class VolunteerController extends Controller
     
     public function volunteerReject($userId, $applicationId)
     {
+        $adminId = auth()->id();
+        $notificationMessage = 'Admin Rejected your Volunteer Application';
+
+        $notification = new Notifications();
+        $notification->application_id = $applicationId; 
+        $notification->sender_id = $adminId;
+        $notification->receiver_id = $userId; 
+        $notification->concern = 'Volunteer Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->latest()->first();
@@ -227,6 +238,18 @@ class VolunteerController extends Controller
 
     public function cancelApplication($userId, $applicationId)
     {
+        $adminId = User::where('role', 'admin')->value('id');
+
+        $notificationMessage = 'Cancelled the Volunteer application';
+
+        $notification = new Notifications();
+        $notification->application_id = $applicationId; 
+        $notification->sender_id = $userId;
+        $notification->receiver_id = $adminId; 
+        $notification->concern = 'Volunteer Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+
         $volunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->latest()->first();
@@ -243,6 +266,18 @@ class VolunteerController extends Controller
 
     public function volunteerInterviewReject($userId, $applicationId)
     {
+        $adminId = User::where('role', 'admin')->value('id');
+            
+        $notificationMessage = 'Admin has rejected your Interview Schedule. Please, re-schedule';
+
+        $notification = new Notifications();
+        $notification->application_id = $applicationId; 
+        $notification->sender_id = $adminId;
+        $notification->receiver_id = $userId; 
+        $notification->concern = 'Volunteer Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->latest()->first();
@@ -272,6 +307,18 @@ class VolunteerController extends Controller
     }
     public function cancelInterview($userId, $applicationId)
     {
+        $adminId = User::where('role', 'admin')->value('id');
+
+        $notificationMessage = 'has cancelled the Interview Schedule';
+
+        $notification = new Notifications();
+        $notification->application_id = $applicationId; 
+        $notification->sender_id = $userId;
+        $notification->receiver_id = $adminId; 
+        $notification->concern = 'Volunteer Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->latest()->first();
@@ -280,7 +327,7 @@ class VolunteerController extends Controller
             $volunteerApplication = $userVolunteerAnswers->volunteer_application;
  
             // Decrement the stage column by 1
-            $volunteerApplication->decrement('stage', 1);
+            $volunteerApplication->decrement('stage', 2);
 
             if ($volunteerApplication) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $volunteerApplication->application_id)->latest()->first();
@@ -301,6 +348,18 @@ class VolunteerController extends Controller
     }
     public function adminCancelInterview($userId, $applicationId)
     {
+        $adminId = User::where('role', 'admin')->value('id');
+        
+        $notificationMessage = 'Admin has cancelled the Interview Schedule. Please, re-schedule';
+
+        $notification = new Notifications();
+        $notification->application_id = $applicationId; 
+        $notification->sender_id = $adminId;
+        $notification->receiver_id = $userId; 
+        $notification->concern = 'Volunteer Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+
         $userVolunteerAnswers = VolunteerAnswers::whereHas('volunteer_application.application.user', function ($query) use ($userId) {
             $query->where('id', $userId);
         })->latest()->first();

@@ -206,6 +206,8 @@ class adoptionController extends Controller
 
         $rejectedAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '10')->count();
 
+        $cancelledAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '11')->count();
+
         $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
 
         $adminId = auth()->user()->id;
@@ -216,7 +218,7 @@ class adoptionController extends Controller
         $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
 
 
-        return view('admin_contents.adoptions', compact('unreadNotificationsCount', 'adminNotifications', 'adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers'));
+        return view('admin_contents.adoptions', compact('unreadNotificationsCount', 'adminNotifications', 'adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers', 'cancelledAdoptionAnswers'));
     }   
 
     public function adminLoadProgress($userId, $id) {
@@ -318,15 +320,38 @@ class adoptionController extends Controller
     public function cancelStage(Request $request, $userId, $id)
     {
         // Assuming you want to update the stage to 11 in the Adoption model
+        $adminId = User::where('role', 'admin')->value('id');
+
         $adoption = Adoption::where('application_id', $id)->firstOrFail();
         $adoption->update(['stage' => 11]);
+
+        $notificationMessage = 'Cancelled application';
+        
+        $notification = new Notifications();
+        $notification->application_id = $id; 
+        $notification->sender_id = $userId;
+        $notification->receiver_id = $adminId; 
+        $notification->concern = 'Adoption Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
 
         // You can add more logic or redirect as needed
         return redirect()->back()->with(['success' => 'Stage updated successfully']);
     }
 
     public function rejectStage($userId, $id)
-    {
+    {   
+        $adminId = auth()->id();
+        $notificationMessage = 'Admin Rejected your Application';
+
+        $notification = new Notifications();
+        $notification->application_id = $id; 
+        $notification->sender_id = $adminId;
+        $notification->receiver_id = $userId; 
+        $notification->concern = 'Adoption Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+        
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
@@ -486,6 +511,8 @@ class adoptionController extends Controller
 
     public function rejectInterview($userId, $id)
     {
+        $adminId = User::where('role', 'admin')->value('id');
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
@@ -498,6 +525,16 @@ class adoptionController extends Controller
                 ->update(['stage' => \DB::raw('stage - 1')]);
 
             $application = $adoptionAnswer->application;
+            
+            $notificationMessage = 'Admin has rejected the Interview Schedule. Please, re-schedule the Interview';
+
+            $notification = new Notifications();
+            $notification->application_id = $application->id; 
+            $notification->sender_id = $adminId;
+            $notification->receiver_id = $userId; 
+            $notification->concern = 'Adoption Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
 
             if ($application) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->latest()->first();
@@ -523,10 +560,12 @@ class adoptionController extends Controller
 
     public function AdminCancelInterview($userId, $id)
     {
+        $adminId = User::where('role', 'admin')->value('id');
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
-            ->latest()->first();
+            ->latest('adoption.created_at')->first();
 
         if ($adoptionAnswer) {
             DB::table('adoption')
@@ -534,6 +573,16 @@ class adoptionController extends Controller
                 ->update(['stage' => \DB::raw('stage - 2')]);
 
             $application = $adoptionAnswer->application;
+
+            $notificationMessage = 'Admin has cancelled the Interview Schedule. Please, re-schedule the Interview';
+
+            $notification = new Notifications();
+            $notification->application_id = $id; 
+            $notification->sender_id = $adminId;
+            $notification->receiver_id = $userId; 
+            $notification->concern = 'Adoption Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
 
             if ($application) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
@@ -560,14 +609,24 @@ class adoptionController extends Controller
     public function UserCancelInterview($userId, $id)
     {
         $adoptionAnswer = Adoption::where('application_id', $id)->firstOrFail();
-        
+        $adminId = User::where('role', 'admin')->value('id');
+
         if ($adoptionAnswer) {
             DB::table('adoption')
                 ->where('application_id', $id)
                 ->update(['stage' => \DB::raw('stage - 2')]);
 
             $application = $adoptionAnswer->application;
+            $notificationMessage = 'Cancelled the Interview';
 
+            $notification = new Notifications();
+            $notification->application_id = $id; 
+            $notification->sender_id = $userId;
+            $notification->receiver_id = $adminId; 
+            $notification->concern = 'Adoption Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
+            
             if ($application) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->first();
 
@@ -603,7 +662,7 @@ class adoptionController extends Controller
             ->update(['stage' => \DB::raw('stage + 1')]);
 
             $application = $adoptionAnswer->application;
-           
+            
             $notificationMessage = 'Admin has Accepted the Pickup Schedule';
 
             $notification = new Notifications();
@@ -630,6 +689,8 @@ class adoptionController extends Controller
 
     public function rejectPickup($userId, $id)
     {
+        $adminId = User::where('role', 'admin')->value('id');
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
         ->where('adoption.application_id', $id)
         ->where('application.user_id', $userId)
@@ -641,7 +702,17 @@ class adoptionController extends Controller
             ->update(['stage' => \DB::raw('stage - 1')]);
 
             $application = $adoptionAnswer->application;
-           
+            
+            $notificationMessage = 'Admin has rejected the Pickup Schedule. Please, re-schedule';
+
+            $notification = new Notifications();
+            $notification->application_id = $id; 
+            $notification->sender_id = $adminId;
+            $notification->receiver_id = $userId; 
+            $notification->concern = 'Adoption Application';
+            $notification->message = $notificationMessage;
+            $notification->save();
+
             if ($application) {
                 $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
                 if ($schedulepickup) {

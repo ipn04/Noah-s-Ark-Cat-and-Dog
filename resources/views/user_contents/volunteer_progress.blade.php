@@ -47,9 +47,9 @@
                     class="
                     @if ($stage >= 5) hidden 
                     @else
-                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif
-                    ">Cancel
-                    Application</button>
+                    block hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md @endif">
+                    Cancel Application
+                </button>
             </div>
             @if ($stage == 11)
                 <h1 class="bg-red-300 px-3 py-3 text-red-600">Application canceled</h1>
@@ -89,7 +89,7 @@
                             @method('PATCH')
                             <button data-modal-hide="popup-modal" type="submit"
                                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
-                                Yes, I'm sure
+                                Yes, I'm sure 
                             </button>
                             <button data-modal-hide="popup-modal" type="button"
                                 class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
@@ -309,8 +309,9 @@
                                                     d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
                                                     clip-rule="evenodd"></path>
                                             </svg>
-                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to
-                                                delete this item?</p>
+                                            <p class="mb-4 text-gray-500 dark:text-gray-300">
+                                                Are you sure you want to cancel this meeting?
+                                            </p>
                                             <div class="flex justify-center items-center space-x-4">
                                                 <form
                                                     action="{{ route('user.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
@@ -450,15 +451,19 @@
                 </div>
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
-                    @if($firstnotification)
-                        @foreach ($firstnotification as $notify)
-                            {{-- @if ($notify->message === 'Application Validated.' && $stage == 9) --}}
-                                {{-- <h4>The Pet is Adopted</h4>
-                            @else --}}
-                                <h4>{{$notify->message}}</h4>
-                            {{-- @endif --}}
-                        @endforeach
-                    @endif
+                    <table>
+                        @if($firstnotification)
+                            @foreach ($firstnotification as $notify)
+                                <tr class = "bg-white border-b border-gray-200">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->message }}</h5></td>
+                                </tr>   
+                            @endforeach
+                            <tr class = "bg-white border-b border-gray-200">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.</h5></td>
+                            </tr>                         
+                        @endif
+                        
+                    </table>
                 </div>
             </div>
 
@@ -578,95 +583,101 @@
 
                 <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
-                    @if($firstnotification)
-                        @foreach ($firstnotification as $notify)
-                            <h4>{{$notify->message}}</h4>
-                        @endforeach
-                    @endif
-                    @if ($stage === '1')
-                        <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                            class="block text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                            type="button">
-                            Schedule Interview
-                        </button>
-
-
-                        <!-- Main modal -->
-                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <!-- Modal header -->
-                                    <div
-                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                            Schedule
-                                        </h3>
-                                        <button type="button"
-                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                            data-modal-toggle="crud-modal">
-                                            <svg class="w-3 h-3" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 14 14">
-                                                <path stroke="currentColor" stroke-linecap="round"
-                                                    stroke-linejoin="round" stroke-width="2"
-                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                            </svg>
-                                            <span class="sr-only">Close modal</span>
+                        <table>
+                            @if($firstnotification)
+                                @foreach ($firstnotification as $notify)
+                                    <tr class = "bg-white border-b border-gray-200">
+                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->message }}</h5></td>
+                                    </tr>   
+                                @endforeach
+                                <tr class = "bg-white border-b border-gray-200">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.</h5></td>
+                                </tr>                         
+                            @endif
+                            @if ($stage === '1')
+                                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                    class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    type="button">
+                                    Schedule Interview
+                                </button>
+                            @endif
+                        </table>
+                   
+                    <!-- Main modal -->
+                    <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Schedule
+                                    </h3>
+                                    <button type="button"
+                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="crud-modal">
+                                        <svg class="w-3 h-3" aria-hidden="true"
+                                            xmlns="http://www.w3.org/2000/svg" fill="none"
+                                            viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <form
+                                    action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                    class="p-4 md:p-5" method="POST">
+                                    @csrf
+                                    <h1 class = " text-left  text-lg">Please state your interview availability
+                                        and
+                                        start time.
+                                        Interviews are limited to <b>1 hour.</b>
+                                    </h1>
+                                    <p class = "text-xs  py-2 italic">Note that the administration will have the
+                                        final
+                                        say on
+                                        whether or not to approve your proposed schedule.</p>
+                                    <div class="-mx-3  pt-3 flex flex-wrap">
+                                        <div class="w-full px-3 sm:w-1/2">
+                                            <div class="mb-1">
+                                                <label for="date"
+                                                    class="mb-1 block text-base  font-bold text-[#07074D]">
+                                                    Date
+                                                </label>
+                                                <input type="date" name="date" id="date"  min="{{ date('Y-m-d') }}"
+                                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                            </div>
+                                        </div>
+                                        <div class="w-full px-3 sm:w-1/2">
+                                            <div class="mb-1">
+                                                <label for="time"
+                                                    class="mb-1 block text-base font-bold text-[#07074D]">
+                                                    Time
+                                                </label>
+                                                <input type="time" name="time" id="time" min="08:00" max="17:00"
+                                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4 mx-auto">
+                                        <button type="submit"
+                                            class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                            Submit
+                                        </button>
+                                        <button type="submit"
+                                            class="text-white mt-6 inline-flex justify-center items-center bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            Cancel
                                         </button>
                                     </div>
-                                    <!-- Modal body -->
-                                    <form
-                                        action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
-                                        class="p-4 md:p-5" method="POST">
-                                        @csrf
-                                        <h1 class = " text-left  text-lg">Please state your interview availability
-                                            and
-                                            start time.
-                                            Interviews are limited to <b>1 hour.</b>
-                                        </h1>
-                                        <p class = "text-xs  py-2 italic">Note that the administration will have the
-                                            final
-                                            say on
-                                            whether or not to approve your proposed schedule.</p>
-                                        <div class="-mx-3  pt-3 flex flex-wrap">
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <div class="mb-1">
-                                                    <label for="date"
-                                                        class="mb-1 block text-base  font-bold text-[#07074D]">
-                                                        Date
-                                                    </label>
-                                                    <input type="date" name="date" id="date"  min="{{ date('Y-m-d') }}"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                </div>
-                                            </div>
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <div class="mb-1">
-                                                    <label for="time"
-                                                        class="mb-1 block text-base font-bold text-[#07074D]">
-                                                        Time
-                                                    </label>
-                                                    <input type="time" name="time" id="time" min="08:00" max="17:00"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="grid grid-cols-2 gap-4 mx-auto">
-                                            <button type="submit"
-                                                class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                Submit
-                                            </button>
-                                            <button type="submit"
-                                                class="text-white mt-6 inline-flex justify-center items-center bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
+                                </form>
                             </div>
                         </div>
-                    @endif
+                    </div>
                 </div>
             </div>
 

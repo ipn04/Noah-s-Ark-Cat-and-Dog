@@ -137,7 +137,7 @@ Route::patch('/admin/wrap-interview/{userId}/{id}', [adoptionController::class, 
 Route::patch('/admin/interview-stage/{userId}/{id}', [adoptionController::class, 'interviewStage'])->middleware(['auth', 'admin'])->name('admin.interviewStage');
 
 Route::patch('/admin/reject-interview-stage/{userId}/{id}', [adoptionController::class, 'rejectInterview'])->middleware(['auth', 'admin'])->name('admin.rejectInterview');
-
+admin.pickupStage
 Route::patch('/admin/cancel-interview-stage/{userId}/{id}', [adoptionController::class, 'AdminCancelInterview'])->middleware(['auth', 'admin'])->name('admin.cancelInterview');
 
 Route::patch('/admin/user/cancel-interview/{userId}/{id}', [adoptionController::class, 'UserCancelInterview'])->middleware(['auth', 'user'])->name('user.cancelInterview');

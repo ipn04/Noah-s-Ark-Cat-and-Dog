@@ -112,21 +112,21 @@ $(document).ready(function() {
             });
         });
     });
-    initializeAdoptionTabs(['all', 'pending', 'approved', 'rejected']);
+    initializeAdoptionTabs(['all', 'pending', 'approved', 'rejected', 'cancelled']);
     initializeVolunteerTabs(['all', 'pending', 'approved', 'rejected']);
     initializeScheduleTabs();
     initializeScheduleAcceptedTabs();
 });
 // admin adoption tab filter 
 function initializeAdoptionTabs() {
-    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
+    ['all', 'pending', 'approved', 'rejected', 'cancelled'].forEach(tab => {
         const link = document.getElementById(`${tab}Link`);
 
         link.addEventListener('click', function(event) {
             event.preventDefault();
 
             const selectedTab = tab;
-            const tabs = ['all', 'pending', 'approved', 'rejected'];
+            const tabs = ['all', 'pending', 'approved', 'rejected', 'cancelled'];
 
             tabs.forEach(item => {
                 const tabLink = document.getElementById(`${item}Link`);
@@ -149,9 +149,10 @@ function initializeAdoptionTabs() {
 
                 if (
                     selectedTab === 'all' ||
-                    (selectedTab === 'pending' && stage >= '0' && stage <= '8' && stage != '10') ||
+                    (selectedTab === 'pending' && stage >= '0' && stage <= '8' && stage != '10' && stage != '11') ||
                     (selectedTab === 'approved' && stage === '9') ||
-                    (selectedTab === 'rejected' && stage === '10')
+                    (selectedTab === 'rejected' && stage === '10') ||
+                    (selectedTab === 'cancelled' && stage === '11')
                 ) {
                     row.style.display = ''; 
                 } else {

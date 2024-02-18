@@ -594,8 +594,10 @@
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{  $notify->message }}</h5></td>
                                 </tr>                    
                             @endforeach
+                            <tr class = "bg-white border-b border-gray-200">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.</h5></td>
+                            </tr>                    
                         @endif
-                        Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.
                     </table>
                 </div>
 
@@ -683,7 +685,7 @@
                                                             class="mb-3 block text-base  font-bold text-[#07074D]">
                                                             Date
                                                         </label>
-                                                        <input type="date" name="date" id="date"
+                                                        <input type="date" name="date" id="date" required
                                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
                                                     </div>
                                                 </div>
@@ -693,7 +695,7 @@
                                                             class="mb-3 block text-base font-bold text-[#07074D]">
                                                             Time
                                                         </label>
-                                                        <input type="time" name="time" id="time"
+                                                        <input type="time" name="time" id="time" required
                                                             class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
                                                     </div>
                                                 </div>
@@ -974,10 +976,11 @@
                             </tr>   
                             @if ($stage === 1)
                             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 mx-auto my-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 type="button">
                                 Schedule Interview
                             </button> 
+                        
                         </table>
                        
                             
@@ -1013,7 +1016,7 @@
                                         @csrf
                                         <h1 class = " text-left  text-lg">Please state your interview availability
                                             and
-                                            start time.
+                                            start time. Shelter is available at 6 am to 7pm.
                                             Interviews are limited to <b>1 hour.</b>
                                         </h1>
                                         <p class = "text-xs  italic">Note that the administration will have the
@@ -1027,8 +1030,8 @@
                                                         class="mb-3 block text-base  font-bold text-[#07074D]">
                                                         Date
                                                     </label>
-                                                    <input type="date" name="date" id="date"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                    <input type="date" name="date" id="date" required  min="<?= date('Y-m-d'); ?>"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" required />
                                                 </div>
                                             </div>
                                             <div class="w-full px-3 sm:w-1/2">
@@ -1037,8 +1040,8 @@
                                                         class="mb-3 block text-base font-bold text-[#07074D]">
                                                         Time
                                                     </label>
-                                                    <input type="time" name="time" id="time"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                    <input type="time" name="time" id="time" required min="06:00:00" max="19:00:00"
+                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" required />
                                                 </div>
                                             </div>
                                         </div>
@@ -1070,16 +1073,18 @@
                             </div>
                         </div>
                     @elseif ($stage === 9)
-                        <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
-                            <button
-                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 20 20">
-                                    <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                                </svg>
-                                <span>Download</span>
-                            </button>
-                        </a>
+                        <div class="flex justify-center items-center my-2">
+                            <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                                <button
+                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                    </svg>
+                                    <span>Download Contract</span>
+                                </button>
+                            </a>
+                        </div>
                     @else
                     @endif
                 </div>

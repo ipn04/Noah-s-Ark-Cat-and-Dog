@@ -147,7 +147,19 @@ class ScheduleController extends Controller{
     }
     public function updateScheduleForVolunteer(Request $request, $userId, $applicationId)
     {   
+        $adminId = auth()->id();
+
+        $notificationMessage = 'Admin has accepted your schedule interview';
+
         // dd($applicationId);
+        $notification = new Notifications();
+        $notification->application_id = $applicationId; 
+        $notification->sender_id = $adminId;
+        $notification->receiver_id = $userId; 
+        $notification->concern = 'Volunteer Application';
+        $notification->message = $notificationMessage;
+        $notification->save();
+
         $scheduleInterview = ScheduleInterview::whereHas('application', function ($query) use ($applicationId) {
             $query->where('application_id', $applicationId);
         })->latest()->first();

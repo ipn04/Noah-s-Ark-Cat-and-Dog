@@ -269,22 +269,15 @@
                 </div>
             </div>
         </div>
-
-
-
-        <div
-            class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
-    @else
-    hidden @endif
-    ">
-            <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-lg">
+        <div class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
+            @else
+            hidden @endif">
+            <div class = "grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-screen-lg">
                 <div class = "col-span-2 ">
-
-                    <div
-                        class = "   @if ($stage == 7) mb-7 flex justify-center items-center
-                                    @else
-                                    hidden @endif">
-                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                    <div class="@if ($stage == 7) mb-7
+                                @else
+                                hidden @endif">
+                        <div class = "bg-white p-5 w-full rounded-2xl shadow-md">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
                             <p class = "italic text-sm px-2 pb-3 ps-2">The shelter is on their way now to your
                                 location,
@@ -309,11 +302,10 @@
 
                         </div>
                     </div>
-                    <div
-                        class = "@if ($stage == 3) mb-7 flex justify-center items-center
-                @else
-                hidden @endif">
-                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                    <div class = "@if ($stage == 3) mb-7 
+                        @else
+                        hidden @endif">
+                        <div class = "bg-white p-5 w-full rounded-2xl shadow-md">
                             <h2 class = "font-bold text-lg p-2">Interview at
                                 {{ \Carbon\Carbon::parse($schedulePickup->date ?? '')->format('F j, Y') }}
                             </h2>
@@ -397,9 +389,7 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        class = " 
-                    grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg ">
+                    <div class="grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 max-w-screen-lg ">
                         <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
@@ -409,9 +399,9 @@
                             <h1 class = "text-center font-bold text-2xl py-2 capitalize">
                                 {{ $userr->firstname . ' ' . $userr->name }}
                             </h1>
-                            <div class = "pb-4">
-                                <ul class="space-y-3  mb-4">
-                                    <div class = "grid grid-cols-2 gap-1 pt-4">
+                            <div class="pb-4">
+                                <ul class="space-y-4 mb-4">
+                                    <div>
                                         <li>
                                             <label
                                                 class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
@@ -425,21 +415,38 @@
                                                 </div>
                                             </label>
                                         </li>
+                                    </div>
+                                    <div>
                                         <li>
                                             <label
                                                 class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                 <div class="block">
                                                     <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                        Gender
+                                                        Email
                                                     </div>
                                                     <div class="w-full text-base font-medium">
-                                                        {{ $userr->gender }}
+                                                        {{ $userr->email }}
                                                     </div>
                                                 </div>
                                             </label>
                                         </li>
                                     </div>
-                                    <div class = "grid grid-cols-2 gap-1 p-1">
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full h-full  p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Address
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $adoption->application->user->street . ', ' . $adoption->application->user->barangay . ', ' . $adoption->application->user->city . ', ' . $adoption->application->user->province }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div>
                                         <li>
                                             <label
                                                 class="  inline-flex items-center justify-between w-full h-full  p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
@@ -453,9 +460,24 @@
                                                 </div>
                                             </label>
                                         </li>
+                                    </div>
+                                    <div class ="grid grid-cols-2 gap-2">
                                         <li>
                                             <label
-                                                class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Gender
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $userr->gender }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                 <div class="block">
                                                     <div class="w-full text-gray-500 text-sm dark:text-gray-400">
                                                         Civil Status
@@ -467,42 +489,12 @@
                                             </label>
                                         </li>
                                     </div>
-                                    <li>
-                                        <label
-                                            class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                            <div class="block">
-                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                    Email
-                                                </div>
-                                                <div class="w-full text-base font-medium">
-                                                    {{ $userr->email }}
-                                                </div>
-                                            </div>
-                                        </label>
-
-                                    </li>
-
-                                    <li>
-                                        <label
-                                            class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                            <div class="block">
-                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                    Address
-                                                </div>
-                                                <div class="w-full text-base font-medium">
-                                                    {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
-                                                </div>
-                                            </div>
-                                        </label>
-                                    </li>
                                 </ul>
-
                                 <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
                                     View Answers
                                 </button>
-
                             </div>
                         </div>
                         <div class="bg-white px-5 lg:mt-0 mt-12 shadow-md rounded-2xl text-gray-900">
@@ -516,8 +508,8 @@
                             <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $petData->pet_name }}
                             </h1>
                             <div class = "pb-4">
-                                <ul class="space-y-3  mb-4">
-                                    <div class = "grid grid-cols-2 gap-1 pt-4">
+                                <ul class="space-y-4  mb-4">
+                                    <div>
                                         <li>
                                             <label
                                                 class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
@@ -531,51 +523,75 @@
                                                 </div>
                                             </label>
                                         </li>
+                                    </div>
+                                    <li>
+                                        <label
+                                            class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                    Gender
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ $petData->gender }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                    Breed
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ $petData->breed }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                    Weight
+                                                </div>
+                                                <div class="w-full text-base font-medium">
+                                                    {{ $petData->weight }}
+                                                </div>
+                                            </div>
+                                        </label>
+                                    </li>
+                                    <div class = "grid grid-cols-2 gap-2">
                                         <li>
                                             <label
                                                 class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                 <div class="block">
                                                     <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                        Gender
+                                                        Size
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $petData->size }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Color
                                                     </div>
                                                     <div class="w-full text-base font-medium">
-                                                        {{ $petData->gender }}
+                                                        {{ $petData->color }}
                                                     </div>
                                                 </div>
                                             </label>
                                         </li>
                                     </div>
                                 </ul>
-
-                                <table class = "border-separate border-spacing-3">
-                                    <tr>
-                                        <td class = "font-bold">Age</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">{{ $petData->pet_name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Breed</td>
-                                        <td class = "capitalize">{{ $petData->breed }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Weight</td>
-                                        <td class = "capitalize">{{ $petData->weight }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Size</td>
-                                        <td class = "capitalize">{{ $petData->size }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Color</td>
-                                        <td class = "capitalize">{{ $petData->color }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Vaccination</td>
-                                        <td class = "capitalize">{{ $petData->vaccination_status }}</td>
-                                    </tr>
-                                </table>
                                 <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
@@ -585,7 +601,7 @@
                         </div>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first overflow-y-auto max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first overflow-y-auto rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -600,8 +616,6 @@
                         @endif
                     </table>
                 </div>
-
-                
             </div>
 
         </div>
@@ -609,22 +623,19 @@
 
 
 
-        <div
-            class = "
-        @if ($stage == 3 || $stage == 7) hidden 
-        @else 
-        flex items-center  py-5  justify-center @endif">
-
+        <div class="
+            @if ($stage == 3 || $stage == 7) hidden 
+            @else 
+            flex items-center  py-5  justify-center @endif">
             <div
-                class = "grid grid-cols-1  
-            @if ($stage == 5) lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg 
+                class = "grid grid-cols-1 
+            @if ($stage == 5) lg:grid-cols-2 gap-5 max-w-screen-lg 
             @else
-            lg:grid-cols-3 lg:pt-14 gap-5 px-4 max-w-screen-lg @endif">
-                <div
-                    class = "   @if ($stage == 5) mb-7 flex justify-center items-center
-                                    @else
-                                    hidden @endif">
-                    <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+            lg:grid-cols-3 lg:pt-14 gap-5 max-w-screen-lg @endif">
+                <div class="@if ($stage == 5) flex justify-center items-center
+                            @else
+                            hidden @endif">
+                    <div class="bg-white p-5 max-w-lg rounded-lg shadow-md">
                         <h2 class = "font-bold text-xl p-2">Congratulations!</h2>
                         <p class = "p-2 ">Your adoption application has been approved. You are now able to adopt
                             Yumi. Please select a schedule for pick-uping the dog.</p>
@@ -741,11 +752,11 @@
                         <img class="h-32 w-32 object-cover rounded-full "
                             src='{{ asset('storage/' . $userr->profile_image) }}' alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl capitalize">
+                    <h1 class = "text-center font-bold text-2xl py-2 capitalize">
                         {{ $userr->firstname . ' ' . $userr->name }}</h1>
                     <div class = "pb-4">
-                        <ul class="space-y-3  mb-4">
-                            <div class = "grid grid-cols-2 gap-1 pt-4">
+                        <ul class="space-y-4 mb-4">
+                            <div>
                                 <li>
                                     <label
                                         class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
@@ -759,21 +770,38 @@
                                         </div>
                                     </label>
                                 </li>
+                            </div>
+                            <div>
                                 <li>
                                     <label
                                         class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                         <div class="block">
                                             <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                Gender
+                                                Email
                                             </div>
                                             <div class="w-full text-base font-medium">
-                                                {{ $userr->gender }}
+                                                {{ $userr->email }}
                                             </div>
                                         </div>
                                     </label>
                                 </li>
                             </div>
-                            <div class = "grid grid-cols-2 gap-1 p-1">
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full  p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Address
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $adoption->application->user->street . ', ' . $adoption->application->user->barangay . ', ' . $adoption->application->user->city . ', ' . $adoption->application->user->province }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div>
                                 <li>
                                     <label
                                         class="  inline-flex items-center justify-between w-full h-full  p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
@@ -787,9 +815,24 @@
                                         </div>
                                     </label>
                                 </li>
+                            </div>
+                            <div class ="grid grid-cols-2 gap-2">
                                 <li>
                                     <label
-                                        class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Gender
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $userr->gender }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                         <div class="block">
                                             <div class="w-full text-gray-500 text-sm dark:text-gray-400">
                                                 Civil Status
@@ -801,42 +844,12 @@
                                     </label>
                                 </li>
                             </div>
-                            <li>
-                                <label
-                                    class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                    <div class="block">
-                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                            Email
-                                        </div>
-                                        <div class="w-full text-base font-medium">
-                                            {{ $userr->email }}
-                                        </div>
-                                    </div>
-                                </label>
-
-                            </li>
-
-                            <li>
-                                <label
-                                    class="  inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                    <div class="block">
-                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                            Address
-                                        </div>
-                                        <div class="w-full text-base font-medium">
-                                            {{ $userr->street . ', ' . $userr->barangay . ', ' . $userr->city . ', ' . $userr->province }}
-                                        </div>
-                                    </div>
-                                </label>
-                            </li>
                         </ul>
-
                         <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
                             View Answers
                         </button>
-
                     </div>
                 </div>
                 <div
@@ -848,10 +861,10 @@
                         <img class="object-cover object-center h-32 w-32"
                             src="{{ asset('storage/images/' . $petData->dropzone_file) }}" alt='Woman looking front'>
                     </div>
-                    <h1 class = "text-center font-bold text-2xl capitalize">{{ $petData->pet_name }}</h1>
+                    <h1 class = "text-center font-bold text-2xl py-2 capitalize">{{ $petData->pet_name }}</h1>
                     <div class = "pb-4">
-                        <ul class="space-y-3  mb-4">
-                            <div class = "grid grid-cols-2 gap-1 pt-4">
+                        <ul class="space-y-4  mb-4">
+                            <div>
                                 <li>
                                     <label
                                         class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
@@ -865,49 +878,47 @@
                                         </div>
                                     </label>
                                 </li>
-                                <li>
-                                    <label
-                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                        <div class="block">
-                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                Gender
-                                            </div>
-                                            <div class="w-full text-base font-medium">
-                                                {{ $petData->gender }}
-                                            </div>
-                                        </div>
-                                    </label>
-                                </li>
                             </div>
-                            <div class = "grid grid-cols-2 gap-1 p-1">
-                                <li>
-                                    <label
-                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                        <div class="block">
-                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                Breed
-                                            </div>
-                                            <div class="w-full text-base font-medium">
-                                                {{ $petData->breed }}
-                                            </div>
+                            <li>
+                                <label
+                                    class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                    <div class="block">
+                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                            Gender
                                         </div>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label
-                                        class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                        <div class="block">
-                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                                Weight
-                                            </div>
-                                            <div class="w-full text-base font-medium">
-                                                {{ $petData->weight }}
-                                            </div>
+                                        <div class="w-full text-base font-medium">
+                                            {{ $petData->gender }}
                                         </div>
-                                    </label>
-                                </li>
-                            </div>
-                            <div class = "grid grid-cols-2 gap-1 p-1">
+                                    </div>
+                                </label>
+                            </li>
+                            <li>
+                                <label
+                                    class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                    <div class="block">
+                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                            Breed
+                                        </div>
+                                        <div class="w-full text-base font-medium">
+                                            {{ $petData->breed }}
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                            <li>
+                                <label
+                                    class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                    <div class="block">
+                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                            Weight
+                                        </div>
+                                        <div class="w-full text-base font-medium">
+                                            {{ $petData->weight }}
+                                        </div>
+                                    </div>
+                                </label>
+                            </li>
+                            <div class = "grid grid-cols-2 gap-2">
                                 <li>
                                     <label
                                         class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
@@ -935,21 +946,7 @@
                                     </label>
                                 </li>
                             </div>
-                            <li>
-                                <label
-                                    class="inline-flex items-center justify-between w-full h-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                    <div class="block">
-                                        <div class="w-full text-gray-500 text-sm dark:text-gray-400">
-                                            Vaccination
-                                        </div>
-                                        <div class="w-full text-base font-medium">
-                                            {{ $petData->vaccination_status }}
-                                        </div>
-                                    </div>
-                                </label>
-                            </li>
                         </ul>
-                        
                         <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
@@ -957,8 +954,7 @@
                         </button>
                     </div>
                 </div>
-                <div
-                    class = "bg-white lg:order-last order-first rounded-2xl max-h-96 overflow-y-auto p-4 shadow-md h-96
+                <div class="bg-white lg:order-last order-first rounded-2xl overflow-y-auto p-4 shadow-md 
                     @if ($stage == 5) w-3/4 mx-auto
                     @else @endif">
                         <h1 class = "font-bold text-xl">Adoption Progress</h1>

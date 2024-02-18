@@ -63,11 +63,11 @@
                     </button>
                 </form>
                 @if ($stage == 5)
-                    <h1 class="bg-green-200 text-green-600 font-semibold rounded-lg px-4 py-4 text-white-600">Application accepted</h1>
+                    <img class="h-24 w-28" src="/images/approve.png" alt="approved">
                 @elseif ($stage == 10)
-                    <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
+                    <img class="h-24 w-28" src="/images/rejected.png" alt="rejected">
                 @elseif ($stage == 11)
-                    <h1 class="bg-red-300 px-3 py-3 text-red-600">Application canceled</h1>
+                    <img class="h-24 w-28" src="/images/cancel.png" alt="cancelled">
                 @endif
                 <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="
@@ -119,9 +119,9 @@
             </div>
         </div>
 
-        <div class = "flex items-center  py-4 justify-center">
+        <div class ="flex items-center  py-4 justify-center">
             <div
-                class = "grid grid-cols-1 max-w-screen-lg px-14 lg:px-8 py-5 bg-white rounded-2xl shadow-md lg:grid-cols-5 gap-2">
+                class ="grid grid-cols-1 max-w-screen-lg px-14 lg:px-8 py-5 bg-white rounded-2xl shadow-md lg:grid-cols-5 gap-2">
                 <div>
 
                     <div class = "flex items-center justify-center gap-2">
@@ -443,7 +443,7 @@
 
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -464,9 +464,9 @@
             class="
         @if ($stage == 3) hidden
         @else
-        flex items-center  py-5  justify-center @endif
+        flex items-center py-5 justify-center @endif
                 ">
-            <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-lg lg:mt-12">
+            <div class ="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg lg:mt-12">
                 <div class="bg-white px-5 mt-10  lg:mt-0  max-w-md shadow-md rounded-2xl text-gray-900">
                     @if ($userVolunteerAnswers)
                         {{-- @foreach ($userVolunteerAnswers as $answers) --}}
@@ -571,7 +571,7 @@
                     @endif
                 </div>
 
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -611,7 +611,6 @@
                                     <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
                                         Schedule</h3>
                                     <div class = "mt-2">
-
                                         <x-input-label for="date" value="{{ __('Applicant Name') }}" />
                                         <x-text-input type="text" name="date" label="date"
                                             value="{{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}"

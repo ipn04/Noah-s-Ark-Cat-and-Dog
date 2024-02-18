@@ -75,11 +75,11 @@
                     </button>
                 </form>
                 @if ($stage == 9)
-                    <h1 class="bg-green-300 px-3 py-3">Application done</h1>
+                    <img class="h-24 w-28" src="/images/approve.png" alt="approved">
                 @elseif ($stage == 10)
-                    <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
+                    <img class="h-24 w-28" src="/images/rejected.png" alt="rejected">
                 @elseif ($stage == 11)
-                    <h1 class="bg-red-300 px-3 py-3 text-red-600">Application Canceled</h1>
+                    <img class="h-24 w-28" src="/images/cancel.png" alt="cancelled">
                 @endif
                 <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="
@@ -301,18 +301,15 @@
             </div>
         </div>
 
-        <div
-            class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
+        <div class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
         @else
-        hidden @endif
-        ">
-            <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-lg">
+        hidden @endif">
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-screen-lg">
                 <div class = "col-span-2 ">
-                    <div
-                        class = "@if ($stage == 7) mb-7 flex justify-center items-center
+                    <div class = "@if ($stage == 7) mb-7 
                         @else
                         hidden @endif">
-                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md w-5/6">
+                        <div class = "bg-white p-5 rounded-2xl shadow-md w-full">
                             <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
                             <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
                             <p class="p-2 pe-2 ps-4">
@@ -335,26 +332,24 @@
                                 method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PATCH')
-                                    <label class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white"
+                                    <label class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white font-extrabold"
                                         for="dropzone-file">Upload Contract</label>
                                     <input name="contract_file"
                                         class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
                                         id="dropzone-file" type="file" required>
                                     </label>
 
-                                <div class = "grid grid-cols-1 gap-2 py-2">
+                                <div class="grid grid-cols-1 gap-2 py-2">
                                     <button type="submit"
-                                        class = "p-2 w-2/3 mx-auto text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Submit</button>
+                                        class = "p-2 w-full text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Submit</button>
                                 </div>
                             </form>
-
                         </div>
                     </div>
-                    <div
-                        class = "@if ($stage == 3) mb-7 flex justify-center items-center
+                    <div class = "@if ($stage == 3) mb-7
                         @else
                         hidden @endif">
-                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                        <div class = "bg-white p-5 w-full rounded-2xl shadow-md">
                             @php
                                 $scheduledDate = optional($scheduleInterview  ?? '')->date ? \Carbon\Carbon::parse($scheduleInterview->date ?? '') : null;
                                 $scheduledTime = optional($scheduleInterview  ?? '')->time ? \Carbon\Carbon::parse($scheduleInterview->time  ?? '') : null;
@@ -437,9 +432,7 @@
                             </form>
                         </div>
                     </div>
-
-
-                    <div class = "grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 px-4 max-w-screen-lg">
+                    <div class = "grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 max-w-screen-lg">
                         <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
@@ -451,38 +444,93 @@
                                 {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
                             </h1>
                             <div class = "pb-4">
-                                <table class = "border-separate border-spacing-3">
-                                    <tr>
-                                        <td class = "font-bold">Birthdate</td>
-                                        <td>{{ $adoptionAnswer->user->birthday }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">
-                                            {{ $adoptionAnswer->user->gender }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Phone</td>
-                                        <td class = "capitalize">
-                                            {{ $adoptionAnswer->user->phone_number }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Email</td>
-                                        <td>{{ $adoptionAnswer->user->email }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Civil Status</td>
-                                        <td class = "capitalize">
-                                            {{ $adoptionAnswer->user->civil_status }}</td>
-                                    </tr>
-
-                                    <tr>
-                                        <td class = "font-bold">Address</td>
-                                        <td class = "capitalize">
-                                            {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
-                                        </td>
-                                    </tr>
-                                </table>
+                                <ul class="space-y-4  mb-4">
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Birthday
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ \Carbon\Carbon::parse( $adoptionAnswer->user->birthday )->format('F j, Y') }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Email
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{$adoptionAnswer->user->email}}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Address
+                                                    </div>
+                                                    <div class="w-full text-base font-medium truncate">
+                                                        {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone Number
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $adoptionAnswer->user->phone_number }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Gender
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $adoptionAnswer->user->gender }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil Status
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $adoptionAnswer->user->civil_status }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                </ul>
                                 <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
@@ -501,38 +549,94 @@
                             <h1 class = "text-center font-bold text-2xl py-2 capitalize">
                                 {{ $adoption->pet->pet_name }}
                             </h1>
-                            <div class = "pb-4">
-                                <table class = "border-separate border-spacing-3">
-                                    <tr>
-                                        <td class = "font-bold">Age</td>
-                                        <td>{{ $adoption->pet->age }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Gender</td>
-                                        <td class = "capitalize">{{ $adoption->pet->pet_name }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Breed</td>
-                                        <td class = "capitalize">{{ $adoption->pet->breed }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Weight</td>
-                                        <td class = "capitalize">{{ $adoption->pet->weight }} kg</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Size</td>
-                                        <td class = "capitalize">{{ $adoption->pet->size }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Color</td>
-                                        <td class = "capitalize">{{ $adoption->pet->color }}</td>
-                                    </tr>
-                                    <tr>
-                                        <td class = "font-bold">Vaccination</td>
-                                        <td class = "capitalize">
-                                            {{ $adoption->pet->vaccination_status }}</td>
-                                    </tr>
-                                </table>
+                            <div class="pb-4">
+                                <ul class="space-y-4 mb-4">
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Age
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $adoption->pet->age }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Gender
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $adoption->pet->gender }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                        Breed
+                                                    </div>
+                                                    <div class="w-full text-base font-medium">
+                                                        {{ $adoption->pet->breed }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Weight
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $adoption->pet->weight }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-2">
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Size
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $adoption->pet->size }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                        <li>
+                                            <label
+                                                class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                <div class="block">
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Color
+                                                    </div>
+                                                    <div class="w-full text-base font-medium capitalize">
+                                                        {{ $adoption->pet->color }}
+                                                    </div>
+                                                </div>
+                                            </label>
+                                        </li>
+                                    </div>
+                                </ul>
                                 <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
                                     class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                     type="button">
@@ -542,7 +646,7 @@
                         </div>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first overflow-y-auto max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first overflow-y-auto rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -557,12 +661,11 @@
             </div>
 
         </div>
-        <div
-            class = "@if ($stage == 3 || $stage == 7) hidden
+        <div class = "@if ($stage == 3 || $stage == 7) hidden
                     @else
                     flex items-center  py-5  justify-center @endif
                      ">
-            <div class = "grid grid-cols-1  lg:grid-cols-3 lg:pt-14 gap-5 px-4 max-w-screen-lg">
+            <div class ="grid grid-cols-1 lg:grid-cols-3 lg:pt-14 gap-5 max-w-screen-lg">
                 <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     <div
                         class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
@@ -573,43 +676,94 @@
                         {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
                     </h1>
                     <div class = "pb-4">
-                        <table class = "border-separate border-spacing-3">
-                            <tr>
-                                <td class = "font-bold">Birthday</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->user->birthday }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Gender</td>
-                                <td class = "capitalize">{{ $adoptionAnswer->user->gender }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Phone</td>
-                                <td class = "capitalize">
-                                    {{ $adoptionAnswer->user->phone_number }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Email</td>
-                                <td class = "capitalize">
-                                    {{ $adoptionAnswer->user->email }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Civil Status</td>
-                                <td class = "capitalize">
-                                    {{ $adoptionAnswer->user->civil_status }}
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class = "font-bold">Address</td>
-                                <td class = "capitalize">
-                                    {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
-                                </td>
-                            </tr>
-
-                        </table>
+                        <ul class="space-y-4  mb-4">
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Birthday
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ \Carbon\Carbon::parse( $adoptionAnswer->user->birthday )->format('F j, Y') }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Email
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{$adoptionAnswer->user->email}}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Address
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone Number
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $adoptionAnswer->user->phone_number }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Gender
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $adoptionAnswer->user->gender }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil Status
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $adoptionAnswer->user->civil_status }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                        </ul>
+                    
                         <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
@@ -627,7 +781,7 @@
                     <h1 class = "text-center font-bold text-2xl py-2 capitalize">
                         {{ $adoption->pet->pet_name }}</h1>
                     <div class = "pb-4">
-                        <table class = "border-separate border-spacing-3">
+                        {{-- <table class = "border-separate border-spacing-3">
                             <tr>
                                 <td class = "font-bold">Age</td>
                                 <td class = "capitalize">{{ $adoption->pet->age }}</td>
@@ -656,7 +810,94 @@
                                 <td class = "font-bold">Vaccination</td>
                                 <td class = "capitalize">{{ $adoption->pet->vaccination_status }}</td>
                             </tr>
-                        </table>
+                        </table> --}}
+                        <ul class="space-y-4  mb-4">
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Age
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $adoption->pet->age }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Gender
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $adoption->pet->gender }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">
+                                                Breed
+                                            </div>
+                                            <div class="w-full text-base font-medium">
+                                                {{ $adoption->pet->breed }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Weight
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $adoption->pet->weight }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                            <div class="grid grid-cols-2 gap-2">
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Size
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $adoption->pet->size }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Color
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $adoption->pet->color }}
+                                            </div>
+                                        </div>
+                                    </label>
+                                </li>
+                            </div>
+                        </ul>
                         <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
@@ -664,7 +905,7 @@
                         </button>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first overflow-y-auto max-h-96 rounded-2xl p-4 shadow-md">
+                <div class ="bg-white lg:order-last order-first overflow-y-auto rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                    
                     @if ($stage === 2)
@@ -695,15 +936,53 @@
                                     <div class="p-4 md:p-5">
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
                                             Schedule</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Name:
-                                            {{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}
-                                        </h3>
-
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date:
+                                        <div class = "mt-2">
+                                            <x-input-label for="date" value="{{ __('Applicant Name') }}" />
+                                            <x-text-input type="text" name="date" label="date"
+                                                value="{{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}"
+                                                disabled class="w-full" />
+                                        </div>
+                                        {{-- <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date:
                                             {{ \Carbon\Carbon::parse($scheduleInterview->date ?? null)->format('F, j, Y') }}</h3>
                                         <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time:
-                                            {{ \Carbon\Carbon::parse($scheduleInterview->time ?? null)->format('g:i, A') }}</h3>
+                                            {{ \Carbon\Carbon::parse($scheduleInterview->time ?? null)->format('g:i, A') }}</h3> --}}
                                         <!-- Modal footer -->
+
+                                        @if ($scheduleInterview)
+                                            <div class = "mt-2">
+                                                <x-input-label for="date" value="{{ __('Interview Date') }}" />
+                                                <x-text-input type="text" name="date" label="date"
+                                                    value="{{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
+                                                    " disabled
+                                                    class="w-full" />
+                                            </div>
+                                        @else
+                                            <div class = "mt-2">
+
+                                                <x-input-label for="date" value="{{ __('Interview Date') }}" />
+                                                <x-text-input type="text" name="date" label="date"
+                                                    value="N/A" disabled class="w-full" />
+                                            </div>
+                                        @endif
+
+                                        @if ($scheduleInterview)
+                                            <div class = "mt-2">
+
+                                                <x-input-label for="time" value="{{ __('Interview Time') }}" />
+                                                <x-text-input type="text" name="time" label="time"
+                                                    value="{{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                                                    " disabled
+                                                    class="w-full" />
+                                            </div>
+                                        @else
+                                            <div class = "mt-2">
+
+                                                <x-input-label for="time" value="{{ __('Interview Time') }}" />
+                                                <x-text-input type="text" name="time" label="time"
+                                                    value="N/A" disabled class="w-full" />
+                                            </div>
+                                        @endif
+                                        
                                         <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
                                             <form
                                                 action="{{ route('admin.interviewStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"

@@ -13,35 +13,9 @@
                     <p class="text-lg">>></p>
                     <h2 class="font-bold text-lg text-yellow-500">{{ $pets->pet_name }}</h2>
                 </div>
-                <div>
-                    {{-- @if($hasSubmittedForm)
-                        <p class="text-center">You have a pending application</p>
-                        <a href="{{ route('user.adoptionprogress') }}">Check Details</a>
-                    @elseif($user->adoption && (int)$user->adoption->stage === 9)
-                        <a href="{{ route('user.adoption', $pets->id) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
-                    @else
-                    @endif --}}
-                    <div>
-                        @if($user->adoption && (int)$user->adoption->stage === 9 || $user->adoption && (int)$user->adoption->stage === 10 || $user->adoption && (int)$user->adoption->stage === 11)
-                            <!-- User is allowed to adopt again, show the link -->
-                            <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
-                        @else
-                            @if($hasSubmittedForm)
-                                <!-- User has a pending application, show a message and a link to check details -->
-                                <p class="text-center">You have a pending application</p>
-                                <a href="{{ route('user.applications') }}"><p class="text-center hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md ">Check your application here </p></a>
-                                {{-- <a href="{{ route('user.adoptionprogress', ['petId' => $pets->id]) }}">Check Details</a> --}}
-                            @else
-                                <!-- No pending application, but adoption stage is not 9 -->
-                                <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
-                            @endif
-                        @endif
-                    </div>
-                    
-                </div>
             </div>
 
-            <div class="grid grid-cols-1 p-5 lg:grid-cols-2 lg:gap-10 ">
+            {{-- <div class="grid grid-cols-1 p-5 lg:grid-cols-2 lg:gap-10 ">
                 <div class="flex justify-flex lg:justify-end">
                     <div class="overflow-hidden bg-white w-full lg:w-10/12 rounded-t-2xl lg:rounded-3xl ">
                         <img src="{{ asset('storage/images/' . $pets->dropzone_file) }}" class=" w-full object-cover"  style ="max-height: 30em"/>
@@ -131,7 +105,86 @@
                     </div>
                 </div>
             </div>
-
+             --}}
+            <div class="flex h-petContentsheight">
+                <div class="grid grid-cols-1 lg:grid-cols-2 max-w-screen-2xl mx-auto my-auto">
+                    <div class="bg-white rounded-l-2xl py-8">
+                        <img src="{{ asset('storage/images/' . $pets->dropzone_file) }}" class="w-full object-cover"  style ="max-height: 30em"/>
+                        <div class="flex justify-center -mt-11">
+                            <div class="rounded-2xl p-5 w-4/5 -mt-3 w-423.355 h-24 rotate-[-0.205deg] p-21.892 flex-col items-center gap-17.513 flex-shrink-0 border-26.27 bg-[rgba(255,255,255,0.40)] shadow-[0px 5.473px 43.784px 0px rgba(0,0,0,0.05)] backdrop-blur-[27.364822387695312px]">
+                                <div class="flex justify-between items-center">
+                                    <div>
+                                        <p class="text-base lg:text-xl font-bold">{{ $pets->pet_name }}</p>	
+                                        <p class="text-base">{{ $pets->breed }} · {{ $pets->age }}yr</p>
+                                    </div>
+                                    <div class = "bg-green-700 p-3 rounded-lg text-white">
+                                        @if($pets->gender === 'Male')
+                                            <svg style="color: white" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-gender-male" viewBox="0 0 16 16"> <path fill-rule="evenodd" d="M9.5 2a.5.5 0 0 1 0-1h5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0V2.707L9.871 6.836a5 5 0 1 1-.707-.707L13.293 2H9.5zM6 6a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path> </svg>
+                                        @elseif($pets->gender === 'Female')
+                                            <svg xmlns="http://www.w3.org/2000/svg" height="30" width="30" viewBox="0 0 384 512">
+                                                <path fill ="currentColor" d="M80 176a112 112 0 1 1 224 0A112 112 0 1 1 80 176zM224 349.1c81.9-15 144-86.8 144-173.1C368 78.8 289.2 0 192 0S16 78.8 16 176c0 86.3 62.1 158.1 144 173.1V384H128c-17.7 0-32 14.3-32 32s14.3 32 32 32h32v32c0 17.7 14.3 32 32 32s32-14.3 32-32V448h32c17.7 0 32-14.3 32-32s-14.3-32-32-32H224V349.1z"/>
+                                            </svg>
+                                        @endif
+                                    </div>	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white rounded-r-2xl py-8">
+                        <div class="mr-4 pb-4 flex justify-end">
+                            @if($user->adoption && (int)$user->adoption->stage === 9 || $user->adoption && (int)$user->adoption->stage === 10 || $user->adoption && (int)$user->adoption->stage === 11)
+                                <!-- User is allowed to adopt again, show the link -->
+                                <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
+                            @else
+                                @if($hasSubmittedForm)
+                                    <div class="w-48">
+                                        <a href="{{ route('user.applications') }}" class="w-48"><p class="text-center hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md ">Pending Application </p></a>
+                                    </div>
+                                @else
+                                    <div class="w-32">
+                                        <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
+                                    </div>
+                                @endif
+                            @endif
+                        </div>
+                        <div class = "max-w-40 border-2 mx-4 px-4 mt-4 rounded-2xl h-40 mb-4">
+                            <p class="text-lg font-light py-3" style="overflow-wrap: break-word;"><span class="font-bold">Description: </span>{{ $pets->description }}</p>
+                        </div>
+                        <div class = "max-w-40 py-4 px-4">
+                            <div class = "grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class = "bg-green-100 p-4  rounded-2xl">
+                                    <h1>Weight</h1>
+                                    <h1 class = " text-md font-extrabold">{{ $pets->weight }}kg</h1>
+                                </div>
+                                <div class = "bg-green-100 p-4  rounded-2xl">
+                                    <h1 class =>Size</h1>
+                                    <h1 class = " text-md font-extrabold">{{ $pets->size }}</h1>
+                                </div>
+                                <div class = "bg-green-100 p-4 rounded-2xl">
+                                    <h1>Color</h1>
+                                    <h1 class = " text-md font-extrabold">{{ $pets->color }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                        <div class = "max-w-40 px-4 py-4">
+                            <div class = "grid grid-cols-1 md:grid-cols-3 gap-4">
+                                <div class = "bg-green-100 p-4  rounded-2xl">
+                                    <h1>Weight</h1>
+                                    <h1 class = " text-md font-extrabold">{{ $pets->adoption_status }}</h1>
+                                </div>
+                                <div class = "bg-green-100 p-4  rounded-2xl">
+                                    <h1 class =>Size</h1>
+                                    <h1 class = " text-md font-extrabold">{{ $pets->vaccination_status }}</h1>
+                                </div>
+                                <div class = "bg-green-100 p-4 rounded-2xl">
+                                    <h1>Color</h1>
+                                    <h1 class = " text-md font-extrabold">{{ $pets->behaviour }}</h1>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         @else
             <p>No pet found</p>
         @endif

@@ -44,30 +44,8 @@ class adoptionController extends Controller
         $adoption->save();
 
         $adoptionId = $adoption->id;
-        
+
         $validatedData = $request->validate([
-            'first_question' => 'required|string|max:255',
-            'second_question' => 'required|string|max:255',
-            'third_question' => 'required|string|max:255',
-            'fourth_question' => 'required|string|max:255',
-            'fifth_question' => 'required|string|max:255',
-            'sixth_question' => 'required|string|max:255',
-            'sevent_question' => 'required|string|max:255',
-            'eight_question' => 'required|string|max:255',
-            'ninth_question' => 'required|string|max:255',
-            'tenth_question' => 'required|string|max:255',
-            'eleventh_question' => 'required|string|max:255',
-            'twelfth_question' => 'required|string|max:255',
-            'thirteenth_question' => 'required|string|max:255',
-            'fourteenth_question' => 'required|string|max:255',
-            'fifteenth_question' => 'required|string|max:255',
-            'seventeenth_question' => 'required|string|max:255',
-            'eighteenth_question' => 'required|string|max:255',
-            'nineteenth_question' => 'required|string|max:255',
-            'twentieth_question' => 'required|string|max:255',
-            'twentyfirst_question' => 'required|string|max:255',
-            'twentysecond_question' => 'required|string|max:255',
-            'twentythird_question' => 'required|string|max:255',
             'upload' => 'required',
             'upload2' => 'required',
         ],
@@ -111,9 +89,14 @@ class adoptionController extends Controller
         
         
         try {
+            $answers = $request->except('_token');
+            $serializedAnswers = json_encode($answers);
+
             $adoptionAnswer = new AdoptionAnswer();
             $adoptionAnswer->adoption_id = $adoptionId;
-            $adoptionAnswer->fill($validatedData);
+            $adoptionAnswer->answers = $serializedAnswers;
+            $adoptionAnswer->upload = $validatedData['upload'];
+            $adoptionAnswer->upload2 = $validatedData['upload2'];
             $adoptionAnswer->save(); 
 
             if (auth()->check()) {
@@ -185,8 +168,9 @@ class adoptionController extends Controller
 
         $userNotifications = Notifications::where('receiver_id', $authUser)->orderByDesc('created_at')->take(5)->get();
         // dd($userId);
-        // Pass the pet data and other necessary variables to the view
-        return view('user_contents.adoptionprogress', ['firstnotification' => $firstnotification, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications,
+        $answers = json_decode($adoptionAnswerData->answers, true);
+        // dd($answers);
+        return view('user_contents.adoptionprogress', ['answers' => $answers, 'firstnotification' => $firstnotification, 'unreadNotificationsCount' => $unreadNotificationsCount, 'userNotifications' => $userNotifications,
             'adoption_answer' => $adoptionAnswer, 
             'petData' => $petData, 'stage' => $stage, 'userr' => $userr, 'adoption' => $adoption, 'scheduleInterview' => $scheduleInterview, 'schedulePickup' => $schedulePickup, 'adoptionAnswerData' => $adoptionAnswerData
         ]);

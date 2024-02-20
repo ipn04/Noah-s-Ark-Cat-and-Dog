@@ -1329,61 +1329,61 @@
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
                             <x-text-input id="first_question" class="block mt-1 w-full" type="text"
-                                name="first_question" :value="old('first_question', $adoptionAnswerData->first_question)" />
+                                name="first_question" :value="old('first_question', $answers['first_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
                             <x-text-input id="second_question" class="block mt-1 w-full" type="text"
-                                name="second_question" :value="old('second_question', $adoptionAnswerData->second_question)" />
+                                name="second_question" :value="old('second_question', $answers['second_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
                             <x-text-input id="third_question" class="block mt-1 w-full" type="text"
-                                name="third_question" :value="old('third_question', $adoptionAnswerData->third_question)" />
+                                name="third_question" :value="old('third_question', $answers['third_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="fourth_question" :value="__('For whom are you adopting a pet?')" />
                             <x-text-input id="fourth_question" class="block mt-1 w-full" type="text"
-                                name="fourth_question" :value="old('fourth_question', $adoptionAnswerData->fourth_question)" />
+                                name="fourth_question" :value="old('fourth_question', $answers['fourth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="fifth_question" :value="__('Are there children below 18 in your house?')" />
                             <x-text-input id="fifth_question" class="block mt-1 w-full" type="text"
-                                name="fifth_question" :value="old('fifth_question', $adoptionAnswerData->fifth_question)" />
+                                name="fifth_question" :value="old('fifth_question', $answers['fifth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="sixth_question" :value="__('Do you have other pets?')" />
                             <x-text-input id="sixth_question" class="block mt-1 w-full" type="text"
-                                name="sixth_question" :value="old('sixth_question', $adoptionAnswerData->sixth_question)" />
+                                name="sixth_question" :value="old('sixth_question', $answers['sixth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="sevent_question" :value="__('Have you had pets in the past?')" />
                             <x-text-input id="sevent_question" class="block mt-1 w-full" type="text"
-                                name="sevent_question" :value="old('sevent_question', $adoptionAnswerData->sevent_question)" />
+                                name="sevent_question" :value="old('sevent_question', $answers['sevent_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="eight_question" :value="__('Who else do you live with?')" />
                             <x-text-input id="eight_question" class="block mt-1 w-full" type="text"
-                                name="eight_question" :value="old('eight_question', $adoptionAnswerData->eight_question)" />
+                                name="eight_question" :value="old('eight_question', $answers['eight_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="ninth_question" :value="__('Are any members of your house hold allergic to animals?')" />
                             <x-text-input id="ninth_question" class="block mt-1 w-full" type="text"
-                                name="ninth_question" :value="old('ninth_question', $adoptionAnswerData->ninth_question)" />
+                                name="ninth_question" :value="old('ninth_question', $answers['ninth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="tenth_question" :value="__(
                                 'Who will be responsible for feeding, grooming, and generally caring of your pet?',
                             )" />
                             <x-text-input id="tenth_question" class="block mt-1 w-full" type="text"
-                                name="tenth_question" :value="old('tenth_question', $adoptionAnswerData->tenth_question)" />
+                                name="tenth_question" :value="old('tenth_question', $answers['tenth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="eleventh_question" :value="__(
                                 'Who will be financially responsible for your pets needs (i.e food,vet,bills,etc)?',
                             )" />
                             <x-text-input id="eleventh_question" class="block mt-1 w-full" type="text"
-                                name="eleventh_question" :value="old('eleventh_question', $adoptionAnswerData->eleventh_question)" />
+                                name="eleventh_question" :value="old('eleventh_question', $answers['eleventh_question'])" />
                         </div>
 
 
@@ -1396,59 +1396,59 @@
                                 'Who will look after your pet if you go on vacation or in case of emergency?',
                             )" />
                             <x-text-input id="twelfth_question" class="block mt-1 w-full" type="text"
-                                name="twelfth_question" :value="old('twelfth_question', $adoptionAnswerData->twelfth_question)" />
+                                name="twelfth_question" :value="old('twelfth_question', $answers['twelfth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="thirteenth_question" :value="__('How many hours in an average work day will your pet be left alone?')" />
                             <x-text-input id="thirteenth_question" class="block mt-1 w-full" type="text"
-                                name="thirteenth_question" :value="old('thirteenth_question', $adoptionAnswerData->thirteenth_question)" />
+                                name="thirteenth_question" :value="old('thirteenth_question', $answers['thirteenth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="fourteenth_question" :value="__('Does everyone in the family support your decision to adopt a pet?')" />
                             <x-text-input id="fourteenth_question" class="block mt-1 w-full" type="text"
-                                name="fourteenth_question" :value="old('fourteenth_question', $adoptionAnswerData->fourteenth_question)" />
+                                name="fourteenth_question" :value="old('fourteenth_question', $answers['fourteenth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="fifteenth_question" :value="__(
                                 'What steps will you take to familiarize your new pet with his/her new surrounding?',
                             )" />
                             <x-text-input id="fifteenth_question" class="block mt-1 w-full" type="text"
-                                name="fifteenth_question" :value="old('fifteenth_question', $adoptionAnswerData->fifteenth_question)" />
+                                name="fifteenth_question" :value="old('fifteenth_question', $answers['fifteenth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="seventeenth_question" :value="__('What type of building do you live in?')" />
                             <x-text-input id="seventeenth_question" class="block mt-1 w-full" type="text"
-                                name="seventeenth_question" :value="old('seventeenth_question', $adoptionAnswerData->seventeenth_question)" />
+                                name="seventeenth_question" :value="old('seventeenth_question', $answers['seventeenth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="eighteenth_question" :value="__('Do you rent?')" />
                             <x-text-input id="eighteenth_question" class="block mt-1 w-full" type="text"
-                                name="eighteenth_question" :value="old('eighteenth_question', $adoptionAnswerData->eighteenth_question)" />
+                                name="eighteenth_question" :value="old('eighteenth_question', $answers['eighteenth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="nineteenth_question" :value="__('What happens to your pet if or when you move?')" />
                             <x-text-input id="nineteenth_question" class="block mt-1 w-full" type="text"
-                                name="nineteenth_question" :value="old('nineteenth_question', $adoptionAnswerData->nineteenth_question)" />
+                                name="nineteenth_question" :value="old('nineteenth_question', $answers['nineteenth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentieth_question" :value="__('Do you have a fenced yard? ')" />
                             <x-text-input id="twentieth_question" class="block mt-1 w-full" type="text"
-                                name="twentieth_question" :value="old('twentieth_question', $adoptionAnswerData->twentieth_question)" />
+                                name="twentieth_question" :value="old('twentieth_question', $answers['twentieth_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentyfirst_question" :value="__('How much time will your dog spend in the yard?')" />
                             <x-text-input id="twentyfirst_question" class="block mt-1 w-full" type="text"
-                                name="twentyfirst_question" :value="old('twentyfirst_question', $adoptionAnswerData->twentyfirst_question)" />
+                                name="twentyfirst_question" :value="old('twentyfirst_question', $answers['twentyfirst_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentysecond_question" :value="__('Are you prepared to walk and potty train your dog? ')" />
                             <x-text-input id="twentysecond_question" class="block mt-1 w-full" type="text"
-                                name="twentysecond_question" :value="old('twentysecond_question', $adoptionAnswerData->twentysecond_question)" />
+                                name="twentysecond_question" :value="old('twentysecond_question', $answers['twentysecond_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="twentythird_question" :value="__('Are you prepared to manage chewing, marking, excessive barking, etc?')" />
                             <x-text-input id="twentythird_question" class="block mt-1 w-full" type="text"
-                                name="twentythird_question" :value="old('twentythird_question', $adoptionAnswerData->twentythird_question)" />
+                                name="twentythird_question" :value="old('twentythird_question', $answers['twentythird_question'])" />
                         </div>
                     </div>
                     <div class="border-t border-gray-200 rounded-b dark:border-gray-600">

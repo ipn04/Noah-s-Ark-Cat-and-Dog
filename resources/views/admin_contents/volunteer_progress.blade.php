@@ -63,11 +63,11 @@
                     </button>
                 </form>
                 @if ($stage == 5)
-                    <h1 class="bg-green-200 text-green-600 font-semibold rounded-lg px-4 py-4 text-white-600">Application accepted</h1>
+                    <img class="h-24 w-28" src="/images/approve.png" alt="approved">
                 @elseif ($stage == 10)
-                    <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
+                    <img class="h-24 w-28" src="/images/rejected.png" alt="rejected">
                 @elseif ($stage == 11)
-                    <h1 class="bg-red-300 px-3 py-3 text-red-600">Application canceled</h1>
+                    <img class="h-24 w-28" src="/images/cancel.png" alt="cancelled">
                 @endif
                 <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="
@@ -119,9 +119,9 @@
             </div>
         </div>
 
-        <div class = "flex items-center  py-4 justify-center">
+        <div class ="flex items-center  py-4 justify-center">
             <div
-                class = "grid grid-cols-1 max-w-screen-lg px-14 lg:px-8 py-5 bg-white rounded-2xl shadow-md lg:grid-cols-5 gap-2">
+                class ="grid grid-cols-1 max-w-screen-lg lg:px-8 py-5 bg-white rounded-2xl shadow-md lg:grid-cols-5 gap-10">
                 <div>
 
                     <div class = "flex items-center justify-center gap-2">
@@ -251,13 +251,10 @@
             class=" 
         @if ($stage == 3) flex  items-center py-5 px-10 justify-center 
             @else
-        hidden @endif
-                  ">
-            <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-2xl">
-                <div class = "col-span-2 ">
-
-
-                    <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+        hidden @endif">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg">
+                <div>
+                    <div class = "bg-white p-5 max-w-lg rounded-2xl shadow-md">
                         @if ($scheduleInterview)
                             <h2 class="font-bold text-lg p-2">Interview at
                                 {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}</h2>
@@ -337,9 +334,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class = " 
-                grid grid-cols-1 lg:pt-24 gap-5 px-4 max-w-screen-lg ">
-                        <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md max-w-md rounded-2xl text-gray-900">
+                    <div class="grid grid-cols-1 lg:pt-24 gap-5">
+                        <div class="w-full bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             {{-- @foreach ($userVolunteerAnswers as $answers) --}}
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
@@ -353,6 +349,28 @@
                             <div class = "pb-4">
                                 @if ($userVolunteerAnswers)
                                 <ul class="space-y-4  mb-4">
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
+                                                </div>
+                                                <div class="w-full text-base font-medium ">
+                                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                                    </div>
+                                        </label>
+                                    </li>
+                                    <li>
+                                        <label
+                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                            <div class="block">
+                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
+                                                </div>
+                                                <div class="w-full text-base font-medium capitalize">
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
+                                                </div>
+                                        </label>
+                                    </li>
                                     <div class = "grid-cols-2 grid gap-2">
                                         <li>
                                             <label
@@ -407,28 +425,6 @@
                                             </label>
                                         </li>
                                     </div>
-                                    <li>
-                                        <label
-                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                            <div class="block">
-                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
-                                                </div>
-                                                <div class="w-full text-base font-medium ">
-                                                    <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
-                                                    </div>
-                                        </label>
-                                    </li>
-                                    <li>
-                                        <label
-                                            class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                            <div class="block">
-                                                <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
-                                                </div>
-                                                <div class="w-full text-base font-medium capitalize">
-                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
-                                                </div>
-                                        </label>
-                                    </li>
                                 </ul>
                                     
                                     <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
@@ -443,7 +439,7 @@
 
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -464,10 +460,10 @@
             class="
         @if ($stage == 3) hidden
         @else
-        flex items-center  py-5  justify-center @endif
+        flex items-center py-5 justify-center @endif
                 ">
-            <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-lg lg:mt-12">
-                <div class="bg-white px-5 mt-10  lg:mt-0  max-w-md shadow-md rounded-2xl text-gray-900">
+            <div class ="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg lg:mt-12">
+                <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     @if ($userVolunteerAnswers)
                         {{-- @foreach ($userVolunteerAnswers as $answers) --}}
                         <div
@@ -481,6 +477,28 @@
                         </h1>
                         <div class = "pb-4">
                             <ul class="space-y-4  mb-4">
+                                <li>
+                                    <label
+                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
+                                            </div>
+                                            <div class="w-full text-base font-medium ">
+                                                <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
+                                                </div>
+                                    </label>
+                                </li>
+                                <li>
+                                    <label
+                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                        <div class="block">
+                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
+                                            </div>
+                                            <div class="w-full text-base font-medium capitalize">
+                                                {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
+                                            </div>
+                                    </label>
+                                </li>
                                 <div class = "grid-cols-2 grid gap-2">
                                     <li>
                                         <label
@@ -535,28 +553,6 @@
                                         </label>
                                     </li>
                                 </div>
-                                <li>
-                                    <label
-                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                        <div class="block">
-                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Email
-                                            </div>
-                                            <div class="w-full text-base font-medium ">
-                                                <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
-                                                </div>
-                                    </label>
-                                </li>
-                                <li>
-                                    <label
-                                        class=" inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
-                                        <div class="block">
-                                            <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
-                                            </div>
-                                            <div class="w-full text-base font-medium capitalize">
-                                                {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
-                                            </div>
-                                    </label>
-                                </li>
                             </ul>
                           
                             <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
@@ -571,7 +567,7 @@
                     @endif
                 </div>
 
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -611,7 +607,6 @@
                                     <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
                                         Schedule</h3>
                                     <div class = "mt-2">
-
                                         <x-input-label for="date" value="{{ __('Applicant Name') }}" />
                                         <x-text-input type="text" name="date" label="date"
                                             value="{{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}"

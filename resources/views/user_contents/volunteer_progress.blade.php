@@ -102,7 +102,7 @@
 
         <div class = "flex items-center  py-4 justify-center">
             <div
-                class = "grid grid-cols-1 max-w-screen-lg px-14 lg:px-8 py-5 bg-white rounded-2xl shadow-md lg:grid-cols-5 gap-2">
+                class = "grid grid-cols-1 max-w-screen-lg px-14 lg:px-8 py-5 bg-white rounded-2xl shadow-md lg:grid-cols-5 gap-10">
                 <div>
                     <div class = "flex items-center justify-center gap-2">
                         <div
@@ -237,16 +237,12 @@
         @else
         hidden @endif  
          ">
-            <div class = "grid grid-cols-1 lg:grid-cols-3  gap-5 px-4 max-w-screen-2xl">
-                <div class = "col-span-2 ">
-
-
-                    <div
-                        class = "@if ($stage == 3) mb-7  justify-center items-center 
+            <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-lg">
+                <div>
+                    <div class="@if ($stage == 3) mb-7  justify-center items-center 
                     @else
-                    hidden @endif
-                   ">
-                        <div class = "bg-white p-5 max-w-lg rounded-lg shadow-md">
+                    hidden @endif">
+                        <div class = "bg-white p-5 max-w-lg rounded-2xl shadow-md">
                             <h2 class = "font-bold text-lg p-2">Interview at
                                 {{ \Carbon\Carbon::parse($scheduleInterview->date ?? '')->format('F j, Y') }}
                                 {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
@@ -335,8 +331,7 @@
                             </div>
                         </div>
                     </div>
-                    <div
-                        class = "@if ($stage == 5) mb-7 max-w-md  justify-center items-center @else hidden @endif">
+                    <div class = "@if ($stage == 5) mb-7  justify-center items-center @else hidden @endif">
                         <diV class = "bg-white rounded-lg p-5">
                             <h1 class = "font-bold text-xl">Congratulations!</h1>
                             <p class = "p-3 text-base">Your application as a volunteer has been accepted. Keep in mind
@@ -346,9 +341,8 @@
                         </div>
                     </div>
 
-                    <div class = " 
-                        grid grid-cols-1 lg:pt-14 gap-5 px-4 max-w-screen-lg ">
-                        <div class="bg-white px-5 mt-10 max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                    <div class="grid grid-cols-1 lg:pt-20 gap-5">
+                        <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                                 <img class="object-cover object-center w-32 h-32"
@@ -449,7 +443,7 @@
 
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -476,9 +470,9 @@
         @else 
         flex items-center  py-5  px-10  justify-center @endif    
           ">
-            <div class = "grid grid-cols-1 lg:grid-cols-2  gap-10 px-4 max-w-screen-lg lg:mt-12">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg lg:mt-12">
 
-                <div class="bg-white px-5 mt-10  max-w-md lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     @if ($userVolunteerAnswers)
                         {{-- @foreach ($userVolunteerAnswers as $answers) --}}
                         <div
@@ -577,12 +571,12 @@
                         </div>
                         {{-- @endforeach --}}
                     @else
-                        <p>No volunteer answers found.</p>
+                        <p>No volunteer answers found.</p> 
                     @endif
                 </div>
 
-                <div class = "bg-white lg:order-last order-first max-h-96 rounded-2xl p-4 shadow-md">
-                    <h1 class = "font-bold text-xl">Volunteer Progress</h1>
+                <div class="bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
+                    <h1 class="font-bold text-xl">Volunteer Progress</h1>
                         <table>
                             @if($firstnotification)
                                 @foreach ($firstnotification as $notify)

@@ -45,10 +45,10 @@
             <h2 class="font-bold text-lg text-red-500">Adoption Form</h2>
         </div>
 
-        <div class="flex justify-center items-center">
-        <div class="grid grid-cols-1 lg:grid-cols-2 px-4 py-4 gap-8">
+        <div class="max-w-screen-xl mx-auto">
+        <div class="grid grid-cols-1 lg:grid-cols-2 px-4 py-4 gap-8 w-full">
             <div class = "bg-white p-10 max-w-2xl shadow-lg rounded-2xl items-center justify-center flex">
-                <form method="POST" action="{{ route('send.form', ['petId' => $petId]) }}" class="max-w-lg" enctype="multipart/form-data">
+                <form method="POST" action="{{ route('send.form', ['petId' => $petId]) }}" class="max-w-2xl" enctype="multipart/form-data">
                 @csrf
                 <div id="section1" class="block">
                     <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>
@@ -345,10 +345,10 @@
             </form>
             </div>
 
-            <div>
+            <div class="bg-white rounded-2xl">
                 <div>
-                    <div class="flex justify-center">
-                        <div class="overflow-hiddenw-full lg:w-10/12 rounded-t-2xl">
+                    <div class="w-full">
+                        <div class="overflow-hidden w-full rounded-t-2xl">
                             <img src="{{ asset('storage/images/' . $pets->dropzone_file) }}" class=" w-full object-cover"  style ="max-height: 30em"/>
                             <div class="flex justify-center -mt-11">
                                 <div class="rounded-2xl p-5 w-4/5 -mt-3 w-423.355 h-24 rotate-[-0.205deg] p-21.892 flex-col items-center gap-17.513 flex-shrink-0 border-26.27 bg-[rgba(255,255,255,0.40)] shadow-[0px 5.473px 43.784px 0px rgba(0,0,0,0.05)] backdrop-blur-[27.364822387695312px]">
@@ -398,8 +398,8 @@
                         </div>
                     </div>
     
-                    <div class="flex  justify-center">
-                        <div class = "bg-white overflow-hidden w-full pt-3 lg:w-10/12 rounded-b-2xl ">
+                    <div class="w-full">
+                        <div class = "bg-white overflow-hidden w-full pt-3 rounded-b-2xl ">
                             <div class = "flex  lg:justify-start justify-center gap-2 lg:pl-12  p-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" height="25" width="25" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2023 Fonticons, Inc.-->
                                     <path fill = "currentColor" d="M226.5 92.9c14.3 42.9-.3 86.2-32.6 96.8s-70.1-15.6-84.4-58.5s.3-86.2 32.6-96.8s70.1 15.6 84.4 58.5zM100.4 198.6c18.9 32.4 14.3 70.1-10.2 84.1s-59.7-.9-78.5-33.3S-2.7 179.3 21.8 165.3s59.7 .9 78.5 33.3zM69.2 401.2C121.6 259.9 214.7 224 256 224s134.4 35.9 186.8 177.2c3.6 9.7 5.2 20.1 5.2 30.5v1.6c0 25.8-20.9 46.7-46.7 46.7c-11.5 0-22.9-1.4-34-4.2l-88-22c-15.3-3.8-31.3-3.8-46.6 0l-88 22c-11.1 2.8-22.5 4.2-34 4.2C84.9 480 64 459.1 64 433.3v-1.6c0-10.4 1.6-20.8 5.2-30.5zM421.8 282.7c-24.5-14-29.1-51.7-10.2-84.1s54-47.3 78.5-33.3s29.1 51.7 10.2 84.1s-54 47.3-78.5 33.3zM310.1 189.7c-32.3-10.6-46.9-53.9-32.6-96.8s52.1-69.1 84.4-58.5s46.9 53.9 32.6 96.8s-52.1 69.1-84.4 58.5z"/>

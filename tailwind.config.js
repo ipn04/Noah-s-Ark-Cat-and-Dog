@@ -27,7 +27,7 @@ export default {
             height: {
                 largeScreen: '70vh',
                 customHeight: '72vh',
-
+                petContentsheight: '80vh',
             },
         },
     },

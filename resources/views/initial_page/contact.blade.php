@@ -1,9 +1,9 @@
 <x-guest-layout>
-<section class="text-gray-600 body-font relative mt-20" style="background-image: url('{{ asset('images/whitebg.png') }}');">
+<section class="text-gray-600 body-font relative bg-gray-50 mt-20" style="">
     
-    <h1 class = "text-center pt-8 text-6xl font-bold text-red-600">Contact Us</h1>
+    <h1 class = "text-center pt-8 text-5xl font-bold text-red-600">Contact Us</h1>
 <p class = "text-center text-xl py-4">For questions and inquiries, you can send an it on <b>noahsarkph@gmail.com</b> or  via the contact form below.</p>
-    <div class="container px-5 pt-5 pb-20 mx-auto flex sm:flex-nowrap flex-wrap">
+    <div class="container px-5 pb-10 mx-auto flex sm:flex-nowrap flex-wrap">
         <div
             class="lg:w-2/3 md:w-1/2 bg-gray-300 rounded-lg overflow-hidden sm:mr-10 p-10 flex items-end justify-start relative shadow-md">
             <iframe width="100%" height="100%" class="absolute inset-0" frameborder="0" title="map" marginheight="0"

@@ -76,13 +76,13 @@
                     <h1 class = "text-3xl text-center py-4 text-white font-bold">Rescue</h1>
                 </div>
                 <div class = "lg:max-w-sm lg:h-72  max-w-xs h-60  ">
-                    <img class = "w-full h-full object-cover rounded-xl"
-                        src="{{ asset('images/rehome.jpg') }}" alt="ark">
+                    <img class = "w-full h-full object-cover rounded-xl" src="{{ asset('images/rehome.jpg') }}"
+                        alt="ark">
                     <h1 class = "text-3xl text-center py-4 text-white font-bold">Rehabilitate</h1>
                 </div>
                 <div class = "lg:max-w-sm lg:h-72 max-w-xs h-60 ">
-                    <img class = "w-full h-full object-cover rounded-xl"
-                        src="{{ asset('images/rehabilitate.jpg') }}" alt="ark">
+                    <img class = "w-full h-full object-cover rounded-xl" src="{{ asset('images/rehabilitate.jpg') }}"
+                        alt="ark">
                     <h1 class = "text-3xl text-center py-4 text-white font-bold">Rehome</h1>
                 </div>
             </div>
@@ -108,8 +108,39 @@
             </a>
         </div>
 
-        
-           
+
+        <div class="wrapper mx-auto lg:mt-8">
+            <i id="left" class = "flex items-center justify-center text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm-4.28 9.22a.75.75 0 0 0 0 1.06l3 3a.75.75 0 1 0 1.06-1.06l-1.72-1.72h5.69a.75.75 0 0 0 0-1.5h-5.69l1.72-1.72a.75.75 0 0 0-1.06-1.06l-3 3Z" clip-rule="evenodd" />
+                  </svg>
+                  
+            </i>            
+            <ul class="carousel">
+                @if ($pets->isNotEmpty())
+                    @foreach ($pets as $pet)
+                        <li class="card rounded-lg">
+                            <div class="w-full object-cover"><img class ="w-full object-cover rounded-lg h-72 " src="{{ asset('storage/images/' . $pet->dropzone_file) }}"
+                                    alt="img" draggable="false"></div>
+                            <h2 class = "pt-2 text-center text-xl font-semibold text-red-500">{{ $pet->pet_name }}</h2>
+                            <p class = "text-center text-sm font-normal text-gray-400">{{ $pet->breed }} • {{ $pet->age }}yr/s</p>
+
+                        </li>
+                        
+                    @endforeach
+                @else
+                @endif
+            </ul>
+            <i id="right" class = "flex items-center justify-center text-red-500">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-8 h-8">
+                    <path fill-rule="evenodd" d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25Zm4.28 10.28a.75.75 0 0 0 0-1.06l-3-3a.75.75 0 1 0-1.06 1.06l1.72 1.72H8.25a.75.75 0 0 0 0 1.5h5.69l-1.72 1.72a.75.75 0 1 0 1.06 1.06l3-3Z" clip-rule="evenodd" />
+                  </svg>                    
+            </i>
+        </div>
+
+
+
+
     </div>
 
 

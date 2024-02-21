@@ -10,6 +10,7 @@
 
     <!-- Logo -->
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+    <link rel="stylesheet" href="/css/main.css">
 
     <!--sweet alert-->
     <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
@@ -32,7 +33,8 @@
 <body class="font-sans text-gray-900  antialiased">
     @if (Route::is('login'))
         @include('navbar.main_navbar')
-        <div class="min-h-screen flex flex-col justify-center items-center p-8 lg:pt-20  dark:bg-gray-900"  style="background-image: url('{{ asset('images/yellowbg.png') }}')">
+        <div class="min-h-screen flex flex-col justify-center items-center p-8 lg:pt-20  dark:bg-gray-900"
+            style="background-image: url('{{ asset('images/yellowbg.png') }}')">
             <div class="w-full sm:max-w-md px-8 py-8 bg-white  dark:bg-gray-800 shadow-lg overflow-hidden rounded-2xl">
                 {{ $slot }}
             </div>
@@ -40,7 +42,8 @@
         @include('navbar.main_footer')
     @elseif(Route::is('register'))
         @include('navbar.main_navbar')
-        <div class="flex items-center justify-center pt-20 lg:pt-32 pb-10 px-5 "  style="background-image: url('{{ asset('images/redbackground.png') }}')">
+        <div class="flex items-center justify-center pt-20 lg:pt-32 pb-10 px-5 "
+            style="background-image: url('{{ asset('images/redbackground.png') }}')">
             <div class=" max-w-md lg:max-w-screen-lg px-4 py-8 bg-white dark:bg-gray-800 shadow-md rounded-2xl">
                 {{ $slot }}
             </div>
@@ -52,7 +55,7 @@
             {{ $slot }}
         </div>
         @include('navbar.main_footer')
-    @elseif(Route::is('ivan'))
+    @elseif(Route::is('home'))
         @include('navbar.main_navbar')
         <div class="mt-20">
             {{ $slot }}
@@ -67,6 +70,12 @@
     @elseif(Route::is('contact'))
         @include('navbar.main_navbar')
         <div class="mt-5">
+            {{ $slot }}
+        </div>
+        @include('navbar.main_footer')
+    @elseif(Route::is('how'))
+        @include('navbar.main_navbar')
+        <div class="mt-20">
             {{ $slot }}
         </div>
         @include('navbar.main_footer')

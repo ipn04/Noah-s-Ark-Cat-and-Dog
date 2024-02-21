@@ -68,6 +68,13 @@ class PetDataController extends Controller
         return view('initial_page.pets', ['pets' => $pets]);
     }
 
+
+    public function showPublicPets1()
+    {
+        $pets = Pet::all();
+
+        return view('welcome', ['pets' => $pets]);
+    }
     // public function adoptPet($petId)
     // {
     //     $userId = auth()->user()->id;

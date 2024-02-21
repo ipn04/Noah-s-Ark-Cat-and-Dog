@@ -1,8 +1,8 @@
 <x-guest-layout>
 
-    <section class="text-gray-600 body-font mt-10 p-10 lg:px-20 lg:py-10" style="background-image: url('{{ asset('images/whitebg.png') }}');">
-        <div>
-            <h1 class = "text-center lg:text-5xl text-4xl font-bold text-red-600">Pets Available for Adoption</h1>
+    <section class="text-gray-600 body-font mt-10 p-10 lg:px-20 lg:py-10" style="background-image: url('{{ asset('images/redbackground.png') }}');">
+        <div class = "py-6">
+            <h1 class = "text-center lg:text-5xl text-4xl font-bold text-white">Pets Available for Adoption</h1>
             <div class=" flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 items-center justify-center p-4 lg:px-4 lg:py-6">
                 <div class="w-full md:w-1/2">
                     <form role="search" class="flex items-center">
@@ -23,7 +23,7 @@
                 </div>
                 <div class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
-                        class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-white focus:outline-none bg-red-500 rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
+                        class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-red-500 focus:outline-none bg-white rounded-lg border  hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
                         type="button">
                         <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" class="h-4 w-4 mr-1.5 -ml-1 "
                             viewbox="0 0 20 20" fill="currentColor">
@@ -43,10 +43,10 @@
         </div>
         {{-- tama --}}
         <div class = "flex justify-center items-center">
-            <div class="lg:px-10 lg:py-5 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6 ">
+            <div class="lg:px-10 lg:pb-10 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6 ">
                 @if ($pets->isNotEmpty())
                     @foreach ($pets as $pet)
-                        <a href="{{ route('user.pet', $pet->id) }}"
+                        {{-- <a href="{{ route('user.pet', $pet->id) }}"
                             class="pet-container h-fit w-full group shadow-xl rounded-lg user-pet-lists"
                             data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}"
                             data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}"
@@ -63,7 +63,20 @@
                                     </div>
                                 </div>
                             </div>
-                        </a>
+                        </a> --}}
+
+                        <a 
+                        data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}"
+                        data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}"
+                        data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}"  href="" class = "pet-container rounded-lg max-w-lg bg-white pb-2">
+                                <div class="w-full object-cover"><img class ="w-full object-cover rounded-lg h-72 " src="{{ asset('storage/images/' . $pet->dropzone_file) }}"
+                                        alt="img" draggable="false"></div>
+                                <h2 class = "pt-2 text-center text-xl font-semibold text-red-500">{{ $pet->pet_name }}</h2>
+                                <p class = "text-center text-sm font-normal text-gray-400">{{ $pet->breed }} • {{ $pet->age }}yr/s</p>
+                         </a>
+
+                         
+                      
                     
                     @endforeach
                 @else

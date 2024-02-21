@@ -43,9 +43,7 @@ Route::get('/admin/interview/{scheduleId}', [InterviewController::class, 'jitsia
     ->middleware(['auth', 'admin'])
     ->name('interview.admin');
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('ivan');
+    Route::get('/', [PetDataController::class, 'showPublicPets1'])->name('home');
 
 /* user`s routes */
 
@@ -261,6 +259,11 @@ Route::get('/contact', function () {
 // })->name('pets');
 
 Route::get('/pets', [PetDataController::class, 'showPublicPets'])->name('pets');
+
+Route::get('/home', function () {
+    $controller = new PetDataController();
+    return $controller->showPublicPets1();
+})->name('home');
 
 
 Route::get('/howicanhelp', function () {

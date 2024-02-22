@@ -7,14 +7,16 @@
     "require": {
         "php": "^8.1",
         "consoletvs/charts": "6.*",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.8",
         "laravel/framework": "^10.10",
         "laravel/sanctum": "^3.3",
         "laravel/tinker": "^2.8",
+        "laravel/vonage-notification-channel": "^3.3",
         "laraveldaily/laravel-charts": "^0.2.3",
         "livewire/livewire": "^3.4",
         "maatwebsite/excel": "^3.1.25",
-        "pusher/pusher-php-server": "^7.2"
+        "pusher/pusher-php-server": "^7.2",
+        "vonage/client": "^4.0"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",

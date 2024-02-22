@@ -13,7 +13,7 @@ use App\Http\Controllers\PickupController;
 use App\Http\Controllers\VisitController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\VolunteerController;
-use App\Http\Controllers\RegisteredUserController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +34,11 @@ use App\Livewire\Chat\ChatBox;
 use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::routes();
+
+//otp form
+Route::get('/verify-otp', [RegisteredUserController::class, 'showVerificationForm'])->name('verify-otp');
+
+Route::post('/verify-otp', [RegisteredUserController::class, 'verifyOTP'])->name('verifies-otp');
 
 Route::get('/user/interview/{scheduleId}', [InterviewController::class, 'jitsiuserinterview'])
     ->middleware(['auth', 'user'])

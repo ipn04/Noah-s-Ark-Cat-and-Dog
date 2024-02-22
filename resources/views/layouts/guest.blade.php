@@ -79,6 +79,10 @@
             {{ $slot }}
         </div>
         @include('navbar.main_footer')
+    @elseif(Route::is('verify-otp'))
+        <div>
+            {{ $slot }}
+        </div>
     @else
         @include('navbar.main_navbar')
         <div class="mt-20 flex justfify-center align-center w-full">

@@ -89,7 +89,7 @@ class RegisteredUserController extends Controller
     private function sendOTP($phoneNumber)
     {
         $parameters = array(
-            'apikey' => '1d2e0c52db971c923bfb412ad53e5862',
+            'apikey' => env('SEMAPHORE_API_KEY'),
             'number' => $phoneNumber,
             'message' => 'Thank you for registering!',
             'sendername' => ''

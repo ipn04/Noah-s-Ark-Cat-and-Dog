@@ -112,14 +112,20 @@ class RegisteredUserController extends Controller
     public function verifyOTP(Request $request)
     {
         $request->validate([
-            'otp' => 'required|string',
+            'otp1' => 'required|string|max:1',
+            'otp2' => 'required|string|max:1',
+            'otp3' => 'required|string|max:1',
+            'otp4' => 'required|string|max:1',
+            'otp5' => 'required|string|max:1',
+            'otp6' => 'required|string|max:1',
         ]);
 
         $otpCode = session('otp_code');
         $phoneNumber = session('otp_phone_number');
         $registrationData = $request->session()->get('registration_data');
+        $enteredOTP = $request->otp1 . $request->otp2 . $request->otp3 . $request->otp4 . $request->otp5 . $request->otp6;
         
-        if ($request->otp == $otpCode) {
+        if ($enteredOTP == $otpCode) {
         // If OTP is correct, remove the OTP code from the session
         session()->forget('otp_code');
 

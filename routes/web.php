@@ -265,6 +265,11 @@ Route::get('/home', function () {
     return $controller->showPublicPets1();
 })->name('home');
 
+Route::get('/pets_desc/{id}', function ($id) {
+    $controller = new PetDataController();
+    return $controller->showPet1($id);
+})->name('pet.desc');
+
 
 Route::get('/howicanhelp', function () {
     return view('initial_page.how');

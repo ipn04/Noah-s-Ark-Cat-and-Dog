@@ -5,22 +5,22 @@
             charitable and
             non-governmental organization (NGO) was established in 2018 based in Mabalacat, Pampanga, Philippines. </p>
 
-        <div id="default-carousel" class="relative w-5/6 mx-auto" data-carousel="slide">
+        <div id="default-carousel" class="relative w-5/6 mx-auto mt-6" data-carousel="slide">
             <!-- Carousel wrapper -->
             <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                 <!-- Item 1 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
+                    <img  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                         alt="...">
                 </div>
                 <!-- Item 2 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-2.svg"
+                    <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
                 <!-- Item 3 -->
                 <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                    <img src="/docs/images/carousel/carousel-3.svg"
+                    <img  src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
                         class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
                 </div>
                 <!-- Item 4 -->

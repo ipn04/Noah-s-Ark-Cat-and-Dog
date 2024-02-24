@@ -120,11 +120,12 @@
                 @if ($pets->isNotEmpty())
                     @foreach ($pets as $pet)
                         <li class="card rounded-lg">
+                            <a href = "{{ route('pet.desc', $pet->id) }}" >
                             <div class="w-full object-cover"><img class ="w-full object-cover rounded-lg h-72 " src="{{ asset('storage/images/' . $pet->dropzone_file) }}"
                                     alt="img" draggable="false"></div>
                             <h2 class = "pt-2 text-center text-xl font-semibold text-red-500">{{ $pet->pet_name }}</h2>
                             <p class = "text-center text-sm font-normal text-gray-400">{{ $pet->breed }} • {{ $pet->age }}yr/s</p>
-
+                            </a>
                         </li>
                         
                     @endforeach

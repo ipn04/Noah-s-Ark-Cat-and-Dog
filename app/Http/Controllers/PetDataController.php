@@ -75,6 +75,13 @@ class PetDataController extends Controller
 
         return view('welcome', ['pets' => $pets]);
     }
+
+    public function showPublicPets2()
+    {
+        $pets = Pet::all();
+
+        return view('welcome', ['pets' => $pets]);
+    }
     // public function adoptPet($petId)
     // {
     //     $userId = auth()->user()->id;
@@ -160,6 +167,18 @@ class PetDataController extends Controller
 
         return response()->json(['pet' => $pet]);
     }
+
+    public function showPet1($id)
+    {
+        $pet = Pet::find($id);
+    
+        if (!$pet) {
+            return response()->json(['message' => 'Pet not found'], 404);
+        }
+    
+        return view('initial_page.pet_desc', ['pets' => $pet]);
+    }
+    
 
     public function addPet(Request $request) {
         // Check the MIME type

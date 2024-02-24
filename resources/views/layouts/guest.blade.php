@@ -79,6 +79,12 @@
             {{ $slot }}
         </div>
         @include('navbar.main_footer')
+    @elseif(Route::is('pet.desc'))
+        @include('navbar.main_navbar')
+        <div class="mt-20">
+            {{ $slot }}
+        </div>
+        @include('navbar.main_footer')
     @else
         @include('navbar.main_navbar')
         <div class="mt-20 flex justfify-center align-center w-full">

@@ -19,6 +19,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use App\Exports\AdoptionsExport;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Http;
 
 use Illuminate\Support\Str;
 
@@ -254,6 +255,9 @@ class adoptionController extends Controller
     } 
     public function updateStage($userId, $id)
     {
+        $user = User::find($userId);
+        $phoneNumber = $user->phone_number; 
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
@@ -262,15 +266,33 @@ class adoptionController extends Controller
         $adminId = auth()->id();
         if ($adoptionAnswer->stage == 0){
             $notificationMessage = 'Application Validated.';
+
+            $parameters = array(
+            'apikey' => env('SEMAPHORE_API_KEY'),
+            'number' => $phoneNumber,
+            'message' => 'Your application has been validated by the Noahs Ark. Schedule your interview now!',
+            'sendername' => ''
+            );
+
+            $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
+                
         }
         elseif ($adoptionAnswer->stage == 4) {
             $notificationMessage = 'Application Accepted';
-        }
-        elseif ($adoptionAnswer->stage == 4) {
-            $notificationMessage = 'Application Accepted';
+
+            $parameters = array(
+                'apikey' => env('SEMAPHORE_API_KEY'),
+                'number' => $phoneNumber,
+                'message' => 'Your application has been accepted by the Noahs Ark. Please, schedule pickup.',
+                'sendername' => ''
+                );
+    
+                $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
+
         }
         elseif ($adoptionAnswer->stage == 8) {
             $notificationMessage = 'Success';
+
         }
 
         $notification = new Notifications();
@@ -326,6 +348,9 @@ class adoptionController extends Controller
     public function rejectStage($userId, $id)
     {   
         $adminId = auth()->id();
+        $user = User::find($userId);
+        $phoneNumber = $user->phone_number; 
+
         $notificationMessage = 'Admin Rejected your Application';
 
         $notification = new Notifications();
@@ -336,6 +361,15 @@ class adoptionController extends Controller
         $notification->message = $notificationMessage;
         $notification->save();
         
+        $parameters = array(
+            'apikey' => env('SEMAPHORE_API_KEY'),
+            'number' => $phoneNumber,
+            'message' => 'Your application has been reject by the Noahs Ark Admin!',
+            'sendername' => ''
+        );
+
+        $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
@@ -446,6 +480,9 @@ class adoptionController extends Controller
 
     public function interviewStage($userId, $id)
     {
+        $user = User::find($userId);
+        $phoneNumber = $user->phone_number; 
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
@@ -470,6 +507,15 @@ class adoptionController extends Controller
             $notification->concern = 'Adoption Application';
             $notification->message = $notificationMessage;
             $notification->save();
+
+            $parameters = array(
+                'apikey' => env('SEMAPHORE_API_KEY'),
+                'number' => $phoneNumber,
+                'message' => 'Your schedule interview has been accepted by the Noahs Ark',
+                'sendername' => ''
+            );
+    
+            $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
 
             if ($application) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->latest()->first();
@@ -497,6 +543,9 @@ class adoptionController extends Controller
     {
         $adminId = User::where('role', 'admin')->value('id');
 
+        $user = User::find($userId);
+        $phoneNumber = $user->phone_number; 
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
             ->where('application.user_id', $userId)
@@ -519,6 +568,15 @@ class adoptionController extends Controller
             $notification->concern = 'Adoption Application';
             $notification->message = $notificationMessage;
             $notification->save();
+
+            $parameters = array(
+                'apikey' => env('SEMAPHORE_API_KEY'),
+                'number' => $phoneNumber,
+                'message' => 'Your schedule interview has been rejected by Noahs Ark. Please, re-schedule the Interview!',
+                'sendername' => ''
+            );
+    
+            $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
 
             if ($application) {
                 $scheduleInterview = ScheduleInterview::where('application_id', $application->id)->latest()->first();
@@ -633,6 +691,9 @@ class adoptionController extends Controller
 
     public function pickupStage($userId, $id)
     {
+        $user = User::find($userId);
+        $phoneNumber = $user->phone_number; 
+
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
         ->where('adoption.application_id', $id)
         ->where('application.user_id', $userId)
@@ -657,6 +718,16 @@ class adoptionController extends Controller
             $notification->message = $notificationMessage;
             $notification->save();
 
+
+            $parameters = array(
+                'apikey' => env('SEMAPHORE_API_KEY'),
+                'number' => $phoneNumber,
+                'message' => 'Your schedule pickup has been accepted by Noahs Ark!',
+                'sendername' => ''
+            );
+    
+            $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
+
             if ($application) {
                 $schedulepickup = SchedulePickup::where('application_id', $application->id)->latest()->first();
                 if ($schedulepickup) {
@@ -674,6 +745,9 @@ class adoptionController extends Controller
     public function rejectPickup($userId, $id)
     {
         $adminId = User::where('role', 'admin')->value('id');
+
+        $user = User::find($userId);
+        $phoneNumber = $user->phone_number; 
 
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
         ->where('adoption.application_id', $id)
@@ -696,6 +770,15 @@ class adoptionController extends Controller
             $notification->concern = 'Adoption Application';
             $notification->message = $notificationMessage;
             $notification->save();
+
+            $parameters = array(
+                'apikey' => env('SEMAPHORE_API_KEY'),
+                'number' => $phoneNumber,
+                'message' => 'Your schedule pickup has been rejected by Noahs Ark. Please, re-schedule pickup!',
+                'sendername' => ''
+                );
+    
+            $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
 
             if ($application) {
                 $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();

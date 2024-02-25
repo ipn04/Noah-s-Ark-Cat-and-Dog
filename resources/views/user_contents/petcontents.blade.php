@@ -169,15 +169,15 @@
                         <div class = "max-w-40 px-4 py-4">
                             <div class = "grid grid-cols-1 md:grid-cols-3 gap-4">
                                 <div class = "bg-green-100 p-4  rounded-2xl">
-                                    <h1>Weight</h1>
+                                    <h1>Adoption Status</h1>
                                     <h1 class = " text-md font-extrabold">{{ $pets->adoption_status }}</h1>
                                 </div>
                                 <div class = "bg-green-100 p-4  rounded-2xl">
-                                    <h1 class =>Size</h1>
+                                    <h1 class =>Vaccination Status</h1>
                                     <h1 class = " text-md font-extrabold">{{ $pets->vaccination_status }}</h1>
                                 </div>
                                 <div class = "bg-green-100 p-4 rounded-2xl">
-                                    <h1>Color</h1>
+                                    <h1>Behaviour</h1>
                                     <h1 class = " text-md font-extrabold">{{ $pets->behaviour }}</h1>
                                 </div>
                             </div>

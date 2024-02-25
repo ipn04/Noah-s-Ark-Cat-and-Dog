@@ -635,7 +635,7 @@
                 <div class="@if ($stage == 5) flex justify-center items-center
                             @else
                             hidden @endif">
-                    <div class="bg-white p-5 max-w-lg rounded-lg shadow-md">
+                    <div class="bg-white p-5 max-w-lg rounded-2xl shadow-md">
                         <h2 class = "font-bold text-xl p-2">Congratulations!</h2>
                         <p class = "p-2 ">Your adoption application has been approved. You are now able to adopt
                             Yumi. Please select a schedule for pick-uping the dog.</p>
@@ -954,7 +954,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="bg-white lg:order-last order-first rounded-2xl overflow-y-auto p-4 shadow-md 
+                <div class="bg-white lg:order-last order-first rounded-2xl overflow-y-auto p-4 shadow-md w-full
                     @if ($stage == 5) w-3/4 mx-auto
                     @else @endif">
                         <h1 class = "font-bold text-xl">Adoption Progress</h1>

@@ -47,7 +47,7 @@
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class = "grid lg:grid-cols-2 grid-cols-1 lg:px-16 gap-5">
             <div>
-                <div class="p-4 my-3 lg:-mt-10  sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="p-4 my-3 lg:-mt-10  sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div class="max-w-xl">
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Profile Picture') }}
@@ -96,7 +96,7 @@
                     </div>
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div class="max-w-xl">
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Profile Information') }}
@@ -200,7 +200,7 @@
                     </div>
                 </div>
 
-                <div class="p-4 my-3 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="p-4 my-3 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div class="max-w-xl">
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Password Information') }}
@@ -305,7 +305,7 @@
                     </div>
                 </div>
 
-                <div class="p-4 my-5 py-6 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="p-4 my-5 py-6 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div class="max-w-xl">
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Current Location') }}
@@ -384,7 +384,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div class="max-w-xl">
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Delete Account') }}

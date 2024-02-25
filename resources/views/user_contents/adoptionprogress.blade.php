@@ -36,9 +36,15 @@
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class="flex flex-col sm:flex-row justify-between lg:items-center py-4 px-10">
             <div class="flex gap-2 mb-2 sm:mb-0">
-                <a href="{{ route('user.dashboard') }}"
-                    class="lg:text-lg text-base hover:font-bold hover:cursor-pointer hover:text-red-700">Home</a>
-                <p class="lg:text-lg text-base">>></p>
+                <a href="{{ route('user.applications') }}"
+                    class="lg:text-lg text-base hover:font-bold hover:cursor-pointer hover:text-red-700">Applications</a>
+                <div class = "flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
                 <h2 class="font-bold text-base lg:text-lg text-yellow-500">Adoption Application Details</h2>
             </div>
             <div class="py-3 lg:py-0 mx-auto lg:mx-0">
@@ -51,11 +57,11 @@
                 </button>
             </div>
             @if ($stage == 9)
-                <h1 class="bg-green-300 px-3 py-3 text-white-600">Application done</h1>
+                <h1 class="bg-green-200 px-3 py-3 rounded-lg text-green-600">Application Accepted</h1>
             @elseif ($stage == 10)
-                <h1 class="bg-red-300 px-3 py-3 text-red-600">Application rejected</h1>
+                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Rejected</h1>
             @elseif ($stage == 11)
-                <h1 class="bg-red-300 px-3 py-3 text-red-600">Application canceled</h1>
+                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Canceled</h1>
             @endif
         </div>
         <div id="popup-modal" tabindex="-1"
@@ -106,6 +112,8 @@
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 text-gray-600 bg-gray-200
                             @if ($stage >= 0 && $stage < 10) bg-green-200 text-green-500
+                            @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -129,6 +137,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                 @if ($stage > 0 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                     @else
                                     text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -154,6 +164,8 @@
                                 @if ($stage > 2 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 2)
                                 bg-yellow-200 text-yellow-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -179,6 +191,8 @@
                                 @if ($stage > 3 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 3)
                                 bg-yellow-200 text-yellow-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif
                                 ">
@@ -196,13 +210,16 @@
                 </div>
                 <div>
                     <div>
-                        <div class = "flex items-center justify-start lg:justify-center gap-2
+                        <div
+                            class = "flex items-center justify-start lg:justify-center gap-2
                         ">
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16  
                                 @if ($stage > 4 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 4)
                                 bg-yellow-200 text-yellow-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif
                                 ">
@@ -227,6 +244,8 @@
                                 @if ($stage > 6 && $stage < 10) bg-green-200 text-green-500
                                 @elseif($stage == 6)
                                 bg-yellow-200 text-yellow-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -250,6 +269,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                 @if ($stage > 8 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -269,12 +290,14 @@
                 </div>
             </div>
         </div>
-        <div class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
+        <div
+            class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
             @else
             hidden @endif">
             <div class = "grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-screen-lg">
                 <div class = "col-span-2 ">
-                    <div class="@if ($stage == 7) mb-7
+                    <div
+                        class="@if ($stage == 7) mb-7
                                 @else
                                 hidden @endif">
                         <div class = "bg-white p-5 w-full rounded-2xl shadow-md">
@@ -302,7 +325,8 @@
 
                         </div>
                     </div>
-                    <div class = "@if ($stage == 3) mb-7 
+                    <div
+                        class = "@if ($stage == 3) mb-7 
                         @else
                         hidden @endif">
                         <div class = "bg-white p-5 w-full rounded-2xl shadow-md">
@@ -604,15 +628,20 @@
                 <div class = "bg-white lg:order-last order-first overflow-y-auto rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <table>
-                        @if($firstnotification)
+                        @if ($firstnotification)
                             @foreach ($firstnotification as $notify)
                                 <tr class = "bg-white border-b border-gray-200">
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{  $notify->message }}</h5></td>
-                                </tr>                    
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
+                                        <h5>{{ $notify->message }}</h5>
+                                    </td>
+                                </tr>
                             @endforeach
                             <tr class = "bg-white border-b border-gray-200">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.</h5></td>
-                            </tr>                    
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
+                                    <h5>Your application has been successfully submitted on the shelter. Your
+                                        application is going to be reviewed by the shelter.</h5>
+                                </td>
+                            </tr>
                         @endif
                     </table>
                 </div>
@@ -623,7 +652,8 @@
 
 
 
-        <div class="
+        <div
+            class="
             @if ($stage == 3 || $stage == 7) hidden 
             @else 
             flex items-center  py-5  justify-center @endif">
@@ -632,7 +662,8 @@
             @if ($stage == 5) lg:grid-cols-2 gap-5 max-w-screen-lg 
             @else
             lg:grid-cols-3 lg:pt-14 gap-5 max-w-screen-lg @endif">
-                <div class="@if ($stage == 5) flex justify-center items-center
+                <div
+                    class="@if ($stage == 5) flex justify-center items-center
                             @else
                             hidden @endif">
                     <div class="bg-white p-5 max-w-lg rounded-2xl shadow-md">
@@ -954,134 +985,143 @@
                         </button>
                     </div>
                 </div>
-                <div class="bg-white lg:order-last order-first rounded-2xl overflow-y-auto p-4 shadow-md w-full
+                <div
+                    class="bg-white lg:order-last order-first rounded-2xl overflow-y-auto p-4 shadow-md w-full
                     @if ($stage == 5) w-3/4 mx-auto
                     @else @endif">
-                        <h1 class = "font-bold text-xl">Adoption Progress</h1>
-                        <!-- Modal toggle -->
-                        <table>
-                            @if($firstnotification)
-                                @foreach ($firstnotification as $notify)
-                                    <tr class = "bg-white border-b border-gray-200">
-                                        <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->message }}</h5></td>
-                                    </tr>                    
-                                @endforeach
-                            @endif
-                            <tr class = "bg-white border-b border-gray-200">
-                                <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>Your application has been successfully submitted on the shelter. Your application is going to be reviewed by the shelter.</h5></td>
-                            </tr>   
-                            @if ($stage === 1)
+                    <h1 class = "font-bold text-xl">Adoption Progress</h1>
+                    <!-- Modal toggle -->
+                    <table>
+                        @if ($firstnotification)
+                            @foreach ($firstnotification as $notify)
+                                <tr class = "bg-white border-b border-gray-200">
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
+                                        <h5>{{ $notify->message }}</h5>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
+                        <tr class = "bg-white border-b border-gray-200">
+                            <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
+                                <h5>Your application has been successfully submitted on the shelter. Your application is
+                                    going to be reviewed by the shelter.</h5>
+                            </td>
+                        </tr>
+                        @if ($stage === 1)
                             <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                                 class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 mx-auto my-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                 type="button">
                                 Schedule Interview
-                            </button> 
-                        
-                        </table>
-                       
-                            
+                            </button>
 
-                        <!-- Main modal -->
-                        <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <!-- Modal header -->
-                                    <div
-                                        class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                            Schedule
-                                        </h3>
-                                        <button type="button"
-                                            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                            data-modal-toggle="crud-modal">
-                                            <svg class="w-3 h-3" aria-hidden="true"
+                    </table>
+
+
+
+                    <!-- Main modal -->
+                    <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                        <div class="relative p-4 w-full max-w-md max-h-full">
+                            <!-- Modal content -->
+                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                <!-- Modal header -->
+                                <div
+                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                        Schedule
+                                    </h3>
+                                    <button type="button"
+                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                        data-modal-toggle="crud-modal">
+                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                            fill="none" viewBox="0 0 14 14">
+                                            <path stroke="currentColor" stroke-linecap="round"
+                                                stroke-linejoin="round" stroke-width="2"
+                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                        </svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                </div>
+                                <!-- Modal body -->
+                                <form action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
+                                    class="p-4 md:p-5" method="POST">
+                                    @csrf
+                                    <h1 class = " text-left  text-lg">Please state your interview availability
+                                        and
+                                        start time. Shelter is available at 6 am to 7pm.
+                                        Interviews are limited to <b>1 hour.</b>
+                                    </h1>
+                                    <p class = "text-xs  italic">Note that the administration will have the
+                                        final
+                                        say on
+                                        whether or not to approve your proposed schedule.</p>
+                                    <div class="-mx-3  pt-3 flex flex-wrap">
+                                        <div class="w-full px-3 sm:w-1/2">
+                                            <div class="mb-5">
+                                                <label for="date"
+                                                    class="mb-3 block text-base  font-bold text-[#07074D]">
+                                                    Date
+                                                </label>
+                                                <input type="date" name="date" id="date" required
+                                                    min="<?= date('Y-m-d') ?>"
+                                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md"
+                                                    required />
+                                            </div>
+                                        </div>
+                                        <div class="w-full px-3 sm:w-1/2">
+                                            <div class="mb-5">
+                                                <label for="time"
+                                                    class="mb-3 block text-base font-bold text-[#07074D]">
+                                                    Time
+                                                </label>
+                                                <input type="time" name="time" id="time" required
+                                                    min="06:00:00" max="19:00:00"
+                                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md"
+                                                    required />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="grid grid-cols-2 gap-4 mx-auto">
+                                        <button type="submit"
+                                            class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                            <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            Submit
+                                        </button>
+                                        <button type="submit"
+                                            class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                            <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
                                                 xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                viewBox="0 0 14 14">
+                                                viewBox="0 0 20 20">
                                                 <path stroke="currentColor" stroke-linecap="round"
                                                     stroke-linejoin="round" stroke-width="2"
                                                     d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
                                             </svg>
-                                            <span class="sr-only">Close modal</span>
+                                            Cancel
                                         </button>
                                     </div>
-                                    <!-- Modal body -->
-                                    <form action="{{ route('schedule.interview', ['userId' => auth()->user()->id]) }}"
-                                        class="p-4 md:p-5" method="POST">
-                                        @csrf
-                                        <h1 class = " text-left  text-lg">Please state your interview availability
-                                            and
-                                            start time. Shelter is available at 6 am to 7pm.
-                                            Interviews are limited to <b>1 hour.</b>
-                                        </h1>
-                                        <p class = "text-xs  italic">Note that the administration will have the
-                                            final
-                                            say on
-                                            whether or not to approve your proposed schedule.</p>
-                                        <div class="-mx-3  pt-3 flex flex-wrap">
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <div class="mb-5">
-                                                    <label for="date"
-                                                        class="mb-3 block text-base  font-bold text-[#07074D]">
-                                                        Date
-                                                    </label>
-                                                    <input type="date" name="date" id="date" required  min="<?= date('Y-m-d'); ?>"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" required />
-                                                </div>
-                                            </div>
-                                            <div class="w-full px-3 sm:w-1/2">
-                                                <div class="mb-5">
-                                                    <label for="time"
-                                                        class="mb-3 block text-base font-bold text-[#07074D]">
-                                                        Time
-                                                    </label>
-                                                    <input type="time" name="time" id="time" required min="06:00:00" max="19:00:00"
-                                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" required />
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="grid grid-cols-2 gap-4 mx-auto">
-                                            <button type="submit"
-                                                class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                Submit
-                                            </button>
-                                            <button type="submit"
-                                                class="text-white mt-6 inline-flex justify-center items-center bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                                <svg class="me-1-ms-1 w-4 h-4" aria-hidden="true"
-                                                    xmlns="http://www.w3.org/2000/svg" fill="none"
-                                                    viewBox="0 0 20 20">
-                                                    <path stroke="currentColor" stroke-linecap="round"
-                                                        stroke-linejoin="round" stroke-width="2"
-                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                                </svg>
-                                                Cancel
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
+                                </form>
                             </div>
                         </div>
-                    @elseif ($stage === 9)
-                        <div class="flex justify-center items-center my-2">
-                            <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
-                                <button
-                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                                    </svg>
-                                    <span>Download Contract</span>
-                                </button>
-                            </a>
-                        </div>
-                    @else
+                    </div>
+                @elseif ($stage === 9)
+                    <div class="flex justify-center items-center my-2">
+                        <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                            <button
+                                class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20">
+                                    <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                </svg>
+                                <span>Download Contract</span>
+                            </button>
+                        </a>
+                    </div>
+                @else
                     @endif
                 </div>
             </div>
@@ -1147,8 +1187,8 @@
                                 </div>
                             </label>
                         </li>
-                        
-                       
+
+
                     </ul>
                     <ul class = "space-y-4 ">
                         <li>
@@ -1187,9 +1227,9 @@
                                 </div>
                             </label>
                         </li>
-                       
+
                     </ul>
-                    
+
                     <ul class = "space-y-4 ">
                         <li>
                             <input type="text" id="pet-gender" name="job" value="pet-gender"
@@ -1215,7 +1255,7 @@
                                 </div>
                             </label>
                         </li>
-                          
+
                         <li>
                             <input type="text" id="pet-weight" name="job" value="pet-weight"
                                 class="hidden peer" required>
@@ -1230,7 +1270,7 @@
                         </li>
                     </ul>
                     <ul class = "space-y-4 ">
-                      
+
                         <li>
                             <input type="text" id="pet-size" name="job" value="pet-size"
                                 class="hidden peer" required>

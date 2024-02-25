@@ -65,7 +65,7 @@
                             </div>
                         </a> --}}
 
-                        <a 
+                        <a href = "{{ route('pet.desc', $pet->id) }}"
                         data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}"
                         data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}"
                         data-vaccination="{{ $pet->vaccination_status }}" data-size="{{ $pet->size }}"  href="" class = "pet-container rounded-lg max-w-lg bg-white pb-2">

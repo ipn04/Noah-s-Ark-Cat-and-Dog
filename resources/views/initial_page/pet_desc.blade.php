@@ -1,6 +1,6 @@
 <x-guest-layout>
 
-    <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
+    <section class="mb-5 dark:bg-gray-900 py-6 px-4 antialiased"  >
         
         @if($pets && is_object($pets))
     
@@ -95,7 +95,7 @@
                 </div>
             </div>
              --}}
-            <div class="flex h-petContentsheight">
+            <div class=" h-petContentsheight mx-auto mb-10">
                 <div class="grid grid-cols-1 lg:grid-cols-2 max-w-screen-2xl mx-auto my-auto">
                     <div class="bg-white rounded-l-2xl py-8">
                         <img src="{{ asset('storage/images/' . $pets->dropzone_file) }}" class="w-full object-cover"  style ="max-height: 30em"/>
@@ -131,13 +131,17 @@
                                     </div>
                                 @else
                                     <div class="w-32">
-                                        <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white p-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
                                     </div>
                                 @endif
                             @endif
                         </div> --}}
+                        <div class = "flex justify-end px-5 gap-2 ">
+                            <a href="{{ route('pets') }}" class="hover:bg-white px-5 py-3 hover:text-red-500 font-bold bg-red-500 text-white rounded-lg shadow-md">Back</a>
+
+                        <a href="{{ route('user.adoption', ['petId' => $pets->id]) }}" class="hover:bg-white px-5 py-3 hover:text-red-500 font-bold bg-yellow-500 text-white rounded-lg shadow-md">Adopt {{ $pets->pet_name }}</a>
+                        </div>
                         <div class = "max-w-40 border-2 mx-4 px-4 mt-4 rounded-2xl h-40 mb-4">
-                            <p class="text-lg font-light py-3" style="overflow-wrap: break-word;"><span class="font-bold">Description: </span>{{ $pets->description }}</p>
+                            <p class="text-lg font-normal py-3" style="overflow-wrap: break-word;"><span class="font-bold">Description: </span>{{ $pets->description }}</p>
                         </div>
                         <div class = "max-w-40 py-4 px-4">
                             <div class = "grid grid-cols-1 md:grid-cols-3 gap-4">

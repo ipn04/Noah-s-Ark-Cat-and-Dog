@@ -263,7 +263,6 @@
                             {{ \Carbon\Carbon::parse($user->birthday)->format('F d, Y') }}
                             {{ '. Kindly change your birthday here.' }}
                         </p>
-
                         <form method="POST" action="{{ route('delete.account') }}" enctype="multipart/form-data">
                             @csrf
                             @method('DELETE')
@@ -283,10 +282,8 @@
                                         <input datepicker name="birthday" id="birthday" datepicker-autohide
                                             type="text"
                                             class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="{{ __('YYYY-MM-DD') }}"
-                                            value="{{ optional($user->birthday)->format('Y-m-d') ?? '' }}">
-
-
+                                            placeholder="{{ __('MM-DD-YYYY') }}"
+                                            value="{{ optional(\DateTime::createFromFormat('Y-n-d', $user->birthday))->format('m-d-Y') ?? 'no data' }}">
                                     </div>
 
                                     {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}
@@ -314,6 +311,7 @@
                         <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
                             {{ __('Your current location is ' . $user->street . ', ' . $user->barangay . ', ' . $user->city . ', ' . $user->province . ', ' . $user->region . '. Kindly change your location here.') }}
                         </p>
+                        
                         <form method="POST" action="" enctype="multipart/form-data">
                             <div class="grid grid-cols-1 gap-4 mt-4">
 
@@ -321,10 +319,8 @@
                                     <x-input-label for="region" :value="__('Region')" />
                                     <select id="region"
                                         class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                        name="region" :value="old('region, ')" autocomplete="region">
-
+                                        name="region" :value="old('region')" autocomplete="region">
                                     </select>
-
                                     {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
                                 </div>
                             </div>

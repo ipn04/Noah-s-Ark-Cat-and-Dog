@@ -244,7 +244,11 @@ Route::get('/user/profile/{id}', [ProfileController::class, 'userProfile'])->nam
 
 Route::put('/user/update/{id}', [ProfileController::class, 'updateUserProfile'])->name('update.user');
 
+Route::put('/user/update/password/{id}', [ProfileController::class, 'updatePassword'])->name('update.password');
 
+Route::put('/user/update/birthday/{id}', [ProfileController::class, 'updateBirthday'])->name('update.birthday');
+
+Route::put('/user/update/address/{id}', [ProfileController::class, 'updateAddress'])->name('update.address');
 
 // Route::get('/dashboard', function () {
 //     return view('dashboard');

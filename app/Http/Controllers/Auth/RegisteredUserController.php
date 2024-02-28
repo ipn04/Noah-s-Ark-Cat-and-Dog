@@ -56,7 +56,7 @@ class RegisteredUserController extends Controller
             ]
         );   
         
-        $profileImagePath = $request->file('profile_image')->store('profile_images');
+        $profileImagePath = $request->file('profile_image')->store('profiles');
 
         $response = $this->sendOTP($request->phone_number);
         // dd($response->json());

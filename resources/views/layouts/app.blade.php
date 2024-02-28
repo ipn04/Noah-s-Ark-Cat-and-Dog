@@ -25,7 +25,7 @@
         <script src='https://meet.jit.si/external_api.js'></script>
 
         <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
+        @vite(['resources/css/app.css', 'resources/js/app.js', 'public/js/ph-address-selector.js'])
         @livewireStyles
         
     </head>
@@ -53,7 +53,6 @@
         {{-- <script src="/js/chart.js"></script> --}}
         <script src="/js/crud.js">deletepet</script>       
         <script src="/js/jitsi.js"></script>
-        <script src="/js/ph-address-selector.js"></script>
         <script src="https://kit.fontawesome.com/729fd96d7a.js" crossorigin="anonymous"></script>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.js"></script>

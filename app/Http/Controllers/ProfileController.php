@@ -65,58 +65,64 @@ class ProfileController extends Controller
 
     public function updateUserProfile(Request $request, $id)
     {
-        // Validate incoming request data
-        $validatedData = $request->validate([
-            'name' => 'sometimes|string|max:255',
-            'firstname' => 'sometimes|string|max:255',
-            'gender' => 'sometimes|in:male,female,other',
-            'civil_status' => 'sometimes|in:single,married,divorced,widowed',
-            'region' => 'sometimes|string',
-            'province' => 'sometimes|string',
-            'city' => 'sometimes|string',
-            'barangay' => 'sometimes|string',
-            'street' => 'sometimes|string|max:255',
-            'phone_number' => 'sometimes|string|max:255',
-            'email' => 'sometimes|email|unique:users,email,' . $id,
-            'password' => 'nullable|string|min:8|confirmed',
-            'profile_image' => 'nullable|image|max:2048', // Assuming profile images are uploaded
-        ]);
-
         $user = User::findOrFail($id);
 
-        if ($request->has('birthday')) {
-            $birthday = \DateTime::createFromFormat('d/m/Y', $request->input('birthday'));
-            if ($birthday !== false) {
-                $validatedData['birthday'] = $birthday->format('Y-m-d');
-            }
-        }
+        // if ($request->has('birthday')) {
+        //     $birthday = \DateTime::createFromFormat('d/m/Y', $request->input('birthday'));
+        //     if ($birthday !== false) {
+        //         $validatedData['birthday'] = $birthday->format('Y-m-d');
+        //     }
+        // }
+        $validatedData = $request->validate([
+            'name' => 'sometimes|required',
+            'firstname' => 'sometimes|required',
+            'gender' => 'sometimes|required',
+            'civil_status' => 'sometimes|required',
+        ]);
 
-
-        if ($request->hasFile('profiles')) {
-            // Delete previous profile image if exists
-            if ($user->profile_image) {
-                Storage::delete('public/' . $user->profile_image);
-            }
-
-            $imagePath = $request->file('profiles')->store('public/profiles');
-            $user->profile_image = str_replace('public/', '', $imagePath);
-        }
-  
-        // Update password if provided
-        if ($validatedData['password']) {
-            $user->password = bcrypt($validatedData['password']);
-        }
-
-        unset($validatedData['password']);
-
-        $user->fill($validatedData);
-        $user->save();
-
-        // Redirect to the profile page or wherever you need
+        $user->update($validatedData);
         return redirect()->route('user.profile', ['id' => $id])->with('profile_updated', true);
     }
 
-    
+    public function updatePassword(Request $request, $id) {
+        $user = User::findOrFail($id);
+        
+        $validatePassword = $request->validate([
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        ]);
+        // dd($validatePassword);
+        $user->update($validatePassword);
+        return redirect()->route('user.profile', ['id' => $id])->with('profile_updated', true);
+    }
+
+    public function updateBirthday(Request $request, $id) {
+        $user = User::findOrFail($id);
+        
+        $request->validate([
+            'birthday' => 'required|date',
+        ]);
+
+        $formattedBirthday = date("Y-m-d", strtotime($request->birthday));
+        $user->update(['birthday' => $formattedBirthday]);
+        return redirect()->route('user.profile', ['id' => $id])->with('profile_updated', true);
+    }
+
+    public function updateAddress(Request $request, $id) {
+        $user = User::findOrFail($id);
+        
+        $validatedData = $request->validate([
+            'region' => ['required', 'string', 'max:255'],
+            'province' => ['required', 'string', 'max:255'],
+            'city' => ['required', 'string', 'max:255'],
+            'barangay' => ['required', 'string', 'max:255'],
+            'street' => ['required', 'string', 'max:255'],
+        ]);
+
+        dd($validatedData);
+        // $user->update($validatedData);
+
+        return redirect()->route('user.profile', ['id' => $id])->with('profile_updated', true);
+    }
 
     public function edit(Request $request): View
     {

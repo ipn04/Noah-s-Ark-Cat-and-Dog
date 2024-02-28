@@ -105,7 +105,7 @@
                         <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
                             {{ __("Update your account's profile information and email address.") }}
                         </p>
-                        <form method="POST" action="" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('update.user', ['id' => $user->id]) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class=" gap-3">
@@ -159,20 +159,18 @@
                                         <select id="civil_status" name="civil_status"
                                             class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
                                             autocomplete="civil_status">
-                                            <option value="single"
-                                                {{ old('civil_status') === 'single' ? 'selected' : '' }}>
+                                            <option value="single" {{ old('civil_status', $user->civil_status) === 'single' ? 'selected' : '' }}>
                                                 Single
                                             </option>
-                                            <option value="married"
-                                                {{ old('civil_status') === 'married' ? 'selected' : '' }}>
-                                                Married</option>
-                                            <option value="divorced"
-                                                {{ old('civil_status') === 'divorced' ? 'selected' : '' }}>
+                                            <option value="married" {{ old('civil_status', $user->civil_status) === 'married' ? 'selected' : '' }}>
+                                                Married
+                                            </option>
+                                            <option value="divorced" {{ old('civil_status', $user->civil_status) === 'divorced' ? 'selected' : '' }}>
                                                 Divorced
                                             </option>
-                                            <option value="widowed"
-                                                {{ old('civil_status') === 'widowed' ? 'selected' : '' }}>
-                                                Widowed</option>
+                                            <option value="widowed" {{ old('civil_status', $user->civil_status) === 'widowed' ? 'selected' : '' }}>
+                                                Widowed
+                                            </option>
                                         </select>
 
                                         {{-- <x-input-error :messages="$errors->get('civil_status')" class="mt-2" /> --}}
@@ -184,13 +182,7 @@
 
 
                                 </div>
-                                <!-- Email Address -->
-                                <div class="mt-4">
-                                    <x-input-label for="email" :value="__('Email')" />
-                                    <x-text-input id="email" class="block mt-1 w-full" type="email" name="email"
-                                        :value="old('email', $user->email)" autocomplete="username" />
-                                    {{-- <x-input-error :messages="$errors->get('email')" class="mt-2" /> --}}
-                                </div>
+
                                 <x-primary-button class="my-3" type="submit">
                                     {{ __('Update Profile') }}
                                 </x-primary-button>
@@ -211,9 +203,9 @@
 
                         </p>
 
-                        <form method="POST" action="{{ route('delete.account') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{route ('update.password', ['id' => $user->id]) }}" enctype="multipart/form-data">
                             @csrf
-                            @method('DELETE')
+                            @method('PUT')
                             <div class=" gap-3">
                                 <div>
                                     <!-- Password -->
@@ -243,7 +235,7 @@
 
                             <div class=" mt-4 gap-3">
 
-                                <x-primary-button class="">
+                                <x-primary-button class="submit">
                                     {{ __('Update Your Password') }}
                                 </x-primary-button>
 
@@ -263,9 +255,9 @@
                             {{ \Carbon\Carbon::parse($user->birthday)->format('F d, Y') }}
                             {{ '. Kindly change your birthday here.' }}
                         </p>
-                        <form method="POST" action="{{ route('delete.account') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('update.birthday', ['id' => $user->id]) }}" enctype="multipart/form-data">
                             @csrf
-                            @method('DELETE')
+                            @method('PUT')
                             <div class=" gap-3">
                                 <div>
 
@@ -310,16 +302,19 @@
 
                         <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
                             {{ __('Your current location is ' . $user->street . ', ' . $user->barangay . ', ' . $user->city . ', ' . $user->province . ', ' . $user->region . '. Kindly change your location here.') }}
-                        </p>
+                        </p> 
                         
-                        <form method="POST" action="" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('update.address', ['id' => $user->id]) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
                             <div class="grid grid-cols-1 gap-4 mt-4">
 
                                 <div>
+                                    <input type="hidden" id="selected_region" name="selected_region"/>
                                     <x-input-label for="region" :value="__('Region')" />
                                     <select id="region"
                                         class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                        name="region" :value="old('region')" autocomplete="region">
+                                        name="region" :value="old('region')" required autocomplete="region">
                                     </select>
                                     {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
                                 </div>
@@ -328,6 +323,8 @@
                             <div class="grid grid-cols-1 gap-4 mt-4">
 
                                 <div>
+                                    <input type="hidden" id="selected_province" name="selected_province"/>
+                                    <input type="hidden" id="selected_province" name="selected_province"/>
                                     <x-input-label for="province" :value="__('Province')" />
                                     <select id="province"
                                         class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
@@ -340,6 +337,7 @@
                             <div class="grid grid-cols-1 gap-4 mt-4">
 
                                 <div>
+                                    <input type="hidden" id="selected_city" name="selected_city"/>
                                     <x-input-label for="city" :value="__('City')" />
                                     <select id="city"
                                         class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
@@ -351,6 +349,7 @@
                             <div class="grid grid-cols-1 gap-4 mt-4">
 
                                 <div>
+                                    <input type="hidden" id="selected_barangay" name="selected_barangay"/>
                                     <x-input-label for="barangay" :value="__('Barangay')" />
                                     <select id="barangay"
                                         class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"

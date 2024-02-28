@@ -112,6 +112,8 @@
         deletepet
     </script>
     <script src=""></script>
+    <script src="script.js"></script>
+
     @livewireScripts
 </body>
 

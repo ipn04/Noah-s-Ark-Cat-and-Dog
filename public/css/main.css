@@ -179,6 +179,27 @@ input[type="datetime-local"]::-webkit-calendar-picker-indicator {
 
 }
 
+.fadein{
+  animation-name:fadefade;
+  animation-duration: 10s;
+
+}
+
+.animation-opacity{
+  animation-name:fadefade;
+  animation-duration: 5s;
+}
+
+@keyframes fadefade{
+  0%{
+      opacity: 0;
+  }
+  100%{
+      opacity: 1;
+  }
+
+}
+
   
  
  

@@ -1,7 +1,7 @@
 <x-guest-layout>
 
     <section class="text-gray-600 body-font mt-10 p-10 lg:px-20 lg:py-10" style="background-image: url('{{ asset('images/redbackground.png') }}');">
-        <div class = "py-6">
+        <div class = "animation py-6">
             <h1 class = "text-center lg:text-5xl text-4xl font-bold text-white">Pets Available for Adoption</h1>
             <div class=" flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 items-center justify-center p-4 lg:px-4 lg:py-6">
                 <div class="w-full md:w-1/2">
@@ -42,7 +42,7 @@
             </div>
         </div>
         {{-- tama --}}
-        <div class = "flex justify-center items-center">
+        <div class = "animation flex justify-center items-center">
             <div class="lg:px-10 lg:pb-10 grid lg:grid-cols-4 grid-cols-1 gap-8 px-5 py-2 lg:gap-6 ">
                 @if ($pets->isNotEmpty())
                     @foreach ($pets as $pet)

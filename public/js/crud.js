@@ -797,6 +797,23 @@ document.addEventListener('DOMContentLoaded', function () {
 //     event.stopPropagation();
 //   });
 
+var animation = document.getElementsByClassName("animation");
+
+window.onscroll = function() {
+    for(let i = 0; i<animation.length; i++) {
+       var topElm = animation[i].offsetTop;
+       var btElm = animation[i].offsetTop + animation[i].clientHeight;
+       var topScreen = window.scrollY;
+       var btmScreen = window.scrollY + window.innerHeight;
+
+       if (btmScreen > topElm && topScreen < btElm) {
+           animation[i].classList.add("animation-opacity");
+
+        } else{
+            animation[i].classList.remove("animation-opacity");
+        }
+    }
+}
 
 
 

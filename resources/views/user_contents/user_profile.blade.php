@@ -105,9 +105,9 @@
                         <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
                             {{ __("Update your account's profile information and email address.") }}
                         </p>
-                        <form method="POST" action="{{ route('delete.account') }}" enctype="multipart/form-data">
+                        <form method="POST" action="" enctype="multipart/form-data">
                             @csrf
-                            @method('DELETE')
+                            @method('PUT')
                             <div class=" gap-3">
 
 

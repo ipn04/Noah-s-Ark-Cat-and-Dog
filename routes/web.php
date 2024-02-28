@@ -250,6 +250,8 @@ Route::put('/user/update/birthday/{id}', [ProfileController::class, 'updateBirth
 
 Route::put('/user/update/address/{id}', [ProfileController::class, 'updateAddress'])->name('update.address');
 
+Route::put('/user/update/profile/{id}', [ProfileController::class, 'updateProfileImage'])->name('update.profile.image');
+
 // Route::get('/dashboard', function () {
 //     return view('dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');

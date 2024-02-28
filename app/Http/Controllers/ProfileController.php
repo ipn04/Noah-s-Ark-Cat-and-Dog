@@ -118,8 +118,36 @@ class ProfileController extends Controller
             'street' => ['required', 'string', 'max:255'],
         ]);
 
-        dd($validatedData);
-        // $user->update($validatedData);
+        $validatedData['region'] = $request->input('selected_region');
+        $validatedData['province'] = $request->input('selected_province');
+        $validatedData['city'] = $request->input('selected_city');
+        $validatedData['barangay'] = $request->input('selected_barangay');
+
+        // dd($validatedData);
+        $user->update($validatedData);
+
+        return redirect()->route('user.profile', ['id' => $id])->with('profile_updated', true);
+    }
+
+    public function updateProfileImage(Request $request, $id) {
+        $user = User::findOrFail($id);
+        
+        $request->validate([
+            'profile_image' => 'required'
+        ]);
+
+        if ($request->hasFile('profile_image')) {
+
+            $image = $request->file('profile_image');
+            $imageName = uniqid() . '.' . $image->getClientOriginalExtension();
+        
+            $directory = 'profiles';
+        
+            $image->storeAs('public/' . $directory, $imageName);
+
+            $user->profile_image = $directory . '/' . $imageName;
+            $user->update();
+        }
 
         return redirect()->route('user.profile', ['id' => $id])->with('profile_updated', true);
     }

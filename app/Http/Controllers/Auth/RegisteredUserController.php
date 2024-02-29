@@ -55,9 +55,19 @@ class RegisteredUserController extends Controller
             'profile_image.max' => 'Maximum file size allowed is 2MB.',
             ]
         );   
-        
-        $profileImagePath = $request->file('profile_image')->store('profiles');
 
+        if ($request->hasFile('profile_image')) {
+            $image = $request->file('profile_image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+        
+            $directory = 'profiles';
+        
+            $image->storeAs('public/' . $directory, $imageName);
+        
+            $profileImagePath = $directory . '/' . $imageName;
+        }
+
+        // dd($profileImagePath);
         $response = $this->sendOTP($request->phone_number);
         // dd($response->json());
 
@@ -66,19 +76,15 @@ class RegisteredUserController extends Controller
             session(['otp_code' => $response->json()[0]['code']]);
         
             $registrationData = $request->except(['_token', 'password_confirmation']);
-            $registrationData['profile_image'] = $profileImagePath; // Store the profile image path
+            $registrationData['profile_image'] = $profileImagePath; 
             $request->session()->put('registration_data', $registrationData);
             
             return redirect()->route('verify-otp');
         } else {
-            // Failed to send OTP
             return back()->withErrors(['otp_error' => 'Failed to send OTP. Please try again.']);
         }
-
-        // event(new Registered($user));
-
-        // return redirect()->route('register')->with(['account_added' => true]);
     }
+
     public function showVerificationForm()
     {
         return view('auth.verify-otp');
@@ -126,12 +132,9 @@ class RegisteredUserController extends Controller
         $enteredOTP = $request->otp1 . $request->otp2 . $request->otp3 . $request->otp4 . $request->otp5 . $request->otp6;
         
         if ($enteredOTP == $otpCode) {
-        // If OTP is correct, remove the OTP code from the session
         session()->forget('otp_code');
 
-        // Create the user
-        $formattedBirthday = date("Y-m-d", strtotime($request->birthday));
-
+        $formattedBirthday = date("Y-m-d", strtotime($registrationData['birthday']));
         $user = User::create([
             'name' => $registrationData['name'],
             'email' => $registrationData['email'],
@@ -141,10 +144,10 @@ class RegisteredUserController extends Controller
             'gender' => $registrationData['gender'],
             'birthday' => $formattedBirthday,
             'civil_status' => $registrationData['civil_status'],
-            'region' => $registrationData['region'],
-            'province' => $registrationData['province'],
-            'city' => $registrationData['city'],
-            'barangay' => $registrationData['barangay'],
+            'region' => $registrationData['selected_region'],
+            'province' => $registrationData['selected_province'],
+            'city' => $registrationData['selected_city'],
+            'barangay' => $registrationData['selected_barangay'],
             'street' => $registrationData['street'],
             'phone_number' => $phoneNumber,
             'profile_image' => $registrationData['profile_image'],

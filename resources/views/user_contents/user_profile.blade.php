@@ -56,42 +56,34 @@
                         <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
                             {{ __("Update your account's profile picture") }}
                         </p>
-                        <form method="POST" action="{{ route('delete.account') }}" enctype="multipart/form-data">
+                        <form method="POST" action="{{ route('update.profile.image', ['id' => $user->id]) }}" enctype="multipart/form-data">
                             @csrf
-                            @method('DELETE')
+                            @method('PUT')
                             <div class=" gap-3">
                                 <div class="items-center justify-center flex relative ">
                                     <img id='preview_img' class="h-40 w-40 object-cover border-4 rounded-full "
                                         src="{{ asset('storage/' . Auth::user()->profile_image) }}"
                                         alt="Current profile photo" />
-
                                 </div>
                                 <div class="items-center justify-center flex mt-4 ">
                                     <label for="profile_image"
                                         class="bg-yellow-300 flex gap-2 font-bold hover:bg-yellow-200 py-2 px-4 rounded-md hover:cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
                                             class="w-6 h-6">
-                                            <path
-                                                d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
-                                            <path
-                                                d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
+                                            <path d="M21.731 2.269a2.625 2.625 0 0 0-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 0 0 0-3.712ZM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 0 0-1.32 2.214l-.8 2.685a.75.75 0 0 0 .933.933l2.685-.8a5.25 5.25 0 0 0 2.214-1.32l8.4-8.4Z" />
+                                            <path d="M5.25 5.25a3 3 0 0 0-3 3v10.5a3 3 0 0 0 3 3h10.5a3 3 0 0 0 3-3V13.5a.75.75 0 0 0-1.5 0v5.25a1.5 1.5 0 0 1-1.5 1.5H5.25a1.5 1.5 0 0 1-1.5-1.5V8.25a1.5 1.5 0 0 1 1.5-1.5h5.25a.75.75 0 0 0 0-1.5H5.25Z" />
                                         </svg>
-
                                         Upload New Profile Picture
                                         <input id="profile_image" name="profile_image" type="file"
                                             style="visibility:hidden;" onchange="loadFile(event)" class="hidden" />
                                     </label>
                                 </div>
                             </div>
-
                             <div class=" mt-4 gap-3">
-
-                                <x-primary-button class="">
+                                <x-primary-button class="submit">
                                     {{ __('Save New Profile Picture') }}
                                 </x-primary-button>
-
                             </div>
-
                         </form>
                     </div>
                 </div>
@@ -324,7 +316,6 @@
 
                                 <div>
                                     <input type="hidden" id="selected_province" name="selected_province"/>
-                                    <input type="hidden" id="selected_province" name="selected_province"/>
                                     <x-input-label for="province" :value="__('Province')" />
                                     <select id="province"
                                         class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
@@ -357,7 +348,6 @@
                                     {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
                                 </div>
                             </div>
-
 
                             <div class="mt-4">
                                 <x-input-label for="street" :value="__('Street')" />

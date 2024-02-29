@@ -1,61 +1,36 @@
 $(document).ready(function() {
-    // console.log('Echo Configuration:', window.Echo.options);
-    // window.Echo.connector.pusher.connection.bind('connected', () => {
-    //     console.log('Pusher Connected:', window.Echo.socketId());
-    // });
-    
-    // window.Echo.connector.pusher.connection.bind('error', (error) => {
-    //     console.error('Pusher Error:', error);
-    // });
-    
-    // const messages_container = document.getElementById("messages");
-    // const content_input = document.getElementById("content");
-    // const send_form = document.getElementById("sendMessageForm");
-    // console.log(userId);
+    $(function() {
+        $('#region').on('change', function(){
 
-    // window.Echo.channel('chat')
-    // .listen('content', (event) => {
-    //     console.log('Event Received:', event);
-    //     if (event && event.content) {
-    //         console.log('Content:', event.content);
-    //         // Update your UI here with the received content
-    //         messages_container.innerHTML += '<div class="messages"><strong>' + event.content + '</strong></div>';
-    //     } else {
-    //         console.error('Received event is missing content:', event);
-    //     }
-    //     console.log('Content:', event.content);
-    //     // Update your UI here with the received content
-    //     messages_container.innerHTML += '<div class="messages"><strong>' + event.content + '</strong></div>';
-    // });
+            var selected_region = $("#region option:selected").text();
 
+            $('input[name=selected_region]').val(selected_region);
+        }).ph_locations('fetch_list');
 
-    // send_form.addEventListener('submit', function (e) {
-    //     e.preventDefault();
-    //     const formData = new FormData(send_form);
+        $('#province').on('change', function(){
 
-    //     axios.post(sendMessageUrl, formData)
-    //         .then(response => {
-    //             console.log(response);
-    //             const success = response.data.success;
-    //             console.log('Success:', success);
+            var selected_province = $("#province option:selected").text();
 
-    //             if (success) {
-    //                 console.log('Message successfully stored.');
+            $('input[name=selected_province]').val(selected_province);
 
-    //                 content_input.value = '';
-    //             } else {
-    //                 console.error('Error storing the message.');
-    //             }
-    //         })
-    //         .catch(error => {
-    //             console.error(error);
-    //             if (error.response && error.response.data && error.response.data.error) {
-    //                 console.error('Server Error: ' + error.response.data.error);
-    //             } else {
-    //                 console.error('An error occurred.');
-    //             }
-    //         });
-    // });
+        }).ph_locations('fetch_list');
+
+        $('#city').on('change', function(){
+
+            var selected_city = $("#city option:selected").text();
+
+            $('input[name=selected_city]').val(selected_city);
+
+        }).ph_locations('fetch_list');
+
+        $('#barangay').on('change', function(){
+
+            var selected_barangay = $("#barangay option:selected").text();
+
+            $('input[name=selected_barangay]').val(selected_barangay);
+
+        }).ph_locations('fetch_list');
+    });
 
     $('#underline_select, #availability').change(function() {
         var selectedPetType = $('#underline_select').val().toLowerCase();

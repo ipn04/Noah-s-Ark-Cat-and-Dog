@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         integrity="sha384-w4u1eJHUVShdxxD6m1PCjsjAq9XOy3Wh62Ie8J0xfoFZ5bRykplfEcf5orZmRfoA" crossorigin="anonymous">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.1.1/flowbite.min.css" rel="stylesheet" />
+    <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.3.js"></script>
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js', 'public/js/ph-address-selector.js'])
     @livewireStyles
@@ -81,7 +82,7 @@
         @include('navbar.main_footer')
     @elseif(Route::is('pet.desc'))
         @include('navbar.main_navbar')
-        <div class="mt-20 flex justify-center items-center p-6" style="background-image: url('{{ asset('images/yellowbg.png') }}');>
+        <div class="mt-20 flex justify-center items-center p-6" style="background-image: url('{{ asset('images/yellowbg.png') }})";>
             {{ $slot }}
         </div>
         @include('navbar.main_footer')

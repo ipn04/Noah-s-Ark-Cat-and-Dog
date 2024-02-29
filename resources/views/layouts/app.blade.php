@@ -23,7 +23,7 @@
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
         <script src='https://meet.jit.si/external_api.js'></script>
-
+        <script src="https://f001.backblazeb2.com/file/buonzz-assets/jquery.ph-locations-v1.0.3.js"></script>
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js', 'public/js/ph-address-selector.js'])
         @livewireStyles

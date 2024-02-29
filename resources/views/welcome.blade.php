@@ -31,7 +31,7 @@
         </div>
     </div>
 
-    <div class = "animation">
+    <div class = "animation md:mb-5">
         <div class = "grid grid-cols-1 lg:grid-cols-2 lg:py-20 py-8 px-10 lg:px-0">
             <div class = " flex justify-center items-center ">
                 <div class = "">
@@ -66,7 +66,7 @@
         </div>
     </div>
 
-    <div class =  "bg-cover mt-20 md:lg-20 mt-0 p-16" style="background-image: url('{{ asset('images/yellowbg.png') }}');">
+    <div class =  "bg-cover md:mt-20 md:lg-20 mt-0 p-16" style="background-image: url('{{ asset('images/yellowbg.png') }}');">
         <div class = "animation">
             <h1 class = "text-4xl lg:text-5xl font-bold text-white text-center">Our Essence</h1>
             <div class = "flex items-center justify-center  pt-10">

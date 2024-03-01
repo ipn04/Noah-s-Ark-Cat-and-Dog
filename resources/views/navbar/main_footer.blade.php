@@ -37,17 +37,7 @@
                      
                   </ul>
               </div>
-              <div>
-                  <h2 class="mb-6 text-sm font-semibold text-white uppercase dark:text-white">Legal</h2>
-                  <ul class="text-white dark:text-gray-400 font-medium">
-                      <li class="mb-4">
-                          <a href="#" class="hover:underline">Privacy Policy</a>
-                      </li>
-                      <li>
-                          <a href="#" class="hover:underline">Terms &amp; Conditions</a>
-                      </li>
-                  </ul>
-              </div>
+             
           </div>
       </div>
       <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />

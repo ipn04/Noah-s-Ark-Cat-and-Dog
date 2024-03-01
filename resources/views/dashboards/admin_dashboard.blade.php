@@ -81,7 +81,7 @@
         <div class="lg:py-8 py-5 px-10 container mx-auto">
             <div class ="grid lg:grid-cols-2 grid-cols-1 gap-3 lg:gap-10">
 
-                <div class="rounded-lg bg-transparent shadow-lg overflow-x-hidden">
+                <div class="rounded-lg bg-transparent shadow-lg overflow-x-auto ">
                     <table class="w-full  p-4 rounded-lg overflow-hidden">
                         <caption class="caption-top text-left bg-white text-red-500 p-4 text-xl font-bold">
                             <div class = "flex justify-between">

@@ -1194,15 +1194,19 @@
                                     <p class="mb-2 text-sm text-gray-500">
                                         <span class="font-semibold">Click to upload</span> or drag and drop
                                     </p>
-                                    <p class="text-xs text-gray-500" id="file-name-placeholder-update">SVG, PNG, JPG
+                                    <p class="text-xs text-gray-500" id="file-name-placeholder-update-{{$pet->id}}">SVG, PNG, JPG
                                         or GIFFF</p>
                                 </div>
                                 <input name="dropzone_file" id="dropzone_file_update-{{$pet->id}}" type="file" class="hidden"
                                     accept="image/*"
-                                    onchange="console.log('File uploaded:', this.value); document.getElementById('file-name-placeholder-update').innerText = this.files[0] ? this.files[0].name : 'SVG, PNG, JPG or GIF';">
-                            
-                            
-                                </label>
+                                    onchange="updateFileName(this, 'file-name-placeholder-update-{{$pet->id}}')">
+                                    <script>
+                                        function updateFileName(input, placeholderId) {
+                                            console.log('File uploaded:', input.value);
+                                            document.getElementById(placeholderId).innerText = input.files[0] ? input.files[0].name : 'SVG, PNG, JPG, or GIF';
+                                        }
+                                    </script>
+                            </label>
                         </div>
 
                     </div>

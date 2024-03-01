@@ -45,10 +45,10 @@
     </div>
 
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
-        <div class = "grid lg:grid-cols-2 grid-cols-1 lg:px-16 gap-5">
+        <div class="grid lg:grid-cols-2 grid-cols-1 lg:px-16 gap-10">
             <div>
-                <div class="p-4 my-3 lg:-mt-10  sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
-                    <div class="max-w-xl">
+                <div class="flex items-center p-4 my-3 lg:-mt-10 sm:p-8 bg-white dark:bg-gray-800 shadow rounded-2xl h-profileHeight">
+                    <div class="w-full">
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Profile Picture') }}
                         </h2>
@@ -60,12 +60,12 @@
                             @csrf
                             @method('PUT')
                             <div class=" gap-3">
-                                <div class="items-center justify-center flex relative ">
-                                    <img id='preview_img' class="h-40 w-40 object-cover border-4 rounded-full "
+                                <div class="items-center justify-center flex relative my-6">
+                                    <img id='preview_img' class="h-60 w-60 object-cover border-4 rounded-full "
                                         src="{{ asset('storage/' . Auth::user()->profile_image) }}"
                                         alt="Current profile photo" />
                                 </div>
-                                <div class="items-center justify-center flex mt-4 ">
+                                <div class="items-center justify-center flex mt-4">
                                     <label for="profile_image"
                                         class="bg-yellow-300 flex gap-2 font-bold hover:bg-yellow-200 py-2 px-4 rounded-md hover:cursor-pointer">
                                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -79,7 +79,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class=" mt-4 gap-3">
+                            <div class="mt-8 gap-3">
                                 <x-primary-button class="submit">
                                     {{ __('Save New Profile Picture') }}
                                 </x-primary-button>
@@ -88,8 +88,8 @@
                     </div>
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
-                    <div class="max-w-xl">
+                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl my-5">
+                    <div>
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Profile Information') }}
                         </h2>
@@ -185,59 +185,7 @@
                 </div>
 
                 <div class="p-4 my-3 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
-                    <div class="max-w-xl">
-                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{ __('Password Information') }}
-                        </h2>
-
-                        <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ 'Kindly change your password here.' }}
-
-                        </p>
-
-                        <form method="POST" action="{{route ('update.password', ['id' => $user->id]) }}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class=" gap-3">
-                                <div>
-                                    <!-- Password -->
-                                    <div class="mt-4">
-                                        <x-input-label for="password" :value="__('Password')" />
-
-                                        <x-text-input id="password" class="block mt-1 w-full" type="password"
-                                            name="password" autocomplete="new-password" />
-
-                                        {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
-                                    </div>
-
-                                    <!-- Confirm Password -->
-                                    <div class="mt-4">
-                                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                                        <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                            type="password" name="password_confirmation"
-                                            autocomplete="new-password" />
-
-                                        {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
-                                    </div>
-
-                                    {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}
-                                </div>
-                            </div>
-
-                            <div class=" mt-4 gap-3">
-
-                                <x-primary-button class="submit">
-                                    {{ __('Update Your Password') }}
-                                </x-primary-button>
-
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-                <div class="p-4 my-3 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-lg">
-                    <div class="max-w-xl">
+                    <div>
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Birthday') }}
                         </h2>
@@ -252,7 +200,6 @@
                             @method('PUT')
                             <div class=" gap-3">
                                 <div>
-
                                     <div class="relative max-w-full mt-4">
                                         <div
                                             class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -269,112 +216,24 @@
                                             placeholder="{{ __('MM-DD-YYYY') }}"
                                             value="{{ optional(\DateTime::createFromFormat('Y-n-d', $user->birthday))->format('m-d-Y') ?? 'no data' }}">
                                     </div>
-
                                     {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}
                                 </div>
                             </div>
 
                             <div class=" mt-4 gap-3">
-
                                 <x-primary-button class="">
                                     {{ __('Update Your Birthhday') }}
                                 </x-primary-button>
-
-                            </div>
-
-                        </form>
-                    </div>
-                </div>
-
-                <div class="p-4 my-5 py-6 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
-                    <div class="max-w-xl">
-                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{ __('Current Location') }}
-                        </h2>
-
-                        <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Your current location is ' . $user->street . ', ' . $user->barangay . ', ' . $user->city . ', ' . $user->province . ', ' . $user->region . '. Kindly change your location here.') }}
-                        </p> 
-                        
-                        <form method="POST" action="{{ route('update.address', ['id' => $user->id]) }}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="grid grid-cols-1 gap-4 mt-4">
-
-                                <div>
-                                    <input type="hidden" id="selected_region" name="selected_region"/>
-                                    <x-input-label for="region" :value="__('Region')" />
-                                    <select id="region"
-                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                        name="region" :value="old('region')" required autocomplete="region">
-                                    </select>
-                                    {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-4 mt-4">
-
-                                <div>
-                                    <input type="hidden" id="selected_province" name="selected_province"/>
-                                    <x-input-label for="province" :value="__('Province')" />
-                                    <select id="province"
-                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                        name="province" :value="old('province')" autocomplete="province">
-                                    </select>
-                                    {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-4 mt-4">
-
-                                <div>
-                                    <input type="hidden" id="selected_city" name="selected_city"/>
-                                    <x-input-label for="city" :value="__('City')" />
-                                    <select id="city"
-                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                        name="city" :value="old('city')" autocomplete="city"></select>
-                                    {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
-                                </div>
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-4 mt-4">
-
-                                <div>
-                                    <input type="hidden" id="selected_barangay" name="selected_barangay"/>
-                                    <x-input-label for="barangay" :value="__('Barangay')" />
-                                    <select id="barangay"
-                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                        name="barangay" :value="old('barangay')" autocomplete="barangay"></select>
-                                    {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
-                                </div>
-                            </div>
-
-                            <div class="mt-4">
-                                <x-input-label for="street" :value="__('Street')" />
-                                <x-text-area id="street"
-                                    class="block mt-1 w-full  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
-                                    type="text" name="street" :value="old('firstname', $user->street)"
-                                    autocomplete="street"></x-text-area>
-
-                                {{-- <x-input-error :messages="$errors->get('street')" class="mt-2" /> --}}
-                            </div>
-
-                            <div class=" my-3">
-
-                                <x-primary-button class="" type="submit">
-                                    {{ __('Change Location') }}
-                                </x-primary-button>
-
                             </div>
                         </form>
                     </div>
                 </div>
+
                 <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
-                    <div class="max-w-xl">
+                    <div>
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Delete Account') }}
                         </h2>
-
                         <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
                             {{ __('Once your account is deleted, all of its resources and data will be permanently deleted. Before deleting your account, please download any data or information that you wish to retain.') }}
                         </p>
@@ -382,11 +241,9 @@
                             @csrf
                             @method('DELETE')
                             <div class=" gap-3">
-
                                 <x-primary-button class="" type="submit">
                                     {{ __('Delete Account') }}
                                 </x-primary-button>
-
                             </div>
                         </form>
                     </div>
@@ -394,8 +251,7 @@
             </div>
             <div>
                 <div class = "flex justify-center">
-                    <div class="bg-white px-5 mt-10 lg:-mt-10 w-4/5  shadow-md rounded-2xl text-gray-900">
-
+                    <div class="bg-white px-5 mt-10 lg:-mt-10 w-full shadow-md rounded-2xl text-gray-900 h-profileHeight">
                         <div
                             class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                             <img class="h-32 w-32 object-cover rounded-full "
@@ -479,13 +335,126 @@
                                     </label>
                                 </li>
                             </ul>
-
-
                         </div>
                     </div>
                 </div>
+                <div class="p-4 my-5 py-6 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                            {{ __('Current Location') }}
+                        </h2>
+                        <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
+                            {{ __('Your current location is ' . $user->street . ', ' . $user->barangay . ', ' . $user->city . ', ' . $user->province . ', ' . $user->region . '. Kindly change your location here.') }}
+                        </p> 
+                        <form method="POST" action="{{ route('update.address', ['id' => $user->id]) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class="grid grid-cols-1 gap-4 mt-4">
+                                <div>
+                                    <input type="hidden" id="selected_region" name="selected_region"/>
+                                    <x-input-label for="region" :value="__('Region')" />
+                                    <select id="region"
+                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+                                        name="region" :value="old('region')" required autocomplete="region">
+                                    </select>
+                                    {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
+                                </div>
+                            </div>
 
+                            <div class="grid grid-cols-1 gap-4 mt-4">
+                                <div>
+                                    <input type="hidden" id="selected_province" name="selected_province"/>
+                                    <x-input-label for="province" :value="__('Province')" />
+                                    <select id="province"
+                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+                                        name="province" :value="old('province')" autocomplete="province">
+                                    </select>
+                                    {{-- <x-input-error :messages="$errors->get('province')" class="mt-2" /> --}}
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-4 mt-4">
+                                <div>
+                                    <input type="hidden" id="selected_city" name="selected_city"/>
+                                    <x-input-label for="city" :value="__('City')" />
+                                    <select id="city"
+                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+                                        name="city" :value="old('city')" autocomplete="city"></select>
+                                    {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-4 mt-4">
+                                <div>
+                                    <input type="hidden" id="selected_barangay" name="selected_barangay"/>
+                                    <x-input-label for="barangay" :value="__('Barangay')" />
+                                    <select id="barangay"
+                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+                                        name="barangay" :value="old('barangay')" autocomplete="barangay"></select>
+                                    {{-- <x-input-error :messages="$errors->get('city')" class="mt-2" /> --}}
+                                </div>
+                            </div>
+
+                            <div class="mt-4">
+                                <x-input-label for="street" :value="__('Street')" />
+                                <x-text-area id="street"
+                                    class="block mt-1 w-full  border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+                                    type="text" name="street" :value="old('firstname', $user->street)"
+                                    autocomplete="street"></x-text-area>
+                                {{-- <x-input-error :messages="$errors->get('street')" class="mt-2" /> --}}
+                            </div>
+
+                            <div class=" my-3">
+                                <x-primary-button class="" type="submit">
+                                    {{ __('Change Location') }}
+                                </x-primary-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="p-4 my-3 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
+                    <div>
+                        <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
+                            {{ __('Password Information') }}
+                        </h2>
+                        <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
+                            {{ 'Kindly change your password here.' }}
+                        </p>
+
+                        <form method="POST" action="{{route ('update.password', ['id' => $user->id]) }}" enctype="multipart/form-data">
+                            @csrf
+                            @method('PUT')
+                            <div class=" gap-3">
+                                <div>
+                                    <!-- Password -->
+                                    <div class="mt-4">
+                                        <x-input-label for="password" :value="__('Password')" />
+                                        <x-text-input id="password" class="block mt-1 w-full" type="password"
+                                            name="password" autocomplete="new-password" />
+                                        {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
+                                    </div>
+
+                                    <!-- Confirm Password -->
+                                    <div class="mt-4">
+                                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                                        <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                                            type="password" name="password_confirmation"
+                                            autocomplete="new-password" />
+                                        {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
+                                    </div>
+                                    {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}
+                                </div>
+                            </div>
+
+                            <div class=" mt-4 gap-3">
+                                <x-primary-button class="submit">
+                                    {{ __('Update Your Password') }}
+                                </x-primary-button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
-
     </section>
 </x-app-layout>

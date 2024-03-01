@@ -1,5 +1,49 @@
 <!-- resources/views/auth/verify-otp.blade.php -->
 <x-guest-layout>
+    @if ($errors->any())
+        <script>
+            var errorMessages = [];
+
+            @foreach ($errors->all() as $error)
+                errorMessages.push("{{ $error }}");
+            @endforeach
+
+            // Check if there are error messages before showing the alert
+            if (errorMessages.length > 0) {
+                swal({
+                    title: "Error!",
+                    text: errorMessages.join('\n'), // Join error messages with line breaks
+                    type: "error",
+                    confirmButtonText: "Cool"
+                });
+            }
+        </script>
+    @endif
+
+    @if (session('account_added'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal(
+                    "You successfully created an account!",
+                    "Press 'OK' to exit!",
+                    "success"
+                )
+            });
+        </script>
+    @endif
+
+    @if (session('otp_error_flag'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                swal({
+                    title: "Error!",
+                    text: 'Incorrect OTP verification code. Please, try again!', 
+                    type: "error",
+                    confirmButtonText: "Ok"
+                });
+            });
+        </script>
+    @endif
     <div class="flex justify-center items-center h-screen bg-gray-100">
         <div class="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
             <div class="mx-auto flex w-full max-w-md flex-col space-y-16">

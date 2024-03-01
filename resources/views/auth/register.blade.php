@@ -30,6 +30,19 @@
             });
         </script>
     @endif
+
+    @if (session('otp_error_flag'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                Swal(
+                    icon: "error",
+                    title: "Oops...",
+                    text: "Please, input a a valid phoe number!",
+                )
+            });
+        </script>
+    @endif
+
     <div class="w-full bg-white mb-4">
         <h1 class="text-center text-4xl text-red-500 font-bold">Create your Account</h1>
     </div>
@@ -201,18 +214,25 @@
                     </svg>
                 </div>
                 <x-input-label for="phone_number" :value="__('Phone Number')" />
-                <x-text-input id="phone_number" class="block mt-1 w-full ps-10"
-                    aria-describedby="helper-text-explanation" type="number" name="phone_number" :value="old('phone_number')" placeholder="09656216696" />
+                <x-text-input id="phone_number" class="block mt-1 w-full ps-10" required
+                    aria-describedby="helper-text-explanation" type="number" name="phone_number" :value="old('phone_number')" placeholder="09656216696" pattern="^09[0-9]{9}$"/>
                 {{-- <x-input-error :messages="$errors->get('phone_number')" class="mt-2" /> --}}
                 <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Select a phone
                     number that matches the format.</p>
-
+                <script>
+                    document.getElementById('phone_number').addEventListener('input', function(event) {
+                        const phoneNumber = event.target.value.trim(); // Trim any leading/trailing spaces
+                        const isValidPhoneNumber = /^\d{11}$/.test(phoneNumber) && phoneNumber.startsWith('09');
+                        
+                        if (!isValidPhoneNumber) {
+                            event.target.setCustomValidity("Please enter a valid 11-digit phone number starting with '09'.");
+                        } else {
+                            event.target.setCustomValidity(""); // Reset the validation message
+                        }
+                    });
+                </script>
             </div>
         </div>
-
-
-
-
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />

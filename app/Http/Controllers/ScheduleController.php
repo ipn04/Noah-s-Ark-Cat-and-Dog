@@ -91,7 +91,7 @@ class ScheduleController extends Controller{
             'application_users.id as user_id',
 
         )
-        ->get();
+        ->paginate(10);
         $allSchedules = Schedule::where('schedule_status', 'Accepted')->count();
         $scheduleInterview = $schedules->where('schedule_type', 'Interview')->where('schedule_status', 'Accepted')->count();
         $scheduleVisit = $schedules->where('schedule_type', 'Visit')->where('schedule_status', 'Accepted')->count();
@@ -111,7 +111,6 @@ class ScheduleController extends Controller{
 
 
     return view('admin_contents.schedule', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'schedules' => $schedules, 'allSchedules' =>$allSchedules, 'scheduleInterview' => $scheduleInterview, 'scheduleVisit' => $scheduleVisit, 'scheduleInPickup' =>$scheduleInPickup, 'allSchedulesPending' => $allSchedulesPending, 'pendingInterview' => $pendingInterview, 'pendingVisit' => $pendingVisit, 'pendingInPickup' => $pendingInPickup]);
-
     }
    
 

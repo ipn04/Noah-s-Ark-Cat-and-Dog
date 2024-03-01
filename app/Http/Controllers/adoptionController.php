@@ -20,7 +20,7 @@ use Illuminate\Support\Facades\DB;
 use App\Exports\AdoptionsExport;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Support\Facades\Http;
-
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Str;
 
 class adoptionController extends Controller
@@ -131,12 +131,20 @@ class adoptionController extends Controller
         $authUser = auth()->user()->id;
         $adminId = User::where('role', 'admin')->value('id');;
 
-        $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId) {
-            $query->whereHas('application', function ($query) use ($userId) {
-                $query->where('user_id', $userId);
-            });
+        // $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId) {
+        //     $query->whereHas('application', function ($query) use ($userId) {
+        //         $query->where('user_id', $userId);
+        //     });
+        // })->with('adoption.pet')
+        //   ->latest()  // Fetch the latest adoption attempt
+        //   ->first();
+
+        $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId, $applicationId) {
+            $query->where('application_id', $applicationId)
+                  ->whereHas('application', function ($query) use ($userId) {
+                      $query->where('user_id', $userId);
+                  });
         })->with('adoption.pet')
-          ->latest()  // Fetch the latest adoption attempt
           ->first();
      
         $stage = null;
@@ -206,8 +214,18 @@ class adoptionController extends Controller
         return view('admin_contents.adoptions', compact('unreadNotificationsCount', 'adminNotifications', 'adoptionAnswerData', 'adoptionCount', 'adoptionCountPending', 'approvedAdoptionAnswers', 'rejectedAdoptionAnswers', 'cancelledAdoptionAnswers'));
     }   
 
-    public function adminLoadProgress($userId, $id) {
-
+    public function adminLoadProgress($userId, $id)
+    {
+        $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId, $id) {
+            $query->where('application_id', $id)
+                  ->whereHas('application', function ($query) use ($userId) {
+                      $query->where('user_id', $userId);
+                  });
+        })->with('adoption.pet')
+          ->first();    
+        
+        $answers = json_decode($adoptionAnswerData->answers, true);
+        // dd($answers);
         $adoptionAnswer = Application::where('user_id', $userId)->findOrFail($id);
         $adoption = Adoption::where('application_id', $adoptionAnswer->id)->firstOrFail();
         
@@ -250,7 +268,8 @@ class adoptionController extends Controller
             'adoptionAnswers' => $adoptionAnswers,
             'unreadNotificationsCount' => $unreadNotificationsCount,
             'adminNotifications' => $adminNotifications,
-            'firstnotification' => $firstnotification
+            'firstnotification' => $firstnotification,
+            'answers' => $answers
         ]);
     } 
     public function updateStage($userId, $id)
@@ -426,7 +445,7 @@ class adoptionController extends Controller
                     $query->where('user_id', $userId);
                 });
             })
-            ->get();
+            ->paginate(10);
             // dd($answers);
         $interviewSchedules = ScheduleInterview::with('schedule')
             ->whereIn('application_id', $answers->pluck('adoption.application.id'))
@@ -871,5 +890,39 @@ class adoptionController extends Controller
     public function export_adoption()
     {
         return Excel::download(new AdoptionsExport, 'Adoption.xlsx');
+    }
+
+    public function export_pdf($userId, $applicationId)
+    {
+        $adoptionAnswerData = AdoptionAnswer::whereHas('adoption', function ($query) use ($userId, $applicationId) {
+            $query->where('application_id', $applicationId)
+                  ->whereHas('application', function ($query) use ($userId) {
+                      $query->where('user_id', $userId);
+                  });
+        })->with('adoption.pet')
+          ->first();
+          $birthday = $adoptionAnswerData->adoption->application->user->birthday;
+          $currentDate = now();
+          $age = $currentDate->diff($birthday)->y;
+
+        //   dd($age);
+        // dd($adoptionAnswerData);
+        if ($adoptionAnswerData) {
+            $answers = json_decode($adoptionAnswerData->answers, true);
+            
+            $data = [
+                'title' => 'Title',
+                'date' => date('m/d/Y'),
+                'answers' => $answers,
+                'adoptionAnswerData' => $adoptionAnswerData,
+                'age' => $age,
+            ];
+    
+            $pdf = PDF::loadView('pdf.generate-pdf', $data);
+    
+            return $pdf->download('Answers.pdf');
+        } else {
+            return redirect()->back()->with('error', 'No data found for the user.');
+        }
     }
 }

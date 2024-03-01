@@ -985,9 +985,8 @@
                         </button>
                     </div>
                 </div>
-                <div
-                    class="bg-white lg:order-last order-first rounded-2xl overflow-y-auto p-4 shadow-md w-full
-                    @if ($stage == 5) w-3/4 mx-auto
+                <div class="bg-white lg:order-last order-first rounded-2xl overflow-y-auto p-4 shadow-md w-full
+                    @if ($stage == 5) w-3/4 mx-auto h-ProgressContainer
                     @else @endif">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <!-- Modal toggle -->

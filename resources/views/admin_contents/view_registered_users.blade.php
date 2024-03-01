@@ -59,11 +59,7 @@
                             
                         </form>
                         
-                    </div>
-                    <button class="py-2 px-3 text-sm font-medium text-center text-white bg-red-400 hover:bg-red-600 rounded-lg ">
-                        <a href="">Download Excel</a>
-                    </button>
-                                  
+                    </div>                        
                 </div>
                 
                 <table class=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -237,6 +233,9 @@
                         @endif
                     </tbody>
                 </table> 
+                <div class="mt-5 mx-5">
+                    {{ $showUsers->links() }}
+                </div>
                 <div class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-20 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">    
                     </div>        

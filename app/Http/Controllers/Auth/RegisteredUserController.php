@@ -81,7 +81,7 @@ class RegisteredUserController extends Controller
             
             return redirect()->route('verify-otp');
         } else {
-            return back()->withErrors(['otp_error' => 'Failed to send OTP. Please try again.']);
+            return back()->withErrors(['otp_error' => 'Failed to send OTP. Please try again.'])->with(['account_added' => true]);
         }
     }
 
@@ -153,17 +153,13 @@ class RegisteredUserController extends Controller
             'profile_image' => $registrationData['profile_image'],
         ]);
 
-        // If user creation is successful
         if ($user) {
-            // Redirect the user to the registration page with a success message
             return redirect()->route('register')->with(['account_added' => true]);
         } else {
-            // If user creation fails, redirect back with an error message
             return back()->withErrors(['registration_error' => 'Failed to create user. Please try again.']);
         }
     }
 
-    // If OTP is incorrect, redirect back with an error message
-    return back()->withErrors(['otp_error' => 'Invalid OTP. Please try again.']);
+    return back()->with(['otp_error_flag' => true]);
     }
 }

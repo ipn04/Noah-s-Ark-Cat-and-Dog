@@ -82,7 +82,7 @@
         @include('navbar.main_footer')
     @elseif(Route::is('pet.desc'))
         @include('navbar.main_navbar')
-        <div class="mt-20 flex justify-center items-center p-6" style="background-image: url('{{ asset('images/yellowbg.png') }})";>
+        <div class="mt-20 flex justify-center items-center p-6"  style="background-image: url('{{ asset('images/yellowbg.png') }}');>
             {{ $slot }}
         </div>
         @include('navbar.main_footer')

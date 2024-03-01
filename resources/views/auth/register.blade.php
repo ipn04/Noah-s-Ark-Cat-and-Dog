@@ -119,9 +119,37 @@
                                 d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
                         </svg>
                     </div>
-                    <input datepicker name="birthday" id="birthday" datepicker-autohide type="text"
-                        class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                        placeholder="Select Birthday">
+                    <input
+                    type="date"
+                    name="birthday"
+                    id="birthday"
+                    class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    placeholder="Select Birthday"
+                    min="1899-01-01"
+                    max=""
+                    onchange="validateAge(this)" required
+                  />
+                  
+                  <script>
+                  function validateAge(input) {
+                    const minAge = 18;
+                  
+                    const currentDate = new Date();
+                  
+                    const minDate = new Date();
+                    minDate.setFullYear(minDate.getFullYear() - minAge);
+                  
+                    const maxDate = currentDate.toISOString().split('T')[0];
+                  
+                    input.setAttribute('max', maxDate);
+                  
+                    if (input.valueAsDate > minDate) {
+                      alert("You must be at least 18 years old.");
+                      input.value = ""; 
+                    }
+                  }
+                  </script>
+                  
                 </div>
 
                 {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}

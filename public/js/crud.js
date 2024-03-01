@@ -790,6 +790,3 @@ window.onscroll = function() {
     }
 }
 
-
-
-

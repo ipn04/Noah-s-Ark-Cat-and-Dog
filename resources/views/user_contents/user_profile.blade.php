@@ -187,49 +187,48 @@
                 <div class="p-4 my-3 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div>
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{ __('Birthday') }}
+                            {{ __('Password Information') }}
                         </h2>
-
                         <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ __('Your current birthday is') }}
-                            {{ \Carbon\Carbon::parse($user->birthday)->format('F d, Y') }}
-                            {{ '. Kindly change your birthday here.' }}
+                            {{ 'Kindly change your password here.' }}
                         </p>
-                        <form method="POST" action="{{ route('update.birthday', ['id' => $user->id]) }}" enctype="multipart/form-data">
+
+                        <form method="POST" action="{{route ('update.password', ['id' => $user->id]) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class=" gap-3">
                                 <div>
-                                    <div class="relative max-w-full mt-4">
-                                        <div
-                                            class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                                                viewBox="0 0 20 20">
-                                                <path
-                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                                            </svg>
-                                        </div>
-                                        <input datepicker name="birthday" id="birthday" datepicker-autohide
-                                            type="text"
-                                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                            placeholder="{{ __('MM-DD-YYYY') }}"
-                                            value="{{ optional(\DateTime::createFromFormat('Y-n-d', $user->birthday))->format('m-d-Y') ?? 'no data' }}">
+                                    <!-- Password -->
+                                    <div class="mt-4">
+                                        <x-input-label for="password" :value="__('Password')" />
+                                        <x-text-input id="password" class="block mt-1 w-full" type="password"
+                                            name="password" autocomplete="new-password" />
+                                        {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
+                                    </div>
+
+                                    <!-- Confirm Password -->
+                                    <div class="mt-4">
+                                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+
+                                        <x-text-input id="password_confirmation" class="block mt-1 w-full"
+                                            type="password" name="password_confirmation"
+                                            autocomplete="new-password" />
+                                        {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
                                     </div>
                                     {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}
                                 </div>
                             </div>
 
                             <div class=" mt-4 gap-3">
-                                <x-primary-button class="">
-                                    {{ __('Update Your Birthhday') }}
+                                <x-primary-button class="submit">
+                                    {{ __('Update Your Password') }}
                                 </x-primary-button>
                             </div>
                         </form>
                     </div>
                 </div>
 
-                <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
+                {{-- <div class="p-4 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div>
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
                             {{ __('Delete Account') }}
@@ -247,7 +246,7 @@
                             </div>
                         </form>
                     </div>
-                </div>
+                </div> --}}
             </div>
             <div>
                 <div class = "flex justify-center">
@@ -270,7 +269,7 @@
                                                 <div class="w-full text-gray-500 text-sm dark:text-gray-400">Birthday
                                                 </div>
                                                 <div class="w-full text-base font-nedium">
-                                                    {{ \Carbon\Carbon::createFromDate(2003, 2, 17)->format('M d, Y') }}
+                                                    {{ \Carbon\Carbon::parse($user->birthday)->format('F d, Y') }}
                                                 </div>
                                             </div>
                                         </label>
@@ -415,46 +414,48 @@
                 <div class="p-4 my-3 sm:p-8 bg-white dark:bg-gray-800 shadow sm:rounded-2xl">
                     <div>
                         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-                            {{ __('Password Information') }}
+                            {{ __('Birthday') }}
                         </h2>
-                        <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
-                            {{ 'Kindly change your password here.' }}
-                        </p>
 
-                        <form method="POST" action="{{route ('update.password', ['id' => $user->id]) }}" enctype="multipart/form-data">
+                        <p class="mt-1 mb-1 text-sm text-gray-600 dark:text-gray-400">
+                            {{ __('Your current birthday is') }}
+                            {{ \Carbon\Carbon::parse($user->birthday)->format('F d, Y') }}
+                            {{ '. Kindly change your birthday here.' }}
+                        </p>
+                        <form method="POST" action="{{ route('update.birthday', ['id' => $user->id]) }}" enctype="multipart/form-data">
                             @csrf
                             @method('PUT')
                             <div class=" gap-3">
                                 <div>
-                                    <!-- Password -->
-                                    <div class="mt-4">
-                                        <x-input-label for="password" :value="__('Password')" />
-                                        <x-text-input id="password" class="block mt-1 w-full" type="password"
-                                            name="password" autocomplete="new-password" />
-                                        {{-- <x-input-error :messages="$errors->get('password')" class="mt-2" /> --}}
-                                    </div>
-
-                                    <!-- Confirm Password -->
-                                    <div class="mt-4">
-                                        <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
-
-                                        <x-text-input id="password_confirmation" class="block mt-1 w-full"
-                                            type="password" name="password_confirmation"
-                                            autocomplete="new-password" />
-                                        {{-- <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" /> --}}
+                                    <div class="relative max-w-full mt-4">
+                                        <div
+                                            class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+                                                xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                                viewBox="0 0 20 20">
+                                                <path
+                                                    d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
+                                            </svg>
+                                        </div>
+                                        <input datepicker name="birthday" id="birthday" datepicker-autohide
+                                            type="text"
+                                            class="bg-white border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full pl-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                            placeholder="{{ __('MM-DD-YYYY') }}"
+                                            value="{{ optional(\DateTime::createFromFormat('Y-n-d', $user->birthday))->format('m-d-Y') ?? 'no data' }}">
                                     </div>
                                     {{-- <x-input-error :messages="$errors->get('selected_date')" class="mt-2" /> --}}
                                 </div>
                             </div>
 
                             <div class=" mt-4 gap-3">
-                                <x-primary-button class="submit">
-                                    {{ __('Update Your Password') }}
+                                <x-primary-button class="">
+                                    {{ __('Update Your Birthhday') }}
                                 </x-primary-button>
                             </div>
                         </form>
                     </div>
                 </div>
+              
             </div>
     </section>
 </x-app-layout>

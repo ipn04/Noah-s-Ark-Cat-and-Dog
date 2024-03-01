@@ -44,7 +44,7 @@
             });
         </script>
     @endif
-    <div class="flex justify-center items-center h-screen bg-gray-100">
+    <div class="flex justify-center items-center h-screen " style="background-image: url('{{ asset('images/yellowbg.png') }}');">
         <div class="relative bg-white px-6 pt-10 pb-9 shadow-xl mx-auto w-full max-w-lg rounded-2xl">
             <div class="mx-auto flex w-full max-w-md flex-col space-y-16">
                 <div class="card">
@@ -79,7 +79,7 @@
                                     <div class="flex flex-row items-center justify-between mx-auto w-full gap-2">
                                         @for ($i = 1; $i <= 6; $i++)
                                             <div class="w-16 h-16">
-                                                <input id="otp{{ $i }}" type="number" oninput="handleInput(event, '{{ $i }}')" maxlength="1" class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 ring-blue-700 text-center p-1 w-16 h-16 form-control otp-box @error('otp'.$i) is-invalid @enderror" name="otp{{ $i }}" required autofocus>
+                                                <input id="otp{{ $i }}" type="number" oninput="handleInput(event, '{{ $i }}')" maxlength="1" class="[appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none text-center outline-none rounded-xl border border-gray-200 text-lg bg-white focus:bg-gray-50 focus:ring-1 focus:ring-red-700  text-center p-1 w-16 h-16 form-control otp-box @error('otp'.$i) is-invalid @enderror" name="otp{{ $i }}" required autofocus>
                                             </div>
                                             @error('otp'.$i)
                                                 <span class="invalid-feedback" role="alert">
@@ -93,7 +93,7 @@
 
                             <div class="flex flex-col space-y-5">
                                 <div>
-                                  <button type="submit" class="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-blue-700 border-none text-white text-sm shadow-sm">
+                                  <button type="submit" class="flex flex-row items-center justify-center text-center w-full border rounded-xl outline-none py-5 bg-red-700 border-none text-white text-sm shadow-sm">
                                     {{ __('Verify Account') }}
                                   </button>
                                 </div>

@@ -286,7 +286,7 @@ Route::get('/howicanhelp', function () {
     return view('initial_page.how');
 })->name('how');
 
-
+Route::get('/generate_pdf/{userId}/{applicationId}', [adoptionController::class, 'export_pdf'])->name('export.pdf');
 // admin crud
 Route::post('/addPet', [PetDataController::class, 'addPet'])->middleware(['auth', 'admin'])->name('addPet');
 

@@ -310,6 +310,9 @@
 
                     </tbody>
                 </table>
+                <div class="mt-5 mx-5">
+                    {{ $schedules->links() }}
+                </div>
                 <nav class="flex flex-col md:flex-row justify-between items-start md:items-center space-y-3 md:space-y-0 p-4"
                     aria-label="Table navigation">
 

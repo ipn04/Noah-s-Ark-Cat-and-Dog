@@ -242,6 +242,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="mt-5 mx-5">
+                    {{ $volunteer->links() }}
+                </div>
                 <div
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-20 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">

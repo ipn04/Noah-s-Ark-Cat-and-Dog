@@ -51,7 +51,7 @@ class ProfileController extends Controller
     }
 
     public function showRegisteredUsers() {
-        $showUsers = User::where('role', 'user')->get();
+        $showUsers = User::where('role', 'user')->paginate(10);
 
         $adminId = auth()->user()->id;
         $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)

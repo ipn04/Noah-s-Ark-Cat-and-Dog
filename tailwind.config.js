@@ -28,7 +28,8 @@ export default {
                 largeScreen: '70vh',
                 customHeight: '72vh',
                 petContentsheight: '80vh',
-                profileHeight: '510px'
+                profileHeight: '510px',
+                ProgressContainer: '405px',
             },
         },
     },

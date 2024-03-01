@@ -76,7 +76,7 @@ class VolunteerController extends Controller
     
     public function showVolunteer(Request $request)
     {
-        $volunteer = VolunteerAnswers::all();
+        $volunteer = VolunteerAnswers::paginate(10);
         $volunteerCount = VolunteerApplication::count();
         $volunteerPendingCount = $volunteer->where('volunteer_application.stage', '>=', 0)
         ->where('volunteer_application.stage', '<=', 4)

@@ -63,16 +63,11 @@
                             <p class="text-4xl font-bold text-red-500">{{ $catCount }}</p>
                         </div>
                     </div>
-
-
                     <!-- Add more columns as needed -->
-
                 </div>
             </div>
         </div>
     </div>
-
-
 
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
@@ -459,6 +454,9 @@
                         @endif
                     </tbody>
                 </table>
+                <div class="mt-5 mx-5">
+                    {{ $pets->links() }}
+                </div>
                 <div
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-20 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">
@@ -472,7 +470,7 @@
 
             <div class="flex flex-col items-stretch justify-between py-4 dark:border-gray-700">
                 <div class="flex items-center justify-between lg:mx-0">
-                    <h1 class = "text-2xl text-red-500 font-bold py-3">Deleted Pets</h1>
+                    <h1 class = "text-2xl text-red-500 font-bold py-3">Archived Pets</h1>
                    
                 </div>
             </div>
@@ -498,13 +496,7 @@
                             </div>
                         </form>
                     </div>
-
-                   
                 </div>
-        
-
-                
-
                 <table class=" w-full text-sm text-left text-gray-500 dark:text-gray-400">
                     <thead
                         class="text-xs lg:contents hidden text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
@@ -528,8 +520,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @if ($pets->isNotEmpty())
-                            @foreach ($pets as $pet)
+                        @if ($archivedPet->isNotEmpty())
+                            @foreach ($archivedPet as $pet)
                                 @if ($pet->adoption_status == "deleted")
                                     <tr data-name="{{ $pet->pet_name }}" data-type="{{ $pet->pet_type }}"
                                         data-adoption="{{ $pet->adoption_status }}" data-gender="{{ $pet->gender }}"
@@ -714,6 +706,9 @@
                         @endif
                     </tbody>
                 </table>
+                <div class="mt-5 mx-5">
+                    {{ $archivedPet->links() }}
+                </div>
                 <div
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-20 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">
@@ -725,11 +720,6 @@
 
             </div>
         </div>
-
-
-
-
-
     </section>
 
     <div id="filterDropdown" class="z-50 hidden py-1 px-3 bg-white rounded-lg shadow w-60 dark:bg-gray-700 right-0">

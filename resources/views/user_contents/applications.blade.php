@@ -180,6 +180,9 @@
                         @endif
                     </tbody>
                 </table>
+                <div class="mt-5 mx-5">
+                    {{ $answers->links() }}
+                </div>
                 <div
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-20 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">
@@ -188,9 +191,7 @@
                         class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                     </div>
                 </div>
-
             </div>
-
         </div>
         {{-- <div class="mx-auto max-w-screen-2xl px-4 lg:pt-8 lg:px-12">
             <div class="flex flex-col items-stretch justify-between py-4 dark:border-gray-700">

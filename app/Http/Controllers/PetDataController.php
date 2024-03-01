@@ -19,7 +19,8 @@ class PetDataController extends Controller
 {
     public function showPetManagement()
     {
-        $pets = Pet::all(); // Fetch all pets
+        $pets = Pet::paginate(10); // Fetch all pets
+        $archivedPet = Pet::where('adoption_status', 'deleted')->paginate(10);
         $petCount = Pet::count();
         $availpet = Pet::where('adoption_status', 'available')->count(); // Get the count of cats
         $dogCount = Pet::where('pet_type', 'dog')->count();
@@ -37,7 +38,7 @@ class PetDataController extends Controller
 
         $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
 
-        return view('admin_contents.pet_management', ['pets' => $pets,'petCount' => $petCount, 'availpet' => $availpet,
+        return view('admin_contents.pet_management', ['archivedPet'=> $archivedPet, 'pets' => $pets,'petCount' => $petCount, 'availpet' => $availpet,
         'dogCount' => $dogCount, 'catCount'=> $catCount, 'unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications]);
     }
 

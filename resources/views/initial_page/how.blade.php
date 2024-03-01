@@ -40,7 +40,7 @@
         </div>
 
         <div>
-            <img class="max-w-full md:max-w-lg mx-auto rounded-2xl" src="{{ asset('images/imgage.jpg') }}" alt="image description">
+            <img class="max-w-full md:max-w-lg mx-auto my-5 md:my-0 rounded-2xl" src="{{ asset('images/imgage.jpg') }}" alt="image description">
 
         </div>
     </div>

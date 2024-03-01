@@ -43,9 +43,9 @@
         @include('navbar.main_footer')
     @elseif(Route::is('register'))
         @include('navbar.main_navbar')
-        <div class="flex items-center justify-center pt-20 lg:pt-32 pb-10 px-5 "
+        <div class="flex items-center justify-center pt-20 lg:pt-32 pb-10 px-5  "
             style="background-image: url('{{ asset('images/redbackground.png') }}')">
-            <div class=" max-w-md lg:max-w-screen-lg px-4 py-8 bg-white dark:bg-gray-800 shadow-md rounded-2xl">
+            <div class=" max-w-md lg:max-w-screen-lg mt-14 md:mt-0 px-4 py-8 bg-white dark:bg-gray-800 shadow-md rounded-2xl">
                 {{ $slot }}
             </div>
         </div>

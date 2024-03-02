@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider
             $user = auth()->user();
     
             if ($user && $user->isAdmin()) {
-                $unreadMessageCount = Message::unreadCount($user->id);
+                $unreadMessageCount = MessageThread::unreadCount($user->id);
                 $view->with('unreadMessageCount', $unreadMessageCount);
             } else {
                 $view->with('unreadMessageCount', 0);

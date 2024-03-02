@@ -645,3 +645,9 @@
 
     </section>
 </x-app-layout>
+<script>
+    @if(Route::currentRouteName() === 'admin.schedule') 
+        initializeScheduleTabs();
+        initializeScheduleAcceptedTabs();
+    @endif
+</script>

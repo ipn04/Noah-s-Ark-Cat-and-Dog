@@ -59,14 +59,31 @@ class Index extends Component
                 
         }
     }
+
+    public function messageNotification(){
+
+    }
     
     public function markAsReadAndNavigate($threadId)
     {
-        $this->markAsRead($threadId);
+        
+        $thread = Message::where('id', $threadId)
+        ->whereNull('read_at')
+        ->first();
+
+        if ($thread) {
+
+            $this->markAsReadThreads($threadID)
+            $this->markAsRead($threadId);
+
+        } else {
+            $this->markAsRead($threadId);
+        }
 
         return redirect()->route('chat', ['messageId' => $threadId]);
     }
 
+    public function markAsReadThreads($threadId)
     public function markAsRead($threadId)
     {
         $user = auth()->user();

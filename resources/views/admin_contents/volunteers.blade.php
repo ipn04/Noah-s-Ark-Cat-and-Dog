@@ -62,26 +62,26 @@
                     class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
                     <ul class="flex flex-wrap -mb-px">
                         <li class="me-2 relative">
-                            <a href="{{ route('admin.volunteers') }}" id="allLink" class="inline-block p-4 text-base border-b-2 text-red-500 border-red-600 rounded-t-lg active  flex items-center justify-between">All
+                            <a href="{{ route('admin.volunteers') }}" id="allVolunteer" class="inline-block p-4 text-base border-b-2 text-red-500 border-red-600 rounded-t-lg active  flex items-center justify-between">All
                                 <span id="all" class="bg-red-100 ms-1 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">{{ $volunteerCount }}</span>
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.volunteers') }}" id="pendingLink" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Pending
+                            <a href="{{ route('admin.volunteers') }}" id="pendingVolunteer" class="inline-block p-4 text-base rounded-t-lg flex items-center justify-between">Pending
                                 <span id="pending" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
                                     {{ $volunteerPendingCount }}
                                 </span>
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.volunteers') }}" id="approvedLink" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Approved
+                            <a href="{{ route('admin.volunteers') }}" id="approvedVolunteer" class="inline-block text-base p-4 rounded-t-lg flex items-center justify-between">Approved
                                 <span  id="approved" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
                                     {{ $volunteerApprovedCount }}
                                 </span>
                             </a>
                         </li>
                         <li class="me-2">
-                            <a href="{{ route('admin.volunteers') }}" id="rejectedLink" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Rejected
+                            <a href="{{ route('admin.volunteers') }}" id="rejectedVolunteer" class="inline-block text-base p-4 rounded-t-lg  flex items-center justify-between">Rejected
                                 <span  id="rejected" class="hidden ms-1 bg-red-100 text-red-600 font-bold flex justify-center items-center rounded-3xl w-2 h-2 p-2 text-center text-sm">
                                    {{ $volunteerRejectedCount }}
                                 </span>
@@ -259,3 +259,8 @@
 
     </section>
 </x-app-layout>
+<script>
+    @if(Route::currentRouteName() === 'admin.volunteers') 
+        initializeVolunteerTabs();
+    @endif
+</script>

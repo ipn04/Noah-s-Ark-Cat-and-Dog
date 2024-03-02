@@ -87,13 +87,14 @@ $(document).ready(function() {
             });
         });
     });
-    initializeAdoptionTabs(['all', 'pending', 'approved', 'rejected', 'cancelled']);
-    initializeVolunteerTabs(['all', 'pending', 'approved', 'rejected']);
+    initializeAdoptionTabs();
+    initializeVolunteerTabs();
     initializeScheduleTabs();
     initializeScheduleAcceptedTabs();
 });
 // admin adoption tab filter 
 function initializeAdoptionTabs() {
+    console.log('Initializing Adoption Tabs');
     ['all', 'pending', 'approved', 'rejected', 'cancelled'].forEach(tab => {
         const link = document.getElementById(`${tab}Link`);
 
@@ -142,9 +143,10 @@ function initializeAdoptionTabs() {
 }
 // admin volunteer tab filter
 function initializeVolunteerTabs() {
+    console.log('Initializing volunteer Tabs');
     ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
-        const link = document.getElementById(`${tab}Link`);
-
+        const link = document.getElementById(`${tab}Volunteer`);
+    
         link.addEventListener('click', function(event) {
             event.preventDefault();
 
@@ -152,9 +154,9 @@ function initializeVolunteerTabs() {
             const tabs = ['all', 'pending', 'approved', 'rejected'];
 
             tabs.forEach(item => {
-                const tabLink = document.getElementById(`${item}Link`);
+                const tabLink = document.getElementById(`${item}Volunteer`);
                 const tabContent = document.getElementById(item);
-
+     
                 if (item === selectedTab) {
                     tabLink.classList.remove('text-gray-600')
                     tabLink.classList.add('border-b-2', 'border-red-600','text-red-500');
@@ -189,6 +191,7 @@ function initializeVolunteerTabs() {
 }
 
 function initializeScheduleAcceptedTabs() {
+    console.log('has been initialized');
     ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
         const link = document.getElementById(`${tab}Link`);
 
@@ -236,6 +239,7 @@ function initializeScheduleAcceptedTabs() {
 }
 
 function initializeScheduleTabs() {
+    console.log('Schedule has been initialized');
     ['all', 'interview', 'visit', 'pickup'].forEach(tab => {
         const link = document.getElementById(`${tab}Schedule`);
 

@@ -26,9 +26,29 @@ class MessageThread extends Model
     }
     public function scopeUnreadCount($query, $userId)
     {
-        return $query->whereNull('read_at')
-            ->where('receiver_id', $userId)
-            ->where('sender_id', '!=', $userId)
-            ->count();
+
+            $parentMessageIds = $query
+        ->whereNull('read_at')
+        ->where('receiver_id', $userId)
+        ->where('sender_id', '!=', $userId)
+        ->select('parent_message_id')
+        ->distinct()
+        ->pluck('parent_message_id')
+        ->toArray();
+
+        $unreadMessageCount =  $query->whereNull('read_at')
+        ->where('receiver_id', $userId)
+        ->where('sender_id', '!=', $userId)
+        ->select('parent_message_id')
+        ->distinct()
+        ->count();
+
+        $unreadMessageCount = min($unreadMessageCount, count($parentMessageIds));
+
+        return  $unreadMessageCount;
+    
+
+    
+
     }
 }

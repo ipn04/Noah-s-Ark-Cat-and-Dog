@@ -372,3 +372,8 @@
         
     </section>
 </x-app-layout>
+<script>
+    @if(Route::currentRouteName() === 'admin.adoptions') 
+        initializeAdoptionTabs();
+    @endif
+</script>

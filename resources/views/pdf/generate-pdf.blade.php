@@ -48,6 +48,25 @@
     <p class="p-2">19. How much time will your dog spend in the yard? <span class="font-bold">{{ $answers['twentyfirst_question'] }}</span></p>
     <p class="p-2">20. Are you prepared to walk and potty train your dog? <span class="font-bold">{{ $answers['twentysecond_question'] }}</span></p>
     <p class="p-2">21. Are you prepared to manage chewing, marking, excessive barking, etc? <span class="font-bold">{{ $answers['twentythird_question'] }}</span></p>
+    <h2 class="mt-4 text-center font-bold">ADOPTION AGREEMENT</h2>
+    <h2 class="text-center font-bold">(FILL IN ON THE DAY OF ADOPTION)</h2>
+    <p class="p-2">_____ <span>My adopted pet has been sprayed/neutered and vaccinated.</span></p>
+    <p class="p-2">_____ <span>No guarantee of any kind can be given regarding the health of my adopted animal.</span></p>
+    <p class="p-2">_____ <span>My adopted pet may carry and transmit diseases that may be undetectable at the time of adoption.</span></p>
+    <p class="p-2">_____ <span>I am financially capable and responsible for providing my adopted pet's veterinary needs.</span></p>
+    <p class="p-2">_____ <span>I will inform NOAH'S ARK DOG & CAT SHELTER INC. of any situation that may affect the welfare of my adopted pet.</span></p>
+    <p class="p-2">_____ <span>NOAH'S ARK DOG & CAT SHELTER INC. may check the well being of my adopted pet from time to time.</span></p>
+    <p class="p-2">_____ <span>Should I decide to give up my adopted pet, I am obligated to return him/her to NOAH"S ARK DOG & CAT SHELTER INC.</span></p>
+    <p class="p-2">_____ <span>My adopted pet may exhibit potentially undesirable behaviours including, but not limited to, to aggression, soiling, biting, scratching, barking, digging, mounting, and urine marking.</span></p>
+    <p class="p-2">_____ <span>I shall assume responsibility of preventing any damage or injury resulting from these undesirable behaviours.</span></p>
+    <p class="p-2">_____ <span>NOAH'S ARK DOG & CAT SHELTER INC. is not liable for any property damage or personal injury suffered by myself, members of my house hold or any third party that may arise from this adoption.</span></p>
+    <p class="p-2">_____ <span>Non compliance with any part of this agreement shall give NOAH'S ARK DOG & CAT SHELTER INC. the right to take back the animal, without need of any judicial action, without any need of my prior approval or that of my duly authorized representative.</span></p>
+    <div class="my-10">
+        <p class="pt-2">___________________________________</p>
+        <p>Applicant's signature over printed name/Date</p>
+        <p class="pt-12">___________________________________</p>
+        <p>Adopter's signature over printed name (for minor applicant)</p>
+    </div>
 </body>
 
 </html>

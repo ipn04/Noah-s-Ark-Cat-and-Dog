@@ -29,7 +29,7 @@ class ProfileController extends Controller
 
         $adminNotifications = Notifications::where('receiver_id', $adminId)->orderByDesc('created_at')->take(5)->get();
 
-        return view ("admin_contents.admin_profile", [
+        return view ("profile.edit", [
             'user' => $request->user(), 'unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications
         ]);
     }

@@ -1,9 +1,3 @@
-
-
-
-
-
-
 <aside id="default-sidebar"
     class="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
     aria-label="Sidebar">
@@ -22,18 +16,18 @@
             <li>
                 <a href="{{ route('admin.dashboard') }}"
                     class="
-                @if (Route::is('admin.dashboard')) flex items-center p-2 hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
-                @else
-                flex items-center p-2 hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
-                    <svg class="
-                    @if (Route::is('admin.dashboard')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    @if (Route::is('user.dashboard')) flex items-center p-2 hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
                     @else
-                    flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                    flex items-center p-2 hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
+                    <svg class="
+                        @if (Route::is('admin.dashboard')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                        @else
+                        flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 18 18">
-                        <path
-                            d="M6.143 0H1.857A1.857 1.857 0 0 0 0 1.857v4.286C0 7.169.831 8 1.857 8h4.286A1.857 1.857 0 0 0 8 6.143V1.857A1.857 1.857 0 0 0 6.143 0Zm10 0h-4.286A1.857 1.857 0 0 0 10 1.857v4.286C10 7.169 10.831 8 11.857 8h4.286A1.857 1.857 0 0 0 18 6.143V1.857A1.857 1.857 0 0 0 16.143 0Zm-10 10H1.857A1.857 1.857 0 0 0 0 11.857v4.286C0 17.169.831 18 1.857 18h4.286A1.857 1.857 0 0 0 8 16.143v-4.286A1.857 1.857 0 0 0 6.143 10Zm10 0h-4.286A1.857 1.857 0 0 0 10 11.857v4.286c0 1.026.831 1.857 1.857 1.857h4.286A1.857 1.857 0 0 0 18 16.143v-4.286A1.857 1.857 0 0 0 16.143 10Z" />
+                        <path d="M16.975 11H10V4.025a1 1 0 0 0-1.066-.998 8.5 8.5 0 1 0 9.039 9.039.999.999 0 0 0-1-1.066h.002Z"/>
+                        <path d="M12.5 0c-.157 0-.311.01-.565.027A1 1 0 0 0 11 1.02V10h8.975a1 1 0 0 0 1-.935c.013-.188.028-.374.028-.565A8.51 8.51 0 0 0 12.5 0Z"/>
                     </svg>
-                    <span class="ms-3">Dashboard</span>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Dashboard</span>
                 </a>
             </li>
             {{-- <li>
@@ -82,35 +76,32 @@
                                 {{ 'Variable not set' }} @endif
                         </div>
                     @endif
-                <svg class="
-                                    @if (Route::is('chat.index')) flex-shrink-0 w-7 h-7 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                <svg class="@if (Route::is('chat.index')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
                     @else
-                    flex-shrink-0 w-7 h-7 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    fill="currentColor" class="w-6 h-6">
-                                    <path fill-rule="evenodd"
-                                        d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z"
-                                        clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
+                    flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z"
+                            clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
                 </a>
             </li>
             <li>
                 <a href="{{ route('admin.pet.management') }}"
                     class="
-            @if (Route::is('admin.pet.management')) flex items-center p-2  hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
-            @else
-            flex items-center p-2  hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
+                    @if (Route::is('admin.pet.management')) flex items-center p-2  hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
+                    @else
+                    flex items-center p-2  hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
                     <svg class="       
-                @if (Route::is('admin.pet.management')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
-                @else
-               flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
-                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-                        <path
-                            d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
+                    @if (Route::is('admin.pet.management')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    @else
+                    flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 22 22" fill="currentColor" class="w-6 h-6">
+                        <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z" />
                     </svg>
-
                     <span class="flex-1 ms-3 whitespace-nowrap">Pets</span>
                 </a>
             </li>
@@ -121,9 +112,9 @@
                 @else
                 flex items-center p-2 hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
                     <svg class="
-                    @if (Route::is('admin.reports')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    @if (Route::is('admin.reports')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
                     @else
-                    flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                    flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M19.906 9c.382 0 .749.057 1.094.162V9a3 3 0 00-3-3h-3.879a.75.75 0 01-.53-.22L11.47 3.66A2.25 2.25 0 009.879 3H6a3 3 0 00-3 3v3.162A3.756 3.756 0 014.094 9h15.812zM4.094 10.5a2.25 2.25 0 00-2.227 2.568l.857 6A2.25 2.25 0 004.951 21H19.05a2.25 2.25 0 002.227-1.932l.857-6a2.25 2.25 0 00-2.227-2.568H4.094z" />
@@ -142,9 +133,9 @@
                 @else
                 flex items-center p-2 hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
                     <svg class="
-                    @if (Route::is('admin.adoptions')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    @if (Route::is('admin.adoptions')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
                     @else
-                    flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                    flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M19.006 3.705a.75.75 0 00-.512-1.41L6 6.838V3a.75.75 0 00-.75-.75h-1.5A.75.75 0 003 3v4.93l-1.006.365a.75.75 0 00.512 1.41l16.5-6z" />
@@ -162,9 +153,9 @@
                 @else
                 flex items-center p-2 hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
                     <svg class="
-                    @if (Route::is('admin.volunteers')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    @if (Route::is('admin.volunteers')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
                     @else
-                    flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                    flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path
                             d="M11.25 3v4.046a3 3 0 00-4.277 4.204H1.5v-6A2.25 2.25 0 013.75 3h7.5zM12.75 3v4.011a3 3 0 014.239 4.239H22.5v-6A2.25 2.25 0 0020.25 3h-7.5zM22.5 12.75h-8.983a4.125 4.125 0 004.108 3.75.75.75 0 010 1.5 5.623 5.623 0 01-4.875-2.817V21h7.5a2.25 2.25 0 002.25-2.25v-6zM11.25 21v-5.817A5.623 5.623 0 016.375 18a.75.75 0 010-1.5 4.126 4.126 0 004.108-3.75H1.5v6A2.25 2.25 0 003.75 21h7.5z" />
@@ -181,9 +172,9 @@
                 @else
                 flex items-center p-2 hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
                     <svg class="
-                    @if (Route::is('admin.schedule')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    @if (Route::is('admin.schedule')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
                     @else
-                    flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                    flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
                         aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M7.502 6h7.128A3.375 3.375 0 0118 9.375v9.375a3 3 0 003-3V6.108c0-1.505-1.125-2.811-2.664-2.94a48.972 48.972 0 00-.673-.05A3 3 0 0015 1.5h-1.5a3 3 0 00-2.663 1.618c-.225.015-.45.032-.673.05C8.662 3.295 7.554 4.542 7.502 6zM13.5 3A1.5 1.5 0 0012 4.5h4.5A1.5 1.5 0 0015 3h-1.5z"
@@ -202,9 +193,9 @@
                 @if (Route::is('view.users')) flex items-center p-2 hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
                 @else
                 flex items-center p-2 hover:text-gray-800 text-gray-500 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
-                    <svg class = "@if (Route::is('view.users')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    <svg class = "@if (Route::is('view.users')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
                 @else
-                flex-shrink-0 w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
                         xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
                         <path fill-rule="evenodd"
                             d="M18.685 19.097A9.723 9.723 0 0 0 21.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 0 0 3.065 7.097A9.716 9.716 0 0 0 12 21.75a9.716 9.716 0 0 0 6.685-2.653Zm-12.54-1.285A7.486 7.486 0 0 1 12 15a7.486 7.486 0 0 1 5.855 2.812A8.224 8.224 0 0 1 12 20.25a8.224 8.224 0 0 1-5.855-2.438ZM15.75 9a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"

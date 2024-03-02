@@ -73,7 +73,7 @@ class Index extends Component
 
         if ($thread) {
 
-            $this->markAsReadThreads($threadID)
+            // $this->markAsReadThreads($threadID)
             $this->markAsRead($threadId);
 
         } else {
@@ -83,7 +83,7 @@ class Index extends Component
         return redirect()->route('chat', ['messageId' => $threadId]);
     }
 
-    public function markAsReadThreads($threadId)
+    // public function markAsReadThreads($threadId)
     public function markAsRead($threadId)
     {
         $user = auth()->user();

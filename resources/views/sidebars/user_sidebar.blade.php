@@ -33,35 +33,36 @@
             <li>
                 <a href="{{ route('chat.index') }}"
                     class="
-                
-                    @if (Route::is('chat.index')) flex items-center p-2 hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
-                    @else
-                    flex items-center p-2 text-gray-500 rounded-lg hover:text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
+            
+                @if (Route::is('chat.index')) flex items-center p-2 hover:text-gray-800 text-red-600 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group
+                @else
+                flex items-center p-2 text-gray-500 rounded-lg hover:text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
                     <div class = "flex items-center relative">
                         @if (auth()->user()->isUser())
                             @if (isset($unreadMessageCount))
 
                                 <div class="@if ($unreadMessageCount == 0) hidden
+                        @else absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none
+                        @endif">
+                            {{-- @foreach ($unreadMessageCounts as $user)
+                                <p>{{ $user->name }}: {{ $user->messages_count }} unread messages</p>
+                            @endforeach<!-- Replace this number with your dynamic notification count --> --}}
+                                {{ $unreadMessageCount }}
                             @else
-                            first-letter:first-line:absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none
-                            @endif">
-                                    {{ $unreadMessageCount }}
-                                @else
-                                    {{ 'Variable not set' }} @endif
-                            </div>
-                        @endif
-                    <svg class="
-                                    @if (Route::is('chat.index')) flex-shrink-0 w-5 h-5 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
-                        @else
-                        flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
-                                    aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
-                                    fill="currentColor" class="w-6 h-6">
-                                    <path fill-rule="evenodd"
-                                        d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z"
-                                        clip-rule="evenodd" />
-                                    </svg>
-                                </div>
-                                <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
+                                {{ 'Variable not set' }} @endif
+                        </div>
+                    @endif
+                <svg class="@if (Route::is('chat.index')) flex-shrink-0 w-6 h-6 text-red-600 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white
+                    @else
+                    flex-shrink-0 w-6 h-6 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-800 dark:group-hover:text-white @endif"
+                        aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"
+                        fill="currentColor" class="w-6 h-6">
+                        <path fill-rule="evenodd"
+                            d="M4.804 21.644A6.707 6.707 0 006 21.75a6.721 6.721 0 003.583-1.029c.774.182 1.584.279 2.417.279 5.322 0 9.75-3.97 9.75-9 0-5.03-4.428-9-9.75-9s-9.75 3.97-9.75 9c0 2.409 1.025 4.587 2.674 6.192.232.226.277.428.254.543a3.73 3.73 0 01-.814 1.686.75.75 0 00.44 1.223zM8.25 10.875a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25zM10.875 12a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0zm4.875-1.125a1.125 1.125 0 100 2.25 1.125 1.125 0 000-2.25z"
+                            clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <span class="flex-1 ms-3 whitespace-nowrap">Messages</span>
                 </a>
             </li>
             {{-- <li>

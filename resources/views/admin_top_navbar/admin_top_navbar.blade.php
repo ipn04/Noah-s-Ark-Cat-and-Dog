@@ -1,6 +1,6 @@
 <nav x-data="{ open: false }"
     class="  bg-white lg:border-transparent dark:bg-gray-800  dark:border-gray-700
-@if (Route::is('admin.dashboard') || Route::is('admin.pet.management') || Route::is('admin.reports')) md:bg-red-800
+@if (Route::is('chat') || Route::is('admin.dashboard') || Route::is('admin.pet.management') || Route::is('admin.reports')) md:bg-red-800
 @else
 md:bg-transparent @endif">
     <!-- Primary Navigation Menu -->
@@ -79,7 +79,7 @@ md:bg-transparent @endif">
                                 <button
                                     class="flex items-center p-1 
                                                 
-                                @if (Route::is('admin.dashboard') || Route::is('admin.pet.management') || Route::is('admin.reports')) text-white
+                                @if (Route::is('chat') || Route::is('admin.dashboard') || Route::is('admin.pet.management') || Route::is('admin.reports')) text-white
                                         @else
                                         text-red-700 @endif"
                                     id="notificationBellTrigger">

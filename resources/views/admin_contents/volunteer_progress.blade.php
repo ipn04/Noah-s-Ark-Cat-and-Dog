@@ -460,9 +460,9 @@
             class="
         @if ($stage == 3) hidden
         @else
-        flex items-center py-5 justify-center @endif
+        flex items-center py-5 px-10 justify-center @endif
                 ">
-            <div class ="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg lg:mt-12">
+            <div class ="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg w-full lg:mt-12">
                 <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     @if ($userVolunteerAnswers)
                         {{-- @foreach ($userVolunteerAnswers as $answers) --}}

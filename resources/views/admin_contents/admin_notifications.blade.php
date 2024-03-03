@@ -24,11 +24,11 @@
                     @if($adminAllNotifications)
                         @foreach($adminAllNotifications as $notification)
                             @if ($notification->concern == 'Adoption Application')
-                                <x-dropdownapply-link :href="route('admin.adoptionprogress', ['userId' => $notification->user->id, 'id' => $notification->application->id])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()">
+                                <x-dropdownapply-link :href="route('admin.adoptionprogress', ['userId' => $notification->user->id, 'id' => $notification->application->id])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
                                     {{ $notification->message }}
                                 </x-dropdownapply-link>
                             @elseif ($notification->concern == 'Volunteer Application')
-                                <x-dropdownvapply-link :href="route('admin.volunteer.progress', ['userId' => $notification->user->id, 'id' =>$notification->application->id])"  :image-source="'/storage/' .    $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()">
+                                <x-dropdownvapply-link :href="route('admin.volunteer.progress', ['userId' => $notification->user->id, 'id' =>$notification->application->id])"  :image-source="'/storage/' .    $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
                                     {{ $notification->message }}
                                 </x-dropdownvapply-link>
                             @endif

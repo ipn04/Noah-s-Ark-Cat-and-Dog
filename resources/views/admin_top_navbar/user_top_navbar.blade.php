@@ -52,8 +52,7 @@ lg:bg-red-800
                 <!-- Hamburger button on the right -->
                 <button
                 @click="open = !open"
-                class="flex items-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out lg:justify-end"
-            >
+                class="flex items-center p-2 rounded-md text-gray-400 dark:text-gray-500 hover:text-gray-500 dark:hover:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-900 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-900 focus:text-gray-500 dark:focus:text-gray-400 transition duration-150 ease-in-out lg:justify-end">
                 <!-- Image and profile indication -->
                 <div class="flex items-center ">
                     <!-- Check the image path and make sure it's correct -->
@@ -96,9 +95,7 @@ lg:bg-red-800
                                 @endif">
                                     {{$unreadNotificationsCount}}
                                 </div>
-                                
-                                <button class="flex items-center p-1 
-                                                
+                                <button id="notificationBellTrigger" class="flex items-center p-1 
                                 @if(  Route::is('chat.index') || Route::is('user.notifications') ||  Route::is('interview.user') || Route::is('user.volunteerprogress') ||Route::is('user.volunteer') || Route::is('user.adoptionprogress') ||Route::is('user.adoption') || Route::is('user.pet') || Route::is('admin.adoptions') || Route::is('admin.volunteers') || Route::is('admin.schedule') ||  Route::is('profile.edit') || Route::is('user.dashboard') ||  Route::is('user.applications'))
                                 text-red-700
                                 @else
@@ -123,11 +120,11 @@ lg:bg-red-800
                             @if($userNotifications)
                                 @foreach($userNotifications as $notification)
                                     @if ($notification->concern == 'Adoption Application')
-                                        <x-dropdownapply-link :href="route('user.adoptionprogress', ['userId' => auth()->id(), 'applicationId' => $notification->application->id])" :image-source="'/storage/' .    $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()">
+                                        <x-dropdownapply-link :href="route('user.adoptionprogress', ['userId' => auth()->id(), 'applicationId' => $notification->application->id])" :image-source="'/storage/' .    $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
                                             {{ $notification->message }}
                                         </x-dropdownapply-link>
                                     @elseif ($notification->concern == 'Volunteer Application')
-                                        <x-dropdownvapply-link :href="route('user.volunteerprogress', ['userId' => auth()->user()->id, 'applicationId' => $notification->application->id])" :image-source="'/storage/' .    $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()">
+                                        <x-dropdownvapply-link :href="route('user.volunteerprogress', ['userId' => auth()->user()->id, 'applicationId' => $notification->application->id])" :image-source="'/storage/' .    $notification->user->profile_image" :name="$notification->user->firstname . ' ' .$notification->user->name"  :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
                                             {{ $notification->message }}
                                         </x-dropdownvapply-link>
                                     @endif
@@ -231,3 +228,40 @@ lg:bg-red-800
         </div>
     </div>
 </nav>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const dropdownButton = document.getElementById('notificationBellTrigger');
+        if (dropdownButton) {
+            dropdownButton.addEventListener('click', function() {
+                console.log('bell is triggered');
+                markNotificationsAsRead();
+            });
+        } else {
+            console.error('Dropdown button not found');
+        }
+    });
+
+    function markNotificationsAsRead() {
+        fetch('/mark-notifications-as-read-user', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' 
+                },
+                body: JSON.stringify({
+                
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Failed to mark notifications as read');
+                }
+                
+            })
+            .catch(error => {
+                console.error('Error marking notifications as read:', error);
+            });
+        event.preventDefault(); 
+    }
+</script>
+

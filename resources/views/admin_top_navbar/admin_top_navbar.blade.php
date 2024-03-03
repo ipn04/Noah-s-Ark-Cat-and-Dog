@@ -78,8 +78,7 @@ md:bg-transparent @endif">
                                 <!-- Dropdown button with image and icon -->
                                 <button
                                     class="flex items-center p-1 
-                                                
-                                @if (Route::is('chat') || Route::is('admin.dashboard') || Route::is('admin.pet.management') || Route::is('admin.reports')) text-white
+                                    @if (Route::is('chat') || Route::is('admin.dashboard') || Route::is('admin.pet.management') || Route::is('admin.reports')) text-white
                                         @else
                                         text-red-700 @endif"
                                     id="notificationBellTrigger">
@@ -114,15 +113,15 @@ md:bg-transparent @endif">
                                             'userId' => $notification->user->id,
                                             'id' => $notification->application->id,
                                         ])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' . $notification->user->name"
-                                            :currentDate="$notification->created_at->diffForHumans()">
+                                            :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
                                             {{ $notification->message }}
                                         </x-dropdownapply-link>
                                     @elseif ($notification->concern == 'Volunteer Application')
                                         <x-dropdownvapply-link :href="route('admin.volunteer.progress', [
                                             'userId' => $notification->user->id,
                                             'id' => $notification->application->id,
-                                        ])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' . $notification->user->name"
-                                            :currentDate="$notification->created_at->diffForHumans()">
+                                        ])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' . $notification->user->name" 
+                                            :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
                                             {{ $notification->message }}
                                         </x-dropdownvapply-link>
                                     @endif
@@ -252,20 +251,21 @@ md:bg-transparent @endif">
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}' // Assuming you're using CSRF protection
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}' 
                 },
                 body: JSON.stringify({
-                    // Pass any necessary data here
+                
                 })
             })
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Failed to mark notifications as read');
                 }
-                // Handle success response if needed
+                
             })
             .catch(error => {
                 console.error('Error marking notifications as read:', error);
             });
+        event.preventDefault(); 
     }
 </script>

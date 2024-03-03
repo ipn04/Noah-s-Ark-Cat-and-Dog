@@ -508,7 +508,7 @@
                                 alt='user profile'>
                         </div>
                         <h1 class = "text-center font-semibold text-2xl py-2 capitalize">
-                            {{ $userVolunteerAnswers->volunteer_application->a  pplication->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
+                            {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
                         </h1>
                         <div class = "pb-4">
                             <ul class="space-y-4  mb-4">

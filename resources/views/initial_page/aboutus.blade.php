@@ -2,10 +2,9 @@
     <div class =  "bg-cover  py-10 px-10 lg:px-28" style="background-image: url('{{ asset('images/yellowbg.png') }}');">
         <div class = "animation">
             <h1 class = "text-4xl lg:text-5xl  font-bold text-white text-center">About Us</h1>
-            <p class = "md:text-xl text-lg text-white text-center py-2 px-8 lg:px-40">Noah’s Ark Dog and Cat Shelter is a
-                is a
-                charitable and
-                non-governmental organization (NGO) was established in 2018 based in Mabalacat, Pampanga, Philippines.
+            <p class = "md:text-xl text-lg text-white text-center py-2 px-8 lg:px-40">Welcome to Noah’s Ark Dog and Cat Shelter, a compassionate haven for our four-legged friends in need. Established in 2018, Noah’s Ark is a charitable and non-governmental organization (NGO) located in Mabalacat, Pampanga, Philippines. Our mission is rooted in the belief that every animal deserves love, care, and a chance for a better life.
+
+
             </p>
 
             <div id="default-carousel" class="relative w-5/6 mx-auto mt-6" data-carousel="slide">
@@ -13,31 +12,31 @@
                 <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                     <!-- Item 1 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
+                        <img src="{{ asset('images/noahss.jpg') }}"  
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
                     <!-- Item 2 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
+                        <img src="{{ asset('images/noahss.jpg') }}" 
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
                     <!-- Item 3 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg"
+                        <img src="{{ asset('images/noahss.jpg') }}" 
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
                     <!-- Item 4 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="/docs/images/carousel/carousel-4.svg"
+                        <img src="{{ asset('images/noahss.jpg') }}" 
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
                     <!-- Item 5 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="/docs/images/carousel/carousel-5.svg"
+                        <img src="{{ asset('images/noahss.jpg') }}" 
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
@@ -90,11 +89,9 @@
         <div class = "animation  grid grid-cols-1 md:grid-cols-2 gap-1 lg:px-10 ">
             <div class = "flex flex-col justify-center py-4 md:py-0 ">
                 <h1 class = "text-4xl lg:text-5xl  font-bold text-center py-5 md:text-left text-white">Mission</h1>
-                <p class = "text-justify md:text-left text-center px-4 md:px-0 text-white text-base md:text-lg ">Noah’s
-                    Ark Dog and Cat Shelter
-                    is a is a charitable and non-governmental organization (NGO) was established
-                    in 2018 based in Mabalacat, Pampanga, Philippines.
-                    es.
+                <p class = "text-justify md:text-left text-center px-4 md:px-0 text-white text-base md:text-lg ">At Noah's Ark, our mission is to provide a safe and loving environment for stray and abandoned dogs and cats. We strive to be their voice and advocates, working towards a future where no animal is left behind. Through dedicated care, rehabilitation, and responsible rehoming, we aim to create a community where both humans and animals coexist harmoniously.
+
+
                 </p>
             </div>
             <div class = "flex justify-end py-4 md:py-0  ">
@@ -111,10 +108,9 @@
             <div class = "flex flex-col justify-center order-1 md:order-2 py-4  md:py-0">
                 <h1 class = "text-4xl lg:text-5xl  font-bold text-center py-5 md:text-right text-white ">Vision</h1>
                 <p class = "text-justify md:text-right md:text-lg text-center  px-4 md:px-0 text-white text-base ">
-                    Noah’s Ark Dog and Cat Shelter
-                    is a is a charitable and non-governmental organization (NGO) was established
-                    in 2018 based in Mabalacat, Pampanga, Philippines.
-                    es.
+                    We envision a world where every animal is treated with kindness, respect, and compassion. Noah’s Ark is committed to promoting responsible pet ownership, raising awareness about animal welfare, and creating a society where the bond between humans and animals is strengthened, leading to a more humane and understanding world.
+
+
                 </p>
             </div>
         </div>
@@ -123,10 +119,13 @@
 
     <div class = "animation p-10 lg:p-20">
         <h1 class = "text-4xl lg:text-5xl  font-bold text-center text-red-600">Our Story</h1>
-        <p class = "text-justify text-base md:text-lg p-4 lg:py-7 lg:px-40">Noah’s Ark Dog and Cat Shelter is a is a
-            charitable and non-governmental organization (NGO) was established
-            in 2018 based in Mabalacat, Pampanga, Philippines.
-            es.
+        <p class = "text-justify text-base md:text-lg p-4 lg:py-7 lg:px-40">Noah’s Ark began as a heartfelt response to the growing number of stray and abandoned animals in our community. Fueled by a shared passion for animal welfare, our founders came together in 2018 to create a haven where these animals could find refuge, love, and a second chance at a happy life.
+
+            Our journey has been one of challenges and triumphs, fueled by the unwavering dedication of our team and the support of compassionate individuals like you. From humble beginnings, we have grown into a haven that not only shelters animals but also advocates for their well-being and educates the community on the importance of animal welfare.
+            
+            Every adoption, every rehabilitation success story, and every life we touch reinforces our commitment to making a difference in the lives of these animals. Join us in our mission to create a world where every wagging tail and purring friend is cherished and given the love they deserve.
+            
+            Thank you for being a part of Noah’s Ark Dog and Cat Shelter – where compassion knows no bounds, and every pawprint leaves a lasting impact.
         </p>
         <div class = " lg:px-40">
 

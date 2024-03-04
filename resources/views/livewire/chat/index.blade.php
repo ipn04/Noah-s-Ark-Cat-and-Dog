@@ -95,12 +95,12 @@
                                     <li class="me-2">
                                         <a href="{{ route('chat.index') }}" id="donationTab"
                                             class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                                            data-concern="Donation">Partnerships</a>
+                                            data-concern="Partnerships">Partnerships</a>
                                     </li>
                                     <li class="me-2">
                                         <a href="{{ route('chat.index') }}" id="donationTab"
                                             class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                                            data-concern="Donation">Collaborations</a>
+                                            data-concern="Collaborations">Collaborations</a>
                                     </li>
                                     <li class="me-2">
                                         <a href="{{ route('chat.index') }}" id="donationTab"
@@ -116,12 +116,12 @@
                                     <li class="me-2">
                                         <a href="{{ route('chat.index') }}" id="donationTab"
                                             class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                                            data-concern="Donation">Volunteer</a>
+                                            data-concern="Volunteer">Volunteer</a>
                                     </li>
                                     <li class="me-2">
                                         <a href="{{ route('chat.index') }}" id="donationTab"
                                             class="inline-block p-4 rounded-t-lg hover:text-gray-600 hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-gray-300"
-                                            data-concern="Donation">Others</a>
+                                            data-concern="Others">Others</a>
                                     </li>
                                 </ul>
                                 @if($threads)
@@ -372,7 +372,11 @@
                                                         <select id="concern" name="concern"
                                                             class="bg-gray-50 border border-gray-300 text-gray-600 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500">
                                                             <option selected="">Adoption</option>
+                                                            <option value="Partnerships">Partnerships</option>
+                                                            <option value="Collaborations">Collaborations</option>
                                                             <option value="Donation">Donation</option>
+                                                            <option value="Volunteer">Volunteer</option>
+                                                            <option value="Others">Others</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-span-2 py-2">
@@ -462,8 +466,6 @@
             const messageTabs = document.querySelectorAll('.flex-wrap a');
 
             const messageContainer = document.getElementById('messageContainer');
-
-
             messageTabs.forEach(link => {
                 link.addEventListener('click', function(event) {
                     event.preventDefault();

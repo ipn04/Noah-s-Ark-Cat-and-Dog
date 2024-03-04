@@ -43,12 +43,27 @@ $nextTick(() => conversationElement.scrollTop = height);"
                         </button>
                         <div class="flex justify-center items-center my-4">
                             <img src="{{ asset('storage/' . $selectedConversation->user->profile_image) }}" alt='user profile'
-                        class="object-cover h-24 w-24 rounded-full" />
+                        class="object-cover h-32 w-32 rounded-full" />
                         </div>
                         <div class="">
                             <p class="text-center font-bold">{{ $selectedConversation->user->firstname . ' ' . $selectedConversation->user->name }}</p>
                         </div>
-
+                        <div class="detail-container my-4">
+                            <span class="flex items-center py-2">
+                                <svg class="h-8 w-8 text-gray-500"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                                <p class="px-1">{{ $selectedConversation->user->email }}</p>
+                            </span>
+                            <span class="flex items-center py-2">
+                                <svg class="h-8 w-8 text-gray-500"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M5 4h4l2 5l-2.5 1.5a11 11 0 0 0 5 5l1.5 -2.5l5 2v4a2 2 0 0 1 -2 2a16 16 0 0 1 -15 -15a2 2 0 0 1 2 -2" /></svg>
+                                    <p class="px-1">{{ $selectedConversation->user->phone_number }}</p>
+                            </span>
+                            <span class="flex items-center py-2">
+                                <svg class="h-8 w-8 text-gray-500"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />  <circle cx="9" cy="7" r="4" />  <path d="M23 21v-2a4 4 0 0 0-3-3.87" />  <path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
+                                    <p class="px-1">{{ $selectedConversation->user->gender }}</p>
+                            </span>
+                        </div>
                     </div>
                 </div>
             </header>

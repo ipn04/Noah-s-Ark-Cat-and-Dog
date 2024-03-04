@@ -12,7 +12,8 @@
         <link rel="stylesheet" type="text/css" href="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.css">
 
         <link rel="stylesheet" href="/css/main.css">
-      
+        <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
 
         <script src="https://common.olemiss.edu/_js/sweet-alert/sweet-alert.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>

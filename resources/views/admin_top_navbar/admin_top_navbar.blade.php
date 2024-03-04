@@ -113,7 +113,7 @@ md:bg-transparent @endif">
                                             'userId' => $notification->user->id,
                                             'id' => $notification->application->id,
                                         ])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' . $notification->user->name"
-                                            :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
+                                            :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read" :notificationId="$notification->id">
                                             {{ $notification->message }}
                                         </x-dropdownapply-link>
                                     @elseif ($notification->concern == 'Volunteer Application')
@@ -121,7 +121,7 @@ md:bg-transparent @endif">
                                             'userId' => $notification->user->id,
                                             'id' => $notification->application->id,
                                         ])" :image-source="'/storage/' . $notification->user->profile_image" :name="$notification->user->firstname . ' ' . $notification->user->name" 
-                                            :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read">
+                                            :currentDate="$notification->created_at->diffForHumans()" :markAsRead="$notification->mark_as_read" :notificationId="$notification->id">
                                             {{ $notification->message }}
                                         </x-dropdownvapply-link>
                                     @endif

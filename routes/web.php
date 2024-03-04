@@ -310,7 +310,8 @@ Route::get('/filter-pets', [PetDataController::class, 'filterPets'])->name('filt
 Route::post('/mark-notifications-as-read', [NotificationController::class, 'markAsRead'])->name('notifications.mark-as-read');
 
 // Route::post('/notifications/{notification}/mark-as-read-single', [NotificationController::class, 'markAsReadUser'])->name('notifications.mark-as-read-user');
-Route::post('/mark-notification-as-read/{id}', [NotificationController::class, 'markAsReadUser'])->name('update-notification');
+// Route::post('/mark-notification-as-read/{id}', [NotificationController::class, 'markAsReadUser'])->name('update-notification');
+Route::post('/update-mark-as-read/{notificationId}', [NotificationController::class, 'updateMarkAsRead'])->name('update.mark_as_read');
 
 Route::post('/messages/mark-as-read', [MessageController::class, 'markAsRead'])->name('messages.markAsRead');
 

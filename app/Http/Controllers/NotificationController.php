@@ -27,6 +27,21 @@ class NotificationController extends Controller
 
         return view('admin_contents.admin_notifications', ['unreadNotificationsCount' => $unreadNotificationsCount, 'adminNotifications' => $adminNotifications, 'adminAllNotifications' => $adminAllNotifications]);
     }
+
+    public function updateMarkAsRead($notificationId)
+    {
+        $notification = Notifications::find($notificationId);
+
+        if (!$notification) {
+            return response()->json(['error' => 'Notification not found'], 404);
+        }
+
+        $notification->mark_as_read = now(); 
+        $notification->save();
+
+        return response()->json(['message' => 'Mark as read updated successfully'], 200);
+    }
+
     public function ShowMorePage() {
         $authUser = auth()->user()->id;
         $adminId = User::where('role', 'admin')->value('id');;

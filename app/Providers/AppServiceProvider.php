@@ -26,10 +26,16 @@ class AppServiceProvider extends ServiceProvider
             $user = auth()->user();
     
             if ($user && $user->isAdmin()) {
-                $unreadMessageCount = MessageThread::unreadCount($user->id);
+                $unreadMessageThreadCount = MessageThread::unreadCount($user->id);
+                $unreadMessageCount = Message::unreadCount($user->id);
+                $totalUnreadCount = $unreadMessageThreadCount + $unreadMessageCount;
+                $view->with('unreadMessageThreadCount', $unreadMessageThreadCount);
                 $view->with('unreadMessageCount', $unreadMessageCount);
+                $view->with('totalUnreadCount', $totalUnreadCount);
             } else {
+                $view->with('unreadMessageThreadCount', 0);
                 $view->with('unreadMessageCount', 0);
+                $view->with('totalUnreadCount', 0);
             }
         });
     
@@ -37,10 +43,16 @@ class AppServiceProvider extends ServiceProvider
             $user = auth()->user();
     
             if ($user && !$user->isAdmin()) {
-                $unreadMessageCount = MessageThread::unreadCount($user->id);
+                $unreadMessageThreadCount = MessageThread::unreadCount($user->id);
+                $unreadMessageCount = Message::unreadCount($user->id);
+                $totalUnreadCount = $unreadMessageThreadCount + $unreadMessageCount;
+                $view->with('unreadMessageThreadCount', $unreadMessageThreadCount);
                 $view->with('unreadMessageCount', $unreadMessageCount);
+                $view->with('totalUnreadCount', $totalUnreadCount);
             } else {
+                $view->with('unreadMessageThreadCount', 0);
                 $view->with('unreadMessageCount', 0);
+                $view->with('totalUnreadCount', 0);
             }
         });
     }

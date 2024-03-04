@@ -39,15 +39,15 @@
                 flex items-center p-2 text-gray-500 rounded-lg hover:text-gray-800 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group @endif">
                     <div class = "flex items-center relative">
                         @if (auth()->user()->isUser())
-                            @if (isset($unreadMessageCount))
+                            @if (isset($totalUnreadCount))
 
-                                <div class="@if ($unreadMessageCount == 0) hidden
+                                <div class="@if ($totalUnreadCount == 0) hidden
                         @else absolute top-0 right-0 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs pointer-events-none
                         @endif">
                             {{-- @foreach ($unreadMessageCounts as $user)
                                 <p>{{ $user->name }}: {{ $user->messages_count }} unread messages</p>
                             @endforeach<!-- Replace this number with your dynamic notification count --> --}}
-                                {{ $unreadMessageCount }}
+                                {{ $totalUnreadCount }}
                             @else
                                 {{ 'Variable not set' }} @endif
                         </div>

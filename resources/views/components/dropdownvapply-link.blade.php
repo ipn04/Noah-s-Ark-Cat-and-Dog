@@ -1,8 +1,8 @@
 <!-- x-dropdownvapply-link.blade.php -->
 
-@props(['href', 'imageSource', 'name', 'currentDate', 'markAsRead'])
+@props(['href', 'imageSource', 'name', 'currentDate', 'markAsRead', 'notificationId'])
 
-<a href="{{ $href }}"
+<a onclick="handleLinkClick('{{ $notificationId }}')" href="{{ $href }}"
     class="block w-full px-4 py-2 text-start text-sm leading-5 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">
     <div class="flex items-center">
 
@@ -40,3 +40,26 @@
         @endif
     </div>
 </a>
+<script>
+    function handleLinkClick(notificationId) {
+        fetch("{{ route('update.mark_as_read', ['notificationId' => ':notificationId']) }}".replace(':notificationId', notificationId), {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': '{{ csrf_token() }}' 
+            },
+            body: JSON.stringify({
+            }),
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Mark as read successfully updated');
+            } else {
+                console.error('Failed to update mark as read');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+</script>

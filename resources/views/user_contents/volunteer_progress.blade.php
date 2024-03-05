@@ -16,7 +16,7 @@
                     title: "Error!",
                     text: errorMessages.join('\n'), // Join error messages with line breaks
                     type: "error",
-                    confirmButtonText: "Cool"
+                    confirmButtonText: "Ok"
                 });
             }
         </script>
@@ -472,6 +472,7 @@
                                 <tr class = "bg-white border-b border-gray-200">
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
                                         <h5>{{ $notify->message }}</h5>
+                                        <span class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
                                     </td>
                                 </tr>
                             @endforeach
@@ -609,6 +610,7 @@
                                 <tr class = "bg-white border-b border-gray-200">
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
                                         <h5>{{ $notify->message }}</h5>
+                                        <span class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
                                     </td>
                                 </tr>
                             @endforeach

@@ -206,10 +206,12 @@ class VolunteerController extends Controller
     }
     
     
-    public function volunteerReject($userId, $applicationId)
+    public function volunteerReject($userId, $applicationId, Request $request)
     {
         $adminId = auth()->id();
-        $notificationMessage = 'Admin Rejected your Volunteer Application';
+        $reason = $request->input('reason');
+        // dd($firstName);
+        $notificationMessage = "Admin Rejected your Volunteer Application. Due to: $reason";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 

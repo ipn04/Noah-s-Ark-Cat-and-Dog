@@ -2,7 +2,7 @@
     <div class =  "bg-cover  py-10 px-10 lg:px-28" style="background-image: url('{{ asset('images/yellowbg.png') }}');">
         <div class = "animation">
             <h1 class = "text-4xl lg:text-5xl  font-bold text-white text-center">About Us</h1>
-            <p class = "md:text-xl text-lg text-white text-center py-2 px-8 lg:px-40">Welcome to Noah’s Ark Dog and Cat Shelter, a compassionate haven for our four-legged friends in need. Established in 2018, Noah’s Ark is a charitable and non-governmental organization (NGO) located in Mabalacat, Pampanga, Philippines. Our mission is rooted in the belief that every animal deserves love, care, and a chance for a better life.
+            <p class = "md:text-xl text-lg text-white text-center py-2 px-8 lg:px-40">Noah's Ark Dog and Cat Shelter is a volunteer-based non-government organization. Our primary advocacy is to provide shelter and love for unwanted dogs and cats and find them a forever home.
 
 
             </p>
@@ -12,34 +12,23 @@
                 <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
                     <!-- Item 1 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('images/noahss.jpg') }}"  
+                        <img src="{{ asset('images/aboutus1.png') }}"  
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
                     <!-- Item 2 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('images/noahss.jpg') }}" 
+                        <img src="{{ asset('images/aboutus2.png') }}" 
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
                     <!-- Item 3 -->
                     <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('images/noahss.jpg') }}" 
+                        <img src="{{ asset('images/aboutus3.png') }}" 
                             class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
                             alt="...">
                     </div>
-                    <!-- Item 4 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('images/noahss.jpg') }}" 
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                            alt="...">
-                    </div>
-                    <!-- Item 5 -->
-                    <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                        <img src="{{ asset('images/noahss.jpg') }}" 
-                            class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-                            alt="...">
-                    </div>
+                 
                 </div>
                 <!-- Slider indicators -->
                 <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
@@ -89,7 +78,7 @@
         <div class = "animation  grid grid-cols-1 md:grid-cols-2 gap-1 lg:px-10 ">
             <div class = "flex flex-col justify-center py-4 md:py-0 ">
                 <h1 class = "text-4xl lg:text-5xl  font-bold text-center py-5 md:text-left text-white">Mission</h1>
-                <p class = "text-justify md:text-left text-center px-4 md:px-0 text-white text-base md:text-lg ">At Noah's Ark, our mission is to provide a safe and loving environment for stray and abandoned dogs and cats. We strive to be their voice and advocates, working towards a future where no animal is left behind. Through dedicated care, rehabilitation, and responsible rehoming, we aim to create a community where both humans and animals coexist harmoniously.
+                <p class = "text-justify md:text-left text-center px-4 md:px-0 text-white text-base md:text-lg ">Noah’s Ark Dog and Cat Shelter works with volunteers to provide a home for stray dogs and cats, give them medical help, and secure their wellness by educating adopters about proper care. With the growing number of abandoned domestic animals every day, our organization advocates for a world where dogs and cats are loved and cared for; thus, ensuring that no more strays will suffer on the streets.
 
 
                 </p>
@@ -103,12 +92,12 @@
         <div class = "animation grid grid-cols-1 md:grid-cols-2 gap-1 lg:px-10">
             <div class = "order-2 md:order-1 py-4 md:py-0">
                 <img class = "lg:max-w-md lg:h-80 max-w-xs h-60 object-cover rounded-xl "
-                    src="{{ asset('images/volunteerprogram.jpg') }}" alt="ark">
+                    src="{{ asset('images/vision.jpg') }}" alt="ark">
             </div>
             <div class = "flex flex-col justify-center order-1 md:order-2 py-4  md:py-0">
                 <h1 class = "text-4xl lg:text-5xl  font-bold text-center py-5 md:text-right text-white ">Vision</h1>
                 <p class = "text-justify md:text-right md:text-lg text-center  px-4 md:px-0 text-white text-base ">
-                    We envision a world where every animal is treated with kindness, respect, and compassion. Noah’s Ark is committed to promoting responsible pet ownership, raising awareness about animal welfare, and creating a society where the bond between humans and animals is strengthened, leading to a more humane and understanding world.
+                    A world where all dogs and cats live a wonderful life with their fur parents.
 
 
                 </p>
@@ -119,13 +108,9 @@
 
     <div class = "animation p-10 lg:p-20">
         <h1 class = "text-4xl lg:text-5xl  font-bold text-center text-red-600">Our Story</h1>
-        <p class = "text-justify text-base md:text-lg p-4 lg:py-7 lg:px-40">Noah’s Ark began as a heartfelt response to the growing number of stray and abandoned animals in our community. Fueled by a shared passion for animal welfare, our founders came together in 2018 to create a haven where these animals could find refuge, love, and a second chance at a happy life.
-
-            Our journey has been one of challenges and triumphs, fueled by the unwavering dedication of our team and the support of compassionate individuals like you. From humble beginnings, we have grown into a haven that not only shelters animals but also advocates for their well-being and educates the community on the importance of animal welfare.
-            
-            Every adoption, every rehabilitation success story, and every life we touch reinforces our commitment to making a difference in the lives of these animals. Join us in our mission to create a world where every wagging tail and purring friend is cherished and given the love they deserve.
-            
-            Thank you for being a part of Noah’s Ark Dog and Cat Shelter – where compassion knows no bounds, and every pawprint leaves a lasting impact.
+        <p class = "text-justify text-base md:text-lg p-4 lg:py-4 lg:px-40">From simply giving animal donations, now to building an organization herself, Ms. Leah Ibuna founded a Non-Profit/Non-Government Organization for strays called “Noah’s Ark Dog and Cat Shelter'' in September 2018. As Ms. Ibuna witnessed the increasing number of stray dogs and cats in their area in Mabalacat City and especially online, she decided to start rescuing them by giving them a temporary shelter in a borrowed land. However, given the circumstances, it was not easy for Ms. Ibuna to manage the organization alone. It experienced numerous challenges especially at the height of the pandemic when a demolition at Sitio Irung, Barangay Tabun, Mabalacat City took place in July 2021. She had to stop rescuing strays for a while to find a new area in Sitio Irung to build them a proper shelter. 
+        </p>
+        <p class = "text-justify text-base md:text-lg p-4 lg:py-4 lg:px-40">At that time, the organization has no regular donors to support the needs of the strays, hence, the presence of a financial crisis on Ms. Ibuna’s part. Fortunately, with the help of her friends and neighbors, the operation of Noah’s Ark Dog and Cat Shelter was able to run effectively. Together with the founder’s perseverance and dedication, along with the organization’s compassionate volunteers, they have saved more than a hundred strays and are housing thirty-two (32) rescued cats and dogs at the present. In August 2021, sixteen (16) dogs went home with their new adoptive families, during an adoption event for strays held at SM Telebastagan. 
         </p>
         <div class = " lg:px-40">
 
@@ -133,57 +118,57 @@
                 <div class="grid gap-4">
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image.jpg" alt="">
+                            src="{{ asset('images/pic8.jpg') }}" alt="">
                     </div>
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-1.jpg" alt="">
+                            src="{{ asset('images/pic10.jpg') }}" alt="">
                     </div>
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-2.jpg" alt="">
-                    </div>
-                </div>
-                <div class="grid gap-4">
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-3.jpg" alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-4.jpg" alt="">
-                    </div>
-                    <div>
-                        <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-5.jpg" alt="">
+                            src="{{ asset('images/pic6.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="grid gap-4">
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-6.jpg" alt="">
+                            src="{{ asset('images/pic13.jpg') }}" alt="">
                     </div>
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-7.jpg" alt="">
+                            src="{{ asset('images/pic3.jpg') }}" alt="">
                     </div>
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-8.jpg" alt="">
+                            src="{{ asset('images/pic4.jpg') }}" alt="">
                     </div>
                 </div>
                 <div class="grid gap-4">
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-9.jpg" alt="">
+                            src="{{ asset('images/pic2.jpg') }}" alt="">
                     </div>
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-10.jpg" alt="">
+                            src="{{ asset('images/pic11.jpg') }}" alt="">
                     </div>
                     <div>
                         <img class="h-auto max-w-full rounded-lg"
-                            src="https://flowbite.s3.amazonaws.com/docs/gallery/masonry/image-11.jpg" alt="">
+                            src="{{ asset('images/pic9.jpg') }}" alt="">
+                    </div>
+                </div>
+                <div class="grid gap-4">
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg"
+                            src="{{ asset('images/pic12.jpg') }}" alt="">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg"
+                            src="{{ asset('images/pic1.jpg') }}" alt="">
+                    </div>
+                    <div>
+                        <img class="h-auto max-w-full rounded-lg"
+                            src="{{ asset('images/pic5.jpg') }}" alt="">
                     </div>
                 </div>
             </div>

@@ -106,7 +106,7 @@
                         </thead>
                         <tbody class="bg-white">
                             @foreach ($schedules as $schedule)
-
+                            
                             <tr>
                                     <td class="p-4">
                                         <div class=" text-sm  text-center">{{ $schedule->firstname }}
@@ -331,9 +331,14 @@
                     <tbody class="bg-white">
                         @foreach ($applications as $application)
                             <tr>
-                                <td class="p-4">
-                                    <div class=" text-sm  text-center">{{ $application->firstname }}
-                                        {{ $application->lastname }}</div>
+                                <td scope="row" class="flex items-center px-5 py-4 font-medium text-slate-600 whitespace-nowrap dark:text-white">
+                                    <img class="w-10 h-10  object-cover rounded-full"
+                                    src="{{ asset('storage/' .  $application->user->profile_image ) }}"
+                                    alt='user profile'>
+                                    <div class="ps-2 flex flex-col">
+                                        {{ $application->firstname }}
+                                        {{ $application->lastname }}
+                                    </div>
                                 </td>
                                 <td class="p-4">
                                     @if ($application->type == 'application_form')

@@ -1,5 +1,5 @@
 <x-guest-layout>
-<section class="text-gray-600 body-font relative bg-gray-50 mt-20" style="">
+<section class="animation text-gray-600 body-font relative bg-gray-50 mt-20" style="">
     
     <h1 class = "text-center pt-8 md:text-5xl text-3xl font-bold text-red-600">Contact Us</h1>
 <p class = "text-center py-4 px-4 text-base md:text-lg">For questions and inquiries, you can send an it on <b>noahsarkph@gmail.com</b> or  via the contact form below.</p>

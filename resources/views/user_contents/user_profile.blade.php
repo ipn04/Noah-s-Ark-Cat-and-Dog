@@ -19,7 +19,7 @@
                     title: "Error!",
                     text: errorMessages.join('\n'), // Join error messages with line breaks
                     type: "error",
-                    confirmButtonText: "Cool"
+                    confirmButtonText: "Ok"
                 });
             }
         </script>

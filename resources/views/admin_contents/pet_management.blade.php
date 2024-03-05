@@ -128,7 +128,22 @@
         <div class="mx-auto max-w-screen-2xl px-4 lg:px-12">
             <div class="flex flex-col items-stretch justify-between py-4 dark:border-gray-700">
                 <div class="flex items-center justify-between lg:mx-0">
-                    <h1 class = "text-2xl text-red-500 font-bold">List of Pets</h1>
+                    <div class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                        <ul class="flex flex-wrap -mb-px">
+                            <li class="me-2">
+                                <a href="#" id="existingPetsLink"  class="inline-block p-4 text-red-600 border-b-2 border-red-600 hover:text-red-600 hover:border-red-300 rounded-t-lg" aria-current="page" onclick="selectCategory('list')">Existing Pets</a>
+                            </li>
+                            <li class="me-2">
+                                <a href="#" id="archivedPetsLink" class="inline-block p-4 border-b-2 border-gray-100 rounded-t-lg hover:text-red-600 hover:border-red-300  " onclick="selectCategory('archived')">Archived Pets</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div>
+                        
+                    
+                    </div>
+                    
                     <button type="button" id="createProductButton" data-modal-target="createProductModal"
                         data-modal-toggle="createProductModal"
                         class="flex lg:hidden items-center justify-center text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
@@ -145,7 +160,7 @@
 
 
             <!-- WEB RESPONSIVENESS TABLE -->
-            <div
+            <div id = "listContainer"
                 class="relative overflow-y-hidden overflow-x-hidden  bg-white overflow-x-auto flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between">
                 <div
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
@@ -468,15 +483,10 @@
 
             </div>
 
-            <div class="flex flex-col items-stretch justify-between py-4 dark:border-gray-700">
-                <div class="flex items-center justify-between lg:mx-0">
-                    <h1 class = "text-2xl text-red-500 font-bold py-3">Archived Pets</h1>
-                   
-                </div>
-            </div>
+          
             <!-- WEB RESPONSIVENESS TABLE -->
-            <div
-                class="relative overflow-y-hidden overflow-x-hidden  bg-white overflow-x-auto flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between">
+            <div id = "archivedContainer"
+                class="hidden relative overflow-y-hidden overflow-x-hidden  bg-white overflow-x-auto flex-col  items-stretch rounded-2xl lg:shadow-lg justify-between">
                 <div
                     class=" bg-white flex flex-col md:flex-row items-stretch md:items-center md:space-x-3 space-y-3 md:space-y-0 justify-between p-4 lg:px-4 lg:py-6">
                     <div class="w-full md:w-1/2">
@@ -1437,4 +1447,32 @@
         </div>
     </div>
 
+    <script>
+        function selectCategory(category) {
+
+            const existingPetsLink = document.getElementById('existingPetsLink');
+            const archivedPetsLink = document.getElementById('archivedPetsLink');
+      
+            if (category === 'list') {
+                document.getElementById('archivedContainer').style.display = 'none';
+                document.getElementById('listContainer').style.display = 'block';
+                archivedPetsLink.classList.add('text-gray-600');
+                archivedPetsLink.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                existingPetsLink.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+
+
+            } else if (category === 'archived') {
+                document.getElementById('archivedContainer').style.display = 'block';
+                document.getElementById('listContainer').style.display = 'none'; 
+                existingPetsLink.classList.add('text-gray-600');
+                existingPetsLink.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                archivedPetsLink.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+
+
+            }
+
+            // You can add more functionality here based on the selected category
+            console.log("Selected category: " + category);
+        }
+    </script>
 </x-app-layout>

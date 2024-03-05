@@ -310,6 +310,20 @@ class adoptionController extends Controller
 
         }
         elseif ($adoptionAnswer->stage == 8) {
+
+            $application = $adoptionAnswer->application;
+
+            if ($application) {
+                $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
+                if ($schedulepickup) {
+                    $schedule = $schedulepickup->schedule;
+                    
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Done']);
+                    }
+                }   
+            }
+            
             $notificationMessage = 'Success';
 
         }
@@ -825,8 +839,21 @@ class adoptionController extends Controller
             DB::table('adoption')
             ->where('application_id', $id)
             ->update(['stage' => \DB::raw('stage + 1')]);
+            
+            $application = $adoptionAnswer->application;
 
-            return redirect()->back()->with(['updateStage' => true]);
+            if ($application) {
+                $schedulepickup = SchedulePickup::where('application_id', $application->id)->first();
+                if ($schedulepickup) {
+                    $schedule = $schedulepickup->schedule;
+                    
+                    if ($schedule) {
+                        $schedule->update(['schedule_status' => 'Done']);
+                    }
+                }   
+                return redirect()->back()->with(['updateStage' => true]); 
+            }
+
         } else {
             return redirect()->back()->with(['error' => 'Application not found']);
         }

@@ -156,7 +156,7 @@ Route::patch('/admin/pickup-reject-stage/{userId}/{id}', [adoptionController::cl
 
 Route::patch('/admin/volunteer/interview/{userId}/{applicationId}', [ScheduleController::class, 'updateScheduleForVolunteer'])->middleware(['auth', 'admin'])->name('admin.volunter.interview.accept');
 
-Route::patch('/admin/volunteer/add-stage/{id}', [ScheduleController::class, 'addStage'])->middleware(['auth', 'admin'])->name('volunteer.add.stage');
+Route::patch('/admin/volunteer/add-stage/{id}/{applicationId}', [ScheduleController::class, 'addStage'])->middleware(['auth', 'admin'])->name('volunteer.add.stage');
 
 Route::patch('/admin/update-contract/{user}/{id}', [adoptionController::class, 'updateContract'])->middleware(['auth', 'admin'])->name('update.contract');
 

@@ -294,7 +294,7 @@
                                 </a>
                             @endif
                             <form
-                                action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                                 method="POST">
                                 @csrf
                                 @method('PATCH')

@@ -179,17 +179,28 @@ class ScheduleController extends Controller{
     
         return redirect()->back()->with(['error', 'ScheduleInterview record not found', 'volunteer_progress' => true]);
     }
-    public function addStage(Request $request, $id)
+    public function addStage(Request $request, $id,  $applicationId)
     {   
-        $volunteerApplication = VolunteerApplication::where('application_id', $id)->first();
-        
-        if ($volunteerApplication) {
-            // Update the stage column in the related VolunteerApplication model
-            $newStage = $volunteerApplication->stage + 1;
-            $volunteerApplication->update(['stage' => $newStage]);
+    
 
-            return redirect()->back()->with(['success', 'Updates applied successfully', 'volunteer_progress' => true]);
+        $scheduleInterview = ScheduleInterview::whereHas('application', function ($query) use ($applicationId) {
+            $query->where('application_id', $applicationId);
+        })->latest()->first();
+        // dd($scheduleInterview);
+        if ($scheduleInterview) {
+            // Update the status column in the related Schedule model
+            $scheduleInterview->schedule->update(['schedule_status' => 'Done']);
+            
+            $volunteerApplication = VolunteerApplication::where('application_id', $applicationId)->first();
+            if ($volunteerApplication) {
+                // Update the stage column in the related VolunteerApplication model
+                $newStage = $volunteerApplication->stage + 1;
+                $volunteerApplication->update(['stage' => $newStage]);
+    
+                return redirect()->back()->with(['success', 'Updates applied successfully', 'volunteer_progress' => true]);
+            }
         }
+
 
         return redirect()->back()->with(['error', 'ScheduleInterview record not found', 'volunteer_progress' => true]);
     }

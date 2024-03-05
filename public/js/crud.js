@@ -89,6 +89,7 @@ $(document).ready(function() {
     });
     initializeAdoptionTabs();
     initializeVolunteerTabs();
+    initializedUserApplication();
     initializeScheduleTabs();
     initializeScheduleAcceptedTabs();
 });
@@ -170,6 +171,70 @@ function initializeVolunteerTabs() {
             const allRows = document.querySelectorAll('#volunteerData[data-stage]');
 
             allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'pending' && stage >= '0' && stage <= '4' && stage != '10' ) ||
+                    (selectedTab === 'rejected' && stage === '10') ||
+                    (selectedTab === 'approved' && stage === '5') 
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+
+            console.log(`Selected Tab: ${selectedTab}`);
+            console.log(`Filtered Rows: ${allRows}`);
+        });
+    });   
+}
+
+function initializedUserApplication() {
+    console.log('Initializing application Tabs');
+    ['all', 'pending', 'approved', 'rejected'].forEach(tab => {
+        const link = document.getElementById(`${tab}Link`);
+    
+        link.addEventListener('click', function(event) {
+            event.preventDefault();
+
+            const selectedTab = tab;
+            const tabs = ['all', 'pending', 'approved', 'rejected'];
+
+            tabs.forEach(item => {
+                const tabLink = document.getElementById(`${item}Link`);
+                const tabContent = document.getElementById(item);
+     
+                if (item === selectedTab) {
+                    tabLink.classList.remove('text-gray-600')
+                    tabLink.classList.add('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.remove('hidden');
+                } else {
+                    tabLink.classList.remove('border-b-2', 'border-red-600','text-red-500');
+                    tabContent.classList.add('hidden');
+                }
+            });
+
+            const allRows = document.querySelectorAll('#applicaton-container[data-stage]');
+            const volRows = document.querySelectorAll('#volunteer-container[data-stage]');
+
+            allRows.forEach(row => {
+                const stage = row.getAttribute('data-stage');
+
+                if (
+                    selectedTab === 'all' ||
+                    (selectedTab === 'pending' && stage >= '0' && stage <= '8' && stage != '10' ) ||
+                    (selectedTab === 'rejected' && stage === '10') ||
+                    (selectedTab === 'approved' && stage === '9') 
+                ) {
+                    row.style.display = ''; 
+                } else {
+                    row.style.display = 'none'; 
+                }
+            });
+
+            volRows.forEach(row => {
                 const stage = row.getAttribute('data-stage');
 
                 if (

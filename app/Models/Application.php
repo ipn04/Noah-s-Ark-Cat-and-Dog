@@ -26,9 +26,12 @@ class Application extends Model
     {
         return $this->hasMany(ScheduleInterview::class);
     }
-     public function adoption()
+    public function adoption()
     {
         return $this->hasMany(Adoption::class);
     }
-
+    public function pet()
+    {
+        return $this->hasMany(Pet::class);
+    }
 }

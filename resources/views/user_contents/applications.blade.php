@@ -73,8 +73,8 @@
                     </thead>
                     <tbody>
                         @foreach ($answers as $answerData)
-                            <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                id="adoptionDataContainer" data-stage="{{ $answerData->adoption->stage }}">
+                            <tr class="application-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                id="applicaton-container" data-stage="{{ $answerData->adoption->stage }}">
                                 <td class="px-6 py-4  hidden lg:table-cell">
                                     <div class="text-base text-gray-500 ">
                                         {{ \Carbon\Carbon::parse($answerData->created_at)->format('F j, Y g:ia') }}
@@ -126,8 +126,8 @@
                         @if (isset($volunteer) && !$volunteer->isEmpty())
                             <!-- Your foreach loop and table data -->
                             @foreach ($volunteer as $vol)
-                                <tr class="pet-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
-                                    id="adoptionDataContainer" data-stage="{{ $vol->volunteer_application->stage }}">
+                                <tr class="volunteer-container bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600"
+                                    id="volunteer-container" data-stage="{{ $vol->volunteer_application->stage }}">
                                     <td class="px-6 py-4  hidden lg:table-cell">
                                         <div class="text-base text-gray-500 ">
                                             {{ \Carbon\Carbon::parse($vol->created_at)->format('F j, Y g:ia') }}</div>
@@ -586,3 +586,8 @@
 
     </section>
 </x-app-layout>
+<script>
+    @if(Route::currentRouteName() === 'user.applications') 
+        initializedUserApplication();
+    @endif
+</script>

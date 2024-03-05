@@ -238,11 +238,11 @@ class VolunteerController extends Controller
         return redirect()->back()->with(['volunteer_progress' => true]);
     }
 
-    public function cancelApplication($userId, $applicationId)
+    public function cancelApplication($userId, $applicationId, Request $request)
     {
         $adminId = User::where('role', 'admin')->value('id');
-
-        $notificationMessage = 'Cancelled the Volunteer application';
+        $reason = $request->input('reason');
+        $notificationMessage = "Cancelled the Volunteer application due to: $reason";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 
@@ -266,11 +266,12 @@ class VolunteerController extends Controller
         }
     }
 
-    public function volunteerInterviewReject($userId, $applicationId)
+    public function volunteerInterviewReject($userId, $applicationId, Request $request)
     {
         $adminId = User::where('role', 'admin')->value('id');
-            
-        $notificationMessage = 'Admin has rejected your Interview Schedule. Please, re-schedule';
+        $reason = $request->input('reason');
+
+        $notificationMessage = "Admin has rejected your Interview Schedule due to: $reason. Please, re-schedule.";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 
@@ -307,11 +308,11 @@ class VolunteerController extends Controller
             return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
         }
     }
-    public function cancelInterview($userId, $applicationId)
+    public function cancelInterview($userId, $applicationId, Request $request)
     {
         $adminId = User::where('role', 'admin')->value('id');
-
-        $notificationMessage = 'has cancelled the Interview Schedule';
+        $reason = $request->input('reason');
+        $notificationMessage = "has cancelled the Interview Schedule due to $reason";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 
@@ -348,11 +349,11 @@ class VolunteerController extends Controller
             return redirect()->back()->with('error', 'Volunteer application not found for the specified user.');
         }
     }
-    public function adminCancelInterview($userId, $applicationId)
+    public function adminCancelInterview($userId, $applicationId, Request $request)
     {
         $adminId = User::where('role', 'admin')->value('id');
-        
-        $notificationMessage = 'Admin has cancelled the Interview Schedule. Please, re-schedule';
+        $reason = $request->input('reason');
+        $notificationMessage = "Admin has cancelled the Interview Schedule due to: $reason. Please, re-schedule";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 

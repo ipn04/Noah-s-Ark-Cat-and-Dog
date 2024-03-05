@@ -94,8 +94,9 @@
                             method="POST">
                             @csrf
                             @method('PATCH')
+                            <input type="text" name="reason" id="reason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
                             <button data-modal-hide="popup-modal" type="submit"
-                                class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                class="mt-4 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                                 Yes, I'm sure
                             </button>
                             <button data-modal-hide="popup-modal" type="button"
@@ -333,8 +334,9 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
+                                                    <input type="text" name="reason" id="reason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
                                                     <button type="submit"
-                                                        class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                        class="mt-4 py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                                                         Yes, I'm sure
                                                     </button>
                                                     <button data-modal-toggle="deleteModal" type="button"
@@ -602,7 +604,7 @@
                     @endif
                 </div>
 
-                <div class="bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
+                <div class="bg-white lg:order-last order-first rounded-2xl p-4 shadow-md h-volunteerProgressContainer overflow-auto">
                     <h1 class="font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if ($firstnotification)

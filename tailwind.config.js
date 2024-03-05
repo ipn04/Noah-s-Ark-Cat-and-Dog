@@ -30,6 +30,7 @@ export default {
                 petContentsheight: '80vh',
                 profileHeight: '510px',
                 ProgressContainer: '405px',
+                volunteerProgressContainer: '590px',
             },
         },
     },

@@ -38,14 +38,21 @@
 
             <a href = "{{ route('user.dashboard') }}"
                 class = "text-lg hover:font-bold hover:cursor-pointer hover:text-red-500">Home</a>
-            <p class = "text-lg">>></p>
+            <div class = "flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                    stroke="currentColor" class="w-5 h-5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                        d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                </svg>
+            </div>
             <h2 class="font-bold text-lg text-red-500">Volunteer Form</h2>
         </div>
 
         <div class="max-w-xl mx-auto">
             <div class="grid grid-cols-1">
                 <div class = "bg-white p-10  shadow-lg rounded-2xl items-center ">
-                    <form method="POST" action="{{ route('volunteer.form',  ['userId' => auth()->user()->id]) }} " class="max-w-lg" enctype="multipart/form-data">
+                    <form method="POST" action="{{ route('volunteer.form', ['userId' => auth()->user()->id]) }} "
+                        class="max-w-lg" enctype="multipart/form-data">
                         @csrf
                         <div id="section1" class="block">
                             <h1 class="text-xl font-bold text-left">Fill out your answers down below</h1>
@@ -92,7 +99,8 @@
                                     autocomplete="fifth_question">
                                     <option value="Animal Care">Animal Care</option>
                                     <option value="Administrative Support">Administrative Support</option>
-                                    <option value="Fundraising (FunRun Events, Pet Adoption Drive, etc. )">Fundraising (FunRun Events, Pet Adoption Drive, etc. )</option>
+                                    <option value="Fundraising (FunRun Events, Pet Adoption Drive, etc. )">Fundraising
+                                        (FunRun Events, Pet Adoption Drive, etc. )</option>
                                     <option value="Outreach and Education">Outreach and Education</option>
                                     <option value="Public Materials ">Public Materials</option>
                                     <option value="Social Media Managing ">Social Media Managing </option>
@@ -134,14 +142,15 @@
                                     <option value="Evenings (5 PM - 9 PM)">Evenings (5 PM - 9 PM)</option>
                                     <option value="Weekends">Weekends</option>
                                     <option value="Flexible schedule">Flexible schedule</option>
-                                    <option value="Rarely available for meetings or events">Rarely available for meetings or event</option>  
+                                    <option value="Rarely available for meetings or events">Rarely available for
+                                        meetings or event</option>
                                 </x-select>
                             </div>
 
                             <div class = "mt-3">
                                 <x-primary-button type="submit">Submit</x-primary-button>
                             </div>
-                        </div>                   
+                        </div>
                     </form>
                 </div>
             </div>

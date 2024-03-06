@@ -304,8 +304,8 @@
                                                 </div>
                                             @else
                                                 <div
-                                                    class="text-base text-red-600 w-20 rounded-lg py-1 font-semibold bg-red-200">
-                                                    <p class = "text-center">Not Available
+                                                    class="text-base text-red-600 w-28 rounded-lg py-1 font-semibold bg-red-200">
+                                                    <p class = "text-center">Unavailable
                                                     </p>
                                                 </div>
                                             @endif
@@ -339,10 +339,15 @@
                                                             clip-rule="evenodd" />
                                                     </svg>
                                                 </button>
-                                                <button type="button"
+                                                <button type="button" 
+                                                class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md"
+                                                @if( $pet->adoption_status == "Adopted")
+                                                @disabled(true)
+                                                @else
                                                     data-modal-target="delete-modal-{{ $pet->id }}"
                                                     data-modal-toggle="delete-modal-{{ $pet->id }}"
-                                                    class="py-2 px-3 text-sm font-medium text-center text-white bg-red-500 hover:bg-red-600 rounded-lg shadow-md">
+                                                    @endif
+                                                   >
                                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 "
                                                         viewbox="0 0 20 20" fill="currentColor" aria-hidden="true">
                                                         <path fill-rule="evenodd"
@@ -437,7 +442,7 @@
                                                         </svg>
                                                         <h3
                                                             class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                                                            Are you sure you want to delete this?</h3>
+                                                            Are you sure you want to archive this?</h3>
                                                         <form method="POST" action="{{ route('pets.delete', ['id' => $pet->id]) }}" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')
@@ -684,7 +689,7 @@
                                                                 stroke-width="2"
                                                                 d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                                         </svg>
-                                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to delete this?</h3>
+                                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to retrieve this?</h3>
                                                         <form method="POST" action="{{ route('pets.available', ['id' => $pet->id]) }}" enctype="multipart/form-data">
                                                             @csrf
                                                             @method('PUT')

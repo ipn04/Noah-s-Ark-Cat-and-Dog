@@ -15,7 +15,8 @@
                 swal({
                     title: "Error!",
                     text: errorMessages.join('\n'), // Join error messages with line breaks
-                    type: "error",P
+                    type: "error",
+                    P
                     confirmButtonText: "Ok"
                 });
             }
@@ -39,14 +40,22 @@
             <div class="flex gap-2 mb-2 sm:mb-0">
                 <a href="{{ route('admin.adoptions') }}"
                     class="lg:text-lg text-base hover:font-bold hover:cursor-pointer hover:text-red-700">Adoptions</a>
-                <p class="lg:text-lg text-base">>></p>
+                <div class = "flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
                 <h2 class="font-bold text-base lg:text-lg text-yellow-500">Adoption Application Details</h2>
             </div>
-            <div class="@if ($stage == 8) grid grid-cols-1  @else grid grid-cols-2 @endif gap-2 lg:py-0 mx-auto lg:mx-0 ">
+            <div
+                class="@if ($stage == 8) grid grid-cols-1  @else grid grid-cols-2 @endif gap-2 lg:py-0 mx-auto lg:mx-0 ">
                 {{-- <button class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md">
                     Download PDF
                 </button> --}}
-                <form action="{{ route('admin.updateStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                <form
+                    action="{{ route('admin.updateStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
                     method="POST" class="
                     @if ($stage == 1 || $stage == 2 || $stage == 3 || $stage >= 5) @else @endif">
                     @csrf
@@ -55,14 +64,14 @@
                         class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md
                     @if (
                         $stage == 1 ||
-                        $stage == 2 ||
-                        $stage == 3 ||
-                        $stage == 5 ||
-                        $stage == 6 ||
-                        $stage == 7 ||
-                        $stage == 9 ||
-                        $stage == 10 ||
-                        $stage == 11) hidden
+                            $stage == 2 ||
+                            $stage == 3 ||
+                            $stage == 5 ||
+                            $stage == 6 ||
+                            $stage == 7 ||
+                            $stage == 9 ||
+                            $stage == 10 ||
+                            $stage == 11) hidden
                     @else
                     block @endif
                     ">
@@ -76,11 +85,11 @@
                     </button>
                 </form>
                 @if ($stage == 9)
-                <h1 class="bg-green-200 px-3 py-3 rounded-lg text-green-600">Application Accepted</h1>
+                    <h1 class="bg-green-200 px-3 py-3 rounded-lg text-green-600">Application Accepted</h1>
                 @elseif ($stage == 10)
-                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Rejected</h1>
+                    <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Rejected</h1>
                 @elseif ($stage == 11)
-                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Canceled</h1>
+                    <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Canceled</h1>
                 @endif
                 <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="
@@ -130,6 +139,8 @@
                 </div>
             </div>
         </div>
+
+
 
         <div class = "flex items-center  py-4 justify-center">
             <div
@@ -316,138 +327,404 @@
             </div>
         </div>
 
-        <div class="@if ($stage == 3 || $stage == 7) flex items-center py-5 justify-center
+        <div
+            class=" @if ($stage == 2 || $stage == 3 || $stage == 6 || $stage == 7  || $stage == 9) flex items-center md:mx-16 md:my-4 justify-between
         @else
-        hidden @endif">
+        hidden @endif ">
+            <div
+                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px">
+                    <li class="me-2">
+                        <a href="#" id="updatesLink"
+                            class="inline-block p-4 text-red-600 border-b-2 border-red-600 hover:text-red-600 hover:border-red-300 rounded-t-lg"
+                            aria-current="page" onclick="selectCategory('updates')">Updates</a>
+                    </li>
+                    <li class="me-2">
+                        <a href="#" id="userLink"
+                            class="inline-block p-4 border-b-2 border-gray-100 rounded-t-lg hover:text-red-600 hover:border-red-300  "
+                            onclick="selectCategory('user')">User and Pet Information</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class=" flex items-center py-5 justify-center
+        ">
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 max-w-screen-lg">
-                <div class = "col-span-2 ">
-                    <div class = "@if ($stage == 7) mb-7 
+                <div class = "col-span-2  ">
+                    <div
+                        id = "announcementContainer" class = "@if ($stage == 2 || $stage ==3 || $stage == 6  || $stage == 7  || $stage == 9) mb-7 block 
                         @else
                         hidden @endif">
                         <div class = "bg-white p-5 rounded-2xl shadow-md w-full">
-                            <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                            <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
-                            <p class="p-2 pe-2 ps-4">
-                                @isset($schedulePickup->date)
-                                    {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
-                                @endisset
 
-                                @isset($schedulePickup->time)
-                                    {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
-                                @endisset
+                            <div class = "@if ($stage == 6) @else hidden @endif">
+                                <h2 class="font-bold text-2xl text-center p-2">
+                                    Congratulations!
+                                </h2>
+                              
+                                <p class = "px-10 text-justify"> Applicant has sent a schedule for pet pickup.
+                                    Click here to view the schedule request for pet pickup.</p>
 
-                            </p>
-                            <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
-                            <p class = "p-2 pe-2 ps-4">
-                                {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
-                            </p>
-
-                            <form
-                                action="{{ route('update.contract', ['user' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                method="POST" enctype="multipart/form-data">
-                                @csrf
-                                @method('PATCH')
-                                    <label class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white font-extrabold"
-                                        for="dropzone-file">Upload Contract</label>
-                                    <input name="contract_file"
-                                        class="block w-full mb-5 text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                                        id="dropzone-file" type="file" required>
-                                    </label>
-
-                                <div class="grid grid-cols-1 gap-2 py-2">
-                                    <button type="submit"
-                                        class = "p-2 w-full text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Submit</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class = "@if ($stage == 3) mb-7
-                        @else
-                        hidden @endif">
-                        <div class = "bg-white p-5 w-full rounded-2xl shadow-md">
-                            @php
-                                $scheduledDate = optional($scheduleInterview  ?? '')->date ? \Carbon\Carbon::parse($scheduleInterview->date ?? '') : null;
-                                $scheduledTime = optional($scheduleInterview  ?? '')->time ? \Carbon\Carbon::parse($scheduleInterview->time  ?? '') : null;
-                                $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
-                            @endphp
-
-                            <h2 class="font-bold text-lg p-2">
-                                @if ($scheduledDateTime)
-                                    Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
-                                @else
-                                    No scheduled interview
-                                @endif
-                            </h2> 
-                            
-                            @if ($scheduledDateTime)
-                                <p class="p-2">
-                                    You have an interview scheduled later at
-                                    {{ $scheduledDateTime->format('F j, Y g:ia') }}.
-                                    Please join this meet later at {{ $scheduledDateTime->format(' g:ia') }}.
-                                </p>
-
-                                <div class="grid grid-cols-1 gap-2 py-2">
-                                    <a target="_blank"
-                                        href="{{ route('interview.admin', ['scheduleId' => optional($scheduleInterview)->interview_id]) }}">
-                                        @php
-                                            $today = \Carbon\Carbon::now();
-                                            $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
-                                        @endphp
-
-                                        <button type="submit"
-                                            class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                            {{ $isDisabled ? 'disabled' : '' }}>
-                                            Join Meet
-                                        </button>
-                                    </a>
-
-                                    <button type="button" id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal"
-                                        class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
-                                        Cancel Meet
-                                    </button>
-
-                                    <div id="deleteModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-                                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                                            <!-- Modal content -->
-                                            <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                                <button type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
-                                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                                    <span class="sr-only">Close modal</span>
-                                                </button>
-                                                <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                                <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to cancel this meeting?</p>
-                                                <div class="flex justify-center items-center space-x-4">
-                                                    <form action="{{ route('admin.cancelInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}" method="POST">
+                                    <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
+                                    class="block my-2 text-white bg-red-500 px-5 py-3  mx-auto hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                    type="button">
+                                    Schedule Pickup
+                                </button>
+        
+                                <!-- Main modal -->
+                                <div id="progress-modal" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <button type="button"
+                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-hide="progress-modal">
+                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none" viewBox="0 0 14 14">
+                                                    <path stroke="currentColor" stroke-linecap="round"
+                                                        stroke-linejoin="round" stroke-width="2"
+                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                            <div class="p-4 md:p-5 max-w-full">
+                                                <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
+                                                    Schedule Pickup
+                                                </h3>
+        
+                                                <div class = "mt-1">
+                                                    <x-input-label for="name" value="{{ __('Name') }}" />
+                                                    <x-text-input type="text" name="name" label="name"
+                                                        value="{{ $schedulePickup->application->user->firstname }} {{ $schedulePickup->application->user->name }}"
+                                                        disabled class="w-full my-2" />
+                                                </div>
+        
+                                                <div class = "mt-2">
+                                                    <x-input-label for="location" value="{{ __('Location') }}" />
+                                                    <textarea name="location"
+                                                        class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm "
+                                                        label="location" value="" disabled>{{ $schedulePickup->application->user->street }}, {{ $schedulePickup->application->user->barangay }}, {{ $schedulePickup->application->user->city }}, {{ $schedulePickup->application->user->province }}</textarea>
+                                                </div>
+        
+                                                <div class = "mt-1">
+                                                    <x-input-label for="date" value="{{ __('Date of Pickup') }}" />
+                                                    <x-text-input type="text" name="date" label="date"
+                                                        value="{{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
+                                                        "
+                                                        disabled class="w-full  my-2" />
+                                                </div>
+        
+        
+                                                <div class = "mt-2">
+                                                    <x-input-label for="time" value="{{ __('Time of Pickup') }}" />
+                                                    <x-text-input type="text" name="time" label="time"
+                                                        value="{{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}"
+                                                        disabled class="w-full  my-2" />
+                                                </div>
+        
+        
+                                                <!-- Modal footer -->
+                                                <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
+                                                    <form
+                                                        action="{{ route('admin.pickupStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                        method="POST">
                                                         @csrf
                                                         @method('PATCH')
-                                                        <button type="submit" class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                            Yes, I'm sure
+                                                        <button data-modal-hide="progress-modal }}" type="submit"
+                                                            class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
+                                                            Accept
                                                         </button>
-                                                        <button data-modal-toggle="deleteModal" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                            No, cancel
+                                                    </form>
+                                                    <form
+                                                        action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <button data-modal-hide="progress-modal }}" type="submit"
+                                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                            Reject
                                                         </button>
                                                     </form>
                                                 </div>
                                             </div>
+        
                                         </div>
                                     </div>
                                 </div>
-                            @else
-                                <p class="p-2">No interview is currently scheduled.</p>
-                            @endif
 
-                            <form
-                                action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit"
-                                    class = "p-2  w-full mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
-                                    Interview</button>
-                            </form>
+                            </div>
+                            <div class = "@if ($stage == 2) @else hidden  @endif">
+                                <h2 class="font-bold text-lg text-center p-2">
+                                    Applicant has sent a schedule for interview!
+                                </h2>
+                                <p class = "px-2 text-center">Click here to view the schedule request for interview.</p>
+                                <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
+                                class="block text-white my-4 mx-auto max-w-5xl px-5 py-3  bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                type="button">
+                                View Interview Schedule
+                            </button>
+                            <!-- Main modal -->
+                            <div id="progress-modal" tabindex="-1" aria-hidden="true"
+                                class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                <div class="relative p-4 w-full max-w-md max-h-full">
+                                    <!-- Modal content -->
+                                    <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                        <button type="button"
+                                            class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                            data-modal-hide="progress-modal">
+                                            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                                                fill="none" viewBox="0 0 14 14">
+                                                <path stroke="currentColor" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="2"
+                                                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                            </svg>
+                                            <span class="sr-only">Close modal</span>
+                                        </button>
+                                        <div class="p-4 md:p-5">
+                                            <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
+                                                Schedule</h3>
+                                            <div class = "mt-2">
+                                                <x-input-label for="date" value="{{ __('Applicant Name') }}" />
+                                                <x-text-input type="text" name="date" label="date"
+                                                    value="{{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}"
+                                                    disabled class="w-full my-2" />
+                                            </div>
+                                            {{-- <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date:
+                                                {{ \Carbon\Carbon::parse($scheduleInterview->date ?? null)->format('F, j, Y') }}</h3>
+                                            <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time:
+                                                {{ \Carbon\Carbon::parse($scheduleInterview->time ?? null)->format('g:i, A') }}</h3> --}}
+           
+                                            @if ($scheduleInterview)
+                                                <div class = "mt-2">
+                                                    <x-input-label for="date" value="{{ __('Interview Date') }}" />
+                                                    <x-text-input type="text" name="date" label="date"
+                                                        value="{{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
+                                                        "
+                                                        disabled class="w-full my-2" />
+                                                </div>
+                                            @else
+                                                <div class = "mt-2">
+    
+                                                    <x-input-label for="date" value="{{ __('Interview Date') }}" />
+                                                    <x-text-input type="text" name="date" label="date"
+                                                        value="N/A" disabled class="w-full my-2" />
+                                                </div>
+                                            @endif
+    
+                                            @if ($scheduleInterview)
+                                                <div class = "mt-2">
+    
+                                                    <x-input-label for="time" value="{{ __('Interview Time') }}" />
+                                                    <x-text-input type="text" name="time" label="time"
+                                                        value="{{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
+                                                        "
+                                                        disabled class="w-full my-2" />
+                                                </div>
+                                            @else
+                                                <div class = "mt-2">
+    
+                                                    <x-input-label for="time" value="{{ __('Interview Time') }}" />
+                                                    <x-text-input type="text" name="time" label="time"
+                                                        value="N/A" disabled class="w-full my-2" />
+                                                </div>
+                                            @endif
+    
+                                            <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
+                                                <form
+                                                    action="{{ route('admin.interviewStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button data-modal-hide="progress-modal" type="submit"
+                                                        class="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
+                                                </form>
+                                                <form
+                                                    action="{{ route('admin.rejectInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <button data-modal-hide="progress-modal" type="submit"
+                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Reject</button>
+                                                </form>
+                                            </div>
+    
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div class = "@if($stage == 3) @else hidden @endif">
+                                @php
+                                    $scheduledDate = optional($scheduleInterview ?? '')->date
+                                        ? \Carbon\Carbon::parse($scheduleInterview->date ?? '')
+                                        : null;
+                                    $scheduledTime = optional($scheduleInterview ?? '')->time
+                                        ? \Carbon\Carbon::parse($scheduleInterview->time ?? '')
+                                        : null;
+                                    $scheduledDateTime =
+                                        $scheduledDate && $scheduledTime
+                                            ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString())
+                                            : null;
+                                @endphp
+
+                                <h2 class="font-bold text-lg p-2">
+                                    @if ($scheduledDateTime)
+                                        Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
+                                    @else
+                                        No scheduled interview
+                                    @endif
+                                </h2>
+
+                                @if ($scheduledDateTime)
+                                    <p class="p-2">
+                                        You have an interview scheduled later at
+                                        {{ $scheduledDateTime->format('F j, Y g:ia') }}.
+                                        Please join this meet later at {{ $scheduledDateTime->format(' g:ia') }}.
+                                    </p>
+
+                                    <div class="grid grid-cols-1 gap-2 py-2">
+                                        <a target="_blank"
+                                            href="{{ route('interview.admin', ['scheduleId' => optional($scheduleInterview)->interview_id]) }}">
+                                            @php
+                                                $today = \Carbon\Carbon::now();
+                                                $isDisabled =
+                                                    $scheduledDate->isBefore($today) ||
+                                                    ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+                                            @endphp
+
+                                            <button type="submit"
+                                                class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                                {{ $isDisabled ? 'disabled' : '' }}>
+                                                Join Meet
+                                            </button>
+                                        </a>
+
+                                        <button type="button" id="deleteButton" data-modal-target="deleteModal"
+                                            data-modal-toggle="deleteModal"
+                                            class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
+                                            Cancel Meet
+                                        </button>
+
+                                        <div id="deleteModal" tabindex="-1" aria-hidden="true"
+                                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                                            <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                                <!-- Modal content -->
+                                                <div
+                                                    class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                                    <button type="button"
+                                                        class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                        data-modal-toggle="deleteModal">
+                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                            viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                                clip-rule="evenodd"></path>
+                                                        </svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                    <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                        aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                                        xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you
+                                                        want
+                                                        to cancel this meeting?</p>
+                                                    <div class="flex justify-center items-center space-x-4">
+                                                        <form
+                                                            action="{{ route('admin.cancelInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                            method="POST">
+                                                            @csrf
+                                                            @method('PATCH')
+                                                            <button type="submit"
+                                                                class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                                Yes, I'm sure
+                                                            </button>
+                                                            <button data-modal-toggle="deleteModal" type="button"
+                                                                class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                                No, cancel
+                                                            </button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @else
+                                    <p class="p-2">No interview is currently scheduled.</p>
+                                @endif
+
+                                <form
+                                    action="{{ route('admin.wrap', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit"
+                                        class = "p-2  w-full mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
+                                        Interview</button>
+                                </form>
+                            </div>
+                            <div class = "@if ($stage == 7) @else hidden @endif ">
+                                <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
+                                <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
+                                <p class="p-2 pe-2 ps-4">
+                                    @isset($schedulePickup->date)
+                                        {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
+                                    @endisset
+
+                                    @isset($schedulePickup->time)
+                                        {{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}
+                                    @endisset
+
+                                </p>
+                                <h2 class = "font-bold text-lg p-2 ps-2">Location</h2>
+                                <p class = "p-2 pe-2 ps-4">
+                                    {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
+                                </p>
+
+                                <form
+                                    action="{{ route('update.contract', ['user' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                    method="POST" enctype="multipart/form-data">
+                                    @csrf
+                                    @method('PATCH')
+                                    <label
+                                        class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white font-extrabold"
+                                        for="dropzone-file">Upload your Contract Here.</label>
+                                    <input name="contract_file"
+                                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
+                                        id="dropzone-file" type="file" required>
+                                    </label>
+
+                                    
+                                    <div class="grid grid-cols-1 gap-2 py-2">
+                                        <button type="submit"
+                                            class = "p-2 w-full text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Submit</button>
+                                    </div>
+                                </form>
+                                
+                                <a  class = "w-full text-center" href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                                    <button
+                                        class="bg-yellow-300 hover:bg-yellow-400 text-gray-800 font-bold p-2 w-full rounded-lg inline-flex justify-center items-center">
+                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20">
+                                            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                        </svg>
+                                        <span>Download Contract</span>
+                                    </button>
+                                </a>
+                                
+                            </div>
                         </div>
                     </div>
-                    <div class = "grid grid-cols-1  lg:grid-cols-2 lg:pt-14 gap-5 max-w-screen-lg">
+                    <div id = "userContainer" class = "
+                    @if ($stage == 2 || $stage == 3 || $stage == 6 || $stage == 7  || $stage == 9) hidden
+                    @else
+                    grid grid-cols-1  lg:grid-cols-2 lg:pt-12 gap-5 max-w-screen-lg
+                    @endif">
                         <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
@@ -469,7 +746,7 @@
                                                         Birthday
                                                     </div>
                                                     <div class="w-full text-base font-medium">
-                                                        {{ \Carbon\Carbon::parse( $adoptionAnswer->user->birthday )->format('F j, Y') }}
+                                                        {{ \Carbon\Carbon::parse($adoptionAnswer->user->birthday)->format('F j, Y') }}
                                                     </div>
                                                 </div>
                                             </label>
@@ -484,7 +761,7 @@
                                                         Email
                                                     </div>
                                                     <div class="w-full text-base font-medium">
-                                                        {{$adoptionAnswer->user->email}}
+                                                        {{ $adoptionAnswer->user->email }}
                                                     </div>
                                                 </div>
                                             </label>
@@ -510,7 +787,8 @@
                                             <label
                                                 class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                 <div class="block">
-                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone Number
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Phone
+                                                        Number
                                                     </div>
                                                     <div class="w-full text-base font-medium capitalize">
                                                         {{ $adoptionAnswer->user->phone_number }}
@@ -536,7 +814,8 @@
                                             <label
                                                 class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                 <div class="block">
-                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil Status
+                                                    <div class="w-full text-gray-500 text-sm dark:text-gray-400">Civil
+                                                        Status
                                                     </div>
                                                     <div class="w-full text-base font-medium capitalize">
                                                         {{ $adoptionAnswer->user->civil_status }}
@@ -661,16 +940,24 @@
                         </div>
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first overflow-y-auto rounded-2xl p-4 shadow-md">
+                <div
+                    id = "adoptionProgress" class = "bg-white lg:order-last order-first  h-96   overflow-y-auto rounded-2xl p-4 shadow-md 
+                    @if ($stage == 2 || $stage == 3 || $stage == 6 || $stage == 7  || $stage == 9)
+                    @else
+                    my-12
+                    @endif">
                     <h1 class = "font-bold text-xl">Adoption Progress</h1>
                     <table>
-                        @if($firstnotification)
+                        @if ($firstnotification)
                             @foreach ($firstnotification as $notify)
                                 <tr class = "bg-white border-b border-gray-200">
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5>
-                                        <span class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
+                                        <h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}
+                                        </h5>
+                                        <span
+                                            class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
                                     </td>
-                                </tr>                    
+                                </tr>
                             @endforeach
                         @endif
                     </table>
@@ -678,7 +965,8 @@
             </div>
 
         </div>
-        <div class = "@if ($stage == 3 || $stage == 7) hidden
+        {{-- <div
+            class = "@if ($stage == 3 || $stage == 7) hidden
                     @else
                     flex items-center  py-5  justify-center @endif
                      ">
@@ -703,7 +991,7 @@
                                                 Birthday
                                             </div>
                                             <div class="w-full text-base font-medium">
-                                                {{ \Carbon\Carbon::parse( $adoptionAnswer->user->birthday )->format('F j, Y') }}
+                                                {{ \Carbon\Carbon::parse($adoptionAnswer->user->birthday)->format('F j, Y') }}
                                             </div>
                                         </div>
                                     </label>
@@ -718,7 +1006,7 @@
                                                 Email
                                             </div>
                                             <div class="w-full text-base font-medium">
-                                                {{$adoptionAnswer->user->email}}
+                                                {{ $adoptionAnswer->user->email }}
                                             </div>
                                         </div>
                                     </label>
@@ -780,7 +1068,7 @@
                                 </li>
                             </div>
                         </ul>
-                    
+
                         <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
@@ -828,7 +1116,7 @@
                                 <td class = "capitalize">{{ $adoption->pet->vaccination_status }}</td>
                             </tr>
                         </table> --}}
-                        <ul class="space-y-4  mb-4">
+        {{-- <ul class="space-y-4  mb-4">
                             <div>
                                 <li>
                                     <label
@@ -918,230 +1206,46 @@
                         <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
                             class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                             type="button">
-                            More details    
-                      
+                            More details
                         </button>
                     </div>
                 </div>
-                <div class ="bg-white lg:order-last order-first overflow-y-auto rounded-2xl p-4 shadow-md">
+                <div class ="bg-white lg:order-last order-first h-96 overflow-y-auto  rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl mb-4">Adoption Progress</h1>
-                    <a class="px-6 underline" href="{{ route('export.pdf', ['userId' => $adoptionAnswer->user_id, 'applicationId' => $adoptionAnswer->id ]) }}">download</a>
+                    <a class="px-6 underline"
+                        href="{{ route('export.pdf', ['userId' => $adoptionAnswer->user_id, 'applicationId' => $adoptionAnswer->id]) }}">download</a>
                     @if ($stage === 2)
                         <!-- Modal toggle -->
-                        <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            class="block text-white my-2 mx-auto  bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                            type="button">
-                            Interview Schedule
-                        </button>
-
-                        <!-- Main modal -->
-                        <div id="progress-modal" tabindex="-1" aria-hidden="true"
-                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <button type="button"
-                                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-hide="progress-modal">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                    <div class="p-4 md:p-5">
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Interview
-                                            Schedule</h3>
-                                        <div class = "mt-2">
-                                            <x-input-label for="date" value="{{ __('Applicant Name') }}" />
-                                            <x-text-input type="text" name="date" label="date"
-                                                value="{{ $adoptionAnswer->user->firstname . ' ' . $adoptionAnswer->user->name }}"
-                                                disabled class="w-full" />
-                                        </div>
-                                        {{-- <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Date:
-                                            {{ \Carbon\Carbon::parse($scheduleInterview->date ?? null)->format('F, j, Y') }}</h3>
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">Time:
-                                            {{ \Carbon\Carbon::parse($scheduleInterview->time ?? null)->format('g:i, A') }}</h3> --}}
-                                        <!-- Modal footer -->
-
-                                        @if ($scheduleInterview)
-                                            <div class = "mt-2">
-                                                <x-input-label for="date" value="{{ __('Interview Date') }}" />
-                                                <x-text-input type="text" name="date" label="date"
-                                                    value="{{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
-                                                    " disabled
-                                                    class="w-full" />
-                                            </div>
-                                        @else
-                                            <div class = "mt-2">
-
-                                                <x-input-label for="date" value="{{ __('Interview Date') }}" />
-                                                <x-text-input type="text" name="date" label="date"
-                                                    value="N/A" disabled class="w-full" />
-                                            </div>
-                                        @endif
-
-                                        @if ($scheduleInterview)
-                                            <div class = "mt-2">
-
-                                                <x-input-label for="time" value="{{ __('Interview Time') }}" />
-                                                <x-text-input type="text" name="time" label="time"
-                                                    value="{{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
-                                                    " disabled
-                                                    class="w-full" />
-                                            </div>
-                                        @else
-                                            <div class = "mt-2">
-
-                                                <x-input-label for="time" value="{{ __('Interview Time') }}" />
-                                                <x-text-input type="text" name="time" label="time"
-                                                    value="N/A" disabled class="w-full" />
-                                            </div>
-                                        @endif
-                                        
-                                        <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
-                                            <form
-                                                action="{{ route('admin.interviewStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button data-modal-hide="progress-modal" type="submit"
-                                                    class="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
-                                            </form>
-                                            <form
-                                                action="{{ route('admin.rejectInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button data-modal-hide="progress-modal" type="submit"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Reject</button>
-                                            </form>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                       
                     @elseif ($stage === 6)
                         <!-- Modal toggle -->
-                        <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                            class="block my-2 text-white bg-red-500 my-2 mx-auto hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                            type="button">
-                            Schedule Pickup
-                        </button>
-
-                        <!-- Main modal -->
-                        <div id="progress-modal" tabindex="-1" aria-hidden="true"
-                            class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                            <div class="relative p-4 w-full max-w-md max-h-full">
-                                <!-- Modal content -->
-                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                    <button type="button"
-                                        class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-hide="progress-modal">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                    <div class="p-4 md:p-5 max-w-full">
-                                        <h3 class="mb-1 text-xl font-bold text-gray-900 dark:text-white">
-                                            Schedule Pickup
-                                        </h3>
-
-                                        <div class = "mt-1">
-                                            <x-input-label for="name" value="{{ __('Name') }}" />
-                                            <x-text-input type="text" name="name" label="name"
-                                                value="{{ $schedulePickup->application->user->firstname }} {{ $schedulePickup->application->user->name }}"
-                                                disabled class="w-full" />
-                                        </div>
-
-                                        <div class = "mt-2">
-                                            <x-input-label for="location" value="{{ __('Location') }}" />
-                                            <textarea name="location"
-                                                class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm "
-                                                label="location" value="" disabled>{{ $schedulePickup->application->user->street }}, {{ $schedulePickup->application->user->barangay }}, {{ $schedulePickup->application->user->city }}, {{ $schedulePickup->application->user->province }}</textarea>
-                                        </div>
-
-                                        <div class = "mt-1">
-                                            <x-input-label for="date" value="{{ __('Date of Pickup') }}" />
-                                            <x-text-input type="text" name="date" label="date"
-                                                value="{{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
-                                                "
-                                                disabled class="w-full" />
-                                        </div>
-
-
-                                        <div class = "mt-2">
-                                            <x-input-label for="time" value="{{ __('Time of Pickup') }}" />
-                                            <x-text-input type="text" name="time" label="time"
-                                                value="{{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}"
-                                                disabled class="w-full" />
-                                        </div>
-
-
-                                        <!-- Modal footer -->
-                                        <div class="flex items-center mt-6 space-x-2 rtl:space-x-reverse">
-                                            <form
-                                                action="{{ route('admin.pickupStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button data-modal-hide="progress-modal }}" type="submit"
-                                                    class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">
-                                                    Accept
-                                                </button>
-                                            </form>
-                                            <form
-                                                action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <button data-modal-hide="progress-modal }}" type="submit"
-                                                    class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                    Reject
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
+                        
                     @elseif ($stage === 9)
                         <div class="flex justify-center items-center my-2">
-                            <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
-                                <button
-                                    class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
-                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20">
-                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                                    </svg>
-                                    <span>Download Contract</span>
-                                </button>
-                            </a>
+                         
                         </div>
                     @else
                     @endif
                     <table>
-                        @if($firstnotification)
+                        @if ($firstnotification)
                             @foreach ($firstnotification as $notify)
                                 <tr class = "bg-white border-b border-gray-200">
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5>
-                                        <span class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
+                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
+                                        <h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}
+                                        </h5>
+                                        <span
+                                            class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
                                     </td>
-                                </tr>                    
+                                </tr>
                             @endforeach
                         @endif
                     </table>
-                </div>
-            </div>
+                </div> --}}
+        {{-- </div>   --}}
     </section>
+
+
+
     <!-- Main modal -->
     <div id="pet-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -1354,12 +1458,12 @@
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="first_question" :value="__('Social Media (FB/IG/Twitter)')" />
                             <x-text-input id="first_question" class="block mt-1 w-full" type="text"
-                                name="first_question" :value="old('first_question',  $answers['first_question'])" />
+                                name="first_question" :value="old('first_question', $answers['first_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="second_question" :value="__('What prompted you to adopt from us?')" />
                             <x-text-input id="second_question" class="block mt-1 w-full" type="text"
-                            name="second_question" :value="old('second_question', $answers['second_question'])" />
+                                name="second_question" :value="old('second_question', $answers['second_question'])" />
                         </div>
                         <div class="mt-4" style="pointer-events: none;">
                             <x-input-label for="third_question" :value="__('Have you adopted from us before?')" />
@@ -1561,6 +1665,39 @@
         </div>
     </div>
 
+    <script>
+        function selectCategory(category) {
 
+            const existingPetsLink = document.getElementById('updatesLink');
+            const archivedPetsLink = document.getElementById('userLink');
+
+            if (category === 'updates') {
+                document.getElementById('userContainer').classList.add('hidden');
+                document.getElementById('announcementContainer').classList.remove('hidden');
+                document.getElementById('adoptionProgress').classList.remove('my-12');
+
+                archivedPetsLink.classList.add('text-gray-600');
+                archivedPetsLink.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                existingPetsLink.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+
+
+            } else if (category === 'user') {
+                document.getElementById('userContainer').classList.remove('hidden');
+                document.getElementById('userContainer').classList.add('grid', 'grid-cols-1',  'lg:grid-cols-2', 'lg:pt-12' ,'gap-5' ,'max-w-screen-lg');
+                document.getElementById('adoptionProgress').classList.add('my-12');
+
+
+                document.getElementById('announcementContainer').classList.add('hidden');
+                existingPetsLink.classList.add('text-gray-600');
+                existingPetsLink.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                archivedPetsLink.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+
+
+            }
+
+            // You can add more functionality here based on the selected category
+            console.log("Selected category: " + category);
+        }
+    </script>
 
 </x-app-layout>

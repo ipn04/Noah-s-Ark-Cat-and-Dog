@@ -62,6 +62,7 @@ class ApplicationController extends Controller
                         ->orWhereDate('schedule_pickup.date', '=', $todayDate)
                         ->orWhereDate('schedule_visit.date', '=', $todayDate);
                 })
+                ->where('schedules.schedule_status', '=', 'Accepted') 
                 ->limit(4)
                 ->orderBy('schedule_interviews.time', 'asc')
                 ->orderBy('schedule_pickup.time', 'asc')
@@ -87,19 +88,33 @@ class ApplicationController extends Controller
     
 
 
-            $adoptedPets = Pet::where('adoption_status', 'Adopted')
-            ->where('updated_at', '>=', now()->subMonths(4))
-            ->get();
+                $adoptedPets = Pet::where('adoption_status', 'Adopted')
+                ->whereBetween('updated_at', [now()->subMonths(2), now()])
+                ->get();
+            
 
             // Process data and group by month
             $adoptedPetsByMonth = $adoptedPets->groupBy(function($date) {
             return \Carbon\Carbon::parse($date->updated_at)->format('m');
             });
 
-            // Prepare data for the chart
+            $dateRangeStart = now()->subMonths(2);
+            $dateRangeEnd = now();
+
+            // Initialize an array to store the counts for each month
             $chartData = [];
-            foreach($adoptedPetsByMonth as $month => $pets) {
-            $chartData[\Carbon\Carbon::createFromFormat('!m', $month)->format('F')] = count($pets);
+
+            // Iterate through each month in reverse order
+            for ($date = $dateRangeEnd; $date->gte($dateRangeStart); $date->subMonth()) {
+                $monthKey = $date->format('F');
+
+                // If there are adoptions for the current month, set the count
+                if ($adoptedPetsByMonth->has($date->format('m'))) {
+                    $chartData[$monthKey] = count($adoptedPetsByMonth[$date->format('m')]);
+                } else {
+                    // If there are no adoptions, set the count to zero
+                    $chartData[$monthKey] = 0;
+                }
             }
 
             $adminId = auth()->user()->id;

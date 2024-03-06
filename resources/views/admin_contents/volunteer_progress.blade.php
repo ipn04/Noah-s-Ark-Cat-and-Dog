@@ -37,10 +37,13 @@
     <section class="sm:ml-64 mb-5 dark:bg-gray-900 p-2 antialiased">
         <div class="flex flex-col sm:flex-row justify-between lg:items-center py-4 px-10">
             <div class="flex gap-2 mb-2 sm:mb-0">
-                <a href="{{ route('user.dashboard') }}"
-                    class="lg:text-lg text-base hover:font-bold hover:cursor-pointer hover:text-red-700">Home</a>
-                <p class="lg:text-lg text-base">>></p>
-                <h2 class="font-bold text-base lg:text-lg text-yellow-500">Volunteer Application Details </h2>
+                <a href="{{ route('admin.volunteers') }}"
+                    class="lg:text-lg text-base hover:font-bold hover:cursor-pointer hover:text-red-700">Volunteers</a>
+                    <div class = "flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                          </svg>
+                        </div>                <h2 class="font-bold text-base lg:text-lg text-yellow-500">Volunteer Application Details </h2>
             </div>
             <div class="grid grid-cols-2 gap-2 lg:py-0 mx-auto lg:mx-0">
                 <form
@@ -451,7 +454,7 @@
 
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
+                <div class = "bg-white lg:order-last order-first h-96 overflow-y-auto rounded-2xl p-4 shadow-md">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if($firstnotification)
@@ -581,7 +584,7 @@
                     @endif
                 </div>
 
-                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md h-volunteerProgressContainer overflow-auto">
+                <div class = "bg-white lg:order-last order-first rounded-2xl p-4  h-96 overflow-y-auto  shadow-md h-volunteerProgressContainer overflow-auto">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if($firstnotification)

@@ -94,7 +94,9 @@
                             method="POST">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="reason" id="reason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
+                            <input type="text" name="reason" id="reason"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                                placeholder="Reason" required />
                             <button data-modal-hide="popup-modal" type="submit"
                                 class="mt-4 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                                 Yes, I'm sure
@@ -250,109 +252,37 @@
         </div>
 
 
-        <div
-            class="  
-        @if ($stage == 3 || $stage == 5) flex items-center py-5 justify-center
-        @else
-        hidden @endif  
+        <div class="  flex items-center  justify-between  @if ($stage == 1 || $stage == 3 || $stage == 5 || $stage == 7 || $stage == 9) @else hidden @endif ">
+            <div
+                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px">
+                    <li class="me-2">
+                        <a href="#" id="uPdatesLink"
+                            class="inline-block p-4 text-red-600 border-b-2 border-red-600 hover:text-red-600 hover:border-red-300 rounded-t-lg"
+                            aria-current="page" onclick="selectCategory('updates')">Updates</a>
+                    </li>
+                    <li class="me-2">
+                        <a href="#" id="userLLink"
+                            class="inline-block p-4 border-b-2 border-gray-100 rounded-t-lg hover:text-red-600 hover:border-red-300  "
+                            onclick="selectCategory('user')">User and Pet Information</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="  
+         flex items-center py-5 justify-center
+       
          ">
             <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-lg">
                 <div>
-                    <div
-                        class="@if ($stage == 3) mb-7  justify-center items-center 
-                    @else
-                    hidden @endif">
+                    <div id = "updatesContainer"
+                        class="  justify-center items-center  @if ($stage == 1 ||  $stage == 3  || $stage == 5) @else hidden @endif
+                    ">
                         <div class = "bg-white p-5 max-w-lg rounded-2xl shadow-md">
-                            <h2 class = "font-bold text-lg p-2">Interview at
-                                {{ \Carbon\Carbon::parse($scheduleInterview->date ?? '')->format('F j, Y') }}
-                                {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
-                            </h2>
-                            <p class = "p-2">You have an interview scheduled later at
-                                {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}. Please
-                                join this
-                                meet
-                                later at {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
-                            </p>
-                            <div class = "grid grid-cols-1 gap-2 py-2">
-                                <a target="_blank"
-                                    href="{{ optional($scheduleInterview)->interview_id ? route('interview.user', ['scheduleId' => $scheduleInterview->interview_id]) : '#' }}"
-                                    class="rounded-xl">
 
-                                    @php
-                                        $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
-                                        $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
-                                        $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
-
-                                        $today = \Carbon\Carbon::now();
-
-                                        // Add a null check before calling isBefore()
-                                        $isDisabled = ($scheduledDate && $scheduledDate->isBefore($today)) || ($scheduledDate && $scheduledDate->equalTo($today) && $scheduledTime && $scheduledTime < $currentTime);
-                                    @endphp
-                                    <button type="submit"
-                                        class="p-2 w-full rounded-lg mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                        {{ $isDisabled ? 'disabled' : '' }}>
-                                        Join Meet
-                                    </button>
-                                </a>
-
-                                <button id="deleteButton" data-modal-target="deleteModal"
-                                    data-modal-toggle="deleteModal"
-                                    class="block text-white bg-yellow-400 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
-                                    type="button">
-                                    Cancel Meet
-                                </button>
-                                <div id="deleteModal" tabindex="-1" aria-hidden="true"
-                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-                                    <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                                        <!-- Modal content -->
-                                        <div
-                                            class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                            <button type="button"
-                                                class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                                data-modal-toggle="deleteModal">
-                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
-                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                                                    <path fill-rule="evenodd"
-                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                                                        clip-rule="evenodd"></path>
-                                                </svg>
-                                                <span class="sr-only">Close modal</span>
-                                            </button>
-                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
-                                                aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
-                                                xmlns="http://www.w3.org/2000/svg">
-                                                <path fill-rule="evenodd"
-                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
-                                                    clip-rule="evenodd"></path>
-                                            </svg>
-                                            <p class="mb-4 text-gray-500 dark:text-gray-300">
-                                                Are you sure you want to cancel this meeting?
-                                            </p>
-                                            <div class="flex justify-center items-center space-x-4">
-                                                <form
-                                                    action="{{ route('user.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <input type="text" name="reason" id="reason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
-                                                    <button type="submit"
-                                                        class="mt-4 py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                        Yes, I'm sure
-                                                    </button>
-                                                    <button data-modal-toggle="deleteModal" type="button"
-                                                        class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                        No, cancel
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div
+                            <div>
+                                <div
                         class = "@if ($stage == 5) mb-7  justify-center items-center @else hidden @endif">
                         <diV class = "bg-white rounded-lg p-5">
                             <h1 class = "font-bold text-xl">Congratulations!</h1>
@@ -363,8 +293,206 @@
                                 alt="">
                         </div>
                     </div>
+                            </div>
+                            <div class = "@if ($stage == 3) @else hidden @endif">
+                                <h2 class = "font-bold text-lg p-2">Interview at
+                                    {{ \Carbon\Carbon::parse($scheduleInterview->date ?? '')->format('F j, Y') }}
+                                    {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
+                                </h2>
+                                <p class = "p-2">You have an interview scheduled later at
+                                    {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}. Please
+                                    join this
+                                    meet
+                                    later at
+                                    {{ \Carbon\Carbon::parse($scheduleInterview->time ?? '')->format('g:i A') }}
+                                </p>
+                                <div class = "grid grid-cols-1 gap-2 py-2">
+                                    <a target="_blank"
+                                        href="{{ optional($scheduleInterview)->interview_id ? route('interview.user', ['scheduleId' => $scheduleInterview->interview_id]) : '#' }}"
+                                        class="rounded-xl">
 
-                    <div class="grid grid-cols-1 lg:pt-20 gap-5">
+                                        @php
+                                            $scheduledDate = optional($scheduleInterview)->date
+                                                ? \Carbon\Carbon::parse($scheduleInterview->date)
+                                                : null;
+                                            $scheduledTime = optional($scheduleInterview)->time
+                                                ? \Carbon\Carbon::parse($scheduleInterview->time)
+                                                : null;
+                                            $scheduledDateTime =
+                                                $scheduledDate && $scheduledTime
+                                                    ? $scheduledDate->setTimeFromTimeString(
+                                                        $scheduledTime->toTimeString(),
+                                                    )
+                                                    : null;
+
+                                            $today = \Carbon\Carbon::now();
+
+                                            // Add a null check before calling isBefore()
+                                            $isDisabled =
+                                                ($scheduledDate && $scheduledDate->isBefore($today)) ||
+                                                ($scheduledDate &&
+                                                    $scheduledDate->equalTo($today) &&
+                                                    $scheduledTime &&
+                                                    $scheduledTime < $currentTime);
+                                        @endphp
+                                        <button type="submit"
+                                            class="p-2 w-full rounded-lg mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                            {{ $isDisabled ? 'disabled' : '' }}>
+                                            Join Meet
+                                        </button>
+                                    </a>
+
+                                    <button id="deleteButton" data-modal-target="deleteModal"
+                                        data-modal-toggle="deleteModal"
+                                        class="block text-white bg-yellow-400 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800"
+                                        type="button">
+                                        Cancel Meet
+                                    </button>
+                                    <div id="deleteModal" tabindex="-1" aria-hidden="true"
+                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                                        <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                            <!-- Modal content -->
+                                            <div
+                                                class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                                <button type="button"
+                                                    class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-toggle="deleteModal">
+                                                    <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                        viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                        <path fill-rule="evenodd"
+                                                            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                            clip-rule="evenodd"></path>
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                                <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                    aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                <p class="mb-4 text-gray-500 dark:text-gray-300">
+                                                    Are you sure you want to cancel this meeting?
+                                                </p>
+                                                <div class="flex justify-center items-center space-x-4">
+                                                    <form
+                                                        action="{{ route('user.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PATCH')
+                                                        <input type="text" name="reason" id="reason"
+                                                            class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                                                            placeholder="Reason" required />
+                                                        <button type="submit"
+                                                            class="mt-4 py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                            Yes, I'm sure
+                                                        </button>
+                                                        <button data-modal-toggle="deleteModal" type="button"
+                                                            class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                            No, cancel
+                                                        </button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class = "@if ($stage == 1) @else hidden @endif">
+
+                                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
+                                    class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                    type="button">
+                                    Schedule Interview
+                                </button>
+                                <!-- Main modal -->
+                                <div id="crud-modal" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                        <!-- Modal content -->
+                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                            <!-- Modal header -->
+                                            <div
+                                                class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                    Schedule
+                                                </h3>
+                                                <button type="button"
+                                                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                    data-modal-toggle="crud-modal">
+                                                    <svg class="w-3 h-3" aria-hidden="true"
+                                                        xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                        viewBox="0 0 14 14">
+                                                        <path stroke="currentColor" stroke-linecap="round"
+                                                            stroke-linejoin="round" stroke-width="2"
+                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                    </svg>
+                                                    <span class="sr-only">Close modal</span>
+                                                </button>
+                                            </div>
+                                            <!-- Modal body -->
+                                            <form
+                                                action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                                class="p-4 md:p-5" method="POST">
+                                                @csrf
+                                                <h1 class = " text-left  text-lg">Please state your interview
+                                                    availability
+                                                    and
+                                                    start time.
+                                                    Interviews are limited to <b>1 hour.</b>
+                                                </h1>
+                                                <p class = "text-xs  py-2 italic">Note that the administration will
+                                                    have the
+                                                    final
+                                                    say on
+                                                    whether or not to approve your proposed schedule.</p>
+                                                <div class="-mx-3  pt-3 flex flex-wrap">
+                                                    <div class="w-full px-3 sm:w-1/2">
+                                                        <div class="mb-1">
+                                                            <label for="date"
+                                                                class="mb-1 block text-base  font-bold text-[#07074D]">
+                                                                Date
+                                                            </label>
+                                                            <input type="date" name="date" id="date"
+                                                                min="{{ date('Y-m-d') }}"
+                                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="w-full px-3 sm:w-1/2">
+                                                        <div class="mb-1">
+                                                            <label for="time"
+                                                                class="mb-1 block text-base font-bold text-[#07074D]">
+                                                                Time
+                                                            </label>
+                                                            <input type="time" name="time" id="time"
+                                                                min="08:00" max="17:00"
+                                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="grid grid-cols-2 gap-4 mx-auto">
+                                                    <button type="submit"
+                                                        class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                                                        Submit
+                                                    </button>
+                                                    <button type="submit"
+                                                        class="text-white mt-6 inline-flex justify-center items-center bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                                                        Cancel
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   
+
+                    <div
+                        id = "userinfoContainer"class="grid grid-cols-1 lg:pt-16  @if ($stage == 1 || $stage == 3 || $stage == 5) hidden @else grid @endif">
                         <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
                             <div
                                 class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
@@ -466,7 +594,8 @@
 
                     </div>
                 </div>
-                <div class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md">
+                <div id="progressContainer"
+                    class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md @if ($stage == 1 || $stage == 3 || $stage == 5) @else my-16 @endif">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if ($firstnotification)
@@ -474,7 +603,8 @@
                                 <tr class = "bg-white border-b border-gray-200">
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
                                         <h5>{{ $notify->message }}</h5>
-                                        <span class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
+                                        <span
+                                            class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
                                     </td>
                                 </tr>
                             @endforeach
@@ -493,7 +623,7 @@
         </div>
 
 
-        <div
+        {{-- <div
             class="   
         @if ($stage == 3 || $stage == 5) hidden 
         @else 
@@ -504,7 +634,7 @@
                 <div class="bg-white px-5 mt-10 lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     @if ($userVolunteerAnswers)
                         {{-- @foreach ($userVolunteerAnswers as $answers) --}}
-                        <div
+        {{-- <div
                             class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                             <img class="object-cover object-center w-32 h-32"
                                 src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
@@ -599,7 +729,7 @@
                             </button>
                         </div>
                         {{-- @endforeach --}}
-                    @else
+        {{-- @else
                         <p>No volunteer answers found.</p>
                     @endif
                 </div>
@@ -624,92 +754,12 @@
                             </tr>
                         @endif
                         @if ($stage === '1')
-                            <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
-                                class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                                type="button">
-                                Schedule Interview
-                            </button>
+                           
                         @endif
                     </table>
-
-                    <!-- Main modal -->
-                    <div id="crud-modal" tabindex="-1" aria-hidden="true"
-                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-                        <div class="relative p-4 w-full max-w-md max-h-full">
-                            <!-- Modal content -->
-                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-                                <!-- Modal header -->
-                                <div
-                                    class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
-                                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
-                                        Schedule
-                                    </h3>
-                                    <button type="button"
-                                        class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                        data-modal-toggle="crud-modal">
-                                        <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                            fill="none" viewBox="0 0 14 14">
-                                            <path stroke="currentColor" stroke-linecap="round"
-                                                stroke-linejoin="round" stroke-width="2"
-                                                d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
-                                        </svg>
-                                        <span class="sr-only">Close modal</span>
-                                    </button>
-                                </div>
-                                <!-- Modal body -->
-                                <form
-                                    action="{{ route('update.volunteer.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
-                                    class="p-4 md:p-5" method="POST">
-                                    @csrf
-                                    <h1 class = " text-left  text-lg">Please state your interview availability
-                                        and
-                                        start time.
-                                        Interviews are limited to <b>1 hour.</b>
-                                    </h1>
-                                    <p class = "text-xs  py-2 italic">Note that the administration will have the
-                                        final
-                                        say on
-                                        whether or not to approve your proposed schedule.</p>
-                                    <div class="-mx-3  pt-3 flex flex-wrap">
-                                        <div class="w-full px-3 sm:w-1/2">
-                                            <div class="mb-1">
-                                                <label for="date"
-                                                    class="mb-1 block text-base  font-bold text-[#07074D]">
-                                                    Date
-                                                </label>
-                                                <input type="date" name="date" id="date"
-                                                    min="{{ date('Y-m-d') }}"
-                                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                            </div>
-                                        </div>
-                                        <div class="w-full px-3 sm:w-1/2">
-                                            <div class="mb-1">
-                                                <label for="time"
-                                                    class="mb-1 block text-base font-bold text-[#07074D]">
-                                                    Time
-                                                </label>
-                                                <input type="time" name="time" id="time" min="08:00"
-                                                    max="17:00"
-                                                    class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="grid grid-cols-2 gap-4 mx-auto">
-                                        <button type="submit"
-                                            class="text-white mt-6 inline-flex justify-center items-center bg-green-500 hover:bg-green-700 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                                            Submit
-                                        </button>
-                                        <button type="submit"
-                                            class="text-white mt-6 inline-flex justify-center items-center bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-                                            Cancel
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+ 
                 </div>
-            </div>
+            </div>  --}}
 
         </div>
         <div id="answer-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
@@ -803,5 +853,45 @@
             </div>
         </div>
 
+
+
+        <script>
+            function selectCategory(category) {
+
+                const existingUserInfo = document.getElementById('uPdatesLink');
+                const archivedUserInfo = document.getElementById('userLLink');
+
+
+                if (category === 'updates') {
+
+
+                    archivedUserInfo.classList.add('text-gray-600');
+                    archivedUserInfo.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                    existingUserInfo.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+                    document.getElementById('userinfoContainer').classList.add('hidden');
+                    document.getElementById('updatesContainer').classList.remove('hidden');
+                    document.getElementById('progressContainer').classList.remove('my-16');
+
+
+                } else if (category === 'user') {
+
+
+
+                    existingUserInfo.classList.add('text-gray-600');
+                    existingUserInfo.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                    archivedUserInfo.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+
+                    document.getElementById('updatesContainer').classList.add('hidden');
+                    document.getElementById('userinfoContainer').classList.remove('hidden');
+                   
+                    document.getElementById('progressContainer').classList.add('my-16');
+
+                }
+
+                // You can add more functionality here based on the selected category
+                console.log("Selected category: " + category);
+
+            }
+        </script>
     </section>
 </x-app-layout>

@@ -16,9 +16,9 @@ class UserSeeder extends Seeder
     {
         $user1 = new User();
         $user1->name = 'Cuarez';
-        $user1->email = 'czarinakrisel@gmail.com';
+        $user1->email = 'czarinakrisel123@gmail.com';
         $user1->role = 'user';
-        $user1->password = Hash::make('password'); // Replace 'your_password_here' with the desired password
+        $user1->password = Hash::make('passwordss'); // Replace 'your_password_here' with the desired password
         $user1->firstname = 'Czarina';
         $user1->gender = 'female';
         $user1->birthday = '1990-01-01';
@@ -28,7 +28,7 @@ class UserSeeder extends Seeder
         $user1->city = 'Noahs Ark';
         $user1->barangay = 'Noahs Ark';
         $user1->street = 'Noahs Ark';
-        $user1->phone_number = '1234567890';
+        $user1->phone_number = '09566216696';
         $user1->profile_image = 'Noahs Ark';
         $user1->save();
     }

@@ -326,6 +326,10 @@ class adoptionController extends Controller
             
             $notificationMessage = 'Success';
 
+            Adoption::where('pet_id', '==', $adoptionAnswer->pet_id)
+            ->orWhere('application_id', '!=', $adoptionAnswer->application_id)
+            ->update(['stage' => 10]);
+            
         }
 
         $notification = new Notifications();
@@ -348,6 +352,7 @@ class adoptionController extends Controller
                 DB::table('pets')
                     ->where('id', $adoptionAnswer->pet_id)
                     ->update(['adoption_status' => 'Adopted']);
+
             }
 
             return redirect()->back()->with(['updateStage' => true]);

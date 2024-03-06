@@ -264,7 +264,7 @@
                     <li class="me-2">
                         <a href="#" id="userLLink"
                             class="inline-block p-4 border-b-2 border-gray-100 rounded-t-lg hover:text-red-600 hover:border-red-300  "
-                            onclick="selectCategory('user')">User and Pet Information</a>
+                            onclick="selectCategory('user')">User Information</a>
                     </li>
                 </ul>
             </div>

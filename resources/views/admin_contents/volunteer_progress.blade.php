@@ -39,11 +39,14 @@
             <div class="flex gap-2 mb-2 sm:mb-0">
                 <a href="{{ route('admin.volunteers') }}"
                     class="lg:text-lg text-base hover:font-bold hover:cursor-pointer hover:text-red-700">Volunteers</a>
-                    <div class = "flex items-center justify-center">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
-                          </svg>
-                        </div>                <h2 class="font-bold text-base lg:text-lg text-yellow-500">Volunteer Application Details </h2>
+                <div class = "flex items-center justify-center">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                        stroke="currentColor" class="w-5 h-5">
+                        <path stroke-linecap="round" stroke-linejoin="round"
+                            d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
+                    </svg>
+                </div>
+                <h2 class="font-bold text-base lg:text-lg text-yellow-500">Volunteer Application Details </h2>
             </div>
             <div class="grid grid-cols-2 gap-2 lg:py-0 mx-auto lg:mx-0">
                 <form
@@ -66,11 +69,11 @@
                     </button>
                 </form>
                 @if ($stage == 5)
-                <h1 class="bg-green-200 px-3 py-3 rounded-lg text-green-600">Application Accepted</h1>
+                    <h1 class="bg-green-200 px-3 py-3 rounded-lg text-green-600">Application Accepted</h1>
                 @elseif ($stage == 10)
-                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Rejected</h1>
+                    <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Rejected</h1>
                 @elseif ($stage == 11)
-                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Canceled</h1>
+                    <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Canceled</h1>
                 @endif
                 <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="
@@ -109,7 +112,9 @@
                             method="POST">
                             @csrf
                             @method('PATCH')
-                            <input type="text" name="reason" id="reason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
+                            <input type="text" name="reason" id="reason"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                                placeholder="Reason" required />
                             <button data-modal-hide="popup-modal" type="submit"
                                 class="mt-4 text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                                 Yes, I'm sure
@@ -261,108 +266,167 @@
             </div>
         </div>
 
-        <div
-            class=" 
-        @if ($stage == 3) flex  items-center py-5 px-10 justify-center 
-            @else
-        hidden @endif">
+        <div class="  flex items-center  justify-between  @if ($stage == 2 || $stage == 3 || $stage == 5) @else hidden @endif">
+            <div
+                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                <ul class="flex flex-wrap -mb-px">
+                    <li class="me-2">
+                        <a href="#" id="uPdatesLink"
+                            class="inline-block p-4 text-red-600 border-b-2 border-red-600 hover:text-red-600 hover:border-red-300 rounded-t-lg"
+                            aria-current="page" onclick="selectCategory('updates')">Updates</a>
+                    </li>
+                    <li class="me-2">
+                        <a href="#" id="userLLink"
+                            class="inline-block p-4 border-b-2 border-gray-100 rounded-t-lg hover:text-red-600 hover:border-red-300  "
+                            onclick="selectCategory('user')">User and Pet Information</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class=" 
+         flex  items-center py-5 px-10 justify-center 
+           ">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg">
                 <div>
-                    <div class = "bg-white p-5 max-w-lg rounded-2xl shadow-md">
-                        @if ($scheduleInterview)
-                            <h2 class="font-bold text-lg p-2">Interview at
+                    <div id = "updatesContainer" class = "@if ($stage == 2 || $stage == 3 || $stage == 5 ) @else hidden @endif">
+                        <div class = "bg-white p-5 max-w-lg rounded-2xl shadow-md">
+
+                            <div class = "@if ($stage == 3) @else hidden @endif"
+                                @if ($scheduleInterview) <h2 class="font-bold text-lg p-2">Interview at
                                 {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}</h2>
                         @else
-                            <p>No interview schedule available.</p>
-                        @endif
-
-                        @if ($scheduleInterview)
-                            <p class="p-2">You have an interview scheduled later at
+                            <p>No interview schedule available.</p> @endif
+                                @if ($scheduleInterview) <p class="p-2">You have an interview scheduled later at
                                 {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}
                                 {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}.
                                 Please join this meet later at
                                 {{ \Carbon\Carbon::parse($scheduleInterview->time)->format('g:i A') }}
                             </p>
                         @else
-                            <p class="p-2">You do not have an interview scheduled at the moment.</p>
-                        @endif
+                            <p class="p-2">You do not have an interview scheduled at the moment.</p> @endif
+                                <div class = "grid grid-cols-1 gap-2 py-2">
+                                @if (isset($acceptedSchedule))
+                                    <a target="_blank"
+                                        href="{{ route('interview.admin', ['scheduleId' => $acceptedSchedule->interview_id]) }}">
+                                        @php
+                                            $scheduledDate = optional($scheduleInterview)->date
+                                                ? \Carbon\Carbon::parse($scheduleInterview->date)
+                                                : null;
+                                            $scheduledTime = optional($scheduleInterview)->time
+                                                ? \Carbon\Carbon::parse($scheduleInterview->time)
+                                                : null;
+                                            $scheduledDateTime =
+                                                $scheduledDate && $scheduledTime
+                                                    ? $scheduledDate->setTimeFromTimeString(
+                                                        $scheduledTime->toTimeString(),
+                                                    )
+                                                    : null;
 
-                        <div class = "grid grid-cols-1 gap-2 py-2">
-                            @if(isset($acceptedSchedule))
-                                <a target="_blank" href="{{ route('interview.admin', ['scheduleId' => $acceptedSchedule->interview_id]) }}">
-                                    @php
-                                    $scheduledDate = optional($scheduleInterview)->date ? \Carbon\Carbon::parse($scheduleInterview->date) : null;
-                                                $scheduledTime = optional($scheduleInterview)->time ? \Carbon\Carbon::parse($scheduleInterview->time) : null;
-                                                $scheduledDateTime = $scheduledDate && $scheduledTime ? $scheduledDate->setTimeFromTimeString($scheduledTime->toTimeString()) : null;
+                                            $today = \Carbon\Carbon::now();
+                                            $isDisabled =
+                                                $scheduledDate->isBefore($today) ||
+                                                ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+                                        @endphp
 
-                                        $today = \Carbon\Carbon::now();
-                                        $isDisabled = $scheduledDate->isBefore($today) || ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
-                                    @endphp
+                                        <button type="submit"
+                                            class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
+                                            {{ $isDisabled ? 'disabled' : '' }}>
+                                            Join Meet
+                                        </button>
+                                    </a>
+                                @endif
+                                <form
+                                    action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                    method="POST">
+                                    @csrf
+                                    @method('PATCH')
 
                                     <button type="submit"
-                                        class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                        {{ $isDisabled ? 'disabled' : '' }}>
-                                        Join Meet
-                                    </button>
-                                </a>
-                            @endif
-                            <form
-                                action="{{ route('volunteer.add.stage', ['id' => $userVolunteerAnswers->volunteer_application->application->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
-                                method="POST">
-                                @csrf
-                                @method('PATCH')
+                                        class = "p-2  w-full  mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
+                                        Interview</button>
 
-                                <button type="submit"
-                                    class = "p-2  w-full  mx-auto text-gray-600 bg-yellow-200 hover:bg-yellow-300  text-center font-bold rounded-lg">Wrap
-                                    Interview</button>
-
-                            </form>
-                            <button id="deleteButton" data-modal-target="deleteModal" data-modal-toggle="deleteModal" type="button"
-                                class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
-                                Cancel Meet
-                            </button>
-                            <div id="deleteModal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
-                                <div class="relative p-4 w-full max-w-md h-full md:h-auto">
-                                    <!-- Modal content -->
-                                    <div class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
-                                        <button type="button" class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="deleteModal">
-                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                                            <span class="sr-only">Close modal</span>
-                                        </button>
-                                        <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                                        <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to cancel this meeting?</p>
-                                        <div class="flex justify-center items-center space-x-4">
-                                            <form action="{{ route('admin.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}" method="POST">
-                                                @csrf
-                                                @method('PATCH')
-                                                <input type="text" name="reason" id="reason" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
-                                                <button type="submit" class="mt-4 py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
-                                                    Yes, I'm sure
-                                                </button>
-                                                <button data-modal-toggle="deleteModal" type="button" class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                    No, cancel
-                                                </button>
-                                            </form>
+                                </form>
+                                <button id="deleteButton" data-modal-target="deleteModal"
+                                    data-modal-toggle="deleteModal" type="button"
+                                    class="p-2 w-full rounded-lg mx-auto text-white bg-yellow-500 hover:bg-yellow-700 ">
+                                    Cancel Meet
+                                </button>
+                                <div id="deleteModal" tabindex="-1" aria-hidden="true"
+                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full">
+                                    <div class="relative p-4 w-full max-w-md h-full md:h-auto">
+                                        <!-- Modal content -->
+                                        <div
+                                            class="relative p-4 text-center bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
+                                            <button type="button"
+                                                class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                data-modal-toggle="deleteModal">
+                                                <svg aria-hidden="true" class="w-5 h-5" fill="currentColor"
+                                                    viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                        d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                                                        clip-rule="evenodd"></path>
+                                                </svg>
+                                                <span class="sr-only">Close modal</span>
+                                            </button>
+                                            <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto"
+                                                aria-hidden="true" fill="currentColor" viewBox="0 0 20 20"
+                                                xmlns="http://www.w3.org/2000/svg">
+                                                <path fill-rule="evenodd"
+                                                    d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+                                                    clip-rule="evenodd"></path>
+                                            </svg>
+                                            <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you want to
+                                                cancel this meeting?</p>
+                                            <div class="flex justify-center items-center space-x-4">
+                                                <form
+                                                    action="{{ route('admin.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('PATCH')
+                                                    <input type="text" name="reason" id="reason"
+                                                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500"
+                                                        placeholder="Reason" required />
+                                                    <button type="submit"
+                                                        class="mt-4 py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
+                                                        Yes, I'm sure
+                                                    </button>
+                                                    <button data-modal-toggle="deleteModal" type="button"
+                                                        class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                        No, cancel
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div class = "@if($stage ==2) @else hidden @endif">
+                            <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
+                            class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                            type="button">
+                            Interview Schedule
+                        </button>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-1 lg:pt-24 gap-5">
-                        <div class="w-full bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
-                            {{-- @foreach ($userVolunteerAnswers as $answers) --}}
-                            <div
-                                class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
-                                <img class="object-cover object-center w-32 h-32"
-                                    src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
-                                    alt='user profile'>
-                            </div>
-                            <h1 class = "text-center font-semibold text-2xl py-2 capitalize">
-                                {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
-                            </h1>
-                            <div class = "pb-4">
-                                @if ($userVolunteerAnswers)
+                </div>
+                <div id ="userinfoContainer"
+                    class="grid grid-cols-1 lg:my-16 gap-5 @if ($stage == 2 || $stage == 3 || $stage == 5) hidden @else @endif">
+                    <div class="w-full bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
+                        {{-- @foreach ($userVolunteerAnswers as $answers) --}}
+                        <div
+                            class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
+                            <img class="object-cover object-center w-32 h-32"
+                                src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
+                                alt='user profile'>
+                        </div>
+                        <h1 class = "text-center font-semibold text-2xl py-2 capitalize">
+                            {{ $userVolunteerAnswers->volunteer_application->application->user->firstname . ' ' . $userVolunteerAnswers->volunteer_application->application->user->name }}
+                        </h1>
+                        <div class = "pb-4">
+                            @if ($userVolunteerAnswers)
                                 <ul class="space-y-4  mb-4">
                                     <li>
                                         <label
@@ -372,7 +436,7 @@
                                                 </div>
                                                 <div class="w-full text-base font-medium ">
                                                     <td>{{ $userVolunteerAnswers->volunteer_application->application->user->email }}
-                                                    </div>
+                                                </div>
                                         </label>
                                     </li>
                                     <li>
@@ -382,7 +446,8 @@
                                                 <div class="w-full text-gray-500 text-sm dark:text-gray-400">Address
                                                 </div>
                                                 <div class="w-full text-base font-medium capitalize">
-                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}                                    </td>
+                                                    {{ $userVolunteerAnswers->volunteer_application->application->user->street . ', ' . $userVolunteerAnswers->volunteer_application->application->user->barangay . ', ' . $userVolunteerAnswers->volunteer_application->application->user->city . ', ' . $userVolunteerAnswers->volunteer_application->application->user->province }}
+                                                    </td>
                                                 </div>
                                         </label>
                                     </li>
@@ -396,7 +461,7 @@
                                                     </div>
                                                     <div class="w-full text-base font-medium">
                                                         <td>{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->user->birthday)->format('F j, Y') }}
-                                                        </div>
+                                                    </div>
                                                 </div>
                                             </label>
                                         </li>
@@ -441,38 +506,42 @@
                                         </li>
                                     </div>
                                 </ul>
-                                    
-                                    <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
-                                        class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                        type="button">
-                                        View Answers
-                                    </button>
-                                @else
-                                @endif
-                            </div>
-                        </div>
 
+                                <button data-modal-target="answer-modal" data-modal-toggle="answer-modal"
+                                    class="block text-white w-full bg-red-500 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
+                                    type="button">
+                                    View Answers
+                                </button>
+                            @else
+                            @endif
+                        </div>
                     </div>
-                </div>
-                <div class = "bg-white lg:order-last order-first h-96 overflow-y-auto rounded-2xl p-4 shadow-md">
-                    <h1 class = "font-bold text-xl">Volunteer Progress</h1>
-                    <table>
-                        @if($firstnotification)
-                            @foreach ($firstnotification as $notify)
-                                <tr class = "bg-white border-b border-gray-200">
-                                    <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5>
-                                        <span class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
-                                    </td>
-                                </tr>                    
-                            @endforeach
-                        @endif
-                    </table>
+
                 </div>
             </div>
+            <div id = "progressContainer"
+                class = "bg-white lg:order-last order-first h-96 overflow-y-auto rounded-2xl p-4  shadow-md @if ($stage == 2 || $stage == 3 || $stage == 5) @else my-16 @endif">
+                <h1 class = "font-bold text-xl">Volunteer Progress</h1>
+                <table>
+                    @if ($firstnotification)
+                        @foreach ($firstnotification as $notify)
+                            <tr class = "bg-white border-b border-gray-200">
+                                <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
+                                    <h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}
+                                    </h5>
+                                    <span
+                                        class="text-xs">{{ \Carbon\Carbon::parse($notify->created_at)->format('F j, Y h:i A') }}</span>
+                                </td>
+                            </tr>
+                        @endforeach
+                    @endif
+                </table>
+            </div>
+        </div>
 
         </div>
 
-
+        {{-- 
         <div
             class="
         @if ($stage == 3) hidden
@@ -483,7 +552,7 @@
                 <div class="bg-white px-5 mt-10  lg:mt-0 shadow-md rounded-2xl text-gray-900">
                     @if ($userVolunteerAnswers)
                         {{-- @foreach ($userVolunteerAnswers as $answers) --}}
-                        <div
+        {{-- <div
                             class="mx-auto w-32 h-32  -mt-14 lg:-mt-16 border-4 border-white rounded-full overflow-hidden">
                             <img class="object-cover object-center w-32 h-32"
                                 src="{{ asset('storage/' . $userVolunteerAnswers->volunteer_application->application->user->profile_image) }}"
@@ -577,9 +646,9 @@
                                 type="button">
                                 View Answers
                             </button>
-                        </div>
-                        {{-- @endforeach --}}
-                    @else
+                        </div> --}}
+        {{-- @endforeach --}}
+        {{-- @else
                         <p>No volunteer answers found.</p>
                     @endif
                 </div>
@@ -587,7 +656,7 @@
                 <div class = "bg-white lg:order-last order-first rounded-2xl p-4  h-96 overflow-y-auto  shadow-md h-volunteerProgressContainer overflow-auto">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
-                        @if($firstnotification)
+                        @if ($firstnotification)
                             @foreach ($firstnotification as $notify)
                                 <tr class = "bg-white border-b border-gray-200">
                                     <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white"><h5>{{ $notify->user->firstname . ' ' . $notify->user->name . ' ' . $notify->message }}</h5>
@@ -596,16 +665,12 @@
                                 </tr>                    
                             @endforeach
                             @if ($stage === '2')
-                            <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
-                                class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
-                                type="button">
-                                Interview Schedule
-                            </button>
+                           
                             @endif
                         @endif
                     </table>
-                    
-                    <!-- Main modal -->
+                     --}}
+        {{-- <!-- Main modal -->
                     <div id="progress-modal" tabindex="-1" aria-hidden="true"
                         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                         <div class="relative p-4 w-full max-w-md max-h-full">
@@ -709,7 +774,7 @@
                                                 class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Reject</button>
 
                                         </form> --}}
-                                    </div>
+        {{-- </div>
                                 </div>
                             </div>
                         </div>
@@ -717,9 +782,8 @@
                 </div>
             </div>
 
-        </div>
-
-
+        </div> 
+  --}}
         @if ($userVolunteerAnswers)
             <div id="answer-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
@@ -815,5 +879,43 @@
             </div>
         @endif
 
+        <script>
+            function selectCategory(category) {
+
+                const existingUserInfo = document.getElementById('uPdatesLink');
+                const archivedUserInfo = document.getElementById('userLLink');
+
+
+                if (category === 'updates') {
+
+
+                    archivedUserInfo.classList.add('text-gray-600');
+                    archivedUserInfo.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                    existingUserInfo.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+                    document.getElementById('userinfoContainer').classList.add('hidden');
+                    document.getElementById('updatesContainer').classList.remove('hidden');
+                    document.getElementById('progressContainer').classList.remove('my-16');
+
+
+                } else if (category === 'user') {
+
+
+
+                    existingUserInfo.classList.add('text-gray-600');
+                    existingUserInfo.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
+                    archivedUserInfo.classList.add('border-b-2', 'border-red-600', 'text-red-600');
+
+                    document.getElementById('updatesContainer').classList.add('hidden');
+                    document.getElementById('userinfoContainer').classList.remove('hidden');
+
+                    document.getElementById('progressContainer').classList.add('my-16');
+
+                }
+
+                // You can add more functionality here based on the selected category
+                console.log("Selected category: " + category);
+
+            }
+        </script>
     </section>
 </x-app-layout>

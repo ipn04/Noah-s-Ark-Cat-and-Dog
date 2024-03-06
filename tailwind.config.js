@@ -31,6 +31,8 @@ export default {
                 profileHeight: '510px',
                 ProgressContainer: '405px',
                 volunteerProgressContainer: '590px',
+                adminProgressHeight: '640px',
+                volunteerProgressHeight: '560px',
             },
         },
     },

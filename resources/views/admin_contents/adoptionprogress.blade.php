@@ -127,6 +127,7 @@
                             method="POST">
                             @csrf
                             @method('PATCH')
+                            <input type="text" name="reason" id="reason" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
                             <button data-modal-hide="popup-modal" type="submit"
                                 class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
                                 Yes, I'm sure
@@ -139,8 +140,6 @@
                 </div>
             </div>
         </div>
-
-
 
         <div class = "flex items-center  py-4 justify-center">
             <div
@@ -328,11 +327,10 @@
         </div>
 
         <div
-            class=" @if ($stage == 2 || $stage == 3 || $stage == 6 || $stage == 7  || $stage == 9) flex items-center md:mx-16 md:my-4 justify-between
+            class=" @if ($stage == 2 || $stage == 3 || $stage == 6 || $stage == 7  || $stage == 9) my-4 
         @else
         hidden @endif ">
-            <div
-                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+            <div class="mx-auto text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 max-w-screen-lg">
                 <ul class="flex flex-wrap -mb-px">
                     <li class="me-2">
                         <a href="#" id="updatesLink"
@@ -356,7 +354,7 @@
                         id = "announcementContainer" class = "@if ($stage == 2 || $stage ==3 || $stage == 6  || $stage == 7  || $stage == 9) mb-7 block 
                         @else
                         hidden @endif">
-                        <div class = "bg-white p-5 rounded-2xl shadow-md w-full">
+                        <div class = "bg-white rounded-2xl shadow-md w-full h-96 flex items-center justify-center">
 
                             <div class = "@if ($stage == 6) @else hidden @endif">
                                 <h2 class="font-bold text-2xl text-center p-2">
@@ -397,7 +395,7 @@
                                                 <div class = "mt-1">
                                                     <x-input-label for="name" value="{{ __('Name') }}" />
                                                     <x-text-input type="text" name="name" label="name"
-                                                        value="{{ $schedulePickup->application->user->firstname }} {{ $schedulePickup->application->user->name }}"
+                                                        value="{{ $schedulePickup->application->user->firstname ?? ''}} {{ $schedulePickup->application->user->name ?? ''}}"
                                                         disabled class="w-full my-2" />
                                                 </div>
         
@@ -405,13 +403,13 @@
                                                     <x-input-label for="location" value="{{ __('Location') }}" />
                                                     <textarea name="location"
                                                         class="w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm "
-                                                        label="location" value="" disabled>{{ $schedulePickup->application->user->street }}, {{ $schedulePickup->application->user->barangay }}, {{ $schedulePickup->application->user->city }}, {{ $schedulePickup->application->user->province }}</textarea>
+                                                        label="location" value="" disabled>{{ $schedulePickup->application->user->street ?? ''}}, {{ $schedulePickup->application->user->barangay ?? ''}}, {{ $schedulePickup->application->user->city ?? ''}}, {{ $schedulePickup->application->user->province ?? ''}}</textarea>
                                                 </div>
         
                                                 <div class = "mt-1">
                                                     <x-input-label for="date" value="{{ __('Date of Pickup') }}" />
                                                     <x-text-input type="text" name="date" label="date"
-                                                        value="{{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
+                                                        value="{{ \Carbon\Carbon::parse($schedulePickup->date ?? '')->format('F j, Y') }}
                                                         "
                                                         disabled class="w-full  my-2" />
                                                 </div>
@@ -420,7 +418,7 @@
                                                 <div class = "mt-2">
                                                     <x-input-label for="time" value="{{ __('Time of Pickup') }}" />
                                                     <x-text-input type="text" name="time" label="time"
-                                                        value="{{ \Carbon\Carbon::parse($schedulePickup->time)->format('g:i A') }}"
+                                                        value="{{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('g:i A') }}"
                                                         disabled class="w-full  my-2" />
                                                 </div>
         
@@ -437,16 +435,52 @@
                                                             Accept
                                                         </button>
                                                     </form>
-                                                    <form
-                                                        action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                        method="POST">
-                                                        @csrf
-                                                        @method('PATCH')
-                                                        <button data-modal-hide="progress-modal }}" type="submit"
-                                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
-                                                            Reject
-                                                        </button>
-                                                    </form>
+        
+                                                    <button type="button" data-modal-target="reject-pickup" data-modal-toggle="reject-pickup"
+                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">
+                                                        Reject
+                                                    </button>
+
+                                                    <div id="reject-pickup" tabindex="-1"
+                                                        class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                        <div class="relative p-4 w-full max-w-md max-h-full">
+                                                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                                <button type="button"
+                                                                    class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                    data-modal-hide="reject-pickup">
+                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                        viewBox="0 0 14 14">
+                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                            d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                                    </svg>
+                                                                    <span class="sr-only">Close modal</span>
+                                                                </button>
+                                                                <div class="p-4 md:p-5 text-center">
+                                                                    <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                                                                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                            d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                    </svg>
+                                                                    <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
+                                                                        reject this application?</h3>
+                                                                    <form
+                                                                        action="{{ route('admin.rejectPickup', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                                        method="POST">
+                                                                        @csrf
+                                                                        @method('PATCH')
+                                                                        <input type="text" name="reason" id="reason" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
+                                                                        <button data-modal-hide="reject-pickup" type="submit"
+                                                                            class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                                                            Yes, I'm sure
+                                                                        </button>
+                                                                        <button data-modal-hide="reject-pickup" type="button"
+                                                                            class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                                                                            cancel</button>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
         
@@ -455,25 +489,25 @@
                                 </div>
 
                             </div>
-                            <div class = "@if ($stage == 2) @else hidden  @endif">
+                            <div class = "@if ($stage == 2) @else hidden  @endif my-auto">
                                 <h2 class="font-bold text-lg text-center p-2">
                                     Applicant has sent a schedule for interview!
                                 </h2>
                                 <p class = "px-2 text-center">Click here to view the schedule request for interview.</p>
-                                <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
+                                <button data-modal-target="interview-modal" data-modal-toggle="interview-modal"
                                 class="block text-white my-4 mx-auto max-w-5xl px-5 py-3  bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
                                 type="button">
                                 View Interview Schedule
                             </button>
                             <!-- Main modal -->
-                            <div id="progress-modal" tabindex="-1" aria-hidden="true"
+                            <div id="interview-modal" tabindex="-1" aria-hidden="true"
                                 class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                                 <div class="relative p-4 w-full max-w-md max-h-full">
                                     <!-- Modal content -->
                                     <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                                         <button type="button"
                                             class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                                            data-modal-hide="progress-modal">
+                                            data-modal-hide="interview-modal">
                                             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                                                 fill="none" viewBox="0 0 14 14">
                                                 <path stroke="currentColor" stroke-linecap="round"
@@ -537,17 +571,52 @@
                                                     method="POST">
                                                     @csrf
                                                     @method('PATCH')
-                                                    <button data-modal-hide="progress-modal" type="submit"
+                                                    <button type="submit"
                                                         class="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800">Accept</button>
                                                 </form>
-                                                <form
-                                                    action="{{ route('admin.rejectInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PATCH')
-                                                    <button data-modal-hide="progress-modal" type="submit"
-                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Reject</button>
-                                                </form>
+                                                
+                                                <button type="button" data-modal-target="reject-modal" data-modal-toggle="reject-modal" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-red-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Reject</button>
+                                                
+                                                <div id="reject-modal" tabindex="-1"
+                                                    class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                            <button type="button"
+                                                                class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                                                                data-modal-hide="reject-modal">
+                                                                <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                                                    viewBox="0 0 14 14">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6" />
+                                                                </svg>
+                                                                <span class="sr-only">Close modal</span>
+                                                            </button>
+                                                            <div class="p-4 md:p-5 text-center">
+                                                                <svg class="mx-auto mb-4 text-gray-400 w-12 h-12 dark:text-gray-200" aria-hidden="true"
+                                                                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                                                                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                                        d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                                                </svg>
+                                                                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Are you sure you want to
+                                                                    reject this application?</h3>
+                                                                <form
+                                                                    action="{{ route('admin.rejectInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
+                                                                    method="POST">
+                                                                    @csrf
+                                                                    @method('PATCH')
+                                                                    <input type="text" name="reason" id="reason" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
+                                                                    <button data-modal-hide="reject-modal" type="submit"
+                                                                        class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center me-2">
+                                                                        Yes, I'm sure
+                                                                    </button>
+                                                                    <button data-modal-hide="reject-modal" type="button"
+                                                                        class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+                                                                        cancel</button>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
                                             </div>
     
                                         </div>
@@ -555,7 +624,7 @@
                                 </div>
                             </div>
                             </div>
-                            <div class = "@if($stage == 3) @else hidden @endif">
+                            <div class = "@if($stage == 3) @else hidden @endif w-11/12">
                                 @php
                                     $scheduledDate = optional($scheduleInterview ?? '')->date
                                         ? \Carbon\Carbon::parse($scheduleInterview->date ?? '')
@@ -569,7 +638,7 @@
                                             : null;
                                 @endphp
 
-                                <h2 class="font-bold text-lg p-2">
+                                <h2 class="font-bold text-lg p-2 ">
                                     @if ($scheduledDateTime)
                                         Interview at {{ $scheduledDateTime->format('F j, Y g:ia') }}
                                     @else
@@ -578,7 +647,7 @@
                                 </h2>
 
                                 @if ($scheduledDateTime)
-                                    <p class="p-2">
+                                    <p class="p-2 mb-2">
                                         You have an interview scheduled later at
                                         {{ $scheduledDateTime->format('F j, Y g:ia') }}.
                                         Please join this meet later at {{ $scheduledDateTime->format(' g:ia') }}.
@@ -634,12 +703,13 @@
                                                     <p class="mb-4 text-gray-500 dark:text-gray-300">Are you sure you
                                                         want
                                                         to cancel this meeting?</p>
-                                                    <div class="flex justify-center items-center space-x-4">
+                                                    <div>
                                                         <form
                                                             action="{{ route('admin.cancelInterview', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
                                                             method="POST">
                                                             @csrf
                                                             @method('PATCH')
+                                                            <input type="text" name="reason" id="reason" class="mb-4 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-red-500 dark:focus:border-red-500" placeholder="Reason" required />
                                                             <button type="submit"
                                                                 class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">
                                                                 Yes, I'm sure
@@ -668,9 +738,9 @@
                                         Interview</button>
                                 </form>
                             </div>
-                            <div class = "@if ($stage == 7) @else hidden @endif ">
-                                <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                                <h2 class = "font-bold text-lg p-2 ps-2">Date and Time of Arrival</h2>
+                            <div class = "@if ($stage == 7) p-4 w-11/12 @else hidden @endif ">
+                                <h2 class = "font-bold text-xl pl-2">Schedule Confirmed</h2>
+                                <h2 class = "font-bold text-lg pl-2">Date and Time of Arrival</h2>
                                 <p class="p-2 pe-2 ps-4">
                                     @isset($schedulePickup->date)
                                         {{ \Carbon\Carbon::parse($schedulePickup->date)->format('F j, Y') }}
@@ -769,16 +839,54 @@
                                     </div>
                                     <div>
                                         <li>
-                                            <label
+                                            <label data-modal-target="select-modal" data-modal-toggle="select-modal"
                                                 class="inline-flex items-center justify-between w-full p-4 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                                 <div class="block">
                                                     <div class="w-full text-gray-500 text-sm dark:text-gray-400">
                                                         Address
                                                     </div>
-                                                    <div class="w-full text-base font-medium truncate">
-                                                        {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
+                                                    <div class="text-base font-medium ">
+                                                        <p class="text-ellipsis overflow-hidden line-clamp-1">
+                                                            {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
+                                                        </p>
                                                     </div>
                                                 </div>
+                                                <div id="select-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                                    <div class="relative p-4 w-full max-w-md max-h-full">
+                                                        <!-- Modal content -->
+                                                        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                            <!-- Modal header -->
+                                                            <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+                                                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                                    Address
+                                                                </h3>
+                                                                <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-toggle="select-modal">
+                                                                    <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+                                                                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+                                                                    </svg>
+                                                                    <span class="sr-only">Close modal</span>
+                                                                </button>
+                                                            </div>
+                                                            <!-- Modal body -->
+                                                            <div class="p-4 md:p-5">
+                                                                <p class="text-gray-500 dark:text-gray-400 mb-4">Complete Address</p>
+                                                                <ul class="space-y-4 mb-4">
+                                                                    <li>
+                                                                        <input type="radio" id="job-3" name="job" value="job-3" class="hidden peer">
+                                                                        <label for="job-3" class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                                                                            <div class="block">
+                                                                                <div class="w-full text-lg font-semibold">Address</div>
+                                                                                <div class="w-full text-gray-500 dark:text-gray-400">                                                            
+                                                                                    {{ $adoptionAnswer->user->street . ', ' . $adoptionAnswer->user->barangay . ', ' . $adoptionAnswer->user->city . ', ' . $adoptionAnswer->user->province }}
+                                                                                </div>
+                                                                            </div>
+                                                                        </label>
+                                                                    </li>
+                                                                </ul>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div> 
                                             </label>
                                         </li>
                                     </div>
@@ -928,7 +1036,7 @@
                                                     </div>
                                                 </div>
                                             </label>
-                                        </li>
+                                        </li>                
                                     </div>
                                 </ul>
                                 <button data-modal-target="pet-modal" data-modal-toggle="pet-modal"
@@ -942,6 +1050,9 @@
                 </div>
                 <div
                     id = "adoptionProgress" class = "bg-white lg:order-last order-first  h-96   overflow-y-auto rounded-2xl p-4 shadow-md 
+                    @if ($stage == 0 || $stage == 1 || $stage == 4 || $stage == 5 || $stage == 8  || $stage == 10)
+                        h-adminProgressHeight
+                    @endif
                     @if ($stage == 2 || $stage == 3 || $stage == 6 || $stage == 7  || $stage == 9)
                     @else
                     my-12
@@ -1249,7 +1360,7 @@
     <!-- Main modal -->
     <div id="pet-modal" data-modal-backdrop="static" tabindex="-1" aria-hidden="true"
         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
-        <div class="relative p-4 w-full max-w-2xl max-h-full">
+        <div class="relative p-4 w-full max-w-5xl max-h-full">
             <!-- Modal content -->
             <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
                 <!-- Modal header -->
@@ -1268,7 +1379,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <div class="p-4 md:p-5 grid grid-cols-1 lg:grid-cols-2 gap-2">
+                <div class="p-4 md:p-5 grid grid-cols-1 md:grid-cols-4 gap-2">
                     <ul class="space-y-4 ">
                         <li>
                             <input type="text" id="pet-name" name="job" value="pet-name"
@@ -1306,6 +1417,8 @@
                                 </div>
                             </label>
                         </li>
+                    </ul>
+                    <ul class = "space-y-4 ">
                         <li>
                             <input type="text" id="pet-age" name="job" value="pet-age" class="hidden peer"
                                 required>
@@ -1380,6 +1493,8 @@
                                 </div>
                             </label>
                         </li>
+                    </ul>
+                    <ul class = "space-y-4 ">
                         <li>
                             <input type="text" id="pet-size" name="job" value="pet-size"
                                 class="hidden peer" required>
@@ -1387,7 +1502,7 @@
                                 class="inline-flex items-center justify-between w-full p-5 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500  hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
                                 <div class="block">
                                     <div class="w-full text-lg font-semibold">
-                                        {{ $adoption->pet->size }} cm</div>
+                                        {{ $adoption->pet->size }}</div>
                                     <div class="w-full text-gray-500 dark:text-gray-400">Size</div>
                                 </div>
                             </label>
@@ -1675,6 +1790,8 @@
                 document.getElementById('userContainer').classList.add('hidden');
                 document.getElementById('announcementContainer').classList.remove('hidden');
                 document.getElementById('adoptionProgress').classList.remove('my-12');
+                document.getElementById('adoptionProgress').classList.remove('h-adminProgressHeight');
+                document.getElementById('adoptionProgress').classList.add('h-96');
 
                 archivedPetsLink.classList.add('text-gray-600');
                 archivedPetsLink.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
@@ -1685,14 +1802,14 @@
                 document.getElementById('userContainer').classList.remove('hidden');
                 document.getElementById('userContainer').classList.add('grid', 'grid-cols-1',  'lg:grid-cols-2', 'lg:pt-12' ,'gap-5' ,'max-w-screen-lg');
                 document.getElementById('adoptionProgress').classList.add('my-12');
+                document.getElementById('adoptionProgress').classList.remove('h-96');
+                document.getElementById('adoptionProgress').classList.add('h-adminProgressHeight');
 
 
                 document.getElementById('announcementContainer').classList.add('hidden');
                 existingPetsLink.classList.add('text-gray-600');
                 existingPetsLink.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
                 archivedPetsLink.classList.add('border-b-2', 'border-red-600', 'text-red-600');
-
-
             }
 
             // You can add more functionality here based on the selected category

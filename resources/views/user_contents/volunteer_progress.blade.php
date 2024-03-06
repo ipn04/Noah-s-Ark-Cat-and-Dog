@@ -251,10 +251,9 @@
             </div>
         </div>
 
-
-        <div class="  flex items-center  justify-between  @if ($stage == 1 || $stage == 3 || $stage == 5 || $stage == 7 || $stage == 9) @else hidden @endif ">
+        <div class="@if ($stage == 1 || $stage == 3 || $stage == 5 || $stage == 7 || $stage == 9) my-2 px-4 @else hidden @endif ">
             <div
-                class="text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700">
+                class="mx-auto px-4 text-sm font-medium text-center text-gray-500 border-b border-gray-200 dark:text-gray-400 dark:border-gray-700 max-w-screen-lg">
                 <ul class="flex flex-wrap -mb-px">
                     <li class="me-2">
                         <a href="#" id="uPdatesLink"
@@ -270,17 +269,11 @@
             </div>
         </div>
 
-        <div class="  
-         flex items-center py-5 justify-center
-       
-         ">
+        <div class=" flex items-center py-5 justify-center">
             <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-lg">
                 <div>
-                    <div id = "updatesContainer"
-                        class="  justify-center items-center  @if ($stage == 1 ||  $stage == 3  || $stage == 5) @else hidden @endif
-                    ">
-                        <div class = "bg-white p-5 max-w-lg rounded-2xl shadow-md">
-
+                    <div id = "updatesContainer" class="justify-center items-center  @if ($stage == 1 ||  $stage == 3  || $stage == 5) @else hidden @endif">
+                        <div class="h-volunteerProgressHeight bg-white p-5 max-w-lg rounded-2xl shadow-md flex justify-center items-center">
                             <div>
                                 <div
                         class = "@if ($stage == 5) mb-7  justify-center items-center @else hidden @endif">
@@ -375,7 +368,7 @@
                                                 <p class="mb-4 text-gray-500 dark:text-gray-300">
                                                     Are you sure you want to cancel this meeting?
                                                 </p>
-                                                <div class="flex justify-center items-center space-x-4">
+                                                <div>
                                                     <form
                                                         action="{{ route('user.cancel.interview', ['userId' => $userVolunteerAnswers->volunteer_application->application->user->id, 'applicationId' => $userVolunteerAnswers->volunteer_application->application->id]) }}"
                                                         method="POST">
@@ -401,7 +394,7 @@
 
                             </div>
                             <div class = "@if ($stage == 1) @else hidden @endif">
-
+                                <p class="text-center">Please, kindly schedule your interview to follow up the adoption process.</p>
                                 <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                                     class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
@@ -595,7 +588,7 @@
                     </div>
                 </div>
                 <div id="progressContainer"
-                    class = "bg-white lg:order-last order-first rounded-2xl p-4 shadow-md @if ($stage == 1 || $stage == 3 || $stage == 5) @else my-16 @endif">
+                    class = "h-volunteerProgressHeight bg-white lg:order-last order-first rounded-2xl p-4 shadow-md @if ($stage == 1 || $stage == 3 || $stage == 5) @else my-16 @endif">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if ($firstnotification)
@@ -861,10 +854,7 @@
                 const existingUserInfo = document.getElementById('uPdatesLink');
                 const archivedUserInfo = document.getElementById('userLLink');
 
-
                 if (category === 'updates') {
-
-
                     archivedUserInfo.classList.add('text-gray-600');
                     archivedUserInfo.classList.remove('border-b-2', 'border-red-600', 'text-red-600');
                     existingUserInfo.classList.add('border-b-2', 'border-red-600', 'text-red-600');

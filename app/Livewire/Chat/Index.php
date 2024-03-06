@@ -31,9 +31,9 @@ class Index extends Component
 
 
         if ($user && $user->isAdmin()) {
-            $this->threads = Message::all();
+            $this->threads = Message::orderBy('updated_at', 'desc')->get();
         } else {
-            $this->threads = Message::where('sender_id', $user->id)->get();
+            $this->threads = Message::where('sender_id', $user->id)->orderBy('updated_at', 'desc')->get();
         }
         foreach ($this->threads as $thread) {
             $latestMessage = MessageThread::where('parent_message_id', $thread->id)

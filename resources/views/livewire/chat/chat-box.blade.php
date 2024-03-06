@@ -233,7 +233,7 @@ $nextTick(() => conversationElement.scrollTop = height);"
             </div>
         </form>
         @error('body')
-            <p>{{ $message }}</p>
+            <p></p>
         @enderror
     </div>
 

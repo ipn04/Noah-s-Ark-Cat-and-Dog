@@ -61,6 +61,12 @@ class ChatBox extends Component
         // dd($this->selectedConversation->receiver_id);
         $this->validate(['body' => 'required|string']);
 
+        $messageId = $this->selectedConversation->id;
+        $messaged = Message::find($messageId);
+        if ($messaged) {
+            $messaged->touch(); 
+        }
+
         $createdMessage = MessageThread::create([
             'sender_id' => auth()->id(),
             'receiver_id' => ($this->selectedConversation->sender_id !== auth()->id()) 

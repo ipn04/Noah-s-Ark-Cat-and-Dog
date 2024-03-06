@@ -261,8 +261,8 @@
                                                     @elseif ($pet->adoption_status === 'Adopted')
                                                     
                                                         <div
-                                                            class="text-red-600 w-24 rounded-lg py-1 font-semibold bg-red-200">
-                                                            <p class="text-center">Not Available</p>
+                                                            class="text-yellow-600 w-24 rounded-lg py-1 font-semibold bg-yellow-200">
+                                                            <p class="text-center">Adopted</p>
                                                         </div>
                                                     @else
                                                         <div

@@ -76,11 +76,11 @@
                     </button>
                 </form>
                 @if ($stage == 9)
-                    <img class="h-24 w-28" src="/images/approve.png" alt="approved">
+                <h1 class="bg-green-200 px-3 py-3 rounded-lg text-green-600">Application Accepted</h1>
                 @elseif ($stage == 10)
-                    <img class="h-24 w-28" src="/images/rejected.png" alt="rejected">
+                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Rejected</h1>
                 @elseif ($stage == 11)
-                    <img class="h-24 w-28" src="/images/cancel.png" alt="cancelled">
+                <h1 class="bg-red-200 px-3 py-3 rounded-lg font-bold text-red-600">Application Canceled</h1>
                 @endif
                 <button type="button" data-modal-target="popup-modal" data-modal-toggle="popup-modal"
                     class="
@@ -139,6 +139,8 @@
                         <div
                             class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
                                 @if ($stage >= 0 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif
                                 ">
@@ -163,6 +165,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                     @if ($stage > 0 && $stage < 10) bg-green-200 text-green-500
+                                    @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                     @else
                                     text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
@@ -187,6 +191,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                     @if ($stage > 2 && $stage < 10) bg-green-200 text-green-500
+                                    @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                     @elseif($stage == 2)
                                     bg-yellow-200 text-yellow-500
                                     @else
@@ -212,6 +218,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                 @if ($stage > 3 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @elseif($stage == 3)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -234,6 +242,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
                                 @if ($stage > 4 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @elseif($stage == 4)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -257,6 +267,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16 
                                 @if ($stage > 6 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @elseif($stage == 6)
                                 bg-yellow-200 text-yellow-500
                                 @else
@@ -282,6 +294,8 @@
                             <div
                                 class = "flex items-center justify-center rounded-full w-6 h-6 lg:w-16 lg:h-16
                                 @if ($stage > 8 && $stage < 10) bg-green-200 text-green-500
+                                @elseif($stage == 10 || $stage == 11)
+                                bg-red-200 text-red-500
                                 @else
                                 text-gray-600 bg-gray-200 @endif">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"

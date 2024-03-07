@@ -644,6 +644,8 @@ class adoptionController extends Controller
     {
         $adminId = User::where('role', 'admin')->value('id');
         $reason = $request->input('reason');
+        $user = User::find($userId);
+        $phoneNumber = $user->phone_number; 
 
         $adoptionAnswer = Adoption::join('application', 'adoption.application_id', '=', 'application.id')
             ->where('adoption.application_id', $id)
@@ -656,6 +658,15 @@ class adoptionController extends Controller
                 ->update(['stage' => \DB::raw('stage - 2')]);
 
             $application = $adoptionAnswer->application;
+
+            $parameters = array(
+                'apikey' => env('SEMAPHORE_API_KEY'),
+                'number' => $phoneNumber,
+                'message' => 'The shelter has cancelled the interview schedule. Please, re-schedule the Interview!',
+                'sendername' => ''
+            );
+    
+            $response = Http::post('https://api.semaphore.co/api/v4/messages', $parameters);
 
             $notificationMessage = "The shelter has cancelled the interview schedule. Please, re-schedule the Interview. Due to: $reason";
 

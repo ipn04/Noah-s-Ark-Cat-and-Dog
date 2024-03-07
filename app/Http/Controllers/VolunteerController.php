@@ -58,7 +58,7 @@ class VolunteerController extends Controller
         if (auth()->check()) {
             $user = auth()->user();      
         
-            $notificationMessage = 'has submitted volunteer application.';
+            $notificationMessage = 'has submitted a volunteer application.';
 
             $notification = new Notifications();
             $notification->application_id = $application->id;;
@@ -183,10 +183,10 @@ class VolunteerController extends Controller
 
         if ($userVolunteerAnswers) {
             if ($userVolunteerAnswers->volunteer_application->stage == 0){
-                $notificationMessage = 'Application Validated.';
+                $notificationMessage = 'Your volunteer application has been validated by the shelter. Proceed to next step now.';
             }
             elseif ($userVolunteerAnswers->volunteer_application->stage == 4) {
-                $notificationMessage = 'Success for Volunteer';
+                $notificationMessage = 'Congratulations! The shelter has accepted your volunteer application. Welcome to Noahs Ark Family!';
             }
 
     
@@ -211,7 +211,7 @@ class VolunteerController extends Controller
         $adminId = auth()->id();
         $reason = $request->input('reason');
         // dd($firstName);
-        $notificationMessage = "Admin Rejected your Volunteer Application. Due to: $reason";
+        $notificationMessage = "The shelter has rejected your Volunteer Application. Due to: $reason";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 
@@ -242,7 +242,7 @@ class VolunteerController extends Controller
     {
         $adminId = User::where('role', 'admin')->value('id');
         $reason = $request->input('reason');
-        $notificationMessage = "Cancelled the Volunteer application due to: $reason";
+        $notificationMessage = "has cancelled their Volunteer application due to: $reason";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 
@@ -271,7 +271,7 @@ class VolunteerController extends Controller
         $adminId = User::where('role', 'admin')->value('id');
         $reason = $request->input('reason');
 
-        $notificationMessage = "Admin has rejected your Interview Schedule due to: $reason. Please, re-schedule.";
+        $notificationMessage = "The shelter has rejected your Interview Schedule due to: $reason. Please, re-schedule.";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 
@@ -353,7 +353,7 @@ class VolunteerController extends Controller
     {
         $adminId = User::where('role', 'admin')->value('id');
         $reason = $request->input('reason');
-        $notificationMessage = "Admin has cancelled the Interview Schedule due to: $reason. Please, re-schedule";
+        $notificationMessage = "The shelter has cancelled the interview schedule due to: $reason. Please, re-schedule";
 
         $notification = new Notifications();
         $notification->application_id = $applicationId; 

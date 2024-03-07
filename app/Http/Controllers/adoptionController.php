@@ -103,7 +103,7 @@ class adoptionController extends Controller
             if (auth()->check()) {
                 $user = auth()->user();      
             
-                $notificationMessage = 'has submitted adoption application.';
+                $notificationMessage = 'has submitted an adoption application.';
 
                 $notification = new Notifications();
                 $notification->application_id = $applicationId;
@@ -284,7 +284,7 @@ class adoptionController extends Controller
 
         $adminId = auth()->id();
         if ($adoptionAnswer->stage == 0){
-            $notificationMessage = 'Application Validated.';
+            $notificationMessage = 'Your application has been validated by Noahs Ark. Schedule your interview now.';
 
             $parameters = array(
             'apikey' => env('SEMAPHORE_API_KEY'),
@@ -297,12 +297,12 @@ class adoptionController extends Controller
                 
         }
         elseif ($adoptionAnswer->stage == 4) {
-            $notificationMessage = 'Application Accepted';
+            $notificationMessage = 'Your application has been accepted by the Noahs Ark. Please, proceed to schedule your pet pickup.';
 
             $parameters = array(
                 'apikey' => env('SEMAPHORE_API_KEY'),
                 'number' => $phoneNumber,
-                'message' => 'Your application has been accepted by the Noahs Ark. Please, schedule pickup.',
+                'message' => 'Your application has been accepted by the Noahs Ark. Please, proceed to schedule your pet pickup.',
                 'sendername' => ''
                 );
     
@@ -324,7 +324,7 @@ class adoptionController extends Controller
                 }   
             }
             
-            $notificationMessage = 'Success';
+            $notificationMessage = 'Congratulations! Your adoption application has been completed. Thank you for choosing to provide a loving home to a furry friend!';
 
             Adoption::where('pet_id', '=', $adoptionAnswer->pet_id)
             ->where('application_id', '!=', $adoptionAnswer->application_id)
@@ -369,7 +369,7 @@ class adoptionController extends Controller
         $adoption = Adoption::where('application_id', $id)->firstOrFail();
         $adoption->update(['stage' => 11]);
 
-        $notificationMessage = "Cancelled application due to: $reason:";
+        $notificationMessage = "has cancelled their adoption application due to: $reason:";
         
         $notification = new Notifications();
         $notification->application_id = $id; 
@@ -390,7 +390,7 @@ class adoptionController extends Controller
         $phoneNumber = $user->phone_number; 
         $reason = $request->input('reason');
 
-        $notificationMessage = "Admin Rejected your Application. Due to: $reason";
+        $notificationMessage = "The shelter has rejected your adoption application. Due to: $reason";
 
         $notification = new Notifications();
         $notification->application_id = $id; 
@@ -537,7 +537,7 @@ class adoptionController extends Controller
 
             $application = $adoptionAnswer->application;
 
-            $notificationMessage = 'Admin has Accepted the Interview Schedule';
+            $notificationMessage = 'The shelter has accepted your interview schedule request. Please prepare for your upcoming interview. Good luck!';
 
             $notification = new Notifications();
             $notification->application_id = $application->id; 
@@ -550,7 +550,7 @@ class adoptionController extends Controller
             $parameters = array(
                 'apikey' => env('SEMAPHORE_API_KEY'),
                 'number' => $phoneNumber,
-                'message' => 'Your schedule interview has been accepted by the Noahs Ark',
+                'message' => 'Your schedule interview request has been accepted by the Noahs Ark. Please prepare for your upcoming interview. Good luck!',
                 'sendername' => ''
             );
     
@@ -599,7 +599,7 @@ class adoptionController extends Controller
 
             $application = $adoptionAnswer->application;
             
-            $notificationMessage = "Admin has rejected the Interview Schedule. Please, re-schedule the Interview. Due to: $reason";
+            $notificationMessage = "The shelter has rejected the Interview Schedule. Due to: $reason .Please, re-schedule the Interview.";
 
             $notification = new Notifications();
             $notification->application_id = $application->id; 
@@ -657,7 +657,7 @@ class adoptionController extends Controller
 
             $application = $adoptionAnswer->application;
 
-            $notificationMessage = "Admin has cancelled the Interview Schedule. Please, re-schedule the Interview. Due to: $reason";
+            $notificationMessage = "The shelter has cancelled the interview schedule. Please, re-schedule the Interview. Due to: $reason";
 
             $notification = new Notifications();
             $notification->application_id = $id; 
@@ -701,7 +701,7 @@ class adoptionController extends Controller
                 ->update(['stage' => \DB::raw('stage - 2')]);
 
             $application = $adoptionAnswer->application;
-            $notificationMessage = "Cancelled the Interview due to: $reason";
+            $notificationMessage = "has cancelled the interview schedule due to: $reason";
 
             $notification = new Notifications();
             $notification->application_id = $id; 
@@ -750,7 +750,7 @@ class adoptionController extends Controller
 
             $application = $adoptionAnswer->application;
             
-            $notificationMessage = 'Admin has Accepted the Pickup Schedule';
+            $notificationMessage = 'Your schedule pickup has been accepted by Noahs Ark! Get ready because the shelter will visit your home on the exact date!';
 
             $notification = new Notifications();
             $notification->application_id = $application->id; 
@@ -764,7 +764,7 @@ class adoptionController extends Controller
             $parameters = array(
                 'apikey' => env('SEMAPHORE_API_KEY'),
                 'number' => $phoneNumber,
-                'message' => 'Your schedule pickup has been accepted by Noahs Ark!',
+                'message' => 'Your schedule pickup has been accepted by Noahs Ark! Get ready because the shelter will visit your home on the exact date!',
                 'sendername' => ''
             );
     
@@ -804,7 +804,7 @@ class adoptionController extends Controller
 
             $application = $adoptionAnswer->application;
             
-            $notificationMessage = "Admin has rejected the Pickup Schedule Due to $reason. Please, re-schedule";
+            $notificationMessage = "The shelter has rejected the Pickup Schedule Due to $reason. Please, re-schedule";
 
             $notification = new Notifications();
             $notification->application_id = $id; 

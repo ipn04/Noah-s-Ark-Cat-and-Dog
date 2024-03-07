@@ -37,7 +37,7 @@ class PickupController extends Controller
         $schedulePickup->time = $request->input('time');
         $schedulePickup->save();
 
-        $notificationMessage = 'Sent a Schedule Pickup';
+        $notificationMessage = 'has sent their preferred schedule pickup.';
 
         $notification = new Notifications();
         $notification->application_id = $application->id; 

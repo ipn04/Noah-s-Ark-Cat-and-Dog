@@ -148,7 +148,7 @@ class ScheduleController extends Controller{
     {   
         $adminId = auth()->id();
 
-        $notificationMessage = 'Admin has accepted your schedule interview';
+        $notificationMessage = 'The shelter has accepted your interview schedule request. Please prepare for your upcoming interview. Good luck!';
 
         // dd($applicationId);
         $notification = new Notifications();

@@ -53,7 +53,7 @@ class InterviewController extends Controller
         $scheduleInterview->save();
 
 
-        $notificationMessage = 'Sent a Schedule Interview';
+        $notificationMessage = 'has submitted an interview schedule request.';
 
         $notification = new Notifications();
         $notification->application_id = $application->id; 
@@ -108,7 +108,7 @@ class InterviewController extends Controller
             $userId = auth()->user()->id; 
             $adminId = User::where('role', 'admin')->value('id');;
     
-            $notificationMessage = 'has submitted schedule Interview application.';
+            $notificationMessage = 'has submitted an interview schedule request.';
     
             $notification = new Notifications();
             $notification->application_id = $applicationId;

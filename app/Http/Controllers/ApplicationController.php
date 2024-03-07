@@ -87,35 +87,25 @@ class ApplicationController extends Controller
                 ->get();
     
 
+            $currentDate = now();
+            $currentMonthStart = $currentDate->startOfMonth();
 
-                $adoptedPets = Pet::where('adoption_status', 'Adopted')
-                ->whereBetween('updated_at', [now()->subMonths(2), now()])
-                ->get();
-            
-
-            // Process data and group by month
-            $adoptedPetsByMonth = $adoptedPets->groupBy(function($date) {
-            return \Carbon\Carbon::parse($date->updated_at)->format('m');
-            });
-
-            $dateRangeStart = now()->subMonths(2);
-            $dateRangeEnd = now();
-
-            // Initialize an array to store the counts for each month
             $chartData = [];
 
-            // Iterate through each month in reverse order
-            for ($date = $dateRangeEnd; $date->gte($dateRangeStart); $date->subMonth()) {
-                $monthKey = $date->format('F');
+            for ($i = 0; $i < 3; $i++) {
+                $startOfMonth = $currentMonthStart->copy()->subMonths($i);
 
-                // If there are adoptions for the current month, set the count
-                if ($adoptedPetsByMonth->has($date->format('m'))) {
-                    $chartData[$monthKey] = count($adoptedPetsByMonth[$date->format('m')]);
-                } else {
-                    // If there are no adoptions, set the count to zero
-                    $chartData[$monthKey] = 0;
-                }
+                $endOfMonth = $startOfMonth->copy()->endOfMonth();
+
+                $adoptedPetsCount = Pet::where('adoption_status', 'Adopted')
+                    ->whereBetween('updated_at', [$startOfMonth, $endOfMonth])
+                    ->count();
+
+                $chartData[$startOfMonth->format('F')] = $adoptedPetsCount;
             }
+
+    
+            
 
             $adminId = auth()->user()->id;
                 $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)

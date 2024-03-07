@@ -273,7 +273,7 @@
             <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-lg">
                 <div>
                     <div id = "updatesContainer" class="justify-center items-center  @if ($stage == 1 ||  $stage == 3  || $stage == 5) @else hidden @endif">
-                        <div class="h-volunteerProgressHeight bg-white p-5 max-w-lg rounded-2xl shadow-md flex justify-center items-center">
+                        <div class="h-96 bg-white p-5 max-w-lg rounded-2xl shadow-md flex justify-center items-center">
                             <div>
                                 <div
                         class = "@if ($stage == 5) mb-7  justify-center items-center @else hidden @endif">
@@ -588,7 +588,7 @@
                     </div>
                 </div>
                 <div id="progressContainer"
-                    class = "h-volunteerProgressHeight bg-white lg:order-last order-first rounded-2xl p-4 shadow-md @if ($stage == 1 || $stage == 3 || $stage == 5) @else my-16 @endif">
+                    class = " bg-white lg:order-last order-first rounded-2xl p-4 shadow-md  @if ($stage == 1 || $stage == 3 || $stage == 5) h-96 @else  h-volunteerProgressHeight my-16 @endif">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if ($firstnotification)
@@ -605,6 +605,8 @@
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
                                     <h5>Your application has been successfully submitted on the shelter. Your
                                         application is going to be reviewed by the shelter.</h5>
+                                        <span class = "text-xs">{{\Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->created_at)->format('F j, Y h:i A') }}
+                                        </span>
                                 </td>
                             </tr>
                         @endif
@@ -860,7 +862,7 @@
                     existingUserInfo.classList.add('border-b-2', 'border-red-600', 'text-red-600');
                     document.getElementById('userinfoContainer').classList.add('hidden');
                     document.getElementById('updatesContainer').classList.remove('hidden');
-                    document.getElementById('progressContainer').classList.remove('my-16');
+                    document.getElementById('progressContainer').classList.remove('my-16', 'h-volunteerProgressHeight');
 
 
                 } else if (category === 'user') {
@@ -874,7 +876,7 @@
                     document.getElementById('updatesContainer').classList.add('hidden');
                     document.getElementById('userinfoContainer').classList.remove('hidden');
                    
-                    document.getElementById('progressContainer').classList.add('my-16');
+                    document.getElementById('progressContainer').classList.add('my-16', 'h-volunteerProgressHeight');
 
                 }
 

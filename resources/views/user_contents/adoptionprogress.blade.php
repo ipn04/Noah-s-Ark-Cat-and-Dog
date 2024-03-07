@@ -318,9 +318,41 @@
                     <div id = "updatesContainer" class = "@if ($stage == 1 || $stage == 3 || $stage == 5 || $stage == 7 || $stage == 9) @else hidden @endif">
                         <div class = "flex items-center justify-center h-96 bg-white p-5  w-full rounded-2xl shadow-md">
                             <div class = "@if ($stage == 9) @else hidden @endif">
-                                <a href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                               
+                            </div>
+                            <div class = "@if ($stage == 9)  max-w-xl @else hidden @endif">
+                                <p class=" flex  justify-center my-5">
+                                    <span class="bg-yellow-200  font-bold  cursor-pointer  text-4xl rounded-lg  px-2 py-1"> Congratulations!</span>
+                                </p>
+                                
+                                <div class = "flex items-center justify-center  px-20">
+                                    <div
+                                        class="mx-auto w-32 h-32  border-4 border-red-500 rounded-full overflow-hidden">
+                                        <img class="object-cover object-center w-32 h-32"
+                                            src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
+                                            alt='Woman looking front'>
+                                    </div>
+                                    <div
+                                        class="mx-auto w-24 h-24 overflow-hidden">
+                                        <img class="object-cover object-center w-24 h-24"
+                                            src="{{ asset('/images/lovelovelove.svg') }}"
+                                            alt='Woman looking front'>
+                                    </div>
+                                    <div
+                                        class="mx-auto w-32 h-32  border-4 border-yellow-200 rounded-full overflow-hidden">
+                                        <img class="object-cover object-center w-32 h-32"
+                                            src="{{ asset('storage/' . $userr->profile_image) }}"
+                                            alt='user profile'>
+                                    </div>
+                                    
+                                </div>
+                                <h2 class="font-normal text-base text-center py-4 px-6">
+                                    Your Rescue <span class = "font-bold">{{$petData->pet_name}}</span> has been successfully adopted by <span class = "font-bold"> {{$userr->firstname}} {{$userr->name}}.</span> You can download the contract here:
+                                </h2>
+                                <div class = "flex items-center justify-center">
+                                <a href="{{ route('download.contract', ['id' => $adoption->id]) }}" class = >
                                     <button
-                                        class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
+                                        class="bg-green-400 hover:bg-yellow-300 text-gray-800 font-bold py-2 px-4 rounded inline-flex items-center">
                                         <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
                                             viewBox="0 0 20 20">
                                             <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
@@ -328,12 +360,12 @@
                                         <span>Download Contract</span>
                                     </button>
                                 </a>
+                                </div>
                             </div>
-                            
                             <div class = "@if ($stage == 7) @else hidden @endif">
-                                <h2 class = "font-bold text-xl p-2">Schedule Confirmed</h2>
-                                <p class = "italic text-sm px-2 pb-3 ps-2">The shelter is on their way now to your
-                                    location,
+                                <h2 class = "font-bold text-xl   p-2">Schedule Confirmed</h2>
+                                <p class = "italic text-sm px-2 pb-3 ps-2">The shelter will be on their way to your
+                                    location on the said schedule date,
                                     please wait for them</p>
                                 <h2 class = "font-bold text-lg p-2 ps-2">Estimated Date and Time of Arrival</h2>
 
@@ -354,8 +386,9 @@
                                 </p>
                             </div>
 
-                            <div class ="@if ($stage == 1) @else hidden @endif">
-                                <p class="text-center">Please, kindly schedule your interview to follow up the adoption process.</p>
+                            <div class ="@if ($stage == 1) max-w-lg  @else hidden @endif">
+                                <h2 class = "font-bold text-xl text-center">Your application has been validated by the shelter.</h2>
+                                <p class="text-center py-3">For next step, you are required to schedule an interview on time you're available for a get to know session with the shelter.</p>
                                 <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                                     class="block text-white bg-red-700 hover:bg-red-800 focus:ring-4 mx-auto my-2 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
@@ -457,15 +490,14 @@
                                 </div>
                             </div>
 
-                            <div class = "@if ($stage == 3) @else hidden @endif">
-                                <h2 class = "font-bold text-lg p-2">Interview at
-                                    {{ \Carbon\Carbon::parse($schedulePickup->date ?? '')->format('F j, Y') }}
+                            <div class = "@if ($stage == 3) max-w-lg @else hidden @endif">
+                                <h2 class = "font-bold text-xl text-center">Interview at
+                                    {{ \Carbon\Carbon::parse($schedulePickup->date ?? '')->format('F j, Y g:ia') }}.
                                 </h2>
-                                <p class = "p-2">You have an interview scheduled later at
-                                    {{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('g:i A') }}
+                                <p class = "p-2 text-center">You have an interview scheduled later at
+                                    {{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('F j, Y g:ia') }}
                                     . Please join this meet
-                                    later at {{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('g:i A') }}
-                                    .</p>
+                                    later at {{ \Carbon\Carbon::parse($schedulePickup->time ?? '')->format('F j, Y g:ia') }}.</p>
                                 <div class = "grid grid-cols-1 gap-2 py-2">
                                     <a target="_blank"
                                         href="{{ optional($schedulePickup)->interview_id ? route('interview.user', ['scheduleId' => $schedulePickup->interview_id]) : '#' }}">
@@ -557,13 +589,15 @@
                                 </div>
                             </div>
 
-                            <div class = "@if ($stage == 5) @else hidden @endif">
-                                <h2 class = "font-bold text-xl p-2">Congratulations!</h2>
-                                <p class = "p-2 ">Your adoption application has been approved. You are now able to
+                            <div class = "@if ($stage == 5) max-w-lg @else hidden @endif">
+                                <p class=" flex  justify-center ">
+                                    <span class="bg-yellow-200   font-bold cursor-pointer  text-4xl rounded-lg  px-2 py-1"> Congratulations!</span>
+                                </p>                               
+                                 <p class = "p-2 text-center">Your adoption application has been approved. You are now able to
                                     adopt
                                     Yumi. Please select a schedule for pick-uping the dog.</p>
 
-                                <div class = "flex justify-center items-center p-2">
+                                <div class = "border-4 mx-auto w-40 h-40 border-yellow-200 rounded-full overflow-hidden">
                                     <img class="object-cover rounded-full object-center w-40 h-40"
                                         src="{{ asset('storage/images/' . $petData->dropzone_file) }}"
                                         alt='Woman looking front'>
@@ -945,6 +979,8 @@
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
                                     <h5>Your application has been successfully submitted on the shelter. Your
                                         application is going to be reviewed by the shelter.</h5>
+                                        <span class = "text-xs">{{\Carbon\Carbon::parse($adoption->application->created_at)->format('F j, Y h:i A') }}
+                                        </span>
                                 </td>
                             </tr>
                         @endif

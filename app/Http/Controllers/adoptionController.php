@@ -185,7 +185,7 @@ class adoptionController extends Controller
         ]);
     }
     public function adminAdoptionProgress($adoptionAnswer = false) {
-        $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
+        $adoptionAnswerData = AdoptionAnswer::with('adoption')->paginate(10);
         $adoptionCount = AdoptionAnswer::count();
         $pendingStages = ['0', '1', '2', '3', '4', '5', '6', '7', '8'];
 
@@ -201,7 +201,7 @@ class adoptionController extends Controller
 
         $cancelledAdoptionAnswers = $adoptionAnswerData->where('adoption.stage', '11')->count();
 
-        $adoptionAnswerData = AdoptionAnswer::with('adoption')->get();
+        $adoptionAnswerData = AdoptionAnswer::with('adoption')->paginate(10);
 
         $adminId = auth()->user()->id;
         $unreadNotificationsCount = Notifications::where('receiver_id', $adminId)

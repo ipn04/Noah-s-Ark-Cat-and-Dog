@@ -516,18 +516,11 @@
                                                     : null;
 
                                             $today = \Carbon\Carbon::now();
-
-                                            // Add a null check before calling isBefore()
-                                            $isDisabled =
-                                                ($scheduledDate && $scheduledDate->isBefore($today)) ||
-                                                ($scheduledDate &&
-                                                    $scheduledDate->equalTo($today) &&
-                                                    $scheduledTime &&
-                                                    $scheduledTime < $currentTime);
+                                            $isToday = $scheduledDateTime ? $scheduledDateTime->isToday() : false;     
                                         @endphp
-                                        <button type="submit"
-                                            class="p-2 w-full rounded-lg mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                            {{ $isDisabled ? 'disabled' : '' }}>
+                                        <button type="button"
+                                            class="p-2 w-full mx-auto text-white {{ $isToday ? 'bg-red-500 hover:bg-red-700' : 'bg-gray-400 cursor-not-allowed' }}"
+                                            {{ !$isToday ? 'disabled' : '' }}>
                                             Join Meet
                                         </button>
                                     </a>

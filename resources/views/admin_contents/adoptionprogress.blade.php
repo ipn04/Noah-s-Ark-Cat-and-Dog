@@ -742,14 +742,12 @@
                                             href="{{ route('interview.admin', ['scheduleId' => optional($scheduleInterview)->interview_id]) }}">
                                             @php
                                                 $today = \Carbon\Carbon::now();
-                                                $isDisabled =
-                                                    $scheduledDate->isBefore($today) ||
-                                                    ($scheduledDate->equalTo($today) && $scheduledTime < $currentTime);
+                                                $isToday = $scheduledDateTime->isToday();
                                             @endphp
 
-                                            <button type="submit"
-                                                class="p-2 w-full mx-auto text-white {{ $isDisabled ? 'bg-gray-400 cursor-not-allowed' : 'bg-red-500 hover:bg-red-700' }}"
-                                                {{ $isDisabled ? 'disabled' : '' }}>
+                                            <button type="button"
+                                                class="p-2 w-full mx-auto text-white {{ $isToday ? 'bg-red-500 hover:bg-red-700' : 'bg-gray-400 cursor-not-allowed' }}"
+                                                {{ !$isToday ? 'disabled' : '' }}>
                                                 Join Meet
                                             </button>
                                         </a>

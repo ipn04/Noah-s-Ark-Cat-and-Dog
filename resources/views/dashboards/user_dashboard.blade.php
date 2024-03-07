@@ -61,8 +61,8 @@
                     <button
                         class="bg-white h-40 w-full rounded-xl py-5 px-10 shadow-md hover:shadow-lg hover:text-red-700 text-gray-500">
                         <div class="flex flex-col items-center">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" data-slot="icon"
-                                class="w-12 h-12">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"
+                                data-slot="icon" class="w-12 h-12">
                                 <path
                                     d="M10.5 1.875a1.125 1.125 0 0 1 2.25 0v8.219c.517.162 1.02.382 1.5.659V3.375a1.125 1.125 0 0 1 2.25 0v10.937a4.505 4.505 0 0 0-3.25 2.373 8.963 8.963 0 0 1 4-.935A.75.75 0 0 0 18 15v-2.266a3.368 3.368 0 0 1 .988-2.37 1.125 1.125 0 0 1 1.591 1.59 1.118 1.118 0 0 0-.329.79v3.006h-.005a6 6 0 0 1-1.752 4.007l-1.736 1.736a6 6 0 0 1-4.242 1.757H10.5a7.5 7.5 0 0 1-7.5-7.5V6.375a1.125 1.125 0 0 1 2.25 0v5.519c.46-.452.965-.832 1.5-1.141V3.375a1.125 1.125 0 0 1 2.25 0v6.526c.495-.1.997-.151 1.5-.151V1.875Z" />
                             </svg>
@@ -126,7 +126,7 @@
                 </form>
             </div>
 
-            <div 
+            <div
                 class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
                 <button id="filterDropdownButton" data-dropdown-toggle="filterDropdown"
                     class="w-full md:w-auto flex items-center justify-center py-2 px-4 text-sm font-medium text-gray-500 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
@@ -145,7 +145,8 @@
                     </svg>
                 </button>
             </div>
-            <div id="filterDropdown" class="z-50 hidden py-1 px-3 bg-white rounded-lg shadow w-60 dark:bg-gray-700 right-0">
+            <div id="filterDropdown"
+                class="z-50 hidden py-1 px-3 bg-white rounded-lg shadow w-60 dark:bg-gray-700 right-0">
                 <div class="flex items-center justify-between pt-2">
                     <h6 class="text-sm font-medium text-black dark:text-white">Filters</h6>
                 </div>
@@ -154,7 +155,8 @@
                     <h2 id="category-heading">
                         <button type="button"
                             class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
-                            data-accordion-target="#category-body" aria-expanded="true" aria-controls="category-body">
+                            data-accordion-target="#category-body" aria-expanded="true"
+                            aria-controls="category-body">
                             <span>Pet Type</span>
                             <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
                                 fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -163,7 +165,7 @@
                             </svg>
                         </button>
                     </h2>
-        
+
                     <div id="category-body" class="hidden" aria-labelledby="category-heading">
                         <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
                             <ul class="space-y-2">
@@ -182,7 +184,7 @@
                             </ul>
                         </div>
                     </div>
-        
+
                     <h2 id="gender-heading">
                         <button type="button"
                             class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -195,7 +197,7 @@
                             </svg>
                         </button>
                     </h2>
-        
+
                     <div id="gender-body" class="hidden" aria-labelledby="gender-heading">
                         <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
                             <ul class="space-y-2">
@@ -214,11 +216,12 @@
                             </ul>
                         </div>
                     </div>
-        
+
                     <h2 id="vacStatus-heading">
                         <button type="button"
                             class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
-                            data-accordion-target="#vacStatus-body" aria-expanded="true" aria-controls="vacStatus-body">
+                            data-accordion-target="#vacStatus-body" aria-expanded="true"
+                            aria-controls="vacStatus-body">
                             <span>Age</span>
                             <svg aria-hidden="true" data-accordion-icon="" class="w-5 h-5 rotate-180 shrink-0"
                                 fill="currentColor" viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -227,7 +230,7 @@
                             </svg>
                         </button>
                     </h2>
-        
+
                     <div id="vacStatus-body" class="hidden" aria-labelledby="vacStatus-heading">
                         <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
                             <ul class="space-y-2">
@@ -248,7 +251,7 @@
                             </ul>
                         </div>
                     </div>
-        
+
                     <h2 id="size-heading">
                         <button type="button"
                             class="flex items-center justify-between w-full py-2 px-1.5 text-sm font-medium text-left text-gray-500 border-b border-gray-200 dark:border-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700"
@@ -261,7 +264,7 @@
                             </svg>
                         </button>
                     </h2>
-        
+
                     <div id="size-body" class="hidden" aria-labelledby="size-heading">
                         <div class="py-2 font-light border-b border-gray-200 dark:border-gray-600">
                             <ul class="space-y-2">
@@ -286,7 +289,7 @@
                             </ul>
                         </div>
                     </div>
-        
+
                 </div>
             </div>
         </div>
@@ -388,7 +391,7 @@
                         </button>
                     </div>
                     <!-- Modal body -->
-                    <form action="{{ route('schedule.visit')}}" method="POST">
+                    <form action="{{ route('schedule.visit') }}" method="POST">
                         @csrf
                         <div class="p-4 md:p-5 space-y-4">
 
@@ -401,7 +404,14 @@
                                             <x-input-label for="time" :value="__('Date')" />
 
                                             <input type="date" name="date" id="date"
-                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
+                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md"
+                                                min="<?php echo date('Y-m-d'); ?>" />
+
+                                            <script>
+                                                var today = new Date().toISOString().split('T')[0];
+                                                document.getElementById('date').min = today;
+                                            </script>
+
                                         </div>
                                     </div>
                                     <div class="w-full px-3 sm:w-1/2">
@@ -409,23 +419,24 @@
                                             <x-input-label for="time" :value="__('Time')" />
                                             </label>
                                             <input type="time" name="time" id="time"
-                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md" />
-                               
+                                            class="w-full rounded-md border border-[#e0e0e0] bg-white py-2 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-red-500 focus:shadow-md"
+                                            min="05:00" max="17:00" />
+                                     
                                         </div>
                                     </div>
 
                                 </div>
                                 <div class="relative w-full px-3">
                                     <x-input-label for="concern" :value="__('Concern')" />
-                                    <textarea id="concern" class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm" type="text" name="concern"
-                                        :value="old('concern')" required autocomplete="concern">
+                                    <textarea id="concern"
+                                        class="block mt-1 w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-red-500 dark:focus:border-red-600 focus:ring-red-500 dark:focus:ring-red-600 rounded-md shadow-sm"
+                                        type="text" name="concern" :value="old('concern')" required autocomplete="concern">
                                     </textarea>
                                 </div>
 
                             </div>
                             <!-- Modal footer -->
-                            <div
-                                class="grid grid-cols-2 gap-3 ">
+                            <div class="grid grid-cols-2 gap-3 ">
                                 <button data-modal-hide="static-modal" type="button"
                                     class="ms-3 text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Cancel</button>
                                 <button data-modal-hide="static-modal" type="submit"

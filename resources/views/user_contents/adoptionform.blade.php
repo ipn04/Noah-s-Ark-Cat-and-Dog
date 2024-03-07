@@ -467,7 +467,7 @@
                                             <h3 class="text-xl font-extrabold ">About {{ $pets->pet_name }}</h3>
                                         </div>
                                         <div class = "max-w-40">
-                                            <p class="text-lg font-light py-3" style="overflow-wrap: break-word;">
+                                            <p class="text-lg  py-3" style="overflow-wrap: break-word;">
                                                 {{ $pets->description }}</p>
                                         </div>
                                         <div class = "grid grid-cols-1 lg:grid-cols-3 gap-4">

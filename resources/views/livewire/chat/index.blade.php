@@ -78,11 +78,12 @@
                                             data-concern="Others">Others</a>
                                     </li>
                                 </ul>
+                                
                                 @if ($threads)
                                     @foreach ($threads as $thread)
-                                        <div wire:click="markAsReadAndNavigate({{ $thread->id }})"
+                                        <div wire:click="markAsReadAndNavigate({{ $thread->id }})" data-name="{{$thread->user->firstname}} {{$thread->user->name}}"
                                             class="message-item divide-y divide-black-900 hover:bg-gray-100 hover:rounded-lg mt-2 px-2 @if ($thread->read_at === null) border border-indigo-500 @endif"
-                                            data-concern="{{ $thread->concern }}">
+                                            data-concern="{{ $thread->concern }}" id="message-item">
                                             <!-- User -->
                                             {{-- <a href="{{ route('chat', ['messageId' => $thread->id]) }}"> --}}
                                             <button class="text-left py-2">
@@ -626,6 +627,7 @@
     {{-- lagay ko muna dito js, ako na mag transfer sa crud.js next time --}}
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            search();
             const messageTabs = document.querySelectorAll('.flex-wrap a');
 
             const messageContainer = document.getElementById('messageContainer');
@@ -663,6 +665,23 @@
                         item.style.display = 'block';
                     });
                 }
+            }
+            function search() {
+                $('#simple-search').on('input', function() {
+                    let value = $(this).val().toLowerCase();  
+                    
+                    $('.message-item').each(function () {
+                        let petName = $(this).attr('data-name'); 
+                        if (petName !== undefined) { 
+                            petName = petName.toLowerCase(); 
+                            if (petName.indexOf(value) === -1) {
+                                $(this).hide();
+                            } else {
+                                $(this).show();
+                            }
+                        }
+                    });
+                });
             }
         });
     </script>

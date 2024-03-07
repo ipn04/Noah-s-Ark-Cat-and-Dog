@@ -288,10 +288,18 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 px-4 max-w-screen-lg">
                 <div>
                     <div id = "updatesContainer" class = "@if ($stage == 2 || $stage == 3 || $stage == 5 ) @else hidden @endif">
-                        <div class = "bg-white p-5 max-w-lg rounded-2xl shadow-md h-volunteerProgressHeight flex justify-center items-center">
-
+                        <div class = "h-96 bg-white p-5 max-w-lg rounded-2xl shadow-md flex justify-center items-center">
+                            <div
+                            class = "@if ($stage == 5) mb-7  justify-center items-center @else hidden @endif">
+                            <diV class = " rounded-lg p-5">
+                                <h1 class = "font-bold text-xl pt-5 text-center">Congratulations!</h1>
+                                <p class = "p-1 text-base text-justify">You have just accepted <span class = "font-bold"> {{$userVolunteerAnswers->volunteer_application->application->user->firstname}} {{$userVolunteerAnswers->volunteer_application->application->user->name}}</span>'s Volunteer Application. Don't forget to contact him/her for future premises. </p>
+                                <img class = "w-1/2 h-1/2 mx-auto" src="{{ asset('images/congrats.svg') }}"
+                                    alt="">
+                            </div>
+                        </div>
                             <div class = "@if ($stage == 3) @else hidden @endif"
-                                @if ($scheduleInterview) <h2 class="font-bold text-lg p-2">Interview at
+                                @if ($scheduleInterview)> <h2 class="font-bold text-lg ">Interview at
                                 {{ \Carbon\Carbon::parse($scheduleInterview->date)->format('F j, Y') }}</h2>
                         @else
                             <p>No interview schedule available.</p> @endif
@@ -402,6 +410,11 @@
                         </div>
 
                         <div class = "@if($stage ==2) @else hidden @endif">
+                            <h2 class="font-bold text-lg text-center p-2">
+                                <span class = "font-bold"> {{$userVolunteerAnswers->volunteer_application->application->user->firstname}} {{$userVolunteerAnswers->volunteer_application->application->user->name}}</span> has sent a schedule for interview!
+                            </h2>
+                            <p class = "px-2 text-center">Click here to view the schedule request for interview.
+                            </p>
                             <p class="text-center">Schedule Interview</p>
                             <button data-modal-target="progress-modal" data-modal-toggle="progress-modal"
                                 class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800"
@@ -623,7 +636,7 @@
                 </div>
             </div>
             <div id = "progressContainer"
-                class = "h-volunteerProgressHeight bg-white lg:order-last order-first h-96 overflow-y-auto rounded-2xl p-4  shadow-md @if ($stage == 2 || $stage == 3 || $stage == 5) @else my-16 @endif">
+                class = " bg-white lg:order-last order-first overflow-y-auto rounded-2xl p-4  shadow-md @if ($stage == 2 || $stage == 3 || $stage == 5)  h-96 @else h-volunteerProgressHeight  my-16 @endif">
                 <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                 <table>
                     @if ($firstnotification)
@@ -888,7 +901,7 @@
                     existingUserInfo.classList.add('border-b-2', 'border-red-600', 'text-red-600');
                     document.getElementById('userinfoContainer').classList.add('hidden');
                     document.getElementById('updatesContainer').classList.remove('hidden');
-                    document.getElementById('progressContainer').classList.remove('my-16');
+                    document.getElementById('progressContainer').classList.remove('my-16', 'h-volunteerProgressHeight');
 
 
                 } else if (category === 'user') {
@@ -902,7 +915,7 @@
                     document.getElementById('updatesContainer').classList.add('hidden');
                     document.getElementById('userinfoContainer').classList.remove('hidden');
 
-                    document.getElementById('progressContainer').classList.add('my-16');
+                    document.getElementById('progressContainer').classList.add('my-16', 'h-volunteerProgressHeight');
 
                 }
 

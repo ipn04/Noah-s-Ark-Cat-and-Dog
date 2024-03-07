@@ -272,20 +272,22 @@
         <div class=" flex items-center py-5 justify-center">
             <div class = "grid grid-cols-1 lg:grid-cols-2  gap-5 px-4 max-w-screen-lg">
                 <div>
-                    <div id = "updatesContainer" class="justify-center items-center  @if ($stage == 1 ||  $stage == 3  || $stage == 5) @else hidden @endif">
+                    <div id = "updatesContainer"
+                        class="justify-center items-center  @if ($stage == 1 || $stage == 3 || $stage == 5) @else hidden @endif">
                         <div class="h-96 bg-white p-5 max-w-lg rounded-2xl shadow-md flex justify-center items-center">
                             <div>
                                 <div
-                        class = "@if ($stage == 5) mb-7  justify-center items-center @else hidden @endif">
-                        <diV class = "bg-white rounded-lg p-5">
-                            <h1 class = "font-bold text-xl">Congratulations!</h1>
-                            <p class = "p-3 text-base">Your application as a volunteer has been accepted. Keep in mind
-                                that the shelter will
-                                contact you for onboarding.</p>
-                            <img class = "w-1/2 h-1/2 mx-auto" src="{{ asset('images/congrats.svg') }}"
-                                alt="">
-                        </div>
-                    </div>
+                                    class = "@if ($stage == 5) mb-7  justify-center items-center @else hidden @endif">
+                                    <diV class = " rounded-lg p-5">
+                                        <h1 class = "font-bold text-xl pt-5">Congratulations!</h1>
+                                        <p class = "p-3 text-base">Your application as a volunteer has been accepted.
+                                            Keep in mind
+                                            that the shelter will
+                                            contact you for onboarding.</p>
+                                        <img class = "w-1/2 h-1/2 mx-auto" src="{{ asset('images/congrats.svg') }}"
+                                            alt="">
+                                    </div>
+                                </div>
                             </div>
                             <div class = "@if ($stage == 3) @else hidden @endif">
                                 <h2 class = "font-bold text-lg p-2">Interview at
@@ -394,7 +396,13 @@
 
                             </div>
                             <div class = "@if ($stage == 1) @else hidden @endif">
-                                <p class="text-center">Please, kindly schedule your interview to follow up the adoption process.</p>
+                                <h2 class = "font-bold text-xl text-center">Your application has been validated by the
+                                    shelter.</h2>
+                                <p class="text-center py-3">For next step, you are required to schedule an interview on
+                                    time you're available for a get to know session with the shelter.</p>
+
+                                <p class="text-center">Please, kindly schedule your interview to follow up the adoption
+                                    process.</p>
                                 <button data-modal-target="crud-modal" data-modal-toggle="crud-modal"
                                     class="block mx-auto my-2 text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                                     type="button">
@@ -482,7 +490,7 @@
                             </div>
                         </div>
                     </div>
-                   
+
 
                     <div
                         id = "userinfoContainer"class="grid grid-cols-1 lg:pt-16  @if ($stage == 1 || $stage == 3 || $stage == 5) hidden @else grid @endif">
@@ -588,7 +596,7 @@
                     </div>
                 </div>
                 <div id="progressContainer"
-                    class = " bg-white lg:order-last order-first rounded-2xl p-4 shadow-md  @if ($stage == 1 || $stage == 3 || $stage == 5) h-96 @else  h-volunteerProgressHeight my-16 @endif">
+                    class = " bg-white lg:order-last order-first rounded-2xl p-4 shadow-md overflow-y-auto  @if ($stage == 1 || $stage == 3 || $stage == 5) h-96 @else  h-volunteerProgressHeight my-16 @endif">
                     <h1 class = "font-bold text-xl">Volunteer Progress</h1>
                     <table>
                         @if ($firstnotification)
@@ -605,8 +613,9 @@
                                 <td scope="row" class="px-6 py-4 font-medium text-gray-900  dark:text-white">
                                     <h5>Your application has been successfully submitted on the shelter. Your
                                         application is going to be reviewed by the shelter.</h5>
-                                        <span class = "text-xs">{{\Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->created_at)->format('F j, Y h:i A') }}
-                                        </span>
+                                    <span
+                                        class = "text-xs">{{ \Carbon\Carbon::parse($userVolunteerAnswers->volunteer_application->application->created_at)->format('F j, Y h:i A') }}
+                                    </span>
                                 </td>
                             </tr>
                         @endif
@@ -875,7 +884,7 @@
 
                     document.getElementById('updatesContainer').classList.add('hidden');
                     document.getElementById('userinfoContainer').classList.remove('hidden');
-                   
+
                     document.getElementById('progressContainer').classList.add('my-16', 'h-volunteerProgressHeight');
 
                 }

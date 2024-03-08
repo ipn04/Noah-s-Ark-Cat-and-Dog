@@ -51,9 +51,12 @@
             </div>
             <div
                 class="@if ($stage == 8) grid grid-cols-1  @else grid grid-cols-2 @endif gap-2 lg:py-0 mx-auto lg:mx-0 ">
-                {{-- <button class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md">
-                    Download PDF
-                </button> --}}
+                {{-- <a href="route{{"export.pdf"}}">
+                    <button class="hover:bg-white py-3 px-14 lg:p-3 w-full max-w-lg hover:text-green-500 font-bold bg-green-500 text-white rounded-lg shadow-md">
+                        Download PDF
+                    </button>
+                </a> --}}
+
                 <form
                     action="{{ route('admin.updateStage', ['userId' => $adoptionAnswer->user_id, 'id' => $adoptionAnswer->id]) }}"
                     method="POST" class="
@@ -383,10 +386,23 @@
                                             alt='user profile'>
                                     </div>
                                     
+                             
+                                    
                                 </div>
-                                <h2 class="font-normal text-base text-center p-6">
+                                <h2 class="font-normal text-base text-center px-6 py-4">
                                     Your Rescue <span class = "font-bold">{{$adoption->pet->pet_name}}</span> has been successfully adopted by <span class = "font-bold"> {{$adoptionAnswer->user->firstname}} {{$adoptionAnswer->user->name}}.</span> You can download the contract here:
                                 </h2>
+                                <a class = "w-full text-center"
+                                href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                                <button
+                                    class="bg-yellow-300 hover:bg-yellow-400 text-gray-800 font-bold p-2 w-full rounded-lg inline-flex justify-center items-center">
+                                    <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
+                                        viewBox="0 0 20 20">
+                                        <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
+                                    </svg>
+                                    <span>Download Contract</span>
+                                </button>
+                            </a>
                             </div>
                             <div class = "@if ($stage == 6) @else hidden @endif">
                                 <p class=" flex  justify-center my-5">
@@ -859,17 +875,9 @@
                                             class = "p-2 w-full text-white bg-red-500 hover:bg-red-700  text-center font-bold rounded-lg">Submit</button>
                                     </div>
                                 </form>
-
-                                <a class = "w-full text-center"
-                                    href="{{ route('download.contract', ['id' => $adoption->id]) }}">
+                                <a class="" href="{{ route('export.pdf', ['userId' => $adoptionAnswer->user_id, 'applicationId' => $adoptionAnswer->id ]) }}">
                                     <button
-                                        class="bg-yellow-300 hover:bg-yellow-400 text-gray-800 font-bold p-2 w-full rounded-lg inline-flex justify-center items-center">
-                                        <svg class="fill-current w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20">
-                                            <path d="M13 8V2H7v6H2l8 8 8-8h-5zM0 18h20v2H0v-2z" />
-                                        </svg>
-                                        <span>Download Contract</span>
-                                    </button>
+                                    class = "p-2 w-full text-white bg-green-500 hover:bg-green-700  text-center font-bold rounded-lg">Download Contract</button>
                                 </a>
 
                             </div>

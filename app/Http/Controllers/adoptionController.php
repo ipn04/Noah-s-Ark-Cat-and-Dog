@@ -162,10 +162,12 @@ class adoptionController extends Controller
             // dd($userr);
             $scheduleInterview = SchedulePickup::where('application_id', $adoptionAnswerData->adoption->application_id)
             ->with('schedule', 'application')
+            ->latest()
             ->first();
 
             $schedulePickup = ScheduleInterview::where('application_id', $adoptionAnswerData->adoption->application_id)
             ->with('schedule', 'application')
+            ->latest()
             ->first();
         }
 
@@ -700,7 +702,7 @@ class adoptionController extends Controller
         return redirect()->back()->with(['updateStage' => false]);
     }
 
-    public function UserCancelInterview($userId, $id)
+    public function UserCancelInterview($userId, $id, Request $request)
     {
         $adoptionAnswer = Adoption::where('application_id', $id)->firstOrFail();
         $adminId = User::where('role', 'admin')->value('id');
